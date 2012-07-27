@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>	Pie</title>
+		<link href="../styles/examples.css" rel="stylesheet"/>
+        <link href="../styles/kendo.metro.css" rel="stylesheet"/>
+		<link href="../styles/kendo.common.min.css" rel="stylesheet">
+		<link href="../styles/kendo.default.min.css" rel="stylesheet">
+		   <link href="../styles/kendo.dataviz.min.css" rel="stylesheet">
+		<link href="../jqueryUI/css/smoothness/jquery-ui-1.8.20.custom.css" rel="stylesheet">
+		
+
+
+        <script src="../js_bk/jquery.min.js"></script>
+		  <script src="../js_bk/kendo.dataviz.min.js"></script>
+		<script src="../js_bk/kendo.all.js"></script>
+		<script type="text/javascript" src="../jqueryUI/js/jquery-ui-1.8.20.custom.min.js"></script>
+		<script src="../js/console.js"></script>
+</head>
+<body>
+    
+        <div id="example" class="k-content">
+            <div class="chart-wrapper">
+                <div id="chart"></div>
+            </div>
+            <script>
+				function onAxisLabelClick(e) {
+				alert("Clicked " + e.axis.type + " axis label with value: " + e.value);
+				}
+				function onSeriesClick(e) {
+				 alert("Clicked value: " + e.value);
+				}
+                function createChart() {
+                    $("#chart").kendoChart({
+                        theme: $(document).data("kendoSkin") || "default",
+                        title: {
+                            text: "Break-up of Spain Electricity Production for 2008"
+                        },
+                        legend: {
+                            position: "bottom"
+                        },
+                        seriesDefaults: {
+                            labels: {
+                                visible: true,
+                                format: "{0}%"
+                            }
+                        },
+                        series: [{
+                            type: "pie",
+                            data: [ {
+                                category: "Hydro",
+                                value: 22
+                            }, {
+                                category: "Solar",
+                                value: 2
+                            }, {
+                                category: "Nuclear",
+                                value: 49
+                            }, {
+                                category: "Wind",
+                                value: 27
+                            } ]
+                        }],
+                        tooltip: {
+                            visible: true,
+                            format: "{0}%"
+                        }
+                    });
+                }
+
+                $(document).ready(function() {
+					$("#chart").click(function(e){
+					alert(e.data);
+					});
+
+                    setTimeout(function() {
+                        // Initialize the chart with a delay to make sure
+                        // the initial animation is visible
+                        createChart();
+						
+					
+
+                        $("#example").bind("kendo:skinChange", function(e) {
+                            createChart();
+							
+                        });
+                    }, 400);
+                });
+            </script>
+        </div>
+
+
+</body>
+</html>
+
