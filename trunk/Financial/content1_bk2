@@ -1,0 +1,762 @@
+
+	<style type="text/css">
+	#test{
+	color:red;
+	font-size:20px;
+	font-weight:bold;
+	}
+	#target{
+	width:auto;
+	margin:auto;
+	}
+	#target #percentage{
+/*	float:left;*/
+	width:70px;
+	}
+	#target #score{
+	/*float:right;*/
+	width:auto;
+	display:block;
+	padding:5px;
+	}
+	.content{
+	width:100%
+	}
+	.content #table_content{
+	float:left;
+	width:99%
+	}
+	.content #graph_content{
+	float:right;
+	width:35%;
+	height:auto;
+	background-color:#CFCFCF;
+
+	background-image:url("images/highlight.png");
+	border-radius:10px;
+	}
+	.chart-wrapper{
+	background-image:url("images/chart-wrapper.png");
+	background-color:#CFCFCF;
+	}
+	#head_graph{
+	/*background-color:#CFCFCF;*/
+	}
+	#table_title{
+	background:#CFCFCF;
+	border-radius:10px;
+	width:99%;
+	color:black;
+	margin:2px;
+	}
+	#table_title  #title{
+
+padding:15px;
+padding-top:20px;
+font-weight:bold;
+font-size:16px;
+
+	}
+	#textR{
+	/*background:red;*/
+	text-align:right;
+	padding-right:5px;
+	}
+	#textL{
+	/*background:red;*/
+	text-align:left;
+	padding-left:5px;
+	}
+	#kpiN{
+	background:#CCCCCC;
+	padding:5px;
+	display:inline;
+	border-radius:5px;
+	margin:2px;
+	}
+	.inlinesparkline{
+	cursor:pointer;
+	}
+
+	.boxContent{
+	width:100%;
+/*	background:#cccccc;*/
+	
+	}
+	.boxContent #boxL{
+	/*background:#ffccff;*/
+	width:75%;
+	height:385px;
+	float:left;
+	}
+	.boxContent #boxR{
+	/*background:blue;*/
+	width:25%;
+	height:385px;
+	float:right;
+	}
+	.boxContent #boxB{
+	/*background:yellow;*/
+	width:100%;
+	height:auto;
+	clear:both;
+	position:center;
+	
+	}
+	</style>
+	<!--<script src="http://code.jquery.com/jquery.js"></script>
+	<script src="js/kendo.all.min.js"></script>
+	<script type="text/javascript" src="js/jquery.sparkline.min.js"></script>
+    <link href="styles/kendo.common.min.css" rel="stylesheet">
+    <link href="styles/kendo.default.min.css" rel="stylesheet">
+	<link href="jqueryUI/css/smoothness/jquery-ui-1.8.20.custom.css" rel="stylesheet">
+	<script type="text/javascript" src="jqueryUI/js/jquery-ui-1.8.20.custom.min.js"></script>--> 
+	<script type="text/javascript">
+	$(document).ready(function(){
+	//#######################Graph Program Start#######################01
+
+var lineChart1 = function(){
+			$("#chart").kendoChart({
+			title: {
+				 text: "สินทรัพย์หมุนเวียน"
+			},
+			legend: {
+                            position: "bottom"
+            },
+			series: [
+				 { 
+						 name: "Last Year", data: [6500, 6500, 6500, 6500,6500,6500,6500,6500,6500,6500,6500,6500],
+						color: "BLUE"
+						
+						
+				 } ,
+				 {
+                            name: "This Year",
+                            data: [6100, 5200, 6300, 7200,4100,7800,6100,7000,5300,7300,6200,7100]
+						
+						
+
+                   }, 
+				
+				 {
+                            type: "line",
+                            data: [0.5, 0.5, 0.5, 0.5, 0.5,0.5, 0.5, 0.5, 0.5, 0.5,0.5,0.5],
+                            name: "Target",
+                            color: "GREEN",
+							axis:"Varaince"
+							
+							
+                  }
+			],
+			valueAxis: [{
+                            title: { text: "YOY" },
+                            min: 0,
+                            max: 8000
+                        }, {
+                            name: "Varaince",
+                            title: { text: "%Varaince" },
+                            min: 0,
+                            max: 5
+                        }],
+
+			categoryAxis:{
+			categories: [ "Oct", "Nov", "Dec","Jan", "Feb", "Mar", "Apr","May", "Jun", "Jul", "Aug","Sep" ],
+			axisCrossingValue: [0,100]
+			}
+		});
+}//function line chart end
+var lineChart2 = function(){
+			$("#chart").kendoChart({
+			title: {
+				 text: "สินทรัพย์ไม่หมุนเวียน"
+			},
+			legend: {
+                            position: "bottom"
+            },
+			series: [
+				 { 
+						 name: "Last Year", data: [6500, 6500, 6500, 6500,6500,6500,6500,6500,6500,6500,6500,6500],
+						color: "BLUE"
+						
+						
+				 } ,
+				 {
+                            name: "This Year",
+                            data: [7000, 7000, 7000, 7000,7000,7000,7000,7000,7000,7000,7000,7000]
+						
+						
+
+                   }, 
+				
+				 {
+                            type: "line",
+                            data: [0.5, 0.5, 0.5, 0.5, 0.5,0.5, 0.5, 0.5, 0.5, 0.5,0.5,0.5],
+                            name: "Target",
+                            color: "GREEN",
+							axis:"Varaince"
+							
+							
+                  }
+			],
+			valueAxis: [{
+                            title: { text: "YOY" },
+                            min: 0,
+                            max: 8000
+                        }, {
+                            name: "Varaince",
+                            title: { text: "%Varaince" },
+                            min: 0,
+                            max: 5
+                        }],
+
+			categoryAxis:{
+			categories: [ "Oct", "Nov", "Dec","Jan", "Feb", "Mar", "Apr","May", "Jun", "Jul", "Aug","Sep" ],
+			axisCrossingValue: [0,100]
+			}
+		});
+}//function line chart end
+
+
+function onSeriesClick(e) {
+    alert("Clicked value: " + e.value);
+}
+//$("#chart2").onSeriesClick();
+var pieChart = function(){
+	
+		$("#chart2").kendoChart({
+
+			title: {
+				 text: "สินทรัพย์"
+			},
+			legend: {
+                            position: "bottom"
+            },
+			series: [{
+                            type: "pie",
+                            data: [ {
+								valueid:"01",
+                                category: "สินทรัพย์หมุนเวียน",
+                                value: 35
+                            }, {
+								valueid:"02",
+                                category: "สินทรัพย์ไม่หมุนเวียน",
+                                value: 65
+                            }]
+                        }],
+                        tooltip: {
+                            visible: true,
+                            format: "{0}%"
+
+                        },
+			
+			seriesDefaults: {
+				labels: {
+					visible: true,
+					format: "{0}%"
+				}
+			}
+			
+		});
+
+
+		
+		
+}//function pie chart end
+
+$("#chart2").click(function(e){
+//alert(e.target.id);
+if(e.target.id == 'kb8000001_outline'){
+lineChart1();
+}else{
+lineChart2();
+}
+});
+		
+		//#######################Graph Program End#######################01
+
+			//#######################Graph Program Start#######################02
+
+var lineChart21 = function(){
+			$("#chart").kendoChart({
+			title: {
+				 text: "หนี้สิน "
+			},
+			legend: {
+                            position: "bottom"
+            },
+			series: [
+				 { 
+						 name: "Last Year", data: [6500, 6500, 6500, 6500,6500,6500,6500,6500,6500,6500,6500,6500],
+						color: "BLUE"
+						
+						
+				 } ,
+				 {
+                            name: "This Year",
+                            data: [6100, 5200, 6300, 7200,4100,7800,6100,7000,5300,7300,6200,7100]
+						
+						
+
+                   }, 
+				
+				 {
+                            type: "line",
+                            data: [0.5, 0.5, 0.5, 0.5, 0.5,0.5, 0.5, 0.5, 0.5, 0.5,0.5,0.5],
+                            name: "Target",
+                            color: "GREEN",
+							axis:"Varaince"
+							
+							
+                  }
+			],
+			valueAxis: [{
+                            title: { text: "YOY" },
+                            min: 0,
+                            max: 8000
+                        }, {
+                            name: "Varaince",
+                            title: { text: "%Varaince" },
+                            min: 0,
+                            max: 5
+                        }],
+
+			categoryAxis:{
+			categories: [ "Oct", "Nov", "Dec","Jan", "Feb", "Mar", "Apr","May", "Jun", "Jul", "Aug","Sep" ],
+			axisCrossingValue: [0,100]
+			}
+		});
+}//function line chart end
+var lineChart22 = function(){
+			$("#chart").kendoChart({
+			title: {
+				 text: "ส่วนของกองทุน"
+			},
+			legend: {
+                            position: "bottom"
+            },
+			series: [
+				 { 
+						 name: "Last Year", data: [6500, 6500, 6500, 6500,6500,6500,6500,6500,6500,6500,6500,6500],
+						color: "BLUE"
+						
+						
+				 } ,
+				 {
+                            name: "This Year",
+                            data: [7000, 7000, 7000, 7000,7000,7000,7000,7000,7000,7000,7000,7000]
+						
+						
+
+                   }, 
+				
+				 {
+                            type: "line",
+                            data: [0.5, 0.5, 0.5, 0.5, 0.5,0.5, 0.5, 0.5, 0.5, 0.5,0.5,0.5],
+                            name: "Target",
+                            color: "GREEN",
+							axis:"Varaince"
+							
+							
+                  }
+			],
+			valueAxis: [{
+                            title: { text: "YOY" },
+                            min: 0,
+                            max: 8000
+                        }, {
+                            name: "Varaince",
+                            title: { text: "%Varaince" },
+                            min: 0,
+                            max: 5
+                        }],
+
+			categoryAxis:{
+			categories: [ "Oct", "Nov", "Dec","Jan", "Feb", "Mar", "Apr","May", "Jun", "Jul", "Aug","Sep" ],
+			axisCrossingValue: [0,100]
+			}
+		});
+}//function line chart end
+
+
+function onSeriesClick(e) {
+    alert("Clicked value: " + e.value);
+}
+//$("#chart2").onSeriesClick();
+var pieChart21 = function(){
+	
+		$("#chart2").kendoChart({
+
+			title: {
+				 text: "หนี้สินและส่วนของกองทุน"
+			},
+			legend: {
+                            position: "bottom"
+            },
+			series: [{
+                            type: "pie",
+                            data: [ {
+								valueid:"01",
+                                category: "หนี้สิน ",
+                                value: 70
+                            }, {
+								valueid:"02",
+                                category: "ส่วนของกองทุน",
+                                value: 30
+                            }]
+                        }],
+                        tooltip: {
+                            visible: true,
+                            format: "{0}%"
+
+                        },
+			
+			seriesDefaults: {
+				labels: {
+					visible: true,
+					format: "{0}%"
+				}
+			}
+			
+		});
+
+
+		
+		
+}//function pie chart end
+//alert(e.target.id);
+$("#chart2").click(function(e){
+alert(e.target.id);
+
+if((e.target.id == 'kb8000001_outline') ||  (e.target.id =="k96000001_outline")){
+
+lineChart21();
+alert("pie21");
+}else{
+
+lineChart22();
+alert("pie22");
+}
+});
+		
+		//#######################Graph Program End#######################02
+
+
+	//alert("hello jquery");
+	// TITLE BY JSON START
+	/*########## Table Content Start ##########*/
+	var $titleJ =[
+              {
+                  field: "Field1",
+				   width: 300
+              },
+              {
+                  field: "Field2",
+				  width: 90
+			 },
+              {
+                  field: "Field3",
+				  width: 90
+			 },
+              {
+                  field: "Field4",
+				  width:90
+			 },
+              {
+                  field: "Field5",
+				  width: 90
+			 }, 
+              {
+                  field: "Field6",
+				  width: 90
+			 },
+              {
+                  field: "Field7",
+				  width: 90
+			 },
+              {
+                  field: "Field8",
+				  width: 90
+			 } ];
+
+
+var $titleJ2 =[
+              {
+                  field: "Field1",
+				  title:"รายการ",
+				  width: 361
+              },
+              {
+                  field: "Field2",
+				   title:"MAR-12"
+			 },
+              {
+                  field: "Field3",
+				   title:"Last Month"
+			 },
+              {
+                  field: "Field4",
+				   title:"Varaince"
+			 },
+              {
+                  field: "Field5",
+				   title:"%Varaince"
+			 },
+              {
+                  field: "Field6",
+				   title:"YOY"
+			 },
+              {
+                  field: "Field7",
+				   title:"Varaince"
+			 },
+              
+              {
+                  field: "Field8",
+				   title:"%Varaince"
+			 }
+
+           ];
+
+
+	
+
+	var $dataJ =[
+                  {
+				  /* add filed aviable but fileded is corect and complete */
+					  Field0: "01",
+                      Field1: "<div id='textL'>สินทรัพย์</div>",
+					  Field2: "<div id='textR'>9760.12 </div>",
+                      Field3: " <div id='textR'>9952.78</div> ",
+					  Field4: "<div id='textR'>-192.66</div>",
+                      Field5: "<div id='textR'>-1.94%</div>",
+					  Field6: " <div id='textR'>9650.12<div>",
+                      Field7: "<div id='textR'>110.00<div>",
+					  Field8: " <div id='textR'>1.14%<div>",
+                  }, {
+					  Field0: "02",
+                      Field1: "<div id='textL'>หนี้สินและส่วนของกองทุน</div>",
+					  Field2: "<div id='textR'>9760.12 </div>",
+                      Field3: " <div id='textR'>9952.78</div> ",
+					  Field4: "<div id='textR'>-192.66</div>",
+                      Field5: "<div id='textR'>-1.94%</div>",
+					  Field6: " <div id='textR'>9650.12<div>",
+                      Field7: "<div id='textR'>110.00<div>",
+					  Field8: " <div id='textR'>1.14%<div>",
+                  }
+				  
+				  ]; 		
+	
+
+
+	var $dataJ21 =[
+                  {
+                      Field1: "สินทรัพย์หมุนเวียน",
+					  Field2: "2694.79",
+                      Field3: " 2929.12 ",
+					  Field4: "-234.33",
+                      Field5: "-8.00%",
+					  Field6: "2599.21 ",
+                      Field7: "95.58 ",
+					  Field8: "3.68%"
+                     
+                  },{
+                      Field1: "สินทรัพย์ไม่หมุนเวียน",
+					  Field2: "7065.34",
+                      Field3: " 7023.66 ",
+					  Field4: "41.68",
+                      Field5: "0.59%",
+					  Field6: "6,999.99 ",
+                      Field7: "65.35 ",
+					  Field8: "0.93% "
+                     
+                  }
+				 
+				  ]; 
+		var $dataJ22 =[
+                  {
+                      Field1: "หนี้สิน",
+					  Field2: "707.56",
+                      Field3: " 767.61 ",
+					  Field4: "-60.05",
+                      Field5: "-7.82%",
+					  Field6: "701.09 ",
+                      Field7: "6.47 ",
+					  Field8: "0.92%"
+                     
+                  },{
+                      Field1: "ส่วนของกองทุน",
+					  Field2: "9052.56",
+                      Field3: "9185.17 ",
+					  Field4: "-132.61",
+                      Field5: "-1.44%",
+					  Field6: "9090.29 ",
+                      Field7: "-37.73 ",
+					  Field8: "-0.42% "
+                     
+                  }
+				 
+				  ]; 
+	//CONTENT BY JSON END
+
+	$("#grid").kendoGrid({
+		
+          height: 380,
+	      //groupable: true,
+          scrollable: true,
+          sortable: true,
+          pageable: true,
+		  detailInit: detailInit,
+
+		/*   dataBound: function() {
+                            this.expandRow(this.tbody.find("tr.k-master-row").first());
+                        },*/
+
+          columns: $titleJ,
+          dataSource: {
+              data: $dataJ,
+			  pageSize: 10
+          }
+      });
+	  /*########## Table Content End ##########*/
+			
+
+	
+	 function detailInit(e) {
+	
+								//alert(e.data);
+								//alert(e.data.Field0);
+								if(e.data.Field0==01){
+						
+								//alert("hello jquery01");
+								
+								$data=$dataJ21;
+								pieChart();
+								}else{
+								//alert("hello jquery02");
+								
+								$data=$dataJ22;
+								pieChart21();
+						
+								}
+							
+							$("<div/>").kendoGrid({
+								
+								scrollable: false,
+								sortable: true,
+								pageable: true,
+								 dataBound: function() {
+                            this.expandRow(this.tbody.find("tr.k-master-row").first());
+                        },
+								columns: $titleJ2,
+								dataSource: {
+								data: $data,
+								pageSize: 8
+							}
+							}).appendTo(e.detailCell);
+						 
+
+
+			// REMOVE COLUMN START
+				$("tr.k-detail-row td.k-hierarchy-cell").remove();
+			// REMOVE COLUMN END
+
+                } // End Function detailInit
+
+
+
+	});
+
+	
+
+
+		/*################# jQuery Start #############*/
+
+		$(".k-icon").click(function(){
+
+		
+		if($(".k-minus").length!=0){
+			//$("#chart").hide();
+			//$("#chart2").hide();//pie
+		//	$(".k-detail-row").remove(); //delete value pie old for add new value
+		}else{
+		
+		//$("#chart").show();
+		//$("#chart2").show();//pie
+		$(".k-detail-row").remove();//delete value pie old for add new value
+		}
+		});
+		//$(". k-plus")
+		/*################# jQuery End #############*/
+
+	
+	</script>
+
+
+ <!-- Define the HTML table, with rows, columns, and data -->
+
+
+
+<div class="boxContent">
+	<div id="boxL"><!-- boxL	 Start-->
+	 <div class="content"><!-- Content	 Start-->
+ <div id="table_content">
+ <table id="grid">
+  <thead>
+      <tr>
+		  
+		 <!--<th class="k-hierarchy-cell k-header"></th>-->
+          <th data-field="Field1" ><center>รายการ </center></th>
+		  <th  data-field="Field2"><center>MAR-12</center></th>		 
+		  <th data-field="Field3"><center>Last Month</center></th>
+		  <th data-field="Field4"><center>Varaince</center></th>
+		  <th data-field="Field5"><center>%Varaince</center></th>
+		  <th data-field="Field6"><center>YOY</center></th>
+		  <th data-field="Field7"><center>Varaince</center></th>
+          <th data-field="Field8"><center>%Varaince</center></th>
+
+
+	  </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td></td>
+          <td></td>
+		  <td></td>
+          <td></td>
+		  <td></td>
+          <td></td>
+		  <td></td>
+          <td></td>
+		  
+		  
+</tr>
+
+  </tbody>
+ </table>
+
+ </div>
+
+</div><!-- Content	 End-->
+	</div><!-- boxL	 End>-->
+	<div id="boxR"><!-- boxR	 Start-->
+	
+	<div id="chart2"><p></p></div>
+	</div><!-- boxR	 End>-->
+	<center>
+	<div id="boxB"><!-- boxB	 Start-->
+	
+	<div id="chart"><p></p></div>
+	
+	</div><!-- boxB	 End>-->
+	</center>
+</div>
+
+<br style="clear:both">
+
+
+
+
+
+
+
+
