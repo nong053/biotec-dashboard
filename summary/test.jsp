@@ -8,6 +8,7 @@
 	//alert("hello world");
 	console.log("hello");
 	alert("hello");
+	alert("hello2");
 	});
 	
 </script>
