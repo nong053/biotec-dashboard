@@ -168,6 +168,7 @@
 	/*### jQuery Funtions Start ###*/
 
 	/*### Main Content Start ###*/
+	
 	$("form#form_1").submit(function(){
 	//alert("hello submit");
 	$("#tabs").slideDown(500,function(){
@@ -198,9 +199,10 @@
 
 				$("#content1").append(data).hide();
 				$("#content1").slideDown("fast",function(){
+					//alert(data);
 				barChart1();
-				barChart2(15.7, 16.7, 20, 23.5, 26.6, 26.6, 70, 80, 82, 89);
-				barChart3(89,85,80,75,70,68,66,65,63,60);
+				//barChart2(15.7, 16.7, 20, 23.5, 26.6, 26.6, 70, 80, 82, 89);
+				//barChart3(89,85,80,75,70,68,66,65,63,60);
 				});
 				$("#select1").kendoDropDownList();
 				
@@ -354,6 +356,7 @@ $("a[href=#content4]").click(function(){
     /*### barChart1 Start###*/
 
 var barChart1 = function(){
+	//alert("hello barChart");
 	//alert("require baChart"+$("#barchart1").length);
 		
 			$("#barChart1").kendoChart({
@@ -401,16 +404,18 @@ var barChart1 = function(){
 				 
 			],
 			valueAxis: {
-                            title: { text: "งบประมาณ(ล้านบาท)",font:"12px" },
+							// ie can not reading font-size
+                           // title: {text: "งบประมาณ(ล้านบาท)" , font:"12px"},
+						   title: {text: "งบประมาณ(ล้านบาท)" },
                             min: 0,
-                            max: 1200,
+                            max: 1200
 							
 		
 							
                         },
 
 			categoryAxis:{
-			categories: [ "Cluster", "Platform", "Essential Program","Improvement Project","Director Initiative", "Investment", "Seed Money", "Others" ],
+			categories: [ "Cluster", "Platform", "Essential Program","Improvement Project","Director Initiative", "Investment", "Seed Money", "Others" ]
 					
 			}
 		});
@@ -430,11 +435,12 @@ var barChart2 = function(a,b,c,d,e,f,g,h,i,j){
                         },
 					
                         legend: {
-                            position: "bottom"
+                            position: "bottom",
+							visible:false
                         },
                         chartArea: {
                             background: "",
-							height:350
+							height:290
                         },
                         seriesDefaults: {
                             type: "bar"
@@ -470,11 +476,12 @@ var barChart3 = function(a,b,c,d,e,f,g,h,i,j){
                         },
 					
                         legend: {
-                            position: "bottom"
+                            position: "bottom",
+							visible:false
                         },
                         chartArea: {
                             background: "",
-							height:350
+							height:290
                         },
                         seriesDefaults: {
                             type: "bar"
@@ -634,11 +641,12 @@ var barChart22 = function(){
                         },
 					
                         legend: {
-                            position: "bottom"
+                            position: "bottom",
+							visible:false
                         },
                         chartArea: {
                             background: "",
-							height:350
+							height:290
                         },
                         seriesDefaults: {
                             type: "bar"
@@ -674,11 +682,12 @@ var barChart23 = function(){
                         },
 					
                         legend: {
-                            position: "bottom"
+                            position: "bottom",
+							visible:false
                         },
                         chartArea: {
                             background: "",
-							height:350
+							height:290
                         },
                         seriesDefaults: {
                             type: "bar"
@@ -776,11 +785,12 @@ var barChart32 = function(){
                         },
 					
                         legend: {
-                            position: "bottom"
+                           // position: "bottom"
+							visible:false
                         },
                         chartArea: {
                             background: "",
-							height:350
+							height:290
                         },
                         seriesDefaults: {
                             type: "bar"
@@ -817,11 +827,12 @@ var barChart33 = function(){
 						
 					
                         legend: {
-                            position: "bottom"
+                            position: "bottom",
+								visible:false
                         },
                         chartArea: {
                             background: "",
-							height:350
+							height:290
                         },
                         seriesDefaults: {
                             type: "bar"
@@ -913,11 +924,12 @@ var barChart42 = function(){
                         },
 					
                         legend: {
-                            position: "bottom"
+                            position: "bottom",
+							visible:false
                         },
                         chartArea: {
                             background: "",
-							height:350
+							height:290
                         },
                         seriesDefaults: {
                             type: "bar"
@@ -953,11 +965,12 @@ var barChart43 = function(){
                         },
 					
                         legend: {
-                            position: "bottom"
+                            position: "bottom",
+							visible:false
                         },
                         chartArea: {
                             background: "",
-							height:350
+							height:290
                         },
                         seriesDefaults: {
                             type: "bar"
@@ -990,7 +1003,7 @@ var barChart51 = function(){
 			$("#barChart51").kendoChart({
 			theme:$(document).data("kendoSkin") || "metro",
 			title: {
-				 text: "ศูนย์ "
+				 text: " "
 			},
 			chartArea: {
 			height: 300
@@ -1044,7 +1057,7 @@ var pieChart52 = function(){
 			$("#pieChart52").kendoChart({
 					theme:$(document).data("kendoSkin") || "metro",
 					title: {
-                            text: ""
+                            text: "สัดส่วนจำนวน IO"
                         },
 					
                         legend: {
@@ -1076,7 +1089,8 @@ var pieChart52 = function(){
                         
                         tooltip: {
                             visible: true,
-                            format: "{0}%"
+                           // format: "{0}%"
+							 template: "#= templateFormat(value,100) #"
                         }
 		});
 }
@@ -1115,7 +1129,13 @@ var pieChart52 = function(){
 	}
 	/*### Set Manage  Progressbar###*/
 	});
-
+/*###  pieChart hr  Defind start ###*/
+function templateFormat(value,summ) {
+   var value1 = Math.floor(value);
+   var value2 = Math.floor((value/summ)*100);
+   return value1 + " , " + value2 + " %";
+}
+/*### pieChart hr  Defind   end ###*/
 
 	</script>
 
@@ -1195,6 +1215,7 @@ var pieChart52 = function(){
 		<div id="content5">
 			content5...
 		</div>
+		<br style="clear:both">
 	</div>
 
 

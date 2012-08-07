@@ -78,12 +78,9 @@ height:170px;
 
 }
 .content #row1 #boxR #mainContent #content #contentL{
-
 border:1px solid #cccccc;	
 width:49%;
 float:left;
-
-
 }
 .content #row1 #boxR #mainContent #content #contentL #head{
 border:1px solid #cccccc;
@@ -207,6 +204,8 @@ margin-left:2px;
 border:1px solid #ffffff;
 border-radius:5px;
 background-color:#99ccff ;
+position:relative;
+z-index:20;
 
 
 
@@ -226,6 +225,7 @@ font-weight:bold;
 height:139px;
 width:100%;
 padding-left:1px;
+z-index:20px;
 
 
 }
@@ -416,7 +416,7 @@ top:-20px;
 }
 #piehr{
    top: -20px;
-   z-index: -1;
+  /*z-index: 0;*/
 }
 #lineChartHr{
 top: -34px;

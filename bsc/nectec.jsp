@@ -534,12 +534,8 @@ $dataJ2[0]["Field3"];
 
 	$("#grid").kendoGrid({
 		
-          height: 520,
-	      //groupable: true,
-          scrollable: true,
-          sortable: true,
-          pageable: true,
-		  //detailInit: detailInit,
+          height: 490,
+	     
 
 		/*   dataBound: function() {
                             this.expandRow(this.tbody.find("tr.k-master-row").first());
@@ -559,7 +555,7 @@ $dataJ2[0]["Field3"];
 		$('.inlinebar').sparkline('html', {type: 'bullet',height: '30',width:'200', barColor: 'red'} );
 
 	    $("th.k-header , .k-minus").click(function(){
-		$('.inlinesparkline').sparkline(); 
+		//$('.inlinesparkline').sparkline(); 
 		//$('.inlinesparkline').sparkline('html',{type:'line',width:'100'}); 
 
 	});
@@ -596,22 +592,28 @@ $dataJ2[0]["Field3"];
 		/*##########Function jQuery  add Deatail  result  End ########*/
 		//#######################Menagement Tab Start ######################
 		/*Remove  numberic  bottom tab*/
+		 removeNumberBottom();
+		function removeNumberBottom(){
 		$("ul.k-numeric li span").removeClass();
 		$("ul.k-numeric li span").html("");
 		/*Remove  numberic  bottom tab*/
+		}
 		/*Header Bgcolor*/
-		$("th.k-header").css({"background-color":"#c0504d "});
-		$(".k-grid-header").css({"background-color":"#c0504d "});
+		$("th.k-header").css({"background":"#c0504d "});
+		$(".k-grid-header").css({"background":"#c0504d "});
 		/*Header Bgcolor*/
 		/*Content Suffer Color Row*/
 		//$(".k-master-row").css({"background-color":"#f4e9e9"});
-			$("tr[data-uid]").css({"background-color":"#f4e9e9"});
-		$(".k-alt").css({"background-color":"#e8d0d0"});
+			$("tr[data-uid]").css({"background":"#f4e9e9"});
+		$(".k-alt").css({"background":"#e8d0d0"});
 		
 		/*Content Suffer Suffer Color Row*/
 		/*Footer Bgcolor*/
-		$(".k-pager-wrap").css({"background-color":"#c0504d"});
+		$(".k-pager-wrap").css({"background":"#c0504d"});
 		/*Footer Bgcolor*/
+		//set font white
+			$(".k-header").css({"color":"white"});
+			$(".k-link").css({"color":"white"});
 		//#######################Menagement Tab End #######################
 	});
 
@@ -682,7 +684,7 @@ $dataJ2[0]["Field3"];
       	  <td></td>
       	  <td></td>
 	
-      	  <td></td>
+
 </tr>
 
   </tbody>

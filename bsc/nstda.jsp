@@ -167,15 +167,15 @@ titleStr=" ผลการดำเนินงานสะสมของ  น�
               {
                   field: "Field1",
 				  title:"testtttt",
-				   width: 50
+				   width: 55
               },
               {
                   field: "Field2",
-				  width: 190
+				  width: 170
 			 },
               {
                   field: "Field3",
-				  width: 60
+				  width: 65
 			 },
               {
                   field: "Field4",
@@ -183,7 +183,7 @@ titleStr=" ผลการดำเนินงานสะสมของ  น�
 			 },
               {
                   field: "Field5",
-				  width: 50
+				  width: 55
 			 },
               {
                   field: "Field5_1",
@@ -195,7 +195,7 @@ titleStr=" ผลการดำเนินงานสะสมของ  น�
 			 },
               {
                   field: "Field6",
-				  width: 80
+				  width: 85
 			 },
               {
                   field: "Field7",
@@ -215,12 +215,12 @@ var $titleJ2 =[
               {
                   field: "Field1",
 				  title:"Testตัวชีวัด",
-				   width: 233
+				   width: 218
               },
               {
                   field: "Field3",
 				  title:"เป้าหมาย",
-				  width:60
+				  width:65
 				 
 			 },
               {
@@ -233,7 +233,7 @@ var $titleJ2 =[
               {
                   field: "Field5",
 				   title:"น้ำหนัก",
-				 width:50
+				 width:55
 			
 			 },
               {
@@ -253,7 +253,7 @@ var $titleJ2 =[
               {
                   field: "Field6",
 				   title:"ผลงานสะสม",
-				 width:80
+				 width:85
 				 
 			 },
               {
@@ -551,12 +551,12 @@ $dataJ2[0]["Field3"];
 
 	$("#grid").kendoGrid({
 		
-           height: 550,
+           height: 540,
 	      //groupable: true,
-          scrollable: true,
+         /* scrollable: true,
           sortable: true,
-          pageable: true,
-		  detailInit: detailInit,
+          pageable: true,*/
+		//  detailInit: detailInit,
 
 		/*   dataBound: function() {
                             this.expandRow(this.tbody.find("tr.k-master-row").first());
@@ -574,7 +574,7 @@ $dataJ2[0]["Field3"];
 		$('.inlinesparkline').sparkline(); 
 		$('.inlinebar').sparkline('html', {type: 'bullet',height: '30',width:'200', barColor: 'red'} );
 	    $("th.k-header , .k-minus").click(function(){
-		$('.inlinesparkline').sparkline(); 
+		//$('.inlinesparkline').sparkline(); 
 		//$('.inlinesparkline').sparkline('html',{type:'line',width:'100'}); 
 
 	});
@@ -619,17 +619,22 @@ $dataJ2[0]["Field3"];
 		$("ul.k-numeric li span").html("");
 		/*Remove  numberic  bottom tab*/
 		/*Header Bgcolor*/
-		$("th.k-header").css({"background-color":"#008EC3  "});
-		$(".k-grid-header").css({"background-color":"#008EC3  "});
+		$("th.k-header").css({"background":"#008EC3  "});
+		$(".k-grid-header").css({"background":"#008EC3  "});
+		//$(".k-link").css({"color":"white"});
+		//set font white
+			$(".k-header").css({"color":"white"});
+			$(".k-link").css({"color":"white"});
+			
+		
 		/*Header Bgcolor*/
 		/*Content Suffer Color Row*/
 		//$(".k-master-row").css({"background-color":"#d7e4bd"});
 	//	$("tr[data-uid]").css({"background-color":"#99ccff "});
-		$(".k-alt").css({"background-color":"#dbeef3"});
+		$(".k-alt").css({"background":"#dbeef3"});
 		/*Content Suffer Suffer Color Row*/
 		/*Footer Bgcolor*/
-		$(".k-pager-wrap").css({"background-color":"#008EC3 "});
-	
+		$(".k-pager-wrap").css({"background":"#008EC3 "});
 		/*Footer Bgcolor*/
 		//#######################Menagement Tab End #######################
 	});
@@ -648,7 +653,7 @@ $dataJ2[0]["Field3"];
 	</div>
 	<div id="contentR">
 		<div id="contentDetail">
-ตัวชี้วัดผลสำเร็จสำนักงานพัฒาวิทยาศาสตร์และเทคโนโลยีแห่งชาติ
+ตัวชี้วัดผลสำเร็จสำนักงานพัฒนาวิทยาศาสตร์และเทคโนโลยีแห่งชาติ
 		</div>
 	</div>
 </div>
@@ -679,7 +684,6 @@ $dataJ2[0]["Field3"];
 <!--<th class="k-hierarchy-cell k-header">&nbsp;</th>-->
           <th data-field="Field1" ><center><b>มุมมอง</b></center></th>
 		  <th  data-field="Field2"><center><b>ตัวชี้วัด</center></th>
-		 
 		  <th data-field="Field3"><center><b>เป้าหมาย</b></center></th>
 		  <th data-field="Field4"><center><b>หน่วยวัด</b></center></th>
 		  <th data-field="Field5"><center><b>น้ำหนัก</b></center></th>
@@ -704,9 +708,8 @@ $dataJ2[0]["Field3"];
           <td></td>
 		  <td></td>
       	  <td></td>
-      	  <td></td>
-	
-      	  <td></td>
+		  <td></td>
+
 </tr>
 
   </tbody>
