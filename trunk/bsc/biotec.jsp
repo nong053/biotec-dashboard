@@ -547,12 +547,12 @@ $dataJ2[0]["Field3"];
 
 	$("#grid").kendoGrid({
 		
-           height: 650,
+           height: 630,
 	      //groupable: true,
-          scrollable: true,
-          sortable: true,
-          pageable: true,
-		  //detailInit: detailInit,
+         // scrollable: true,
+          //sortable: true,
+         // pageable: true,
+		//  detailInit: detailInit,
 
 		/*   dataBound: function() {
                             this.expandRow(this.tbody.find("tr.k-master-row").first());
@@ -570,7 +570,7 @@ $dataJ2[0]["Field3"];
 		$('.inlinesparkline').sparkline(); 
 		$('.inlinebar').sparkline('html', {type: 'bullet',height: '30',width:'200', barColor: 'red'} );
 	    $("th.k-header , .k-minus").click(function(){
-		$('.inlinesparkline').sparkline(); 
+		//$('.inlinesparkline').sparkline(); 
 		//$('.inlinesparkline').sparkline('html',{type:'line',width:'100'}); 
 
 	});
@@ -614,18 +614,19 @@ $dataJ2[0]["Field3"];
 		$("ul.k-numeric li span").html("");
 		/*Remove  numberic  bottom tab*/
 		/*Header Bgcolor*/
-		$("th.k-header").css({"background-color":"#33cc33 "});
-		$(".k-grid-header").css({"background-color":"#33cc33 "});
+		$("th.k-header").css({"background":"#33cc33 "});
+		$(".k-grid-header").css({"background":"#33cc33 "});
 		/*Header Bgcolor*/
 		/*Content Suffer Color Row*/
-		 $("tr[data-uid]").css({"background-color":"#d7e4bd"});
-		$(".k-alt").css({"background-color":"#dafbd1"});
+		 $("tr[data-uid]").css({"background":"#d7e4bd"});
+		$(".k-alt").css({"background":"#dafbd1"});
 		/*Content Suffer Suffer Color Row*/
 		/*Footer Bgcolor*/
-		$(".k-pager-wrap").css({"background-color":"#33cc33"});
+		$(".k-pager-wrap").css({"background":"#33cc33"});
 	
 		/*Footer Bgcolor*/
-
+		//set font white
+			$(".k-header").css({"color":"white"});
 
 		/*### management grid2 Start###*/
 		var $title21=[{
@@ -700,10 +701,9 @@ $dataJ2[0]["Field3"];
   <thead>
       <tr>
 		  
-<!--<th class="k-hierarchy-cell k-header">&nbsp;</th>-->
-       <!--   <th data-field="Field1" ><center><b>มุมมอง</b></center></th>-->
+<!--<th class="k-hierarchy-cell k-header">&nbsp;</th>
+          <th data-field="Field1" ><center><b>มุมมอง</b></center></th>-->
 		  <th  data-field="Field2"><center><b>ตัวชี้วัด</center></th>
-		 
 		  <th data-field="Field3"><center><b>เป้าหมาย</b></center></th>
 		  <th data-field="Field4"><center><b>หน่วยวัด</b></center></th>
 		  <th data-field="Field5"><center><b>น้ำหนัก</b></center></th>
@@ -728,9 +728,7 @@ $dataJ2[0]["Field3"];
           <td></td>
 		  <td></td>
       	  <td></td>
-      	  <td></td>
-	
-      	  <td></td>
+      	
 </tr>
 
   </tbody>

@@ -358,7 +358,6 @@
 		<!-- Start jQuery 0001-->
 			<script type="text/javascript">
 			$(document).ready(function(){
-				
  /*jQuery Taps Start Here*/
 			$("#form_1").submit(function(){
 					 $("#tabBsc").show("fast",function(){

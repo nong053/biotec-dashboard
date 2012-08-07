@@ -534,11 +534,11 @@ $dataJ2[0]["Field3"];
 
 	$("#grid").kendoGrid({
 		
-          height: 520,
+          height: 490,
 	      //groupable: true,
-          scrollable: true,
-          sortable: true,
-          pageable: true,
+         // scrollable: true,
+         // sortable: true,
+         // pageable: true,
 		 // detailInit: detailInit,
 
 		/*   dataBound: function() {
@@ -559,7 +559,7 @@ $dataJ2[0]["Field3"];
 		$('.inlinebar').sparkline('html', {type: 'bullet',height: '30',width:'200', barColor: 'red'} );
 
 	    $("th.k-header , .k-minus").click(function(){
-		$('.inlinesparkline').sparkline(); 
+		//$('.inlinesparkline').sparkline(); 
 		//$('.inlinesparkline').sparkline('html',{type:'line',width:'100'}); 
 
 	});
@@ -599,18 +599,19 @@ $dataJ2[0]["Field3"];
 		$("ul.k-numeric li span").html("");
 		/*Remove  numberic  bottom tab*/
 		/*Header Bgcolor*/
-		$("th.k-header").css({"background-color":"#ffff00 "});
-		$(".k-grid-header").css({"background-color":"#ffff00 "});
+		$("th.k-header").css({"background":"#ffff00 "});
+		$(".k-grid-header").css({"background":"#ffff00 "});
 		/*Header Bgcolor*/
 		/*Content Suffer Color Row*/
 	//	$(".k-master-row").css({"background-color":"#fefdc7"});
-		$("tr[data-uid]").css({"background-color":"#fefdc7"});
-		$(".k-alt").css({"background-color":"#edf9a5"});
+		$("tr[data-uid]").css({"background":"#fefdc7"});
+		$(".k-alt").css({"background":"#edf9a5"});
 		/*Content Suffer Suffer Color Row*/
 		/*Footer Bgcolor*/
-		$(".k-pager-wrap").css({"background-color":"#ffff00"});
+		$(".k-pager-wrap").css({"background":"#ffff00"});
 	
 		/*Footer Bgcolor*/
+		
 	});
 
 	
@@ -680,7 +681,7 @@ $dataJ2[0]["Field3"];
       	  <td></td>
       	  <td></td>
 	
-      	  <td></td>
+
 </tr>
 
   </tbody>

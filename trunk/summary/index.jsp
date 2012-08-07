@@ -396,7 +396,7 @@
 							labels:{
 							//template: "#= value #%",
 							position:"outside",
-							font:"8px,Tahoma"
+							//font:"8px,Tahoma"
 							},
 							
                          /* Rang Start*/
@@ -425,7 +425,7 @@
 							labels:{
 							//template: "#= value #%",
 							position:"outside",
-							font:"8px,Tahoma"
+							//font:"8px,Tahoma"
 							},
                           /* Rang Start*/
                             ranges: [
@@ -473,13 +473,13 @@ var barChartBudget= function(){
                             labels: {
                                // format: "{0}%"
 							   format: "{0}",
-							   font:"11px"
+							  // font:"11px"
                             }
                         },
                         categoryAxis: {
                             categories: [ "โครงการ" ," หน่วยงาน", "ครุภัณฑ์ ", "บุคลากร"],
 							labels:{
-							font:"11px"
+							//font:"11px"
 							}
                         },
                         tooltip: {
@@ -497,17 +497,12 @@ function onSeriesHover(e) {
     //console.log("Hovered value: " + e.value*2);
 	
 }
-
-
 function onSeriesClick(e) {
   
 	//console.log(e.category  );
 
 	//alert($subCategory);
-
-	
 }
-
 var pieCharhr= function(){
 var summ=900;
 		$("#piehr").kendoChart({
@@ -517,19 +512,22 @@ var summ=900;
 			},
 			name:"9",
 			plotArea:{
-						background:""
+						background:"",
 						
 						
+
 			},
 			legend: {
                             position: "right",
 							labels:{
-							font:"11px"
+							//font:"11px"
 							}
             },
 			chartArea: {
 			width: 300,
-			height: 130
+			height: 130,
+			opacity:0
+				
 			},
 			series: [{
                             type: "pie",
@@ -602,7 +600,7 @@ var summ=900;
 			legend: {
                             position: "right",
 							labels:{
-							font:"11px"
+							//font:"11px"
 							}
             },
 			chartArea: {
@@ -666,7 +664,7 @@ var summ=900;
 			legend: {
                             position: "right",
 							labels:{
-							font:"11px"
+							//font:"11px"
 							}
             },
 			chartArea: {
@@ -740,7 +738,7 @@ var lineChartHr= function(){
                         legend: {
                             position: "bottom",
 							labels:{
-							font:"11px"
+							//font:"11px"
 							}
                         },
                         seriesDefaults: {
@@ -758,7 +756,7 @@ var lineChartHr= function(){
                             labels: {
                                // format: "{0}%"
 							   format: "{0}%",
-								font:"11px"
+								//font:"11px"
                             }
                         },
                         categoryAxis: {
@@ -791,7 +789,7 @@ lineChartHr();
 							labels: {
 								//template: "#= value #%",
                                 position:"outside",
-								font:"8px,Tahoma"
+								//font:"8px,Tahoma"
 
                             },
                            /* Rang Start*/
@@ -847,14 +845,14 @@ var barChartBudget= function(){
                                // format: "{0}%"
 							    visible: true,
 							   format: "{0}",
-								font:"11px"
+								//font:"11px"
 							  
                             }
                         },
                         categoryAxis: {
                             categories: [ "1" ," 2", "3 ", "4", "5","6"],
 							labels:{
-							font:"11px"
+							//font:"11px"
 							}
                         },
                         tooltip: {
@@ -1087,9 +1085,7 @@ function templateFormat(value,summ) {
 													
 													<div id="contentBottom">
 														<div id="title">
-													
 														<span style="text-align:center;float:left;font-weight:bold; width:100%;" >สัดส่วนพนักงานตามกลุ่มตำแหน่ง </span>
-														
 														</div>
 														<div id="piehr3"></div>
 													</div>
