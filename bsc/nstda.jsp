@@ -556,7 +556,7 @@ $dataJ2[0]["Field3"];
          /* scrollable: true,
           sortable: true,
           pageable: true,*/
-		//  detailInit: detailInit,
+		  detailInit: detailInit,
 
 		/*   dataBound: function() {
                             this.expandRow(this.tbody.find("tr.k-master-row").first());

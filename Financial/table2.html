@@ -149,19 +149,19 @@ font-size:16px;
 <!--###  jQuery Manage Table Start ###-->
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("table#finance_tb1 thead tr  th").css({"background-color":"#99ccff  ","padding-left":"5px","padding-right":"5px","color":"black","padding":"2px"});
+		$("table#finance_tb1 thead tr  th").css({"background":"#99ccff  ","padding-left":"5px","padding-right":"5px","color":"black","padding":"2px"});
 		$("table#finance_tb1 thead tr  th .level1").css({"text-align":"left"});
 		$("table#finance_tb1 thead tr  th .level1").parent().nextAll().css({"text-align":"right"});
-		$("table#finance_tb1 thead tr:eq(0) th").css({"background-color":"#008EC3 ","padding-left":"5px","padding-right":"5px","color":"white","padding":"2px"});
+		$("table#finance_tb1 thead tr:eq(0) th").css({"background":"#008EC3 ","padding-left":"5px","padding-right":"5px","color":"white","padding":"2px"});
 		$(".level2").css({"font-weight":"bold","padding-left":"10px"});
-		$(".level2").parent().nextAll().andSelf().css({"background-color":"#a9e4f4 "});
-		$(".level2").parent().nextAll().css({"text-align":"right","font-weight":"bold","background-color":"#a9e4f4 "});
+		$(".level2").parent().nextAll().andSelf().css({"background":"#a9e4f4 "});
+		$(".level2").parent().nextAll().css({"text-align":"right","font-weight":"bold","background":"#a9e4f4 "});
 		$(".level3").css({"padding-left":"20px"});
 		$(".level3").parent().nextAll().css({"text-align":"right"});
-		//$("table#finance_tb1 tbody tr:odd").css({"background-color":"#dbeef3"});
-		$("table#finance_tb1 tbody tr:odd").css({"background-color":"#ecf8fb"});
+		//$("table#finance_tb1 tbody tr:odd").css({"background":"#dbeef3"});
+		$("table#finance_tb1 tbody tr:odd").css({"background":"#ecf8fb"});
 		
-		$(".summary").parent().nextAll().andSelf().css({"background-color":"#99ccff","padding":"5px"});
+		$(".summary").parent().nextAll().andSelf().css({"background":"#99ccff","padding":"5px"});
 
 		
 
@@ -400,33 +400,54 @@ var pieChart1= function(){
             },
 			series: [{
                             type: "pie",
-							name:"01",
-                            data: [ {
-								id:"01",
-                                category: "01-สินทรัพย์หมุนเวียน",
-                                value: 35
+                             data: [ {
+								valueid:"01",
+                                category: " สก.",
+                                value: 2
                             }, {
-								id:"02",
-                                category: "02-สินทรัพย์ไม่หมุนเวียน",
-                                value: 65
+								valueid:"02",
+                                category: " ศช.",
+                                value: 2
+                            }, {
+								valueid:"03",
+                                category: "ศว.",
+                                value: 3,
+									color:"#dee92d"
+                            }, {
+								valueid:"04",
+                                category: " ศอ.",
+                                value: 17,
+								color:"#e62d32"
+                            }, {
+								valueid:"05",
+                                category: " ศจ. ",
+                                value: 2,
+								color:"#6C2E9B"
+                            }, {
+								valueid:"06",
+                                category: "ศน.",
+                                value: 1,
+								color:"#ff7110"
+                            }, {
+								valueid:"07",
+                                category: "ทุนประเดิม",
+                                value: 73,
+								color:"blue" 
                             }]
                         }],
                         tooltip: {
                             visible: true,
-							template:"#= tootipFormat(value,900) #"
-                          //  format: "{0}%"
+                           // format: "{0}%"
+						   template :"#= tootipFormat(value,900) #"
 
                         },
 			
 			seriesDefaults: {
-				/*labels: {
-					visible: true,
+				labels: {
+					visible: false,
 					format: "{0}%"
-				}*/
-			},
-			seriesClick: onSeriesClick1
-			//axisLabelClick: onAxisLabelClick
-			
+				}
+			}
 		});
 
 
@@ -832,7 +853,7 @@ function onSeriesClick1(e) {
 		</tr>
 		<tr>
 			<td><div class="level3"> รายได้สูง(ต่ำ)กว่าค่าใช้จ่ายสะสมปลายงวด</td>
-			<td>	2,694.79	</td>
+			<td>2,694.79	</td>
 			<td>2,929.12</td>
 			<td>-234.33</td>
 			<td>-8.00%</td>

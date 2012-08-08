@@ -100,7 +100,7 @@
 		ResultSet rs;
 		/*------------------- End Set Connection -------------------*/
 
-		/*------------------- Set Variable -------------------*/
+		/*------------------- Set Variable --------------------*/
 
 		String ParamYear = "";
 		String ParamMonth = "";
@@ -165,12 +165,12 @@
 		$("ul.k-numeric li span").html("");
 		/*Remove  numberic  bottom tab*/
 		/*Header Bgcolor*/
-		$("th.k-header").css({"background-color":"#99ccff "});
-		$(".k-grid-header").css({"background-color":"#99ccff "});
+		$("th.k-header").css({"background":"#008EC3 "});
+		$(".k-grid-header").css({"background":"#008EC3 "});
 		/*Header Bgcolor*/
 
 		/*Footer Bgcolor*/
-		$(".k-pager-wrap").css({"background-color":"#99ccff"});
+		$(".k-pager-wrap").css({"background":"#008EC3"});
 		/*Footer Bgcolor*/
 		
 		}
@@ -181,6 +181,11 @@ var setFont = function(){
 		//$(".k-grid td").css({"padding":"0px"});
 		$(".k-grid td").css({"padding-top":"0px","padding-bottom":"0px"});
 		/*Config font*/
+}
+var setHeader= function(){
+	//Set and Config Parameter Now!
+	$(".k-header").css({"padding":"2px"})
+	
 }
 //#######################Menagement Tab End #######################
 
@@ -504,6 +509,8 @@ return false;
 		pieChart3();
 		sufferTable();
 		setFont();
+		setHeader();
+
 
 		
 		
@@ -529,6 +536,7 @@ return false;
 		pieChart33();
 		sufferTable();
 		setFont();
+		setHeader();
 		
 		
 		}
@@ -548,6 +556,7 @@ return false;
 	$(".ui-tabs-panel").css("padding","2px");
 
 	/*###  jQuery Config End ###*/
+
 	
 	
 	/*#### jquery manage tab below end ###*/

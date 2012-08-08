@@ -9,6 +9,7 @@
 <!--	<link href="../ChartLib_KendoUI/styles/examples.css" rel="stylesheet"/>
         <link href="../ChartLib_KendoUI/styles/kendo.common.css" rel="stylesheet"/>
         <link href="../ChartLib_KendoUI/styles/kendo.metro.css" rel="stylesheet"/>-->
+		
 		<link href="../styles/kendo.common.min.css" rel="stylesheet">
 		<link href="../styles/kendo.default.min.css" rel="stylesheet">
 <!--<link href="../jqueryUI/css/smoothness/jquery-ui-1.8.20.custom.css" rel="stylesheet">-->
@@ -142,6 +143,7 @@
 
 
 		
+		V_Org +="<option value=\"NSTDA\">สวทช.</option>";
 		V_Org +="<option value=\"NSTDA\">สก.</option>";
 		V_Org +="<option value=\"BIOTEC\">ศช. </option>";
 		V_Org +="<option value=\"MTEC\">ศว.</option>";

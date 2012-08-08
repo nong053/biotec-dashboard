@@ -108,6 +108,10 @@ font-size:16px;
 	position:center;
 	
 	}
+	.fontTitle{
+	color:white;
+	font-weight:bold;
+	}
 	</style>
 	<!--<script src="http://code.jquery.com/jquery.js"></script>
 	<script src="js/kendo.all.min.js"></script>
@@ -714,9 +718,9 @@ var $titleJ2 =[
 		 theme:$(document).data("kendoSkin") || "metro",
           height: 550,
 	      //groupable: true,
-          scrollable: true,
+         /*scrollable: true,
           sortable: true,
-          pageable: true,
+          pageable: true,*/
 		  detailInit: detailInit,
 
 		/*   dataBound: function() {
@@ -823,15 +827,15 @@ function tootipFormat(value,summ){
       <tr>
 		  
 		 <!--<th class="k-hierarchy-cell k-header"></th>-->
-          <th data-field="Field1" ><center>รายการ </center></th>
-		  <th  data-field="Field2"><center>สก.</center></th>		 
-		  <th data-field="Field3"><center>ศช.</center></th>
-		  <th data-field="Field4"><center>ศว.</center></th>
-		  <th data-field="Field5"><center>ศอ.</center></th>
-		  <th data-field="Field6"><center>ศจ.</center></th>
-		  <th data-field="Field7"><center>ศน.</center></th>
-          <th data-field="Field8"><center>ทุนประเดิม</center></th>
-		  <th data-field="Field9"><center>รวม</center></th>
+          <th data-field="Field1" ><center><div class="fontTitle">รายการ </div></center></th>
+		  <th  data-field="Field2"><center><div class="fontTitle">สก.</div></center></th>		 
+		  <th data-field="Field3"><center><div class="fontTitle">ศช.</div></center></th>
+		  <th data-field="Field4"><center><div class="fontTitle">ศว.</div></center></th>
+		  <th data-field="Field5"><center><div class="fontTitle">ศอ.</div></center></th>
+		  <th data-field="Field6"><center><div class="fontTitle">ศจ.</div></center></th>
+		  <th data-field="Field7"><center><div class="fontTitle">ศน.</div></center></th>
+          <th data-field="Field8"><center><div class="fontTitle">ทุนประเดิม</div></center></th>
+		  <th data-field="Field9"><center><div class="fontTitle">รวม</div></center></th>
 
 
 	  </tr>
