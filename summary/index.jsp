@@ -265,7 +265,6 @@
 		$(document).ready(function(){
 		  
 		  /*$('.inlinesparkline').sparkline(); */
-
 			var $width = $("body").width();
 			//alert($width);
 			var $widthWrap  =(($width/2)-25);
@@ -396,7 +395,7 @@
 							labels:{
 							//template: "#= value #%",
 							position:"outside",
-							//font:"8px,Tahoma"
+							font:"11px Tahoma"
 							},
 							
                          /* Rang Start*/
@@ -425,7 +424,7 @@
 							labels:{
 							//template: "#= value #%",
 							position:"outside",
-							//font:"8px,Tahoma"
+							font: "11px Tahoma"
 							},
                           /* Rang Start*/
                             ranges: [
@@ -450,7 +449,7 @@ var barChartBudget= function(){
                             text: ""
                         },
 						chartArea:{
-						width:320,
+						width:315,
 						height:110
 						},
 
@@ -472,14 +471,14 @@ var barChartBudget= function(){
                         valueAxis: {
                             labels: {
                                // format: "{0}%"
-							   format: "{0}",
-							  // font:"11px"
+							  // format: "{0}",
+							  font: "11px Tahoma"
                             }
                         },
                         categoryAxis: {
                             categories: [ "โครงการ" ," หน่วยงาน", "ครุภัณฑ์ ", "บุคลากร"],
 							labels:{
-							//font:"11px"
+							font: "11px Tahoma"
 							}
                         },
                         tooltip: {
@@ -520,7 +519,7 @@ var summ=900;
 			legend: {
                             position: "right",
 							labels:{
-							//font:"11px"
+							font: "11px Tahoma"
 							}
             },
 			chartArea: {
@@ -600,7 +599,7 @@ var summ=900;
 			legend: {
                             position: "right",
 							labels:{
-							//font:"11px"
+							font: "11px Tahoma"
 							}
             },
 			chartArea: {
@@ -664,7 +663,7 @@ var summ=900;
 			legend: {
                             position: "right",
 							labels:{
-							//font:"11px"
+							font: "11px Tahoma"
 							}
             },
 			chartArea: {
@@ -738,7 +737,7 @@ var lineChartHr= function(){
                         legend: {
                             position: "bottom",
 							labels:{
-							//font:"11px"
+						font: "11px Tahoma"
 							}
                         },
                         seriesDefaults: {
@@ -756,11 +755,14 @@ var lineChartHr= function(){
                             labels: {
                                // format: "{0}%"
 							   format: "{0}%",
-								//font:"11px"
+								font: "11px Tahoma"
                             }
                         },
                         categoryAxis: {
-                            categories: [" ต.ค."," พ.ย."," ธ.ค."," ม.ค."," ก.พ."," มี.ค."," เม.ย."," พ.ค."," มิ.ย."," ก.ค."," ส.ค."," ก.ย."]
+                            categories: [" ต.ค."," พ.ย."," ธ.ค."," ม.ค."," ก.พ."," มี.ค."," เม.ย."," พ.ค."," มิ.ย."," ก.ค."," ส.ค."," ก.ย."],
+							labels:{
+							font:"11px Tahoma"
+							}
                         },
                         tooltip: {
                             visible: true,
@@ -789,7 +791,7 @@ lineChartHr();
 							labels: {
 								//template: "#= value #%",
                                 position:"outside",
-								//font:"8px,Tahoma"
+								font: "11px Tahoma"
 
                             },
                            /* Rang Start*/
@@ -845,14 +847,14 @@ var barChartBudget= function(){
                                // format: "{0}%"
 							    visible: true,
 							   format: "{0}",
-								//font:"11px"
+								font: "11px Tahoma"
 							  
                             }
                         },
                         categoryAxis: {
                             categories: [ "1" ," 2", "3 ", "4", "5","6"],
 							labels:{
-							//font:"11px"
+							font: "11px Tahoma"
 							}
                         },
                         tooltip: {

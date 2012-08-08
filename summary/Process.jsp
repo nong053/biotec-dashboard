@@ -485,7 +485,7 @@ var $titleJ2 =[
           height: 300,
 	
 	      //groupable: true,
-         // scrollable: true,
+			scrollable: false,
           //sortable: true,
          pageable: true,
 		/*  detailInit: detailInit,*/
@@ -514,6 +514,7 @@ var $titleJ2 =[
 
 		/*Footer Bgcolor*/
 		$(".k-pager-wrap").css({"background":"#99ccff"});
+		$('.k-pager-wrap').css({"padding":"0px"});
 		/*Footer Bgcolor*/
 
 		$(".k-grid td").css({"padding-top":"0px","padding-bottom":"0px"});

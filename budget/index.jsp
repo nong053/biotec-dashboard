@@ -405,10 +405,11 @@ var barChart1 = function(){
 			],
 			valueAxis: {
 							// ie can not reading font-size
-                           // title: {text: "งบประมาณ(ล้านบาท)" , font:"12px"},
-						   title: {text: "งบประมาณ(ล้านบาท)" },
+                           title: {text: "งบประมาณ(ล้านบาท)" , font:"14px Tahoma"},
+						   //title: {text: "งบประมาณ(ล้านบาท)" },
                             min: 0,
-                            max: 1200
+                            max: 1200,
+						
 							
 		
 							
@@ -616,7 +617,7 @@ var barChart21 = function(){
 				 
 			],
 			valueAxis: {
-                            title: { text: "งบประมาณ(ล้านบาท)" },
+                            title: { text: "งบประมาณ(ล้านบาท)" ,font:"14px Tahoma"},
                             min: 0,
                             max: 1200
                         },
@@ -760,7 +761,7 @@ var barChart31 = function(){
 				 
 			],
 			valueAxis: {
-                            title: { text: "งบประมาณ(ล้านบาท)" },
+                            title: { text: "งบประมาณ(ล้านบาท)" ,font:"14px Tahoma"},
                           /*  min: 0,
                             max: 1200
 							*/
@@ -899,7 +900,7 @@ var barChart41 = function(){
 				 
 			],
 			valueAxis: {
-                            title: { text: "งบประมาณ(ล้านบาท)" },
+                            title: { text: "งบประมาณ(ล้านบาท)",font:"14px Tahoma" },
                           /*  min: 0,
                             max: 1200
 							*/
@@ -1037,7 +1038,7 @@ var barChart51 = function(){
 				 
 			],
 			valueAxis: {
-                            title: { text: "งบประมาณ(ล้านบาท)" },
+                            title: { text: "งบประมาณ(ล้านบาท)" ,font:"14px Tahoma"},
                           /*  min: 0,
                             max: 1200
 							*/
@@ -1057,7 +1058,7 @@ var pieChart52 = function(){
 			$("#pieChart52").kendoChart({
 					theme:$(document).data("kendoSkin") || "metro",
 					title: {
-                            text: "สัดส่วนจำนวน IO"
+                            text: "สัดส่วนจำนวน IO",font:"14px Tahoma"
                         },
 					
                         legend: {
