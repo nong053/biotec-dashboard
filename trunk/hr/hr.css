@@ -13,17 +13,14 @@ clear:both;
 
 }
 .content  #row1 .box{
-width:322px;
+width:320px;
 height:270px;
 float:left;
 margin:2px;
 border-radius:5px;
-
    /* background: url("images/ui-bg_highlight-hard_100_f2f5f7_1x100.png") repeat-x scroll 50% top #ffffff;*/
     border: 1px solid #DDDDDD;
     color: #362B36;
-
-
 }
 .content  #row1 .box #head{
 /*width:auto;
@@ -37,7 +34,7 @@ background:#99ccff;
     margin: 3px;
     padding: 5px;
     width: auto;
-	background: url("images/ui-bg_highlight-soft_100_deedf7_1x100.png") repeat-x scroll  50% 50%  #DEEDF7;
+	background-image:url("images/ui-bg_highlight-soft_100_deedf7_1x100.png") repeat-x scroll  50% 50%  #DEEDF7;
     border: 1px solid #AED0EA;
 
 }

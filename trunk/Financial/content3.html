@@ -109,6 +109,10 @@ font-size:16px;
 	position:center;
 	
 	}
+	.fontTitle{
+	color:white;
+	font-weight:bold;
+	}
 
 	</style>
 	<!--<script src="http://code.jquery.com/jquery.js"></script>
@@ -127,6 +131,7 @@ font-size:16px;
 		//$(".k-grid td").css({"padding":"0px"});
 		$(".k-grid td").css({"padding-top":"0px","padding-bottom":"0px"});
 		/*Config font*/
+
 }
 	//#######################Graph Program Start#######################01
 
@@ -616,9 +621,9 @@ var $titleJ2 =[
           height: 550,
 		 // width:800,
 	      //groupable: true,
-          scrollable: true,
+         /* scrollable: true,
           sortable: true,
-          pageable: true,
+          pageable: true,*/
 		  detailInit: detailInit,
 
 		/*   dataBound: function() {
@@ -700,13 +705,11 @@ var $titleJ2 =[
 		//$("#chart2").show();//pie
 		$(".k-detail-row").remove();//delete value pie old for add new value
 		}
-
-
-		
-		});
+	
+	});
 		//$(". k-plus")
 		/*################# jQuery End #############*/
-
+	
 function tootipFormat(value,summ){
 		var value1 = Math.floor(value);
 		var value2 = Math.floor((value/summ)*100);
@@ -729,14 +732,14 @@ function tootipFormat(value,summ){
       <tr>
 		  
 		 <!--<th class="k-hierarchy-cell k-header"></th>-->
-          <th data-field="Field1" ><center>รายการ </center></th>
-		  <th  data-field="Field2"><center>ต.ค. 55</center></th>		 
-		  <th data-field="Field3"><center>ก.ย. 55</center></th>
-		  <th data-field="Field4"><center>Varaince</center></th>
-		  <th data-field="Field5"><center>%Varaince</center></th>
-		  <th data-field="Field6"><center>ต.ค. 55</center></th>
-		  <th data-field="Field7"><center>Varaince</center></th>
-          <th data-field="Field8"><center>%Varaince</center></th>
+          <th data-field="Field1" ><center><div class="fontTitle">รายการ </div></center></th>
+		  <th  data-field="Field2"><center><div class="fontTitle">ต.ค. 55 </div></center></th>		 
+		  <th data-field="Field3"><center><div class="fontTitle">ก.ย. 55 </div></center></th>
+		  <th data-field="Field4"><center><div class="fontTitle">Varaince </div></center></th>
+		  <th data-field="Field5"><center><div class="fontTitle">%Varaince </div></center></th>
+		  <th data-field="Field6"><center><div class="fontTitle">ต.ค. 54 </div></center></th>
+		  <th data-field="Field7"><center><div class="fontTitle">Varaince </div></center></th>
+          <th data-field="Field8"><center><div class="fontTitle">%Varaince</div></center></th>
 
 
 	  </tr>

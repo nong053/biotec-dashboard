@@ -485,9 +485,9 @@ var $titleJ2 =[
           height: 300,
 	
 	      //groupable: true,
-          scrollable: true,
-          sortable: true,
-          pageable: true,
+         // scrollable: true,
+          //sortable: true,
+         pageable: true,
 		/*  detailInit: detailInit,*/
 
 		/*   dataBound: function() {
@@ -508,12 +508,12 @@ var $titleJ2 =[
 		//console.log($(".k-grid td").get());
 	//	console.log($("th.k-header").get());
 		/*Header Bgcolor*/
-		$("th.k-header").css({"background-color":"#99ccff "});
-		$(".k-grid-header").css({"background-color":"#99ccff "});
+		$("th.k-header").css({"background":"#99ccff "});
+		$(".k-grid-header").css({"background":"#99ccff "});
 		/*Header Bgcolor*/
 
 		/*Footer Bgcolor*/
-		$(".k-pager-wrap").css({"background-color":"#99ccff"});
+		$(".k-pager-wrap").css({"background":"#99ccff"});
 		/*Footer Bgcolor*/
 
 		$(".k-grid td").css({"padding-top":"0px","padding-bottom":"0px"});

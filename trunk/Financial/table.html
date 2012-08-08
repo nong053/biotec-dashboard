@@ -149,19 +149,19 @@ font-size:16px;
 <!--###  jQuery Manage Table Start ###-->
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("table#finance_tb1 thead tr  th").css({"background-color":"#99ccff  ","padding-left":"5px","padding-right":"5px","color":"black","padding":"2px"});
+		$("table#finance_tb1 thead tr  th").css({"background":"#99ccff  ","padding-left":"5px","padding-right":"5px","color":"black","padding":"2px"});
 		$("table#finance_tb1 thead tr  th .level1").css({"text-align":"left"});
 		$("table#finance_tb1 thead tr  th .level1").parent().nextAll().css({"text-align":"right"});
-		$("table#finance_tb1 thead tr:eq(0) th").css({"background-color":"#008EC3 ","padding-left":"5px","padding-right":"5px","color":"white","padding":"2px"});
+		$("table#finance_tb1 thead tr:eq(0) th").css({"background":"#008EC3 ","padding-left":"5px","padding-right":"5px","color":"white","padding":"2px"});
 		$(".level2").css({"font-weight":"bold","padding-left":"10px"});
-		$(".level2").parent().nextAll().andSelf().css({"background-color":"#a9e4f4 "});
-		$(".level2").parent().nextAll().css({"text-align":"right","font-weight":"bold","background-color":"#a9e4f4 "});
+		$(".level2").parent().nextAll().andSelf().css({"background":"#a9e4f4 "});
+		$(".level2").parent().nextAll().css({"text-align":"right","font-weight":"bold","background":"#a9e4f4 "});
 		$(".level3").css({"padding-left":"20px"});
 		$(".level3").parent().nextAll().css({"text-align":"right"});
-		//$("table#finance_tb1 tbody tr:odd").css({"background-color":"#dbeef3"});
-		$("table#finance_tb1 tbody tr:odd").css({"background-color":"#ecf8fb"});
+		//$("table#finance_tb1 tbody tr:odd").css({"background":"#dbeef3"});
+		$("table#finance_tb1 tbody tr:odd").css({"background":"#ecf8fb"});
 		
-		$(".summary").parent().nextAll().andSelf().css({"background-color":"#99ccff","padding":"5px"});
+		$(".summary").parent().nextAll().andSelf().css({"background":"#99ccff","padding":"5px"});
 
 		
 
@@ -196,13 +196,13 @@ var lineChart1 = function(){
             },
 			series: [
 				 { 
-						 name: "ต.ค. 54", data: [6500, 6500, 6500, 6500,6500,6500,6500,6500,6500,6500,6500,6500],
+						 name: "Balance 2554", data: [6500, 6500, 6500, 6500,6500,6500,6500,6500,6500,6500,6500,6500],
 						color: "BLUE"
 						
 						
 				 } ,
 				 {
-                            name: "ต.ค. 55",
+                            name: "Balance 2555",
                             data: [6100, 5200, 6300, 7200,4100,7800,6100,7000,5300,7300,6200,7100]
 						
 						
@@ -212,20 +212,20 @@ var lineChart1 = function(){
 				 {
                             type: "line",
                             data: [0.5, 0.5, 0.5, 0.5, 0.5,0.5, 0.5, 0.5, 0.5, 0.5,0.5,0.5],
-                            name: "Target",
+                            name: "% Variance",
                             color: "GREEN",
-							axis:"Varaince"
+							axis:"Variance"
 							
 							
                   }
 			],
 			valueAxis: [{
-                            title: { text: "YOY" },
+                            title: { text: "Balance " },
                             min: 0,
                             max: 8000
                         }, {
-                            name: "Varaince",
-                            title: { text: "%Varaince" },
+                            name: "Variance",
+                            title: { text: "%Variance" },
                             min: 0,
                             max: 5
                         }],
@@ -252,13 +252,13 @@ var lineChart2 = function(){
             },
 			series: [
 				 { 
-						 name: "ต.ค. 54", data: [6500, 6500, 6500, 6500,6500,6500,6500,6500,6500,6500,6500,6500],
+						 name: "Balance 2554", data: [6500, 6500, 6500, 6500,6500,6500,6500,6500,6500,6500,6500,6500],
 						color: "BLUE"
 						
 						
 				 } ,
 				 {
-                            name: "ต.ค. 55",
+                            name: "Balance 2555",
                             data: [7000, 7000, 7000, 7000,7000,7000,7000,7000,7000,7000,7000,7000]
 						
 						
@@ -268,20 +268,20 @@ var lineChart2 = function(){
 				 {
                             type: "line",
                             data: [0.5, 0.5, 0.5, 0.5, 0.5,0.5, 0.5, 0.5, 0.5, 0.5,0.5,0.5],
-                            name: "Target",
+                            name: "% Variance",
                             color: "GREEN",
-							axis:"Varaince"
+							axis:"Variance"
 							
 							
                   }
 			],
 			valueAxis: [{
-                            title: { text: "YOY" },
+                            title: { text: "Balance " },
                             min: 0,
                             max: 8000
                         }, {
-                            name: "Varaince",
-                            title: { text: "%Varaince" },
+                            name: "Variance",
+                            title: { text: "%Variance" },
                             min: 0,
                             max: 5
                         }],
