@@ -160,10 +160,10 @@ font-size:14px;
 	<script type="text/javascript">
 	$(document).ready(function(){
 
-	var ballRed  = "<div id='ballRed' style='background-color:#e51e25; width:20px;height:20px;border-radius:100px; float:left;'>1</div>";
-	var ballYellow  = "<div id='ballRed' style='background-color:yellow; width:20px;height:20px;border-radius:100px; float:left;'>2</div>";
-	var ballGreen  = "<div id='ballRed' style='background-color:#8fbc01; width:20px;height:20px;border-radius:100px; float:left;'>3</div>";
-	var ballGray  = "<div id='ballRed' style='background-color:#cccccc; width:20px;height:20px;border-radius:100px; float:left;'></div>";
+	var ballRed  = "<div id='ballRed'  class='ball' style='background-color:#e51e25; width:20px;height:20px;border-radius:100px; float:left;'>1</div>";
+	var ballYellow  = "<div id='ballYellow'  class='ball' style='background-color:yellow; width:20px;height:20px;border-radius:100px; float:left;'>2</div>";
+	var ballGreen  = "<div id='ballGreen'  class='ball' style='background-color:#8fbc01; width:20px;height:20px;border-radius:100px; float:left;'>3</div>";
+	var ballGray  = "<div id='ballGray'  class='ball' style='background-color:#cccccc; width:20px;height:20px;border-radius:100px; float:left;'></div>";
 
 	// TITLE BY JSON START
 	/*########## Table Content Start ##########*/
@@ -607,6 +607,9 @@ $dataJ2[0]["Field3"];
 		//set font white
 			//$(".k-header").css({"color":"white"});
 		//#######################Menagement Tab End #######################
+
+		//set corner object
+		$(".ball").corner();
 	});
 
 	

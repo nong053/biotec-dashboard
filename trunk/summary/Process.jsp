@@ -104,10 +104,17 @@ font-size:14px;
 	<script type="text/javascript">
 	$(document).ready(function(){
 
-	var ballRed  = "<div id='ballRed' style='background-color:#e51e25; width:17px;height:17px;border-radius:100px; float:left;'>1</div>";
-	var ballYellow  = "<div id='ballRed' style='background-color:yellow; width:17px;height:17px;border-radius:100px; float:left; border:1px solid #cccccc;'>2</div>";
-	var ballGreen  = "<div id='ballRed' style='background-color:#8fbc01; width:17px;height:17px;border-radius:100px; float:left; border:1px solid #cccccc;'>3</div>";
-	var ballGray  = "<div id='ballRed' style='background-color:#cccccc; width:17px;height:17px;border-radius:100px; float:left;'></div>";
+	var ballRed  = "<div id='ballRed' class='ball' style='background-color:#e51e25; color:white;width:17px;height:17px; border-radius:100px; float:left;'>1</div>";
+	var ballYellow  = "<div id='ballYellow' class='ball' style='background-color:yellow; color:white;width:17px;height:17px;float:left;border-radius:100px; border:1px solid #cccccc;'>2</div>";
+	var ballGreen  = "<div id='ballGreen' class='ball' style='background-color:#8fbc01; color:white;width:17px;height:17px; float:left; border-radius:100px;border:1px solid #cccccc;'>3</div>";
+	var ballGray  = "<div id='ballGray' class='ball' style='background-color:#cccccc; width:17px;height:17px;border-radius:100px; float:left;'></div>";
+
+	
+	/*setTimeout(function(){
+	//$(".ball").corner("0px");
+	
+	},100);*/
+
 /*
 var ballRed = $("<div id='ballRed'>HELLO</div>").css({"background-color":"red","border-radius":"100px","width":"50px","height":"50px"});
 var ballGray = $("<div id='ballRed'>HELLO</div>").css({"background-color":"#cccccc","border-radius":"100px","width":"50px","height":"50px"});
@@ -570,6 +577,8 @@ $(".k-grid-pager").append("<span style='float:right; padding-right:210px;'><b>% 
 */
 
 		/*##########Function jQuery  add Deatail  result  End ########*/
+		//set Ball corner
+		$(".ball").corner("0px");
 	});
 
 	
