@@ -16,11 +16,20 @@
 		<link href="../styles/kendo.default.min.css" rel="stylesheet">
 		<link href="../jqueryUI/css/cupertino/jquery-ui-1.8.21.custom.css" rel="stylesheet">
 		 <link href="../styles/kendo.dataviz.min.css" rel="stylesheet">
+
+		 <!-- corner round-->
+
+		 <link rel="stylesheet" type="text/css" href="css/niftyCorners.css">
+		<link rel="stylesheet" type="text/css" href="css/niftyPrint.css" media="print">
+		<script type="text/javascript" src="js/nifty.js"></script> 
+
+		 <!-- corner round-->
 		
 
 
         <script src="../js/jquery.min.js"></script>
 		<!--<script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>-->
+		<script type="text/javascript" src="js/jquery.corner.js"></script>
 		<script src="../plugin/jquery.tooltip.js"></script>
 		<script src="../js/kendo.all.min.js"></script>
 		  <script src="../js/kendo.dataviz.min.js"></script>
@@ -28,8 +37,8 @@
 		<script type="text/javascript" src="../jqueryUI/js/jquery-ui-1.8.21.custom.min.js"></script>
 	<script src="../js/console.js"></script>
 	
-	  
-		
+	 
+
 		<style type="text/css">
 			body {
 				
@@ -262,8 +271,9 @@
 		}
 
 		/*########## Function jQuery Start#########*/
+
 		$(document).ready(function(){
-		  
+		
 		  /*$('.inlinesparkline').sparkline(); */
 			var $width = $("body").width();
 			//alert($width);
@@ -1190,7 +1200,6 @@ function templateFormat(value,summ) {
 					</div>
 			</div>
 		</div>
-
 </body>
 </html>
 

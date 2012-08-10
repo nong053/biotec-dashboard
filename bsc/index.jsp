@@ -18,6 +18,7 @@
 
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>      
         <!--<script src="../js/jquery.min.js" type="text/javascript"></script>-->
+		<script type="text/javascript" src="js/jquery.corner.js"></script>
 		<script src="../js/kendo.all.min.js" type="text/javascript"></script>
 		  <script src="../js/kendo.dataviz.min.js" type="text/javascript"></script>
 		  <script type="text/javascript" src="../js/jquery.sparkline.min.js"  type="text/javascript"></script> 
