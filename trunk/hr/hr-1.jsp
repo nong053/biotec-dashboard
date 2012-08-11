@@ -1,13 +1,13 @@
 
 <style>
 .content{
-width:985px;
+width:960px;
 height:auto;
 /*background:red;*/
 margin:auto;
 }
 .content  #row1{
-width:985px;
+width:960px;
 height:auto
 background:blue;
 clear:both;
@@ -15,7 +15,7 @@ clear:both;
 
 }
 .content  #row1 .box{
-width:322px;
+width:314px;
 height:270px;
 float:left;
 margin:2px;

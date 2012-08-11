@@ -71,7 +71,7 @@
 					text-align: left;
 					padding:2px;
 					margin:1px;
-					width: 990px;
+					width: 970px;
 					position: relative;
 					background:#008EC3 ;
 					color:white;
@@ -198,7 +198,7 @@ var barChartRd1= function(){
                             text: ""
                         },
 						chartArea:{
-						width:320,
+						width:300,
 						height:250
 						},
 
@@ -263,7 +263,7 @@ var barChartRd2= function(){
                             text: ""
                         },
 						chartArea:{
-						width:320,
+						width:300,
 						height:250
 						},
 
@@ -324,7 +324,7 @@ var barChartRd3= function(){
 							
                         },
 						chartArea:{
-						width:320,
+						width:300,
 						height:250
 						},
 
@@ -452,7 +452,7 @@ var pieChartRd1= function(){
                             position: "right"
             },
 			chartArea: {
-			width: 320,
+			width: 310,
 			height: 190
 			},
 			series: [{
@@ -525,7 +525,7 @@ var stackChartRd1= function(){
                             position: "top"
                         },
 						chartArea:{
-						width:320,
+						width:300,
 						height:150
 						},
                         seriesDefaults: {
@@ -583,7 +583,7 @@ var stackChartRd2= function(){
 							visible:false
                         },
 						chartArea:{
-						width:320,
+						width:300,
 						height:90
 						},
                         seriesDefaults: {
@@ -635,7 +635,7 @@ var stackChartRd3= function(){
                             position: "top"
                         },
 						chartArea:{
-						width:320,
+						width:300,
 						height:85
 						},
                         seriesDefaults: {

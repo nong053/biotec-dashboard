@@ -207,7 +207,7 @@ titleStr=" ผลการดำเนินงานสะสมของ  น�
 			 },
               {
                   field: "Field9",
-				  width: 80
+				 // width: 80
 			 }];
 
 
@@ -215,7 +215,7 @@ var $titleJ2 =[
               {
                   field: "Field1",
 				  title:"Testตัวชีวัด",
-				   width: 218
+				   width: 217
               },
               {
                   field: "Field3",
@@ -226,7 +226,7 @@ var $titleJ2 =[
               {
                   field: "Field4",
 				   title:"หน่วยวัด",
-					 width:81
+					 width:80
 				
 			
 			 },
@@ -247,7 +247,7 @@ var $titleJ2 =[
               {
                   field: "Field5_2",
 				   title:"Actual",
-					 width:81
+					 width:80
 			
 			 },
               {
@@ -265,7 +265,7 @@ var $titleJ2 =[
               {
                   field: "Field7_1",
 				   title:"% เฉลี่ยถ่วงน้ำหนัก",
-				 width:81
+				 width:80
 		
 				
 			 },
@@ -604,6 +604,9 @@ $dataJ2[0]["Field3"];
 						$(".k-alt").css({"background-color":"#dbeef3"});
 						/*Content Suffer Suffer Color Row*/
 
+						//set corner object
+						$(".ball").corner();
+
 				// REMOVE COLUMN START
 			//	$("tr.k-detail-row td.k-hierarchy-cell").remove();
 				// REMOVE COLUMN END
@@ -656,7 +659,10 @@ $dataJ2[0]["Field3"];
 	</div>
 	<div id="contentR">
 		<div id="contentDetail">
-ตัวชี้วัดผลสำเร็จสำนักงานพัฒนาวิทยาศาสตร์และเทคโนโลยีแห่งชาติ
+		<center>
+ตัวชี้วัดผลสำเร็จสำนักงานพัฒนาวิทยาศาสตร์และเทคโนโลยีแห่งชาติ<br>
+ประจำปีงบประมาณ 2555 
+		</center>
 		</div>
 	</div>
 </div>

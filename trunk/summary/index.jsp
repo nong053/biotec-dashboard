@@ -739,7 +739,7 @@ var lineChartHr= function(){
                             text: ""
                         },
 						chartArea:{
-						width:325,
+						width:310,
 						height:170
 						},
 
@@ -938,7 +938,7 @@ function templateFormat(value,summ) {
 
 
 		<div id="tooltip"></div>
-		<div class="content" style="width:990px; margin:auto;">
+		<div class="content" style="width:970px; margin:auto;">
 			<div id="row1">
 					
 						<div id="boxL">

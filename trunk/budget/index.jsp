@@ -60,12 +60,12 @@
 			}
 			.contentMain{
 			display:none;
-			width: 985px;
+			width: 960px;
 			margin:auto;
 			}
 			#tabs{
 			display:none;
-			width: 980px;
+			width: 960px;
 			margin:auto;
 			
 			}
@@ -81,7 +81,7 @@
 					border-radius: 5px;
 					text-align: left;
 				/*	min-height: 30px;*/
-					width:980px;
+					width:960px;
 					position: relative;
 					font-weight:bold;
 					color:white;

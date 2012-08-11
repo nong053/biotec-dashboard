@@ -1,12 +1,12 @@
 #content {
 
-width:980px;
+width:960px;
 margin:auto;
 }
 /*### Row1 Start ###*/
 #content #row1{
 
-width:auto;
+width:960px;
 height:330px;
 }
 
@@ -35,7 +35,7 @@ border-radius:5px;
 /*### Row2 Start ###*/
 #content #row2{
 
-width:auto;
+width:960px;
 height:auto;
 padding-bottom:5px;
 }
