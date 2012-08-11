@@ -46,7 +46,7 @@
 
 			}
 			#content{
-			width:990px;
+			width:975px;
 			margin:auto;
 			}
 
@@ -99,7 +99,7 @@
 					border-radius: 5px;
 					text-align: left;
 					min-height: 30px;
-					width: 985px;
+					width: 970px;
 					position: relative;
 					background-color:#008EC3;
 					color:white;

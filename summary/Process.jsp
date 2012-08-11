@@ -45,7 +45,7 @@ String titleStr = "";
 	}
 	.content #table_content{
 	float:left;
-	width:665px;
+	width:645px;
 	}
 	.content #graph_content{
 	float:right;

@@ -76,14 +76,14 @@
 					border-radius: 5px;
 					text-align: left;
 					min-height: 30px;
-					width: 980px;
+					width: 960px;
 					position: relative;
 					background:#008EC3 ;
 					font-weight:bold;
 					color:white;
 				}
 				#tabHr{
-				width:985px;
+				width:960px;
 				margin:auto;
 				}
 			</style>

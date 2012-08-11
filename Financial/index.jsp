@@ -22,7 +22,7 @@
 		  <script src="../js/kendo.dataviz.min.js"></script>
 	<!--	<script type="text/javascript" src="../jqueryUI/js/jquery-ui-1.8.20.custom.min.js"></script>-->
 		<script type="text/javascript" src="../jqueryUI/js/jquery-ui-1.8.21.custom.min.js"></script>
-	<!--	<script src="../js/console.js"></script>-->
+	
 	
 	  
 		
@@ -63,7 +63,7 @@
 			}
 			.contentMain{
 			display:none;
-			width:985px;
+			width:975px;
 			margin:auto;
 			}
 		</style>
@@ -79,7 +79,7 @@
 					border-radius: 5px;
 					text-align: left;
 					min-height: 30px;
-					width: 980px;
+					width: 970px;
 					position: relative;
 					background:#008EC3;
 					font-weight:bold;
@@ -194,7 +194,7 @@ var lineChart1 = function(){
 			theme:$(document).data("kendoSkin") || "metro",
 			chartArea:{
 			height:300,
-			width:600
+			width:550
 			},
 			title: {
 				 text: "รายได้"
@@ -204,13 +204,13 @@ var lineChart1 = function(){
             },
 			series: [
 				 { 
-						 name: "ต.ค. 54", data: [6500, 6500, 6500, 6500,6500,6500,6500,6500,6500,6500,6500,6500],
+						 name: "Balance 2554", data: [6500, 6500, 6500, 6500,6500,6500,6500,6500,6500,6500,6500,6500],
 						color: "BLUE"
 						
 						
 				 } ,
 				 {
-                            name: "ต.ค. 55",
+                            name: "Balance 2555",
                             data: [6100, 5200, 6300, 7200,4100,7800,6100,7000,5300,7300,6200,7100]
 						
 						
@@ -220,20 +220,20 @@ var lineChart1 = function(){
 				 {
                             type: "line",
                             data: [0.5, 0.5, 0.5, 0.5, 0.5,0.5, 0.5, 0.5, 0.5, 0.5,0.5,0.5],
-                            name: "Target",
+                            name: "% Variance",
                             color: "GREEN",
-							axis:"Varaince"
+							axis:"Variance"
 							
 							
                   }
 			],
 			valueAxis: [{
-                            title: { text: "YOY" },
+                            title: { text: "Balance " },
                             min: 0,
                             max: 8000
                         }, {
-                            name: "Varaince",
-                            title: { text: "%Varaince" },
+                            name: "Variance",
+                            title: { text: "%Variance" },
                             min: 0,
                             max: 5
                         }],
@@ -249,7 +249,7 @@ var lineChart2 = function(){
 			theme:$(document).data("kendoSkin") || "metro",
 			chartArea:{
 			height:300,
-			width:600
+			width:550
 			},
 			title: {
 				 text: "ค่าใช้จ่าย"
@@ -259,13 +259,13 @@ var lineChart2 = function(){
             },
 			series: [
 				 { 
-						 name: "ต.ค. 54", data: [6500, 6500, 6500, 6500,6500,6500,6500,6500,6500,6500,6500,6500],
+						 name: "Balance 2554", data: [6500, 6500, 6500, 6500,6500,6500,6500,6500,6500,6500,6500,6500],
 						color: "BLUE"
 						
 						
 				 } ,
 				 {
-                            name: "ต.ค. 55",
+                            name: "Balance 2555",
                             data: [7000, 7000, 7000, 7000,7000,7000,7000,7000,7000,7000,7000,7000]
 						
 						
@@ -275,20 +275,20 @@ var lineChart2 = function(){
 				 {
                             type: "line",
                             data: [0.5, 0.5, 0.5, 0.5, 0.5,0.5, 0.5, 0.5, 0.5, 0.5,0.5,0.5],
-                            name: "Target",
+                            name: "% Variance",
                             color: "GREEN",
-							axis:"Varaince"
+							axis:"Variance"
 							
 							
                   }
 			],
 			valueAxis: [{
-                            title: { text: "YOY" },
+                            title: { text: "Balance " },
                             min: 0,
                             max: 8000
                         }, {
-                            name: "Varaince",
-                            title: { text: "%Varaince" },
+                            name: "Variance",
+                            title: { text: "%Variance" },
                             min: 0,
                             max: 5
                         }],
@@ -533,7 +533,7 @@ return false;
 		success:function(data){
 		//alert(data);
 		$("#content4").append(data);
-		pieChart33();
+		//pieChart33();
 		sufferTable();
 		setFont();
 		setHeader();

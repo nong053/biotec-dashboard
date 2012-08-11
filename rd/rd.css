@@ -4,7 +4,7 @@ height 800
 */
 
 #content{
-width:990px;
+width:970px;
 height:800px;
 margin:auto;
 /*border:1px solid #cccccc;*/
@@ -20,7 +20,7 @@ height:300px;
 margin:1px;
 border-radius:5px;
 border:1px solid #DDDDDD;
-width:325px;
+width:319px;
 height:300px;
 float:left;
 }
@@ -43,7 +43,7 @@ padding:5px;
 margin:1px;
 border-radius:5px;
 border:1px solid #DDDDDD;
-width:325px;
+width:319px;
 height:300px;
 float:left;
 }
@@ -65,7 +65,7 @@ padding:5px;
 margin:1px;
 border-radius:5px;
 border:1px solid #DDDDDD;
-width:325px;
+width:319px;
 height:300px;
 float:left;
 }
@@ -97,7 +97,7 @@ height:230px;
 
 }
 #content #row2 #column21{
-width:325px;
+width:319px;
 height:230px;
 float:left;
 margin:1px;
@@ -122,7 +122,7 @@ padding:5px;
 
 
 #content #row2 #column22{
-width:325px;
+width:319px;
 height:230px;
 border:1px solid #DDDDDD;
 float:left;
@@ -145,7 +145,7 @@ padding:5px;
 
 
 #content #row2 #column23{
-width:325px;
+width:319px;
 height:230px;
 border:1px solid #DDDDDD;
 float:left;
@@ -173,7 +173,7 @@ padding:5px;
 
 /*###  row3 start ###*/
 #content #row3{
-width:972px;
+width:950px;
 height:auto;
 padding:5px;
 clear:both;

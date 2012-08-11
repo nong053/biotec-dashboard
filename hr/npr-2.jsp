@@ -1,12 +1,12 @@
 <style>
 .content{
-width:990px;
+width:960px;
 height:auto;
 /*background:red;*/
 margin:auto;
 }
 .content  #row1{
-width:990px;
+width:960px;
 height:auto
 background:blue;
 clear:both;
@@ -14,7 +14,7 @@ clear:both;
 
 }
 .content  #row1 .box{
-width:487px;
+width:474px;
 height:260px;
 float:left;
 margin:2px;
@@ -640,7 +640,7 @@ var barChart71= function(){
                             text: "NNT"
                         },
 						chartArea:{
-						width:300,
+						width:290,
 						height:210,
 						background: ""
 						},
