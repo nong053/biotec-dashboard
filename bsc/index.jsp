@@ -14,10 +14,12 @@
 		<link href="../styles/kendo.default.min.css" rel="stylesheet">
 		<link href="../jqueryUI/css/cupertino/jquery-ui-1.8.21.custom.css" rel="stylesheet">
 		 <link href="../styles/kendo.dataviz.min.css" rel="stylesheet">
-		
+		 <link href="../plugin/tooltip.css" rel="stylesheet">
+
 
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>      
         <!--<script src="../js/jquery.min.js" type="text/javascript"></script>-->
+		<script type="text/javascript" src="../plugin/jquery.tooltip.js"></script>
 		<script type="text/javascript" src="js/jquery.corner.js"></script>
 		<script src="../js/kendo.all.min.js" type="text/javascript"></script>
 		  <script src="../js/kendo.dataviz.min.js" type="text/javascript"></script>
@@ -199,6 +201,8 @@
 		/*########## Function jQuery Start#########*/
 		$(document).ready(function(){
 
+		
+
 		  /*$('.inlinesparkline').sparkline(); */
 
 			var $width = $("body").width();
@@ -368,6 +372,13 @@
 				return false;
 				});
 
+
+	
+			 
+	
+	
+	 /*Management Range mounse over*/
+
 			$("a[href=#tab1]").click(function(){
 				
 					$.ajax({
@@ -399,7 +410,28 @@
 					 },function(){
 						 $(".tootip").hide();
 					 });
+
+
+
+
+					/*### Manage Tootip Range Start ###*/
+					  
+				$(".ball#ballRed").tooltip({
+							txt:"< 50 แดง",
+							color:"black"
+							});
+				$(".ball#ballYellow").tooltip({
+							txt:"ตั้งแต่ 50 ถึง 80 เหลือง",
+							color:"black"
+							});
+				$(".ball#ballGreen").tooltip({
+							txt:"> 80 เขียว",
+							color:"black"
+							});
+					/*### Manage Tootip Range Stop ###*/
+
 					/*### Manage Tootip Stop ###*/
+
 
 						}
 					});
@@ -434,6 +466,21 @@
 									 $(".tootip").hide();
 								 });
 					/*### Manage Tootip Stop ###*/
+					/*### Manage Tootip Range Start ###*/
+					  
+				$(".ball#ballRed").tooltip({
+							txt:"< 50 แดง",
+							color:"black"
+							});
+				$(".ball#ballYellow").tooltip({
+							txt:"ตั้งแต่ 50 ถึง 80 เหลือง",
+							color:"black"
+							});
+				$(".ball#ballGreen").tooltip({
+							txt:"> 80 เขียว",
+							color:"black"
+							});
+					/*### Manage Tootip Range Stop ###*/
 
 						}
 					});
@@ -468,6 +515,21 @@
 									 $(".tootip").hide();
 								 });
 					/*### Manage Tootip Stop ###*/
+					/*### Manage Tootip Range Start ###*/
+					  
+				$(".ball#ballRed").tooltip({
+							txt:"< 50 แดง",
+							color:"black"
+							});
+				$(".ball#ballYellow").tooltip({
+							txt:"ตั้งแต่ 50 ถึง 80 เหลือง",
+							color:"black"
+							});
+				$(".ball#ballGreen").tooltip({
+							txt:"> 80 เขียว",
+							color:"black"
+							});
+					/*### Manage Tootip Range Stop ###*/
 						}
 					});
 			});
@@ -500,6 +562,21 @@
 									 $(".tootip").hide();
 								 });
 					/*### Manage Tootip Stop ###*/
+					/*### Manage Tootip Range Start ###*/
+					  
+				$(".ball#ballRed").tooltip({
+							txt:"< 50 แดง",
+							color:"black"
+							});
+				$(".ball#ballYellow").tooltip({
+							txt:"ตั้งแต่ 50 ถึง 80 เหลือง",
+							color:"black"
+							});
+				$(".ball#ballGreen").tooltip({
+							txt:"> 80 เขียว",
+							color:"black"
+							});
+					/*### Manage Tootip Range Stop ###*/
 						}
 					});
 			});
@@ -532,6 +609,21 @@
 									 $(".tootip").hide();
 								 });
 					/*### Manage Tootip Stop ###*/
+					/*### Manage Tootip Range Start ###*/
+					  
+				$(".ball#ballRed").tooltip({
+							txt:"< 50 แดง",
+							color:"black"
+							});
+				$(".ball#ballYellow").tooltip({
+							txt:"ตั้งแต่ 50 ถึง 80 เหลือง",
+							color:"black"
+							});
+				$(".ball#ballGreen").tooltip({
+							txt:"> 80 เขียว",
+							color:"black"
+							});
+					/*### Manage Tootip Range Stop ###*/
 						}
 					});
 			});
@@ -565,6 +657,21 @@
 									 $(".tootip").hide();
 								 });
 					/*### Manage Tootip Stop ###*/
+					/*### Manage Tootip Range Start ###*/
+					  
+				$(".ball#ballRed").tooltip({
+							txt:"< 50 แดง",
+							color:"black"
+							});
+				$(".ball#ballYellow").tooltip({
+							txt:"ตั้งแต่ 50 ถึง 80 เหลือง",
+							color:"black"
+							});
+				$(".ball#ballGreen").tooltip({
+							txt:"> 80 เขียว",
+							color:"black"
+							});
+					/*### Manage Tootip Range Stop ###*/
 						}
 					});
 			
@@ -599,6 +706,21 @@
 									 $(".tootip").hide();
 								 });
 					/*### Manage Tootip Stop ###*/
+					/*### Manage Tootip Range Start ###*/
+					  
+				$(".ball#ballRed").tooltip({
+							txt:"< 50 แดง",
+							color:"black"
+							});
+				$(".ball#ballYellow").tooltip({
+							txt:"ตั้งแต่ 50 ถึง 80 เหลือง",
+							color:"black"
+							});
+				$(".ball#ballGreen").tooltip({
+							txt:"> 80 เขียว",
+							color:"black"
+							});
+					/*### Manage Tootip Range Stop ###*/
 						}
 					});
 			
@@ -633,6 +755,21 @@
 									 $(".tootip").hide();
 								 });
 					/*### Manage Tootip Stop ###*/
+					/*### Manage Tootip Range Start ###*/
+					  
+				$(".ball#ballRed").tooltip({
+							txt:"< 50 แดง",
+							color:"black"
+							});
+				$(".ball#ballYellow").tooltip({
+							txt:"ตั้งแต่ 50 ถึง 80 เหลือง",
+							color:"black"
+							});
+				$(".ball#ballGreen").tooltip({
+							txt:"> 80 เขียว",
+							color:"black"
+							});
+					/*### Manage Tootip Range Stop ###*/
 						}
 					});
 			
@@ -668,6 +805,21 @@
 									 $(".tootip").hide();
 								 });
 						/*### Manage Tootip Stop ###*/
+						/*### Manage Tootip Range Start ###*/
+					  
+				$(".ball#ballRed").tooltip({
+							txt:"< 50 แดง",
+							color:"black"
+							});
+				$(".ball#ballYellow").tooltip({
+							txt:"ตั้งแต่ 50 ถึง 80 เหลือง",
+							color:"black"
+							});
+				$(".ball#ballGreen").tooltip({
+							txt:"> 80 เขียว",
+							color:"black"
+							});
+					/*### Manage Tootip Range Stop ###*/
 						}
 					});
 			
@@ -676,6 +828,7 @@
 
 
 	 /*### jQuery Taps End Here ###*/
+
 
 
 
@@ -707,7 +860,7 @@
 	</div>
 	<!--------------------------- Details Start--------------------------->
 <div class="tootip" ><b>การลงทุนด้าน ว และ ท ในภาคการผลิต ภาคบริการและภาคการผลิต ภาคบริการและภาคเกษตรกรรม</b></div>
-
+<div id="tooltip"></div>
 	<div id="content">
 			
 			<div id="tabBsc">

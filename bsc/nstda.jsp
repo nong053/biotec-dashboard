@@ -15,26 +15,26 @@ String titleStr = "";
 
 if(ParamOrg.equals("NSTDA")){
 	
-	titleStr="ผลสำเร็จ สำนักงานพัฒนาวิทยาศาสตร์และเทคโนโลยีแห่งชาติได้ 36.42%";
+	titleStr="ผลสำเร็จ สำนักงานพัฒนาวิทยาศาสตร์และเทคโนโลยีแห่งชาติได้ 36.42 คะแนน";
 
 }else if(ParamOrg.equals("BIOTEC")){
 	
-	titleStr=" ผลการดำเนินงานสะสมของ นายวีระศักดิ์ อุดมกิจเดชา ได้ 47.5%";
+	titleStr=" ผลการดำเนินงานสะสมของ นายวีระศักดิ์ อุดมกิจเดชา ได้ 47.5 คะแนน";
 
 }else if(ParamOrg.equals("MTEC")){
 	
-titleStr=" ผลการดำเนินงานสะสมของ นายทวีศักดิ์ นายวีระศักดิ์ อุดมกิจเดชา 36.42 %  ";
+titleStr=" ผลการดำเนินงานสะสมของ นายทวีศักดิ์ นายวีระศักดิ์ อุดมกิจเดชา 36.42 คะแนน  ";
 
 
 }else if(ParamOrg.equals("NECTEC")){
 	
-titleStr=" ผลการดำเนินงานสะสมของ นายทวีศักดิ์ นายพันธ์ศักดิ์ ศิริรัชตพงษ์ 36.42 %  ";
+titleStr=" ผลการดำเนินงานสะสมของ นายทวีศักดิ์ นายพันธ์ศักดิ์ ศิริรัชตพงษ์ 36.42 คะแนน  ";
 
 
 }else{
 	
 
-titleStr=" ผลการดำเนินงานสะสมของ  นายพันธ์ศักดิ์ ศิริรัชตพงษ์ 36.42 %  ";
+titleStr=" ผลการดำเนินงานสะสมของ  นายพันธ์ศักดิ์ ศิริรัชตพงษ์ 36.42 คะแนน  ";
 //NANOTEC
 }
 
@@ -157,9 +157,9 @@ titleStr=" ผลการดำเนินงานสะสมของ  น�
 	<script type="text/javascript">
 	$(document).ready(function(){
 
-	var ballRed  = "<div id='ballRed'  class='ball' style='background-color:#e51e25; width:20px;height:20px;border-radius:100px; float:left;'>1</div>";
-	var ballYellow  = "<div id='ballYellow'  class='ball' style='background-color:yellow; width:20px;height:20px;border-radius:100px; float:left;'>2</div>";
-	var ballGreen  = "<div id='ballGreen'  class='ball' style='background-color:#8fbc01; width:20px;height:20px;border-radius:100px; float:left;'>3</div>";
+	var ballRed  = "<div id='ballRed'  class='ball' style='background-color:#e51e25; width:20px;height:20px;border-radius:100px; float:left;'></div>";
+	var ballYellow  = "<div id='ballYellow'  class='ball' style='background-color:yellow; width:20px;height:20px;border-radius:100px; float:left;'></div>";
+	var ballGreen  = "<div id='ballGreen'  class='ball' style='background-color:#8fbc01; width:20px;height:20px;border-radius:100px; float:left;'></div>";
 	var ballGray  = "<div id='ballGray'  class='ball' style='background-color:#cccccc; width:20px;height:20px;border-radius:100px; float:left;'></div>";
 	// TITLE BY JSON START
 	/*########## Table Content Start ##########*/
@@ -171,7 +171,7 @@ titleStr=" ผลการดำเนินงานสะสมของ  น�
               },
               {
                   field: "Field2",
-				  width: 170
+				  width: 230
 			 },
               {
                   field: "Field3",
@@ -189,10 +189,7 @@ titleStr=" ผลการดำเนินงานสะสมของ  น�
                   field: "Field5_1",
 				  width: 80
 			 },
-              {
-                  field: "Field5_2",
-				  width: 80
-			 },
+             
               {
                   field: "Field6",
 				  width: 85
@@ -215,7 +212,7 @@ var $titleJ2 =[
               {
                   field: "Field1",
 				  title:"Testตัวชีวัด",
-				   width: 217
+				   width: 277
               },
               {
                   field: "Field3",
@@ -244,12 +241,7 @@ var $titleJ2 =[
 				
 
 			 },
-              {
-                  field: "Field5_2",
-				   title:"Actual",
-					 width:80
-			
-			 },
+          
               {
                   field: "Field6",
 				   title:"ผลงานสะสม",
@@ -272,7 +264,7 @@ var $titleJ2 =[
               
               {
                   field: "Field9",
-				  title:"แนวโน้ม",
+				  title:"กราฟผลงานสะสม",
 			
 				 
 			 }];
@@ -303,7 +295,7 @@ var $titleJ2 =[
 					  Field4: "เท่าของการลงทุนปี54",
                       Field5: "<div id='textR'>25</div>",
 					  Field5_1:"4,500 (ล้านบาท)",
-					  Field5_2:"2,000(ล้านบาท)",
+					 
 					  Field6: " <div id='textR'>0.44<div>",
                       Field7: "<center><div id='target'><div id='percentage'>40%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></center> ",
 					 Field7_1:"<div id='textR'>10.10</div>",
@@ -322,7 +314,7 @@ var $titleJ2 =[
 					  Field4: " เท่าของค่าใช้จ่าย",
                       Field5: " <div id='textR'>25</div>",
 					  Field5_1:"9,290(ล้านบาท)",
-					  Field5_2:"5,4000(ล้านบาท)",
+					
 					  Field6: "<div id='textR'>0.58</div>",
                       Field7: " <center><div id='target'><div id='percentage'>24%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></center> ",
 					  Field7_1:"<div id='textR'>6.05</div>",
@@ -337,7 +329,7 @@ var $titleJ2 =[
 					  Field4: "-",
                       Field5: "<div id='textR'> 10</div>",
 					  Field5_1:"1.07",
-					  Field5_2:"1.13",
+					 
 					  Field6: "<div id='textR'>1.13 <div>",
                       Field7: "<center><div id='target'><div id='percentage'>113%</div> <div id='score'>"+ballGray+""+ballGray+""+ballGreen+"</div></div></center>",
 					  Field7_1:"<div id='textR'>11.30<div>",
@@ -352,8 +344,8 @@ var $titleJ2 =[
 					  Field4: " ฉบับ/100 คน/ปี",
                       Field5: "<div id='textR'>15</div>",
 					  Field5_1:"36",
-					  Field5_2:"4.3",
-					  Field6: "<div id='textR'>4.3<div> ",
+					  
+					  Field6: "<div id='textR'>4.30<div> ",
                       Field7: "<center><div id='target'><div id='percentage'>11%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></center> ",
 					   Field7_1:"<div id='textR'>1.61<div>",
 					 
@@ -367,8 +359,8 @@ var $titleJ2 =[
 					  Field4: "ฉบับ/100 คน/ปี",
                       Field5: "<div id='textR'>15</div> ",
 					  Field5_1:"20",
-					  Field5_2:"5",
-					  Field6: "<div id='textR'>5<div>",
+					
+					  Field6: "<div id='textR'>5.00<div>",
                       Field7: " <center><div id='target'><div id='percentage'>25%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></cener>",
 					  Field7_1:"<div id='textR'>3.75<div>",
 					
@@ -382,8 +374,8 @@ var $titleJ2 =[
 					  Field4: "ร้อยละ ",
                       Field5: "<div id='textR'>10 </div>",
 					  Field5_1:"-",
-					  Field5_2:"36",
-					  Field6: "<div id='textR'>36<div>",
+					
+					  Field6: "<div id='textR'>36.00<div>",
                       Field7: " <center><div id='target'><div id='percentage'>36%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></cener>",
 					  Field7_1:"<div id='textR'>3.60</div>",
 					  
@@ -403,7 +395,7 @@ var $titleJ2 =[
 					  Field4: "ร้อบละ",
                       Field5: "<div id='textR'>15</div>",
 					  Field5_1:"1,500 (ล้านบาท)",
-					  Field5_2:"500 (ล้านบาท)",
+					  
 					  Field6: " <div id='textR'>0.50</div>",
                       Field7: " <center><div id='target'><div id='percentage'>40%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></center> ",
 					 Field7_1:"<div id='textR'>8.01	</div>",
@@ -421,8 +413,8 @@ var $titleJ2 =[
 					  Field4: "ร้อบละ",
                       Field5: "<div id='textR'>10</div>",
 					  Field5_1:"1,500 (ล้านบาท)",
-					  Field5_2:"800 (ล้านบาท)",
-					  Field6: "<div id='textR'>0.7 </div>",
+					  
+					  Field6: "<div id='textR'>0.70 </div>",
                       Field7: "<center><div id='target'><div id='percentage'>40%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></center>  ",
 					 Field7_1:"<div id='textR'>8.00</div>",
 				
@@ -439,8 +431,8 @@ var $titleJ2 =[
 					  Field4: "ร้อบละ",
                       Field5: "<div id='textR'>15</div>",
 					  Field5_1:"1,500 (ล้านบาท)",
-					  Field5_2:"800 (ล้านบาท)",
-					  Field6: "<div id='textR'>0,5 </div>",
+					 
+					  Field6: "<div id='textR'>0.50 </div>",
                       Field7: "<center><div id='target'><div id='percentage'>40%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></center>  ",
 					 Field7_1:"<div id='textR'>7.01</div>",
 					 
@@ -457,8 +449,8 @@ var $titleJ2 =[
 					  Field4: "ร้อบละ",
                       Field5: "<div id='textR'>15</div>",
 					  Field5_1:"1,500 (ล้านบาท)",
-					  Field5_2:"800 (ล้านบาท)",
-					  Field6: "<div id='textR'>0.6 </div>",
+					  
+					  Field6: "<div id='textR'>0.60 </div>",
                       Field7: "<center><div id='target'><div id='percentage'>40%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></center>  ",
 					 Field7_1:"<div id='textR'>8.03</div>",
 					 
@@ -475,8 +467,8 @@ var $titleJ2 =[
 					  Field4: "ล้านบาท",
                       Field5: "<div id='textR'>15</div>",
 					  Field5_1:"1,500 (ล้านบาท)",
-					  Field5_2:"800 (ล้านบาท)",
-					  Field6: "<div id='textR'>0.7 </div>",
+					  
+					  Field6: "<div id='textR'>0.70</div>",
                       Field7: "<center><div id='target'><div id='percentage'>40%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></center>  ",
 					 Field7_1:"<div id='textR'>8.04</div>",
 					
@@ -493,8 +485,8 @@ var $titleJ2 =[
 					  Field4: "ล้านบาท",
                       Field5: "<div id='textR'>20</div>",
 					  Field5_1:"1,500 (ล้านบาท)",
-					  Field5_2:"800 (ล้านบาท)",
-					  Field6: "<div id='textR'>0.8</div> ",
+					  
+					  Field6: "<div id='textR'>0.80</div> ",
                       Field7: " <center><div id='target'><div id='percentage'>40%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></center> ",
 					 Field7_1:"<div id='textR'>7.30</div>",
 					  
@@ -511,8 +503,8 @@ var $titleJ2 =[
 					  Field4: "ล้านบาท",
                       Field5: "<div id='textR'>25</div>",
 					  Field5_1:"1,500 (ล้านบาท)",
-					  Field5_2:"800 (ล้านบาท)",
-					  Field6: " <div id='textR'>0.6</div>",
+					  
+					  Field6: " <div id='textR'>0.60</div>",
                       Field7: " <center><div id='target'><div id='percentage'>40%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></center> ",
 					 Field7_1:"<div id='textR'>7.71</div>",
 					 
@@ -529,8 +521,8 @@ var $titleJ2 =[
 					  Field4: "ล้านบาท",
                       Field5: "25",
 					  Field5_1:"1,500 (ล้านบาท)",
-					  Field5_2:"800 (ล้านบาท)",
-					  Field6: "<div id='textR'> 0.4 </div>",
+					  
+					  Field6: "<div id='textR'> 0.40 </div>",
                       Field7: " <center><div id='target'><div id='percentage'>40%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></center> ",
 					 Field7_1:"<div id='textR'>7.56</div>",
 					  
@@ -694,14 +686,14 @@ $dataJ2[0]["Field3"];
           <th data-field="Field1" ><center><b>มุมมอง</b></center></th>
 		  <th  data-field="Field2"><center><b>ตัวชี้วัด</center></th>
 		  <th data-field="Field3"><center><b>เป้าหมาย</b></center></th>
-		  <th data-field="Field4"><center><b>หน่วยวัด</b></center></th>
+		  <th data-field="Field4"><center><b>หน่วยนับ</b></center></th>
 		  <th data-field="Field5"><center><b>น้ำหนัก</b></center></th>
-		  <th data-field="Field5_1"><center><b>Baseline</b></center></th>
-		  <th data-field="Field5_2"><center><b>Actual</b></center></th>
+		  <th data-field="Field5_1"><center><b>ข้อมูลฐาน</b></center></th>
+		
 		  <th data-field="Field6"><center><b>ผลงานสะสม</b></center></th>
-		  <th data-field="Field7"><center><b>%เทียบแผน</b></center></th>
-		  <th data-field="Field7_1"><center><b>% เฉลี่ย<br>ถ่วงน้ำหนัก</b></center></th>
-		  <th data-field="Field9"><center><b> แนวโน้ม</b></center></th>
+		  <th data-field="Field7"><center><b>% เทียบ<br>เป้าหมาย</b></center></th>
+		  <th data-field="Field7_1"><center><b>คะแนน<br>ถ่วงน้ำหนัก </b></center></th>
+		  <th data-field="Field9"><center><b> กราฟ<br>ผลงานสะสม</b></center></th>
 
 	  </tr>
   </thead>
@@ -717,7 +709,7 @@ $dataJ2[0]["Field3"];
           <td></td>
 		  <td></td>
       	  <td></td>
-		  <td></td>
+	
 
 </tr>
 
