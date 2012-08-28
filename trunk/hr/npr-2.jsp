@@ -14,8 +14,8 @@ clear:both;
 
 }
 .content  #row1 .box{
-width:474px;
-height:260px;
+width:313px;
+height:550px;
 float:left;
 margin:2px;
 border-radius:5px;
@@ -578,8 +578,8 @@ var summ=900;
                             position: "bottom"
             },
 			chartArea: {
-			width: 180,
-			height: 180,
+			width: 295,
+			height: 295,
 			background: ""
 			},
 			series: [{
@@ -587,20 +587,20 @@ var summ=900;
 
                             data: [ {
 	
-                                category: "BT",
+                                category: "ศช.",
                                 value: 220
 								 
                             }, {
 	
-                                category: "NT",
+                                category: "ศน.",
                                 value: 240
                             }, {
 		
-                                category: "MT ",
+                                category: "ศว. ",
                                 value: 220
                             }, {
 			
-                                category: "NNT ",
+                                category: "ศอ. ",
                                 value: 220
 								
                             }]
@@ -637,7 +637,7 @@ var barChart71= function(){
 	$("#barChart71").kendoChart({
                         theme: $(document).data("kendoSkin") || "metro",
                         title: {
-                            text: "NNT"
+                            text: "ศอ."
                         },
 						chartArea:{
 						width:290,
@@ -667,7 +667,10 @@ var barChart71= function(){
                             }
                         },
                         categoryAxis: {
-                            categories: [ "เยี่ยมเยือน" ," แลกเปลี่ยน", "ร่วมวิจัย ", "Postdoc", "นักศึกษา"]
+                            categories: [ "เยี่ยมเยือน" ," แลกเปลี่ยน", "ร่วมวิจัย ", "Postdoc", "นักศึกษา"],
+							labels:{
+								font:"11px Tahoma"
+								}
                         },
                         tooltip: {
                             visible: true,
@@ -691,8 +694,8 @@ var pieChart72= function(){
                             position: "bottom"
             },
 			chartArea: {
-			width: 180,
-			height: 200,
+			width: 295,
+			height: 295,
 			background: ""
 			},
 			series: [{
@@ -759,7 +762,7 @@ var barChart72= function(){
 
 						
                         legend: {
-                            position: "right"
+                            position: "bottom"
                         },
                         seriesDefaults: {
                             type: "column",
@@ -779,7 +782,10 @@ var barChart72= function(){
                             }
                         },
                         categoryAxis: {
-                            categories: [ "BT" ," NT", "MT ", "NNT"]
+                            categories: [ "ศช." ," ศน.", "ศว. ", "ศอ."],
+							labels:{
+								font:"11px Tahoma"
+								}
                         },
                         tooltip: {
                             visible: true,
@@ -803,8 +809,8 @@ var pieChart73= function(){
                             position: "bottom"
             },
 			chartArea: {
-			width: 180,
-			height: 180,
+			width: 295,
+			height: 295,
 			background: ""
 			},
 			series: [{
@@ -813,11 +819,13 @@ var pieChart73= function(){
                             data: [ {
 	
                                 category: "ชาวต่างชาติ",
-                                value: 60
+                                value: 60,
+								color:"#43addf"
                             }, {
 	
                                 category: "ชาวไทย",
-                                value: 140
+                                value: 140,
+								color:"#a2c72a"
                             }]
                         }],
                         tooltip: {
@@ -858,7 +866,7 @@ var barChart73= function(){
 
 						
                         legend: {
-                            position: "right"
+                            position: "bottom"
                         },
                         seriesDefaults: {
                             type: "column",
@@ -878,7 +886,11 @@ var barChart73= function(){
                             }
                         },
                         categoryAxis: {
-                            categories: [ "<1 ปี" ," 1-2  ปี ", "2-3  ปี ", ">3   ปี"]
+                            categories: [ "<1 ปี" ," 1-2  ปี ", "2-3  ปี ", ">3   ปี"],
+							labels:{
+								font:"11px Tahoma"
+								}
+
                         },
                         tooltip: {
                             visible: true,
@@ -1027,6 +1039,9 @@ function templateFormat3(value,summ) {
 												<td>
 												<div id="pie71"></div>
 												</td>
+												
+											</tr>
+											<tr>
 												<td>
 												<div id="barChart71"></div>
 												</td>
@@ -1046,13 +1061,20 @@ function templateFormat3(value,summ) {
 												<td>
 												<div id="pie72"></div>
 												</td>
+												
+											</tr>
 												<td>
 												<div id="barChart72"></div>
 												</td>
+											<tr>
+
 											</tr>
 									</table>
 						</div>
 				</div>
+
+
+				
 				<div class="box">
 						<div id="head">
 							<div class="title">
@@ -1065,6 +1087,9 @@ function templateFormat3(value,summ) {
 												<td>
 												<div id="pie73"></div>
 												</td>
+												
+											</tr>
+											<tr>
 												<td>
 												<div id="barChart73"></div>
 												</td>
