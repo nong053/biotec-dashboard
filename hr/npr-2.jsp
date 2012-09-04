@@ -752,7 +752,7 @@ var barChart72= function(){
 	$("#barChart72").kendoChart({
                         theme: $(document).data("kendoSkin") || "metro",
                         title: {
-                            text: "ไทย"
+                            text: "เยี่ยมเยือน"
                         },
 						chartArea:{
 						width:300,
@@ -856,7 +856,7 @@ var barChart73= function(){
 	$("#barChart73").kendoChart({
                         theme: $(document).data("kendoSkin") || "metro",
                         title: {
-                            text: "ใหม่"
+                            text: "ชาวไทย"
                         },
 						chartArea:{
 						width:300,
