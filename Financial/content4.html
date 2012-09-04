@@ -89,7 +89,7 @@ font-size:16px;
 	}
 	.boxContent #boxL{
 	/*background:#ffccff;*/
-	width:74.6%;
+	width:100%;
 	height:385px;
 	float:left;
 	}
@@ -252,7 +252,7 @@ var pieChart = function(){
 			height:300
 			},
 			title: {
-				 text: "รายได้"
+				 text: "สัดส่วนรายได้"
 			},
 			legend: {
                             position: "bottom"
@@ -438,7 +438,7 @@ var pieChart21 = function(){
 			height:300
 			},
 			title: {
-				 text: "ค่าใช้จ่าย"
+				 text: "สัดส่วนค่าใช้จ่าย"
 			},
 			legend: {
                             position: "bottom"
@@ -506,35 +506,35 @@ var pieChart21 = function(){
 	var $titleJ =[
               {
                   field: "Field1",
-				   width: 110
+				   width: 250
               },
               {
                   field: "Field2",
-				  width: 70
+				  width: 80
 			 },
               {
                   field: "Field3",
-				  width: 70
+				  width: 80
 			 },
               {
                   field: "Field4",
-				  width:70
+				  width:80
 			 },
               {
                   field: "Field5",
-				  width: 70
+				  width: 80
 			 }, 
               {
                   field: "Field6",
-				  width: 70
+				  width: 80
 			 },
               {
                   field: "Field7",
-				  width: 70
+				  width: 80
 			 },
               {
                   field: "Field8",
-				  width: 70
+				  width: 80
 			 },
               {
                   field: "Field9",
@@ -546,49 +546,50 @@ var $titleJ2 =[
               {
                   field: "Field1",
 				  title:"รายการ",
-				  width: 132
+				  width: 273
               },
               {
                   field: "Field2",
 				   title:"สก.",
-				    width: 70
+				    width: 80
 			 },
               {
                   field: "Field3",
 				   title:"ศช.",
-				    width: 70
+				    width: 80
 			 },
               {
                   field: "Field4",
 				   title:"ศว.",
-				    width: 70
+				    width: 80
 			 },
               {
                   field: "Field5",
 				   title:"ศอ.",
-				    width: 70
+				    width: 80
 			 },
               {
                   field: "Field6",
 				   title:"ศจ.",
-				    width: 70
+				    width: 80
 			 },
               {
                   field: "Field7",
 				   title:"ศน.",
-				    width: 70
+				    width: 80
 			 },
               
               {
                   field: "Field8",
 				   title:"ทุนประเดิม",
-				    width: 70
+				    width: 80
 			 },
               
               {
                   field: "Field9",
 				   title:"รวม",
-				   width:70
+				   width:105
+			
 			 }
 
            ];
@@ -821,6 +822,7 @@ function tootipFormat(value,summ){
 
 <div class="boxContent">
 	<div id="boxL"><!-- boxL	 Start-->
+	<div id="titleTop" style="text-align:right"> หน่วย : ล้านบาท </div>
 	 <div class="content"><!-- Content	 Start-->
  <div id="table_content">
  <table id="grid">
@@ -862,17 +864,9 @@ function tootipFormat(value,summ){
 
 </div><!-- Content	 End-->
 	</div><!-- boxL	 End>-->
-	<div id="boxR"><!-- boxR	 Start-->
-	
-	<div id="chart2"><p></p></div>
-	</div><!-- boxR	 End>-->
-	<center>
-	<div id="boxB"><!-- boxB	 Start-->
-	
-	<div id="chart"><p></p></div>
-	
-	</div><!-- boxB	 End>-->
-	</center>
+
+
+
 	<br style="clear:both">
 </div>
 

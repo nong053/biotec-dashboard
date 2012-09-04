@@ -304,7 +304,6 @@ function checkBarType32(e){
 /*### Pie31 Start  ###*/		
 //$("#chart2").onSeriesClick();
 var pieChart31 = function(){
-	
 		$("#chart2").kendoChart({
 			theme:$(document).data("kendoSkin") || "metro",
 			chartArea:{
@@ -312,7 +311,7 @@ var pieChart31 = function(){
 			height:300
 			},
 			title: {
-				 text: ""
+				 text: "สัดส่วนรายได้ "
 			},
 			legend: {
                             position: "bottom"
@@ -371,7 +370,7 @@ var pieChart32 = function(){
 			height:300
 			},
 			title: {
-				 text: ""
+				 text: "สัดส่วนค่าใช้จ่าย"
 			},
 			legend: {
                             position: "bottom"
@@ -436,10 +435,7 @@ var pieChart32 = function(){
                   field: "Field3",
 				  width: 80
 			 },
-              {
-                  field: "Field4",
-				  width:80
-			 },
+         
               {
                   field: "Field5",
 				  width: 70
@@ -447,14 +443,6 @@ var pieChart32 = function(){
               {
                   field: "Field6",
 				  width: 70
-			 },
-              {
-                  field: "Field7",
-				  width: 70
-			 },
-              {
-                  field: "Field8",
-				  
 			 } ];
 
 
@@ -462,44 +450,30 @@ var $titleJ2 =[
               {
                   field: "Field1",
 				  title:"รายการ",
-				   width: 172
+				   width: 261
               },
               {
                   field: "Field2",
 				   title:"MAR-12",
-				    width: 70
+				    width: 104
 			 },
               {
                   field: "Field3",
 				   title:"Last Month",
-				    width: 80
+				    width: 119
 			 },
-              {
-                  field: "Field4",
-				   title:"Variance",
-				    width: 80
-			 },
+           
               {
                   field: "Field5",
 				   title:"%Variance",
-				    width: 70
+				    width: 104
 			 },
               {
                   field: "Field6",
 				   title:"YOY",
-				    width: 70
-			 },
-              {
-                  field: "Field7",
-				   title:"Variance",
-				    width: 70
-			 },
-              
-              {
-                  field: "Field8",
-				   title:"%Variance",
-				   width: 80
+					width: 100
 
+			
 			 }
 
 
@@ -515,21 +489,19 @@ var $titleJ2 =[
                       Field1: "<div id='textL'>รายได้ </div>",
 					  Field2: "<div id='textR'>1,992.54 </div>",
                       Field3: " <div id='textR'>1,806.36</div> ",
-					  Field4: "<div id='textR'>-186.16</div>",
+				
                       Field5: "<div id='textR'>10.31%</div>",
 					  Field6: " <div id='textR'>2,030.21<div>",
-                      Field7: "<div id='textR'>-37.67<div>",
-					  Field8: " <div id='textR'>-1.86%<div>",
+                  
                   }, {
 					  Field0: "02",
                       Field1: "<div id='textL'>ค่าใช้จ่าย</div>",
 					  Field2: "<div id='textR'> 1,918.64 </div>",
                       Field3: " <div id='textR'>1,599.84</div> ",
-					  Field4: "<div id='textR'>318.8</div>",
+			
                       Field5: "<div id='textR'>19.93%</div>",
 					  Field6: " <div id='textR'>1,949.50<div>",
-                      Field7: "<div id='textR'>-30.86<div>",
-					  Field8: " <div id='textR'>-1.58%<div>",
+               
                   }
 				  
 				  ]; 		
@@ -541,41 +513,37 @@ var $titleJ2 =[
                       Field1: "เงินอุดหนุนจากรัฐบาล",
 					  Field2: "<div id='textR'>1,391.88</div>",
                       Field3: "<div id='textR'> 1,279.12 </div>",
-					  Field4: "<div id='textR'>112.76</div>",
+					
                       Field5: "<div id='textR'>8.82%</div>",
 					  Field6: "<div id='textR'>1,440.10 </div>",
-                      Field7: "<div id='textR'>-48.22 </div>",
-					  Field8: "<div id='textR'>-3.35%</div>"
+                  
                      
                   },{
                       Field1: "เงินอะดหนุนอื่น",
 					  Field2: "<div id='textR'>2,391.88</div>",
                       Field3: " <div id='textR'>216.80 </div>",
-					  Field4: "<div id='textR'>23.15</div>",
+					
                       Field5: "<div id='textR'>10.68%</div>",
 					  Field6: "<div id='textR'>230.99 </div>",
-                      Field7: "<div id='textR'>8.96 </div>",
-					  Field8: "<div id='textR'>3.88%</div> "
+                   
                      
                   },{
                       Field1: "รายได้ค่าบริการและขายสินค้า</div>",
 					  Field2: "<div id='textR'>187.43</div>",
                       Field3: " <div id='textR'>139.17</div>",
-					  Field4: "<div id='textR'>48.26</div>",
+					
                       Field5: "<div id='textR'>34.68%</div>",
 					  Field6: "<div id='textR'>190.10 </div>",
-                      Field7: "<div id='textR'>-2.67 </div>",
-					  Field8: "<div id='textR'>-1.40%</div>"
+                   
                      
                   },{
                       Field1: "รายได้อื่นๆ",
 					  Field2: "<div id='textR'>173.28</div>",
                       Field3: " <div id='textR'>171.27 </div>",
-					  Field4: "<div id='textR'>2.01</div>",
+				
                       Field5: "<div id='textR'>1.17%</div>",
 					  Field6: "<div id='textR'>169.02 </div>",
-                      Field7: "<div id='textR'>4.26</div>",
-					  Field8: "<div id='textR'>2.52% </div>"
+                  
                      
                   }
 				 
@@ -585,31 +553,28 @@ var $titleJ2 =[
                       Field1: "ค่าใช้จ่ายด้านบุคลากร",
 					  Field2: "<div id='textR'>914.39</div>",
                       Field3: "<div id='textR'>786.34 </div>",
-					  Field4: "<div id='textR'>128.05</div>",
+					
                       Field5: "<div id='textR'>16.28%</div>",
 					  Field6: "<div id='textR'>959.32</div> ",
-                      Field7: "<div id='textR'>-44.93</div>",
-					  Field8: "<div id='textR'>-4.68%"
+                  
                      
                   },{
                       Field1: "ค่าใช้จ่ายด้านดำเนินงาน",
 					  Field2: "<div id='textR'>700.79</div>",
                       Field3: "<div id='textR'>559.00 </div>",
-					  Field4: "<div id='textR'>141.79</div>",
+					
                       Field5: "<div id='textR'>25.36%</div>",
 					  Field6: "<div id='textR'>695.2 </div>",
-                      Field7: "<div id='textR'>5.59 ",
-					  Field8: "<div id='textR'>0.80% "
+                  
                      
                   },{
                       Field1: "ค่าเสื่อนราคา",
 					  Field2: "<div id='textR'>303.46</div>",
                       Field3: " <div id='textR'>254.5 </div>",
-					  Field4: "<div id='textR'>48.96</div>",
+				
                       Field5: "<div id='textR'>19.24%</div>",
 					  Field6: "<div id='textR'>294.98 </div>",
-                      Field7: "<div id='textR'>8.48</div> ",
-					  Field8: "<div id='textR'>2.87%</div>"
+                 
                      
                   }
 				 
@@ -687,7 +652,9 @@ var $titleJ2 =[
 
 	});
 
-	
+	//set add row management title year current and year perv
+
+	//set add row management title year current and year perv
 
 
 		/*################# jQuery Start #############*/
@@ -725,6 +692,7 @@ function tootipFormat(value,summ){
 
 <div class="boxContent">
 	<div id="boxL"><!-- boxL	 Start-->
+	<div id="titleTop" style="text-align:right"> หน่วย : ล้านบาท </div>
 	 <div class="content"><!-- Content	 Start-->
  <div id="table_content">
  <table id="grid">
@@ -732,14 +700,13 @@ function tootipFormat(value,summ){
       <tr>
 		  
 		 <!--<th class="k-hierarchy-cell k-header"></th>-->
-          <th data-field="Field1" ><center><div class="fontTitle">รายการ </div></center></th>
+          <th data-field="Field1" ><center><div class="fontTitle"> </div></center></th>
 		  <th  data-field="Field2"><center><div class="fontTitle">ต.ค. 55 </div></center></th>		 
 		  <th data-field="Field3"><center><div class="fontTitle">ก.ย. 55 </div></center></th>
-		  <th data-field="Field4"><center><div class="fontTitle">Variance </div></center></th>
-		  <th data-field="Field5"><center><div class="fontTitle">%Variance </div></center></th>
+		  
+		  <th data-field="Field5"><center><div class="fontTitle">%</div></center></th>
 		  <th data-field="Field6"><center><div class="fontTitle">ต.ค. 54 </div></center></th>
-		  <th data-field="Field7"><center><div class="fontTitle">Variance </div></center></th>
-          <th data-field="Field8"><center><div class="fontTitle">%Variance</div></center></th>
+
 
 
 	  </tr>
@@ -751,9 +718,7 @@ function tootipFormat(value,summ){
 		  <td></td>
           <td></td>
 		  <td></td>
-          <td></td>
-		  <td></td>
-          <td></td>
+ 
 		  
 		  
 		  

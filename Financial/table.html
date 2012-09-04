@@ -30,6 +30,10 @@
 		padding:5px;
 		border-radius:5px;
 		}
+		.level1,.level2,.level3{
+		cursor:pointer;
+		
+		}
 
 	</style>
 
@@ -149,10 +153,24 @@ font-size:16px;
 <!--###  jQuery Manage Table Start ###-->
 <script type="text/javascript">
 	$(document).ready(function(){
+	//manage leve in table
+	$(".level1").click(function(event){
+	//alert("hello world");
+	//alert(event.target.id);
+		if(event.target.id=="eventPie1"){
+			pieChart1();
+			//alert(event.target.id);
+		}else if(event.target.id=="eventPie2"){
+			pieChart2();
+		}
+	});
+	//manage leve in table
+
 		$("table#finance_tb1 thead tr  th").css({"background":"#99ccff  ","padding-left":"5px","padding-right":"5px","color":"black","padding":"2px"});
 		$("table#finance_tb1 thead tr  th .level1").css({"text-align":"left"});
 		$("table#finance_tb1 thead tr  th .level1").parent().nextAll().css({"text-align":"right"});
 		$("table#finance_tb1 thead tr:eq(0) th").css({"background":"#008EC3 ","padding-left":"5px","padding-right":"5px","color":"white","padding":"2px"});
+		$("table#finance_tb1 thead tr:eq(1) th").css({"background":"#008EC3 ","padding-left":"5px","padding-right":"5px","color":"white","padding":"2px"});
 		$(".level2").css({"font-weight":"bold","padding-left":"10px"});
 		$(".level2").parent().nextAll().andSelf().css({"background":"#a9e4f4 "});
 		$(".level2").parent().nextAll().css({"text-align":"right","font-weight":"bold","background":"#a9e4f4 "});
@@ -160,6 +178,7 @@ font-size:16px;
 		$(".level3").parent().nextAll().css({"text-align":"right"});
 		//$("table#finance_tb1 tbody tr:odd").css({"background":"#dbeef3"});
 		$("table#finance_tb1 tbody tr:odd").css({"background":"#ecf8fb"});
+	//	$("table#finance_tb1 tbody tr:even").css({"background":"white"});
 		
 		$(".summary").parent().nextAll().andSelf().css({"background":"#99ccff","padding":"5px"});
 
@@ -185,7 +204,7 @@ var lineChart1 = function(){
 			$("#chart").kendoChart({
 			theme:$(document).data("kendoSkin") || "metro",
 			title: {
-				 text: "สินทรัพย์หมุนเวียน"
+				 text: "สัดส่วนสินทรัพย์หมุนเวียน"
 			},
 			chartArea: {
 			height: 300,
@@ -196,13 +215,13 @@ var lineChart1 = function(){
             },
 			series: [
 				 { 
-						 name: "Balance 2554", data: [6500, 6500, 6500, 6500,6500,6500,6500,6500,6500,6500,6500,6500],
+						 name: " 2554", data: [6500, 6500, 6500, 6500,6500,6500,6500,6500,6500,6500,6500,6500],
 						color: "BLUE"
 						
 						
 				 } ,
 				 {
-                            name: "Balance 2555",
+                            name: " 2555",
                             data: [6100, 5200, 6300, 7200,4100,7800,6100,7000,5300,7300,6200,7100]
 						
 						
@@ -220,7 +239,7 @@ var lineChart1 = function(){
                   }
 			],
 			valueAxis: [{
-                            title: { text: "Balance " },
+                            title: { text: "" },
                             min: 0,
                             max: 8000
                         }, {
@@ -240,7 +259,7 @@ var lineChart2 = function(){
 			$("#chart").kendoChart({
 			theme:$(document).data("kendoSkin") || "metro",
 			title: {
-				 text: "สินทรัพย์ไม่หมุนเวียน"
+				 text: "สัดส่วนสินทรัพย์ไม่หมุนเวียน"
 			},
 			chartArea: {
 				
@@ -252,13 +271,13 @@ var lineChart2 = function(){
             },
 			series: [
 				 { 
-						 name: "Balance 2554", data: [6500, 6500, 6500, 6500,6500,6500,6500,6500,6500,6500,6500,6500],
+						 name: "2554", data: [6500, 6500, 6500, 6500,6500,6500,6500,6500,6500,6500,6500,6500],
 						color: "BLUE"
 						
 						
 				 } ,
 				 {
-                            name: "Balance 2555",
+                            name: "2555",
                             data: [7000, 7000, 7000, 7000,7000,7000,7000,7000,7000,7000,7000,7000]
 						
 						
@@ -276,7 +295,7 @@ var lineChart2 = function(){
                   }
 			],
 			valueAxis: [{
-                            title: { text: "Balance " },
+                            title: { text: " " },
                             min: 0,
                             max: 8000
                         }, {
@@ -389,11 +408,11 @@ var pieChart1= function(){
 		$("#pie1").kendoChart({
 			theme:$(document).data("kendoSkin") || "metro",
 			chartArea:{
-			width:250,
+			width:240,
 			height:300
 			},
 			title: {
-				 text: "สินทรัพย์"
+				 text: "สัดส่วนสินทรัพย์"
 			},
 			legend: {
                             position: "bottom"
@@ -408,6 +427,61 @@ var pieChart1= function(){
                             }, {
 								id:"02",
                                 category: "02-สินทรัพย์ไม่หมุนเวียน",
+                                value: 65
+                            }]
+                        }],
+                        tooltip: {
+                            visible: true,
+							template:"#= tootipFormat(value,900) #"
+                          //  format: "{0}%"
+
+                        },
+			
+			seriesDefaults: {
+				/*labels: {
+					visible: true,
+					format: "{0}%"
+				}*/
+			},
+			seriesClick: onSeriesClick1
+			//axisLabelClick: onAxisLabelClick
+			
+		});
+
+
+		
+		
+}//function pie chart end
+
+var pieChart2= function(){
+		$("#pie1").hide();
+		$("#pie2").show();
+		$("#pie2").kendoChart({
+			theme:$(document).data("kendoSkin") || "metro",
+			chartArea:{
+			width:250,
+			height:300
+			},
+			title: {
+				 text: "สัดส่วนหนี้สินและส่วนของกองทุน"
+			},
+			legend: {
+                            position: "bottom"
+            },
+			series: [{
+                            type: "pie",
+							name:"01",
+                            data: [ {
+								id:"01",
+                                category: "01-หนี้สินทรัพย์หมุนเวียน",
+                                value: 35
+                            }, {
+								id:"02",
+                                category: "02-หนี้สินทรัพย์ไม่หมุนเวียน",
+                                value: 65
+                            }, {
+								id:"03",
+                                category: "03-ส่วนของกองทุน",
                                 value: 65
                             }]
                         }],
@@ -493,27 +567,35 @@ function onSeriesClick1(e) {
 <div id="mainContent">
 	<div id="row1">
 			<div id="column1">
-			<table id="finance_tb1"  width="700">
+			<div id="titleTop" style="text-align:right"> หน่วย : ล้านบาท</div>
+			<table id="finance_tb1"  width="700" cellpadding="1px" cellspacing="1px"  >
 	<thead>
 		<tr >
 			<th width="200">รายการ</th>
-			<th>ต.ค. 55</th>
-			<th>ก.ย. 55</th>
-			<th>Variance </th>
-			<th>%Variance </th>
-			<th>ต.ค. 54</th>
-			<th>Variance </th>
-			<th>%Variance </th>
+			<th colspan="3">ปีนี้</th>
+			
+			
+			
+			<th>ปีที่แล้ว</th>
+	
 		</tr>
 		<tr>
-			<th ><div class="level1">สินทรัพย์</div></th>
+			<th width="200" ></th>
+			<th>ต.ค. 55 </th>
+			<th>ก.ย. 55</th>
+			
+			<th>%</th>
+			<th>ต.ค. 54</th>
+	
+		</tr>
+		<tr>
+			<th ><div class="level1" id="eventPie1">สินทรัพย์</div></th>
 			<th>9,760.12</th>
 			<th>9,952.78</th>
-			<th>-192.66</th>
+			
 			<th>-1.94%</th>
 			<th>9,650.12</th>
-			<th>110.00</th>
-			<th>1.14%</th>
+
 		</tr>
 	</thead>
 	<tbody>
@@ -522,61 +604,55 @@ function onSeriesClick1(e) {
 			<td><div class="level2">สินทรัพย์หมุนเวียน</div></td>
 			<td>	2694.79</td>
 			<td>2929.12</td>
-			<td>-234.33</td>
+		
 			<td>-8.00%</td>
 			<td>2,599.21</td>
-			<td>95.58</td>
-			<td>3.68%</td>
+	
 		</tr>
 		<tr>
 			<td><div class="level3">เงินสดและรายการเทียบเท่าเงินสด</div></td>
 			<td>	2,694.79	</td>
 			<td>2,929.12</td>
-			<td>-234.33</td>
+			
 			<td>-8.00%</td>
 			<td>2,599.21</td>
-			<td>95.58</td>
-			<td>3.68%</td>
+		
 		</tr>
 		<tr>
 			<td><div class="level3"> เงินลงทุนระยะสั้น</td>
 			<td>	2,694.79	</td>
 			<td>2,929.12</td>
-			<td>-234.33</td>
+		
 			<td>-8.00%</td>
 			<td>2,599.21</td>
-			<td>95.58</td>
-			<td>3.68%</td>
+	
 		</tr>
 		<tr>
 			<td><div class="level3"> ลูกหนี้การค้า(สุทธิ)</td>
 			<td>	2,694.79	</td>
 			<td>2,929.12</td>
-			<td>-234.33</td>
+			
 			<td>-8.00%</td>
 			<td>2,599.21</td>
-			<td>95.58</td>
-			<td>3.68%</td>
+	
 		</tr>
 		<tr>
 			<td><div class="level3">   เงินทดรองจ่าย</td>
 			<td>	2,694.79	</td>
 			<td>2,929.12</td>
-			<td>-234.33</td>
+		
 			<td>-8.00%</td>
 			<td>2,599.21</td>
-			<td>95.58</td>
-			<td>3.68%</td>
+		
 		</tr>
 		<tr>
 			<td><div class="level3">   สินทรัพย์หมุนเวียนอื่น</td>
 			<td>	2,694.79	</td>
 			<td>2,929.12</td>
-			<td>-234.33</td>
+			
 			<td>-8.00%</td>
 			<td>2,599.21</td>
-			<td>95.58</td>
-			<td>3.68%</td>
+		
 		</tr>
 		 
 		
@@ -588,71 +664,64 @@ function onSeriesClick1(e) {
 			<td><div class="level2">สินทรัพย์ไม่หมุนเวียน</div></td>
 			<td>	7,065.35</td>
 			<td>7,023.66</td>
-			<td>41.68</td>
+			
 			<td>0.59%</td>
 			<td>6,999.99</td>
-			<td>65.35</td>
-			<td>0.93%</td>
+		
 		</tr>
 		<tr>
 			<td><div class="level3">เงินลงทุนระยะยาว</div></td>
 			<td>	2,694.79	</td>
 			<td>2,929.12</td>
-			<td>-234.33</td>
+			
 			<td>-8.00%</td>
 			<td>2,599.21</td>
-			<td>95.58</td>
-			<td>3.68%</td>
+		
 		</tr>
 		<tr>
 			<td><div class="level3"> เงินอุดหนุนจากงบประมาณแผ่นดินค้างรับ</td>
 			<td>	2,694.79	</td>
 			<td>2,929.12</td>
-			<td>-234.33</td>
+			
 			<td>-8.00%</td>
 			<td>2,599.21</td>
-			<td>95.58</td>
-			<td>3.68%</td>
+		
 		</tr>
 		<tr>
 			<td><div class="level3"> ลูกหนี้เงินกู้ดอกเบี้ยต่ำ</td>
 			<td>	2,694.79	</td>
 			<td>2,929.12</td>
-			<td>-234.33</td>
+			
 			<td>-8.00%</td>
 			<td>2,599.21</td>
-			<td>95.58</td>
-			<td>3.68%</td>
+		
 		</tr>
 		<tr>
 			<td><div class="level3"> เงินมัดจำและเงินค้ำประกันจ่าย</td>
 			<td>	2,694.79	</td>
 			<td>2,929.12</td>
-			<td>-234.33</td>
+			
 			<td>-8.00%</td>
 			<td>2,599.21</td>
-			<td>95.58</td>
-			<td>3.68%</td>
+		
 		</tr>
 		<tr>
 			<td><div class="level3"> สินทรัพย์ถาวร-สุทธิ</td>
 			<td>	2,694.79	</td>
 			<td>2,929.12</td>
-			<td>-234.33</td>
+			
 			<td>-8.00%</td>
 			<td>2,599.21</td>
-			<td>95.58</td>
-			<td>3.68%</td>
+		
 		</tr>
 		<tr>
 			<td><div class="level3"> สินทรัพย์ไม่หมุนเวียนอื่น</td>
 			<td>	2,694.79	</td>
 			<td>2,929.12</td>
-			<td>-234.33</td>
+			
 			<td>-8.00%</td>
 			<td>2,599.21</td>
-			<td>95.58</td>
-			<td>3.68%</td>
+	
 		</tr>
 		
 		 
@@ -666,14 +735,13 @@ function onSeriesClick1(e) {
 <thead>
 		
 		<tr>
-			<th ><div class="level1">หนี้สินและส่วนของกองทุน</div></th>
+			<th ><div class="level1" id="eventPie2" >หนี้สินและส่วนของกองทุน</div></th>
 			<th>9,760.12</th>
 			<th>9,952.78</th>
-			<th>-192.66</th>
+			
 			<th>-1.94%</th>
 			<th>9,650.12</th>
-			<th>110.00</th>
-			<th>1.14%</th>
+		
 		</tr>
 	</thead>
 	<tbody>
@@ -682,31 +750,28 @@ function onSeriesClick1(e) {
 			<td><div class="level2">หนี้สินหมุนเวียน</div></td>
 			<td>196.77	</td>
 			<td>163.51</td>
-			<td>33.26</td>
+			
 			<td>20.34%</td>
 			<td>197.99</td>
-			<td>-5.2</td>
-			<td>-1.01%</td>
+	
 		</tr>
 		<tr>
 			<td><div class="level3"> เจ้าหนี้การค้า</div></td>
 			<td>	2,694.79	</td>
 			<td>2,929.12</td>
-			<td>-234.33</td>
+		
 			<td>-8.00%</td>
 			<td>2,599.21</td>
-			<td>95.58</td>
-			<td>3.68%</td>
+
 		</tr>
 		<tr>
 			<td><div class="level3">    หนี้สินหมุนเวียนอื่น</td>
 			<td>	2,694.79	</td>
 			<td>2,929.12</td>
-			<td>-234.33</td>
+			
 			<td>-8.00%</td>
 			<td>2,599.21</td>
-			<td>95.58</td>
-			<td>3.68%</td>
+	
 		</tr>
 		
 	
@@ -715,11 +780,10 @@ function onSeriesClick1(e) {
 			<td><div class="level2">    หนี้สินไม่หมุนเวียน</td>
 			<td>	2,694.79	</td>
 			<td>2,929.12</td>
-			<td>-234.33</td>
+		
 			<td>-8.00%</td>
 			<td>2,599.21</td>
-			<td>95.58</td>
-			<td>3.68%</td>
+		
 		</tr>
 
 
@@ -727,52 +791,47 @@ function onSeriesClick1(e) {
 			<td><div class="level3">    เงินกู้ยืมระยะยาว(สุทธิ)</td>
 			<td>	2,694.79	</td>
 			<td>2,929.12</td>
-			<td>-234.33</td>
+		
 			<td>-8.00%</td>
 			<td>2,599.21</td>
-			<td>95.58</td>
-			<td>3.68%</td>
+	
 		</tr>
 		<tr>
 			<td><div class="level3">   เงินอุดหนุนกันไว้เบิก</td>
 			<td>	2,694.79	</td>
 			<td>2,929.12</td>
-			<td>-234.33</td>
+		
 			<td>-8.00%</td>
 			<td>2,599.21</td>
-			<td>95.58</td>
-			<td>3.68%</td>
+	
 		</tr>
 		<tr>
 			<td><div class="level3">   สินทรัพย์หมุนเวียนอื่น</td>
 			<td>	2,694.79	</td>
 			<td>2,929.12</td>
-			<td>-234.33</td>
+			
 			<td>-8.00%</td>
 			<td>2,599.21</td>
-			<td>95.58</td>
-			<td>3.68%</td>
+
 		</tr>
 		 
 		<tr>
 			<td><div class="level3"> เงินบำเหน็จ/เงินสมนาคุณสวทช. รอจ่าย</div></td>
 			<td>	2,694.79	</td>
 			<td>2,929.12</td>
-			<td>-234.33</td>
+		
 			<td>-8.00%</td>
 			<td>2,599.21</td>
-			<td>95.58</td>
-			<td>3.68%</td>
+		
 		</tr>
 		<tr>
 			<td><div class="level3">หนี้สินไม่หมุนเวียนอื่น</div></td>
 			<td>	2,694.79	</td>
 			<td>2,929.12</td>
-			<td>-234.33</td>
+		
 			<td>-8.00%</td>
 			<td>2,599.21</td>
-			<td>95.58</td>
-			<td>3.68%</td>
+
 		</tr>
 
 
@@ -782,62 +841,56 @@ function onSeriesClick1(e) {
 			<td><div class="level2">ส่วนของกองทุน</div></td>
 			<td>9,052.56	</td>
 			<td>9,185.17</td>
-			<td>-132.61</td>
+		
 			<td>-1.44%</td>
 			<td>9,090.29</td>
-			<td>-37.73</td>
-			<td>-0.42%</td>
+	
 		</tr>
 		
 		<tr>
 			<td><div class="level3">ทุนสวทช.</div></td>
 			<td>	2,694.79	</td>
 			<td>2,929.12</td>
-			<td>-234.33</td>
+			
 			<td>-8.00%</td>
 			<td>2,599.21</td>
-			<td>95.58</td>
-			<td>3.68%</td>
+
 		</tr>
 		<tr>
 			<td><div class="level3">  บัญชีเดินสะพัด</td>
 			<td>	2,694.79	</td>
 			<td>2,929.12</td>
-			<td>-234.33</td>
+		
 			<td>-8.00%</td>
 			<td>2,599.21</td>
-			<td>95.58</td>
-			<td>3.68%</td>
+	
 		</tr>
 		<tr>
 			<td><div class="level3"> รายได้สูง(ต่ำ)กว่าค่าใช้จ่ายสะสมต้นงวด</td>
 			<td>	2,694.79	</td>
 			<td>2,929.12</td>
-			<td>-234.33</td>
+			
 			<td>-8.00%</td>
 			<td>2,599.21</td>
-			<td>95.58</td>
-			<td>3.68%</td>
+	
 		</tr>
 		<tr>
 			<td><div class="level3"> บวก รายได้สูง(ต่ำ)กว่าค่าใช้จ่าย</td>
 			<td>	2,694.79	</td>
 			<td>2,929.12</td>
-			<td>-234.33</td>
+			
 			<td>-8.00%</td>
 			<td>2,599.21</td>
-			<td>95.58</td>
-			<td>3.68%</td>
+	
 		</tr>
 		<tr>
 			<td><div class="level3"> รายได้สูง(ต่ำ)กว่าค่าใช้จ่ายสะสมปลายงวด</td>
 			<td>	2,694.79	</td>
 			<td>2,929.12</td>
-			<td>-234.33</td>
+			
 			<td>-8.00%</td>
 			<td>2,599.21</td>
-			<td>95.58</td>
-			<td>3.68%</td>
+	
 		</tr>
 		
 		 
@@ -853,20 +906,20 @@ function onSeriesClick1(e) {
 			<td></td>
 			<td></td>
 			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+		
 		</tr>
 	</tfoot>
 </table>
 			</div>
 			<div id="column2">
 				<div id="contentL">	<div id="pie1"></div></div>
+				
 			</div>
 	</div>
 </div>
 	<!-- boxB	 Start-->
 	<div id="boxB">
+		<span style="text-align:right; display:none" id="explan">หน่วย : ล้านบาท</span>
 			<div id="chart" ></div>
 	</div>
 	<br style="clear:both">
