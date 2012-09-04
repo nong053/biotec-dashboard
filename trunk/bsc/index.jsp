@@ -417,15 +417,19 @@
 					/*### Manage Tootip Range Start ###*/
 					  
 				$(".ball#ballRed").tooltip({
-							txt:"< 50 แดง",
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
 							color:"black"
 							});
 				$(".ball#ballYellow").tooltip({
-							txt:"ตั้งแต่ 50 ถึง 80 เหลือง",
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
 							color:"black"
 							});
 				$(".ball#ballGreen").tooltip({
-							txt:"> 80 เขียว",
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
+							color:"black"
+							});
+				$(".ball#ballGray").tooltip({
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
 							color:"black"
 							});
 					/*### Manage Tootip Range Stop ###*/
@@ -469,15 +473,19 @@
 					/*### Manage Tootip Range Start ###*/
 					  
 				$(".ball#ballRed").tooltip({
-							txt:"< 50 แดง",
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
 							color:"black"
 							});
 				$(".ball#ballYellow").tooltip({
-							txt:"ตั้งแต่ 50 ถึง 80 เหลือง",
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
 							color:"black"
 							});
 				$(".ball#ballGreen").tooltip({
-							txt:"> 80 เขียว",
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
+							color:"black"
+							});
+				$(".ball#ballGray").tooltip({
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
 							color:"black"
 							});
 					/*### Manage Tootip Range Stop ###*/
@@ -518,15 +526,19 @@
 					/*### Manage Tootip Range Start ###*/
 					  
 				$(".ball#ballRed").tooltip({
-							txt:"< 50 แดง",
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
 							color:"black"
 							});
 				$(".ball#ballYellow").tooltip({
-							txt:"ตั้งแต่ 50 ถึง 80 เหลือง",
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
 							color:"black"
 							});
 				$(".ball#ballGreen").tooltip({
-							txt:"> 80 เขียว",
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
+							color:"black"
+							});
+				$(".ball#ballGray").tooltip({
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
 							color:"black"
 							});
 					/*### Manage Tootip Range Stop ###*/
@@ -565,15 +577,19 @@
 					/*### Manage Tootip Range Start ###*/
 					  
 				$(".ball#ballRed").tooltip({
-							txt:"< 50 แดง",
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
 							color:"black"
 							});
 				$(".ball#ballYellow").tooltip({
-							txt:"ตั้งแต่ 50 ถึง 80 เหลือง",
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
 							color:"black"
 							});
 				$(".ball#ballGreen").tooltip({
-							txt:"> 80 เขียว",
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
+							color:"black"
+							});
+				$(".ball#ballGray").tooltip({
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
 							color:"black"
 							});
 					/*### Manage Tootip Range Stop ###*/
@@ -612,15 +628,19 @@
 					/*### Manage Tootip Range Start ###*/
 					  
 				$(".ball#ballRed").tooltip({
-							txt:"< 50 แดง",
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
 							color:"black"
 							});
 				$(".ball#ballYellow").tooltip({
-							txt:"ตั้งแต่ 50 ถึง 80 เหลือง",
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
 							color:"black"
 							});
 				$(".ball#ballGreen").tooltip({
-							txt:"> 80 เขียว",
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
+							color:"black"
+							});
+				$(".ball#ballGray").tooltip({
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
 							color:"black"
 							});
 					/*### Manage Tootip Range Stop ###*/
@@ -660,15 +680,19 @@
 					/*### Manage Tootip Range Start ###*/
 					  
 				$(".ball#ballRed").tooltip({
-							txt:"< 50 แดง",
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
 							color:"black"
 							});
 				$(".ball#ballYellow").tooltip({
-							txt:"ตั้งแต่ 50 ถึง 80 เหลือง",
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
 							color:"black"
 							});
 				$(".ball#ballGreen").tooltip({
-							txt:"> 80 เขียว",
+							txt:"แดง < 50 เหลือง 50-80 เขียว > 80",
+							color:"black"
+							});
+				$(".ball#ballGray").tooltip({
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
 							color:"black"
 							});
 					/*### Manage Tootip Range Stop ###*/
@@ -709,15 +733,19 @@
 					/*### Manage Tootip Range Start ###*/
 					  
 				$(".ball#ballRed").tooltip({
-							txt:"< 50 แดง",
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
 							color:"black"
 							});
 				$(".ball#ballYellow").tooltip({
-							txt:"ตั้งแต่ 50 ถึง 80 เหลือง",
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
 							color:"black"
 							});
 				$(".ball#ballGreen").tooltip({
-							txt:"> 80 เขียว",
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
+							color:"black"
+							});
+				$(".ball#ballGray").tooltip({
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
 							color:"black"
 							});
 					/*### Manage Tootip Range Stop ###*/
@@ -758,15 +786,19 @@
 					/*### Manage Tootip Range Start ###*/
 					  
 				$(".ball#ballRed").tooltip({
-							txt:"< 50 แดง",
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
 							color:"black"
 							});
 				$(".ball#ballYellow").tooltip({
-							txt:"ตั้งแต่ 50 ถึง 80 เหลือง",
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
 							color:"black"
 							});
 				$(".ball#ballGreen").tooltip({
-							txt:"> 80 เขียว",
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
+							color:"black"
+							});
+				$(".ball#ballGray").tooltip({
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
 							color:"black"
 							});
 					/*### Manage Tootip Range Stop ###*/
@@ -808,17 +840,22 @@
 						/*### Manage Tootip Range Start ###*/
 					  
 				$(".ball#ballRed").tooltip({
-							txt:"< 50 แดง",
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
 							color:"black"
 							});
 				$(".ball#ballYellow").tooltip({
-							txt:"ตั้งแต่ 50 ถึง 80 เหลือง",
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
 							color:"black"
 							});
 				$(".ball#ballGreen").tooltip({
-							txt:"> 80 เขียว",
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
 							color:"black"
 							});
+				$(".ball#ballGray").tooltip({
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
+							color:"black"
+							});
+							
 					/*### Manage Tootip Range Stop ###*/
 						}
 					});

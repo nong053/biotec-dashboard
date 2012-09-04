@@ -279,7 +279,7 @@ var $titleJ2 =[
                       Field5: "<div id='textR'>25</div>",
 					  Field5_1:"4,500 (ล้านบาท)",
 					
-					  Field6: " <div id='textR'>0.44<div>",
+					  Field6: " <div id='textR'>0.44  <br>2,000 <br>ล้านบาท<div>",
                       Field7: "<center><div id='target'><div id='percentage'>40%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></center> ",
 					 Field7_1:"<div id='textR'>10.10</div>",
 					 
@@ -298,7 +298,7 @@ var $titleJ2 =[
                       Field5: " <div id='textR'>25</div>",
 					  Field5_1:"9,290(ล้านบาท)",
 					
-					  Field6: "<div id='textR'>0.58</div>",
+					  Field6: "<div id='textR'>0.58  <br>3,000 <br>ล้านบาท</div>",
                       Field7: " <center><div id='target'><div id='percentage'>24%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></center> ",
 					  Field7_1:"<div id='textR'>6.05</div>",
 					 
