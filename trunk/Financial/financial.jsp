@@ -576,11 +576,7 @@ function tootipFormat(value,summ){
 				<li ><a href="#content3">งบรายได้ค่าใช้จ่าย</a></li>
 				<li ><a href="#content2">งบดุลแยกศูนย์</a></li>
 				<li ><a href="#content4">งบรายได้ค่าใช้จ่ายแยกศูนย์</a></li>
-			
-
 			</ul>
-		
-
 			<div id="content1">content1</div>
 			<div id="content3">content3</div>
 			<div id="content2">content2</div>
@@ -588,10 +584,6 @@ function tootipFormat(value,summ){
 	
 <br style="clear:both" />
 		</div>
-		
-		
-		
-
 
 <!-- TAB MANAGEMENT END -->
 

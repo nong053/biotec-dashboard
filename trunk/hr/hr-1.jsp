@@ -1090,7 +1090,7 @@ function templateFormat3(value,summ) {
 				<div class="box">
 						<div id="head">
 							<div class="title">
-							พนักงานตามหน่วยงาน
+							สัดส่วนพนักงานแยกตามศูนย์
 							</div>
 						</div>
 						<div id="body">

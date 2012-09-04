@@ -148,6 +148,10 @@
 		V_Org +="<option value=\"MTEC\">ศว.</option>";
 		V_Org +="<option value=\"NECTEC\">ศจ.</option>";
 		V_Org +="<option value=\"NANOTEC\">ศน.</option>";
+		V_Org +="<option value=\"NANOTEC\">สวทช.</option>";
+		V_Org +="<option value=\"NANOTEC\">ทุนประเดิม</option>";
+		 
+		
 
 
 		/*------------------- End Organization Parameter -------------------*/
@@ -186,10 +190,17 @@ var setHeader= function(){
 	//Set and Config Parameter Now!
 	$(".k-header").css({"padding":"2px"})
 	
+	
+}
+
+var setHeaderDateYear = function(){
+	$(".k-grid-header-wrap table thead ").prepend("<tr><th></th><th style='border-bottom:1px solid white; border-left:1px solid white; color:white;'>รายการ</th><th colspan='3' style='border-bottom:1px solid white; border-left:1px solid white; color:white;'>ปีนี้</th><th style='border-bottom:1px solid white; border-left:1px solid white; color:white;'>ปีที่แล้ว</th></tr>");
+
 }
 //#######################Menagement Tab End #######################
 
 var lineChart1 = function(){
+			
 			$("#chart").kendoChart({
 			theme:$(document).data("kendoSkin") || "metro",
 			chartArea:{
@@ -243,8 +254,10 @@ var lineChart1 = function(){
 			axisCrossingValue: [0,100]
 			}
 		});
+		
 }//function line chart end
 var lineChart2 = function(){
+			
 			$("#chart").kendoChart({
 			theme:$(document).data("kendoSkin") || "metro",
 			chartArea:{
@@ -298,6 +311,7 @@ var lineChart2 = function(){
 			axisCrossingValue: [0,100]
 			}
 		});
+
 }//function line chart end
 
 
@@ -312,9 +326,10 @@ return false;
 	var $category = e.category;
 	var $subCategory  = $category.substring(0,2);
 	if($subCategory=="01"){
+
 	lineChart1();
 	$("#boxB").dialog({
-	title:"",
+	title:"รายได้ค่าใช้จ่าย",
 	width:600,
 	buttons:{
 		"OK":function(){
@@ -329,7 +344,9 @@ return false;
 
 	}else{
 	lineChart2();
+	
 	$("#boxB").dialog({
+	title:"รายได้ค่าใช้จ่าย",
 	width:600,
 	buttons:{
 		"OK":function(){
@@ -344,10 +361,10 @@ return false;
 	});
 
 	}
+
 }
 /*### Financial Pie Chart Start###*/
 	var pieChart3= function(){
-
 		$("#chart2").kendoChart({
 			theme:$(document).data("kendoSkin") || "metro",
 			chartArea:{
@@ -355,7 +372,7 @@ return false;
 			height:300
 			},
 			title: {
-				 text: ""
+				 text: "สัดส่วนงบรายได้ค่าใช้จ่าย"
 			},
 			legend: {
                             position: "bottom"
@@ -511,6 +528,8 @@ return false;
 		setFont();
 		setHeader();
 
+	setHeaderDateYear();
+
 
 		
 		
@@ -634,9 +653,9 @@ function tootipFormat(value,summ){
 
 		<div id="tabs">
 			<ul>
-				<li ><a href="#content1">งบดุล</a></li>
+				<li ><a href="#content1">งบแสดงฐานะการเงิน</a></li>
 				<li ><a href="#content3">งบรายได้ค่าใช้จ่าย</a></li>
-				<li ><a href="#content2">งบดุลแยกศูนย์</a></li>
+				<li ><a href="#content2">งบแสดงฐานะการเงินแยกศูนย์</a></li>
 				<li ><a href="#content4">งบรายได้ค่าใช้จ่ายแยกศูนย์</a></li>
 			
 
