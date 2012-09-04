@@ -1,5 +1,4 @@
 
-
 <% 
 
 String ParamYear  = request.getParameter("ParamYear");
@@ -33,12 +32,14 @@ String titleStr = "";
 	#target #percentage{
 /*	float:left;*/
 	width:70px;
+	padding:0px;
 	}
 	#target #score{
 	/*float:right;*/
-	width:auto;
+	width:70px;
 	display:block;
-	padding:5px;
+	padding:0px;
+	text-align:center;
 	}
 	.content{
 	width:100%
@@ -104,9 +105,9 @@ font-size:14px;
 	<script type="text/javascript">
 	$(document).ready(function(){
 
-	var ballRed  = "<div id='ballRed' class='ball' style='background-color:#e51e25; color:white;width:17px;height:17px; border-radius:100px; float:left;'>1</div>";
-	var ballYellow  = "<div id='ballYellow' class='ball' style='background-color:yellow; color:white;width:17px;height:17px;float:left;border-radius:100px; border:1px solid #cccccc;'>2</div>";
-	var ballGreen  = "<div id='ballGreen' class='ball' style='background-color:#8fbc01; color:white;width:17px;height:17px; float:left; border-radius:100px;border:1px solid #cccccc;'>3</div>";
+	var ballRed  = "<div id='ballRed' class='ball' style='background-color:#e51e25; color:white;width:17px;height:17px; border-radius:100px; float:left;'></div>";
+	var ballYellow  = "<div id='ballYellow' class='ball' style='background-color:yellow; color:white;width:17px;height:17px;float:left;border-radius:100px; border:1px solid #cccccc;'></div>";
+	var ballGreen  = "<div id='ballGreen' class='ball' style='background-color:#8fbc01; color:white;width:17px;height:17px; float:left; border-radius:100px;border:1px solid #cccccc;'></div>";
 	var ballGray  = "<div id='ballGray' class='ball' style='background-color:#cccccc; width:17px;height:17px;border-radius:100px; float:left;'></div>";
 
 	
@@ -256,8 +257,8 @@ var $titleJ2 =[
                       Field5: "<div id='textR'>25</div>",
 					  Field5_1:"4,500 (ล้านบาท)",
 				
-					  Field6: " <div id='textR'>0.44<div>",
-                      Field7: "<center><div id='target'> <div id='score'>"+ballRed+""+ballGray+""+ballGray+" 40%</div></div></center> "
+					  Field6: " <div id='textR'>0.44 <br>2,000<br> ล้านบาท<div>",
+                      Field7: "<center><div id='target'><div id='percentage'>40%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+" </div></div></center> "
 				
                      
 					  
@@ -273,8 +274,8 @@ var $titleJ2 =[
                       Field5: " <div id='textR'>25</div>",
 					  Field5_1:"9290(ล้านบาท)",
 					 
-					  Field6: "<div id='textR'>0.58</div>",
-                      Field7: " <center><div id='target'> <div id='score'>"+ballRed+""+ballGray+""+ballGray+" 24%</div></div></center> "
+					  Field6: "<div id='textR'>0.58  <br>3,000<br> ล้านบาท</div>",
+                      Field7: " <center><div id='target'><div id='percentage'>24%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+" </div></div></center> "
 					
 				
 				  },
@@ -288,7 +289,7 @@ var $titleJ2 =[
 					  Field5_1:"1.07",
 				
 					  Field6: "<div id='textR'>1.13 <div>",
-                      Field7: "<center><div id='target'> <div id='score'>"+ballGray+""+ballGray+""+ballGreen+" 113%</div></div></center>"
+                      Field7: "<center><div id='target'><div id='percentage'>113%</div> <div id='score'>"+ballGray+""+ballGray+""+ballGreen+" </div></div></center>"
 				
                   },
                   {
@@ -301,7 +302,7 @@ var $titleJ2 =[
 					  Field5_1:"36",
 	
 					  Field6: "<div id='textR'>4.3<div> ",
-                      Field7: "<center><div id='target'> <div id='score'>"+ballRed+""+ballGray+""+ballGray+" 11%</div></div></center> "
+                      Field7: "<center><div id='target'><div id='percentage'>11%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+" </div></div></center> "
 					
                   },
                   {
@@ -314,7 +315,7 @@ var $titleJ2 =[
 					  Field5_1:"20",
 			
 					  Field6: "<div id='textR'>5<div>",
-                      Field7: " <center><div id='target'><div id='score'>"+ballRed+""+ballGray+""+ballGray+" 25%</div></div></cener>"
+                      Field7: " <center><div id='target'><div id='percentage'>25%</div><div id='score'>"+ballRed+""+ballGray+""+ballGray+" </div></div></cener>"
                   },
                   {
                       Field1: "LG ",
@@ -326,7 +327,7 @@ var $titleJ2 =[
 					  Field5_1:"-",
 		
 					  Field6: "<div id='textR'>36<div>",
-                      Field7: " <center><div id='target'><div id='score'>"+ballRed+""+ballGray+""+ballGray+"36%</div></div></cener>"
+                      Field7: " <center><div id='target'><div id='percentage'>36%</div><div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></cener>"
 				
                   }
 				  
@@ -609,12 +610,12 @@ $(".k-grid-pager").append("<span style='float:right; padding-right:210px;'><b>% 
 		  <th  data-field="Field2"><center>ตัวชี้วัด</center></th>
 		 
 		  <th data-field="Field3"><center>เป้าหมาย</center></th>
-		  <th data-field="Field4"><center>หน่วยวัด</center></th>
+		  <th data-field="Field4"><center>หน่วยนับ</center></th>
 		  <th data-field="Field5"><center>น้ำหนัก</center></th>
-		  <th data-field="Field5_1"><center>Baseline</center></th>
+		  <th data-field="Field5_1"><center>ข้อมูลฐาน</center></th>
 		
-		  <th data-field="Field6"><center>ผลสะสม</center></th>
-		  <th data-field="Field7"><center>%เทียบแผน</center></th>
+		  <th data-field="Field6"><center>ผลงานสะสม</center></th>
+		  <th data-field="Field7"><center>%เทียบเป้าหมาย</center></th>
 	
 
         
