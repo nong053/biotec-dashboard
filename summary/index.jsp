@@ -16,12 +16,13 @@
 		<link href="../styles/kendo.default.min.css" rel="stylesheet">
 		<link href="../jqueryUI/css/cupertino/jquery-ui-1.8.21.custom.css" rel="stylesheet">
 		 <link href="../styles/kendo.dataviz.min.css" rel="stylesheet">
+		  <link href="../plugin/tooltip.css" rel="stylesheet">
 
 		 <!-- corner round-->
 
 		 <link rel="stylesheet" type="text/css" href="css/niftyCorners.css">
 		<link rel="stylesheet" type="text/css" href="css/niftyPrint.css" media="print">
-		<script type="text/javascript" src="js/nifty.js"></script> 
+		
 
 		 <!-- corner round-->
 		
@@ -36,6 +37,8 @@
 		  <script type="text/javascript" src="../js/jquery.sparkline.min.js"></script> 
 		<script type="text/javascript" src="../jqueryUI/js/jquery-ui-1.8.21.custom.min.js"></script>
 	<script src="../js/console.js"></script>
+	<script type="text/javascript" src="js/nifty.js"></script> 
+		<script type="text/javascript" src="../plugin/jquery.tooltip.js"></script>
 	
 	 
 
@@ -151,7 +154,6 @@
 			<style scoped>
 				#Main-Panel{
 					/*font-family: Arial, Helvetica, sans-serif;*/
-		
 					padding-left: 5px;
 					border: 1px solid #dedede;
 					font-weight:bold;
@@ -360,6 +362,26 @@
 			}
 		});
 		//#######################Graph Program End#######################
+		/*### Manage Tootip Range Start ###*/
+					  
+				$(".ball#ballRed").tooltip({
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
+							color:"black"
+							});
+				$(".ball#ballYellow").tooltip({
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
+							color:"black"
+							});
+				$(".ball#ballGreen").tooltip({
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
+							color:"black"
+							});
+				$(".ball#ballGray").tooltip({
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
+							color:"black"
+							});
+							
+					/*### Manage Tootip Range Stop ###*/
 
 	});
 
@@ -394,8 +416,6 @@
 					pointer: {
                             value: 65
                         },
-					
-
                         scale: {
 							
                             minorUnit: 10,
@@ -585,10 +605,6 @@ var summ=900;
 	
 			
 		});
-
-
-		
-		
 }
 pieCharhr();
 
@@ -603,8 +619,7 @@ var summ=900;
 			name:"9",
 			plotArea:{
 						background:""
-						
-						
+
 			},
 			legend: {
                             position: "right",
@@ -637,7 +652,7 @@ var summ=900;
 						 template: "#= templateFormat(value,900) #"
 
                         },
-			
+
 			seriesDefaults: {
 				labels: {
 					visible: false,
@@ -646,8 +661,6 @@ var summ=900;
 			},
 			//seriesHover:onSeriesHover,
 			seriesClick:onSeriesClick
-	
-			
 		});
 
 
@@ -896,6 +909,26 @@ barChartBudget();
 							txt:"Key Performance Indicator Key Performance Indicator",
 							color:"black"
 							});
+
+							/*### Manage Tootip Range Start ###*/
+					  
+				$(".ball#ballRed").tooltip({
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
+							color:"black"
+							});
+				$(".ball#ballYellow").tooltip({
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
+							color:"black"
+							});
+				$(".ball#ballGreen").tooltip({
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
+							color:"black"
+							});
+				$(".ball#ballGray").tooltip({
+							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
+							color:"black"
+							});
+					/*### Manage Tootip Range Stop ###*/
 						}						
 						});
 				return false;
@@ -940,7 +973,6 @@ function templateFormat(value,summ) {
 		<div id="tooltip"></div>
 		<div class="content" style="width:970px; margin:auto;">
 			<div id="row1">
-					
 						<div id="boxL">
 
 							<!-- ### BSC Dashboard Start ###-->

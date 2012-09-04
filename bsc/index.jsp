@@ -17,7 +17,7 @@
 		 <link href="../plugin/tooltip.css" rel="stylesheet">
 
 
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>      
+		<script src="../js/jquery.min.js"></script>  
         <!--<script src="../js/jquery.min.js" type="text/javascript"></script>-->
 		<script type="text/javascript" src="../plugin/jquery.tooltip.js"></script>
 		<script type="text/javascript" src="js/jquery.corner.js"></script>
