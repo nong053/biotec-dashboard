@@ -1,3 +1,27 @@
+<%@page import="java.sql.*" %> 
+<%@page import="java.io.*" %> 
+<%@page import="java.lang.*"%> 
+<%
+// Jsp  Server-side
+String connectionURL="jdbc:mysql://10.226.202.114:3306/biotec_dwh";
+String Driver = "com.mysql.jdbc.Driver";
+String User="root";
+String Pass="bioteccockpit";
+String Query="";
+Connection conn= null;
+Statement st;
+ResultSet rs;
+try{
+Class.forName(Driver).newInstance();
+conn=DriverManager.getConnection(connectionURL,User,Pass);
+	if(!conn.isClosed()){
+		out.print("hello jsp");
+	}
+}
+catch(Exception ex){
+out.println("Error"+ex);
+}
+%>
 
 <style>
 .content{
@@ -141,11 +165,12 @@ height:250px;
   left: -20px;
 }
 </style>
-
+<!--<% Integer a1 =1; %>-->
 <script type="text/javascript">
-
+//var aa = <%=a1%>;
+//alert("jquery"+<%=a1%>);
 $(document).ready(function(){
-//alert("jquery");
+
 //var $summ;//secret you must define varible is $ 
 /*###  pie1 start ###*/
 var pieChart1= function(){
@@ -238,13 +263,11 @@ var pieChart11= function(){
 			},
 			series: [{
                             type: "pie",
-			
                             data: [ {
                                 category: "สก.  ",
                                 value: 20,
 								//color: "#ff6103"
                             }, {
-				
                                 category: "ศช.",
                                 value: 20
                             }, {
