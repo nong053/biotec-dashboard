@@ -3,6 +3,99 @@
 <%@page import="java.sql.*" %> 
 <%@page import="java.io.*" %> 
 <%@page import="java.lang.*"%> 
+<%
+// Jsp  Server-side
+//Define Connection
+String connectionURL="jdbc:mysql://10.226.202.114:3306/biotec_dwh";
+String Driver = "com.mysql.jdbc.Driver";
+String User="root";
+String Pass="bioteccockpit";
+String Query="";
+//Define Connection
+
+//set variable
+String V_Year = ""; // Values of Parameter Organization
+String V_Month = ""; // Values of Parameter Sales Region
+String V_Org = ""; // Values of Parameter Branch
+//set variable
+
+Connection conn= null;
+Statement st;
+ResultSet rs;
+
+
+//Query Handler Organization start
+try{
+Class.forName(Driver).newInstance();
+conn=DriverManager.getConnection(connectionURL,User,Pass);
+	if(!conn.isClosed()){
+	//insert code allow function start
+	st = conn.createStatement();
+		Query="CALL sp_center();";
+		rs = st.executeQuery(Query);
+		
+		while(rs.next()){
+		//out.println(rs.getString("center_name"));
+		V_Org+="<option>"+rs.getString("center_name")+"</option>";
+		}
+	//insert code allow function end
+		conn.close();
+	}
+}
+catch(Exception ex){
+out.println("Error"+ex);
+}
+//Query Handler Organization end
+
+//Query Handler Year start
+try{
+Class.forName(Driver).newInstance();
+conn=DriverManager.getConnection(connectionURL,User,Pass);
+	if(!conn.isClosed()){
+	//insert code allow function start
+	st = conn.createStatement();
+		Query="CALL sp_fiscal_year();";
+		rs = st.executeQuery(Query);
+		
+		while(rs.next()){
+		//out.println(rs.getString("center_name"));
+		V_Year+="<option value="+rs.getString("fiscal_year")+">"+rs.getString("buddhist_era_year")+"</option>";
+		}
+	//insert code allow function end
+		conn.close();
+	}
+}
+catch(Exception ex){
+out.println("Error"+ex);
+}
+//Query Handler Year end
+
+
+//Query Handler Month start
+try{
+Class.forName(Driver).newInstance();
+conn=DriverManager.getConnection(connectionURL,User,Pass);
+	if(!conn.isClosed()){
+	//insert code allow function start
+	st = conn.createStatement();
+		Query="CALL sp_fiscal_month();";
+		rs = st.executeQuery(Query);
+		
+		while(rs.next()){
+		//out.println(rs.getString("center_name"));
+		V_Month+="<option value="+rs.getString("fiscal_month_no")+">"+rs.getString("calendar_th_month_name")+"</option>";
+		}
+	//insert code allow function end
+		conn.close();
+	}
+}
+catch(Exception ex){
+out.println("Error"+ex);
+}
+//Query Handler Month end
+
+
+%>
 <html>
     <head>
         <title>HR Dashboard</title>
@@ -89,74 +182,10 @@
 			</style>
 
 
-	<%
-		/*------------------- Set Connection -------------------*/
-		String connectionURL = "jdbc:mysql://localhost:3306/mysql"; 
-		String driver = "com.mysql.jdbc.Driver";
-		String userName = "root"; 
-		String password = "root";
-		String query = "";
-		Connection conn = null; 
-		Statement st;
-		ResultSet rs;
-		/*------------------- End Set Connection -------------------*/
-
-		/*------------------- Set Variable -------------------*/
-
-		String ParamYear = "";
-		String ParamMonth = "";
-		String ParamOrg = "";
-
-		String V_Year = ""; // Values of Parameter Organization
-		String V_Month = ""; // Values of Parameter Sales Region
-		String V_Org = ""; // Values of Parameter Branch
-
-		/*------------------- End Set Variable -------------------*/
-
-		/*------------------- Parameter Year -------------------*/
-
-		V_Year += "<option value=\"2012\" selected='selected'>2555</option>";
-		V_Year += "<option value=\"2011\" >2554</option>";
-		V_Year += "<option value=\"2010\">2553</option>";
-		V_Year += "<option value=\"2009\">2552</option>";
-		
-		/*------------------- End Parameter Year -------------------*/
-
-		/*------------------- Parameter Month -------------------*/
-
-		
-		V_Month += "<option value=\"10\" selected='selected' >ตุลาคม </option>";
-		V_Month += "<option value=\"11\">พฤศจิกายน </option>";
-		V_Month += "<option value=\"12\">ธันวาคม</option>";
-		V_Month += "<option value=\"1\">มกราคม </option>";
-		V_Month += "<option value=\"2\">กุมภาพันธ์ </option>";
-		V_Month += "<option value=\"3\">มีนาคม </option>";
-		V_Month += "<option value=\"4\">เมษายน </option>";
-		V_Month += "<option value=\"5\">พฤษภาคม </option>";
-		V_Month += "<option value=\"6\">มิถุนายน </option>";
-		V_Month += "<option value=\"7\">กรกฎาคม </option>";
-		V_Month += "<option value=\"8\">สิงหาคม </option>";
-		V_Month += "<option value=\"9\">กันยายน </option>";
-
-		/*------------------- End Parameter Month -------------------*/
-		/*------------------- Organization Parameter -------------------*/
-
-
-		
-		V_Org +="<option value=\"NSTDA\">สวทช.</option>";
-		V_Org +="<option value=\"NSTDA\">สก.</option>";
-		V_Org +="<option value=\"BIOTEC\">ศช. </option>";
-		V_Org +="<option value=\"MTEC\">ศว.</option>";
-		V_Org +="<option value=\"NECTEC\">ศจ.</option>";
-		V_Org +="<option value=\"NANOTEC\">ศน.</option>";
-
-
-		/*------------------- End Organization Parameter -------------------*/
-
-	%>
+	
 
 	<script type="text/javascript">
-			   /*#### Tab search above top start ###*/
+		/*#### Tab search above top start ###*/
 	$(document).ready(function(){
 	  $("#ParamYear").kendoDropDownList();
 
@@ -171,7 +200,7 @@
 	/*### Function Ajax Management Start###*/
 	var includeHr_1 = function(){
 		$.ajax({
-		url:'hr-1.jsp',
+		url:'hr.jsp',
 		type:'get',
 		dataType:'html',
 		success:function(data){
@@ -192,7 +221,6 @@
 		}
 	});
 	} 
-
 	$("a[href=#content1]").click(function(){
 		$("#content1").empty();
 		$("#content2").empty();
@@ -207,36 +235,35 @@
 		includeNpr_2();
 
 	});
-	
-	
 
-	
 	/*### Function Ajax Management End###*/
 		
 		$("form#form_1").submit(function(){
-			
+			//delete all area content
 			$("#content1").empty();
 			$("#content2").empty();
-			/*
-			$.ajax({
-				'url':'hr-1.jsp',
-				'type':'get',
-				'dataType':'html',
-				success:function(data){
-				$(".contentMain").append(data);
-				}
-			});
+			
+			$("#contentMain").show();
+			$("#tabHr").tabs();
+			$(".ui-tabs-panel").css("padding","0px");
+			
+				console.log($("#ParamMonth").val());
+				console.log($("#ParamYear").val());
+				console.log($("#ParamOrg").val());
 
-		*/
-		$("#contentMain").show();
-		$("#tabHr").tabs();
-		$(".ui-tabs-panel").css("padding","0px");
-		includeHr_1();
-		
-		
-
-
-			return false;
+				$.ajax({
+					url:'hr.jsp',
+					type:'get',
+					dataType:'html',
+					data:{"ParamMonth":$("#ParamMonth").val(),"ParamYear":$("#ParamYear").val(),"ParamOrg":$("#ParamOrg").val()},
+					success:function(data){
+						$("#content1").append(data);
+					}
+					
+				});
+			
+			//includeHr_1();
+				return false;
 		});
 
 	/*### jQuery Funtions End ###*/
@@ -265,9 +292,7 @@
 
 
 
-	<!--------------------------- HEADER --------------------------->
 
-<!--<h2><center><font color="black">HR Dashboard</font></center></h2>-->
 
 	<div align="center">
 		<div id="Main-Panel" class="k-content">
@@ -276,19 +301,19 @@
 				<table width=100%>
 				<tr>
 					<td><label for="ParamYear">ปีงบประมาณ :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-					<select name="ParamYear" id="ParamYear" onChange="getParamYear(this.value);">
+					<select name="ParamYear" id="ParamYear" >
 						<%out.print(V_Year);%>
 					</select>
 					</td>
 
 					<td><label for="ParamMonth">เดือน :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-					<select name="ParamMonth" id="ParamMonth" onChange="getParamMonth(this.value);">
+					<select name="ParamMonth" id="ParamMonth">
 						<%out.print(V_Month);%>
 					</select>
 					</td>
 
 					<td><label for="ParamOrg">ศูนย์ :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-					<select name="ParamOrg" id="ParamOrg" onChange="getParamOrg(this.value);">
+					<select name="ParamOrg" id="ParamOrg">
 						<%out.print(V_Org);%>
 					</select>
 					</td>
@@ -300,8 +325,7 @@
 				</tr>
 				</table>
 				</form>
-		
-		
+
 		</div>
 	
 	</div>
@@ -319,19 +343,11 @@
 				</ul>
 				<div id="content1"></div>
 				<div id="content2"></div>
-
 			</div>
 <!--### Management HR TAB ###-->
-
 <!-- TAB MANAGEMENT END -->
-
 	</div>
 	<div id="loading" ></div>
-
-
-
-
 	<!--------------------------- Details End--------------------------->
-
 	</body>
 </html>
