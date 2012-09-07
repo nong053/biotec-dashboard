@@ -1,18 +1,26 @@
 <%@page contentType="text/html" pageEncoding="utf-8"%>
+<!--<meta http-equiv="Content-type" content="text/html; charset=utf-8">-->
 <%@page import="java.sql.*" %> 
 <%@page import="java.io.*" %> 
 <%@page import="java.lang.*"%> 
-
 <%
 String ParamMonth = request.getParameter("ParamMonth");
 String ParamYear = request.getParameter("ParamYear");
 String ParamOrg = request.getParameter("ParamOrg");
 String Param_sp_center = "";
-
+/*
 out.print("ParamMonth"+ParamMonth);
 out.print("ParamYear"+ParamYear);
 out.print("ParamOrg"+ParamOrg);
-
+*/
+/*
+-- biotec_dwh --
+Type: MYSQL
+Server: 10.226.202.114
+database: biotec_dwh
+user: root
+pass: bioteccockpit
+*/
 // Jsp  Server-side
 String connectionURL="jdbc:mysql://10.226.202.114:3306/biotec_dwh";
 String Driver = "com.mysql.jdbc.Driver";
@@ -20,41 +28,278 @@ String User="root";
 String Pass="bioteccockpit";
 String Query="";
 String center_name="";
-
-String total_employee1="";
-String center_th_shortname1="";
-
 Connection conn= null;
+
+
+
 Statement st;
 ResultSet rs;
+
+String sp_emp_by_center="";
+
+String sum_total_employee="";
+String shortname="";
 
 try{
 Class.forName(Driver).newInstance();
 conn=DriverManager.getConnection(connectionURL,User,Pass);
 	if(!conn.isClosed()){
 		st = conn.createStatement();
-		Query="CALL sp_emp_by_center(2012,11);";
+		Query="CALL sp_emp_by_center("+ParamYear+","+ParamMonth+");";
 		rs = st.executeQuery(Query);
-		
+		Integer i =1 ;
+		sp_emp_by_center+="[";
 		while(rs.next()){
-		//out.println(rs.getString("total_employee"));
-		//out.println(rs.getString("center_th_shortname"));
-		//total_employee1+=rs.getString("total_employee");
-
-		center_th_shortname1+="[";
-		center_th_shortname1+=rs.getString("center_th_shortname");
-		center_th_shortname1+="]";
-		//center_name+="<option>"+rs.getString("center_name")+"</option>";
-
+		//Format  [{category: "ศจ.",value: 10,color:"#6C2E9B" }]
+		if(i==1){
+		sp_emp_by_center+="{category:";
+	
+		sp_emp_by_center+= "\""+rs.getString("center_th_shortname") +"\"";
+		sp_emp_by_center+= ",value:"+rs.getString("total_employee") ;
+		sp_emp_by_center+="}";
+		}else{
+		sp_emp_by_center+=",{category:";
+	
+		sp_emp_by_center+= "\""+rs.getString("center_th_shortname") +"\"";
+		sp_emp_by_center+= ",value:"+rs.getString("total_employee");
+		sum_total_employee+=rs.getString("total_employee");
+		sp_emp_by_center+="}";
 		}
-		out.print(center_th_shortname1);
-
+		
+	i++;
+		}
+		sp_emp_by_center+="]";
+		//out.println(center_name);
+		out.println("sp_emp_by_center"+sp_emp_by_center);
+		
 		conn.close();
 	}
 }
 catch(Exception ex){
 out.println("Error"+ex);
 }
+
+
+//sp_emp_by_employ_type
+String sp_emp_by_employ_type ="";
+Integer j =1;
+try{
+	//out.println("---------------------------------------------"+i);
+Class.forName(Driver).newInstance();
+conn=DriverManager.getConnection(connectionURL,User,Pass);
+	if(!conn.isClosed()){
+		st = conn.createStatement();
+		Query="CALL sp_emp_by_employ_type("+ParamYear+","+ParamMonth+",'"+ParamOrg+"');";
+		
+
+		//Query="CALL sp_emp_by_employ_type(2012,11,'ศจ.');";
+		rs = st.executeQuery(Query);
+		sp_emp_by_employ_type+="[";
+		while(rs.next()){
+		//Format  [{category: "ศจ.",value: 10,color:"#6C2E9B" }]
+		
+		if(j==1){
+	
+		sp_emp_by_employ_type+="{category:";
+	
+		sp_emp_by_employ_type+= "\""+rs.getString("employ_type") +"\"";
+		sp_emp_by_employ_type+= ",value:"+rs.getString("total_employee") ;
+		sp_emp_by_employ_type+="}";
+		}else{
+		sp_emp_by_employ_type+=",{category:";
+	
+		sp_emp_by_employ_type+= "\""+rs.getString("employ_type") +"\"";
+		sp_emp_by_employ_type+= ",value:"+rs.getString("total_employee");
+		sp_emp_by_employ_type+="}";
+		}
+		
+	j++;
+		}
+		sp_emp_by_employ_type+="]";
+		//out.println(center_name);
+		out.println("sp_emp_by_employ_type"+sp_emp_by_employ_type);
+		conn.close();
+	}
+}
+catch(Exception ex){
+out.println("<font color='red'>Error</font>"+ex);
+}
+
+
+
+//sp_emp_by_education_level_group
+String sp_emp_by_education_level_group ="";
+try{
+	//out.println("---------------------------------------------"+i);
+Class.forName(Driver).newInstance();
+conn=DriverManager.getConnection(connectionURL,User,Pass);
+	if(!conn.isClosed()){
+		st = conn.createStatement();
+		Query="CALL sp_emp_by_education_level_group("+ParamYear+","+ParamMonth+",'"+ParamOrg+"');";
+		rs = st.executeQuery(Query);
+		sp_emp_by_education_level_group+="[";
+		Integer i =1;
+		while(rs.next()){
+		//Format  [{category: "ศจ.",value: 10,color:"#6C2E9B" }]
+	
+		if(i==1){
+	
+		sp_emp_by_education_level_group+="{category:";
+	
+		sp_emp_by_education_level_group+= "\""+rs.getString("education_level_group") +"\"";
+		sp_emp_by_education_level_group+= ",value:"+rs.getString("total_employee") ;
+		sp_emp_by_education_level_group+="}";
+		}else{
+		sp_emp_by_education_level_group+=",{category:";
+	
+		sp_emp_by_education_level_group+= "\""+rs.getString("education_level_group") +"\"";
+		sp_emp_by_education_level_group+= ",value:"+rs.getString("total_employee");
+		sp_emp_by_education_level_group+="}";
+		}
+		
+	i++;
+		}
+		sp_emp_by_education_level_group+="]";
+		out.println("-------------------------------------------------------");
+		out.println("sp_emp_by_education_level_group"+sp_emp_by_education_level_group);
+		conn.close();
+	}
+}
+catch(Exception ex){
+out.println("<font color='red'>Error sp_emp_by_education_level_group</font>"+ex);
+}
+
+
+//############################  sp_emp_by_job_family  Start ############################ //
+String sp_emp_by_job_family ="";
+try{
+	//out.println("---------------------------------------------"+i);
+Class.forName(Driver).newInstance();
+conn=DriverManager.getConnection(connectionURL,User,Pass);
+	if(!conn.isClosed()){
+		st = conn.createStatement();
+		Query="CALL sp_emp_by_job_family("+ParamYear+","+ParamMonth+",'"+ParamOrg+"');";
+		rs = st.executeQuery(Query);
+		sp_emp_by_job_family+="[";
+		Integer i =1;
+		while(rs.next()){
+		//Format  [{category: "ศจ.",value: 10,color:"#6C2E9B" }]
+		if(i==1){
+	
+		sp_emp_by_job_family+="{category:";
+	
+		sp_emp_by_job_family+= "\""+rs.getString("job_family") +"\"";
+		sp_emp_by_job_family+= ",value:"+rs.getString("total_employee") ;
+		sp_emp_by_job_family+="}";
+		}else{
+		sp_emp_by_job_family+=",{category:";
+	
+		sp_emp_by_job_family+= "\""+rs.getString("job_family") +"\"";
+		sp_emp_by_job_family+= ",value:"+rs.getString("total_employee");
+		sp_emp_by_job_family+="}";
+		}
+		
+	i++;
+		}
+		sp_emp_by_job_family+="]";
+		out.println("-------------------------------------------------------");
+		out.println("sp_emp_by_job_family"+sp_emp_by_job_family);
+		conn.close();
+	}
+}
+catch(Exception ex){
+out.println("<font color='red'>Error sp_emp_by_job_family</font>"+ex);
+}
+//############################  sp_emp_by_job_family  End ############################ //
+
+
+//############################  sp_emp_by_function_type  Start ############################ //
+
+String sp_emp_by_function_type ="";
+try{
+	//out.println("---------------------------------------------"+i);
+Class.forName(Driver).newInstance();
+conn=DriverManager.getConnection(connectionURL,User,Pass);
+	if(!conn.isClosed()){
+		st = conn.createStatement();
+		Query="CALL sp_emp_by_function_type("+ParamYear+","+ParamMonth+",'"+ParamOrg+"');";
+		rs = st.executeQuery(Query);
+		sp_emp_by_function_type+="[";
+		Integer i =1;
+		while(rs.next()){
+		//Format  [{category: "ศจ.",value: 10,color:"#6C2E9B" }]
+		if(i==1){
+	
+		sp_emp_by_function_type+="{category:";
+	
+		sp_emp_by_function_type+= "\""+rs.getString("function_type") +"\"";
+		sp_emp_by_function_type+= ",value:"+rs.getString("total_employee") ;
+		sp_emp_by_function_type+="}";
+		}else{
+		sp_emp_by_function_type+=",{category:";
+	
+		sp_emp_by_function_type+= "\""+rs.getString("function_type") +"\"";
+		sp_emp_by_function_type+= ",value:"+rs.getString("total_employee");
+		sp_emp_by_function_type+="}";
+		}
+		
+	i++;
+		}
+		sp_emp_by_function_type+="]";
+		out.println("-------------------------------------------------------");
+		out.println("sp_emp_by_function_type"+sp_emp_by_function_type);
+		conn.close();
+	}
+}
+catch(Exception ex){
+out.println("<font color='red'>Error sp_emp_by_function_type</font>"+ex);
+}
+
+//############################  sp_emp_by_function_type  End ############################ //
+
+//############################  sp_hr_expense  Start ############################ //
+
+String sp_hr_expense ="";
+try{
+	//out.println("---------------------------------------------"+i);
+Class.forName(Driver).newInstance();
+conn=DriverManager.getConnection(connectionURL,User,Pass);
+	if(!conn.isClosed()){
+		st = conn.createStatement();
+		Query="CALL sp_hr_expense("+ParamYear+","+ParamMonth+",'"+ParamOrg+"');";
+		rs = st.executeQuery(Query);
+		sp_hr_expense+="[";
+		Integer i =1;
+		while(rs.next()){
+		//Format  [{category: "ศจ.",value: 10,color:"#6C2E9B" }]
+		if(i==1){
+	
+		sp_hr_expense+="{category:";
+	
+		sp_hr_expense+= "\""+rs.getString("hr_group_name") +"\"";
+		sp_hr_expense+= ",value:"+rs.getString("total_employee") ;
+		sp_hr_expense+="}";
+		}else{
+		sp_hr_expense+=",{category:";
+	
+		sp_hr_expense+= "\""+rs.getString("hr_group_name") +"\"";
+		sp_hr_expense+= ",value:"+rs.getString("total_employee");
+		sp_hr_expense+="}";
+		}
+		
+	i++;
+		}
+		sp_hr_expense+="]";
+		out.println("-------------------------------------------------------");
+		out.println("sp_hr_expense"+sp_hr_expense);
+		conn.close();
+	}
+}
+catch(Exception ex){
+out.println("<font color='red'>Error sp_hr_expense</font>"+ex);
+}
+
+//############################  sp_hr_expense  End ############################ //
 
 %>
 
@@ -205,12 +450,12 @@ height:250px;
 $(document).ready(function(){
 /*###  pie start ###*/
 
-var pieChart= function(id_param,data_param,text_palam,summ_param){
-	//var summ = summ_param; 
+var pieChart= function(id_param,data_param,summ_param){
+
 		$(id_param).kendoChart({
 		 theme: $(document).data("kendoSkin") || "metro",
 			title: {
-				 text:text_palam
+				 text:""
 			},
 			legend: {
                             position: "bottom"
@@ -222,12 +467,12 @@ var pieChart= function(id_param,data_param,text_palam,summ_param){
 			},
 			series: [{
                             type: "pie",
-                            data:[data_param]
+                            data:data_param
                         }],
                         tooltip: {
                             visible: true,
-                            //format: "{0}%"
-							template:"#= templateFormat(value,summ)#"
+                           // format: "{0}%"
+							template:"#= templateFormat(value,"+summ_param+")#"
 
                         },
 			
@@ -248,7 +493,14 @@ var pieChart= function(id_param,data_param,text_palam,summ_param){
 
 /* Using PieChart*/
 
-pieChart("#pie_emp_by_center",{ category: "ส2.",value: 20 },{ category: "ส3.",value: 20 },"","100");
+pieChart("#pie_emp_by_center",<%=sp_emp_by_center%>,900);
+pieChart("#pie_emp_by_employ_type",<%=sp_emp_by_employ_type%>,900);
+pieChart("#pie_emp_by_education_level_group",<%=sp_emp_by_education_level_group%>,900);
+pieChart("#pie_emp_by_job_family",<%=sp_emp_by_job_family%>,900);
+pieChart("#pie_emp_by_function_type",<%=sp_emp_by_function_type%>,900);
+pieChart("#pie_hr_expense",<%=sp_hr_expense%>,900);
+
+
 /* Using PieChart*/
 
 

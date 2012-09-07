@@ -33,10 +33,10 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 	st = conn.createStatement();
 		Query="CALL sp_center();";
 		rs = st.executeQuery(Query);
-		
+		 
 		while(rs.next()){
 		//out.println(rs.getString("center_name"));
-		V_Org+="<option>"+rs.getString("center_name")+"</option>";
+		V_Org+="<option value="+rs.getString("center_name")+">"+rs.getString("center_name")+"</option>";
 		}
 	//insert code allow function end
 		conn.close();
@@ -255,6 +255,7 @@ out.println("Error"+ex);
 					url:'hr.jsp',
 					type:'get',
 					dataType:'html',
+					//catch:false,
 					data:{"ParamMonth":$("#ParamMonth").val(),"ParamYear":$("#ParamYear").val(),"ParamOrg":$("#ParamOrg").val()},
 					success:function(data){
 						$("#content1").append(data);
