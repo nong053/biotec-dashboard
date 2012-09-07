@@ -12,6 +12,7 @@ Connection conn= null;
 Statement st;
 ResultSet rs;
 try{
+	
 Class.forName(Driver).newInstance();
 conn=DriverManager.getConnection(connectionURL,User,Pass);
 	if(!conn.isClosed()){
