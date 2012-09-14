@@ -1,4 +1,25 @@
 <%@page contentType="text/html" pageEncoding="utf-8"%><%@page import="java.sql.*"%><%@page import="java.io.*"%><%@page import="java.lang.*"%>
+<%! 
+    String getColorBall(int position,String color)
+    {
+		String ballScoll = "";
+               if(position==1){
+                       ballScoll+="<div id=ball1  class=ball style=background-color:"+color+"></div>";
+                       ballScoll+="<div id=ball2  class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id=ball3  class=ball style=background-color:#cccccc></div>";
+               }else if(position==2){
+                       ballScoll+="<div id=ball1  class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id=ball2  class=ball style=background-color:"+color+"></div>";
+                       ballScoll+="<div id=ball3  class=ball style=background-color:#cccccc></div>";
+               }else if(position==3){
+                       ballScoll+="<div id=ball1  class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id=ball2  class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id=ball3  class=ball style=background-color:"+color+"></div>";
+               }
+      return ballScoll;
+    }
+ %>
+
 
 <% /*
 	out.print("[{					  \"Field0\": \"2\",                      \"Field1\": \"Test\",                      \"Field3\": \"2\",					  \"Field4\": \"ล้านบาท\",                     \"Field5\": \"25\",					 \"Field5_1\":\"1,500 (ล้านบาท)\",					  					  \"Field6\": \"0.40\",                  \"Field7\": \"50\",	 \"Field7_1\": \"t\",	  \"Field9\": \"flsas\" }]"); */
@@ -84,16 +105,20 @@ while(rs.next()){
 	QueryColor="CALL sp_color_code(";
 	QueryColor += performance_percentage+")";
 	rs1 = st1.executeQuery(QueryColor);
+
+	tableFun2 += "Field7: \"";
+	tableFun2 += "<center><div id='target'><div id='percentage'>" + performance_percentage +"</div></div></center> ";
 	while(rs1.next())
 	{
-		tableFun2 += "";
+		int positionBall =  rs1.getInt("color_order");
+		String colorCode = rs1.getString("color_code");
+		tableFun2 += getColorBall(positionBall,colorCode);
+	//	out.print(getColorBall(1,colorCode));
 	}
-
-	tableFun2 += "\"Field7\": \"";
-	tableFun2 += "<center><div id='target'><div id='percentage'>" + performance_percentage +"</div></div></center> \",";
+	tableFun2 += "\",";
 
 	String kpi_wavg_score = rs.getString("kpi_wavg_score");
-	tableFun2 += "\"Field7_1\": \"";
+	tableFun2 += "Field7_1: \"";
 	tableFun2 += "<div id=textR>"+ kpi_wavg_score +"</div> \",";
 
 	//===============GraphLine Start=====================

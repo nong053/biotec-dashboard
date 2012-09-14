@@ -1,6 +1,27 @@
 <%@page import="java.sql.*"%>
 <%@page import="java.io.*"%>
 <%@page import="java.lang.*"%>
+<%! 
+    String getColorBall(int position,String color)
+    {
+		String ballScoll = "";
+               if(position==1){
+                       ballScoll+="<div id=ball1  class=ball style=background-color:"+color+"></div>";
+                       ballScoll+="<div id=ball2  class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id=ball3  class=ball style=background-color:#cccccc></div>";
+               }else if(position==2){
+                       ballScoll+="<div id=ball1  class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id=ball2  class=ball style=background-color:"+color+"></div>";
+                       ballScoll+="<div id=ball3  class=ball style=background-color:#cccccc></div>";
+               }else if(position==3){
+                       ballScoll+="<div id=ball1  class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id=ball2  class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id=ball3  class=ball style=background-color:"+color+"></div>";
+               }
+      return ballScoll;
+    }
+ %>
+
 <% 
 String ParamYear  = request.getParameter("ParamYear");
 String ParamMonth  = request.getParameter("ParamMonth");
@@ -82,7 +103,6 @@ while(rs.next()){
 	String performance_value = rs.getString("performance_value") ;
 	tableFun += "Field6: \"";
 	tableFun += "<div id=textR>"+ performance_value +"</div> \",";
-
 //=================================Color Start=========================
 	String performance_percentage = rs.getString("performance_percentage");
 
@@ -93,18 +113,21 @@ while(rs.next()){
 	QueryColor="CALL sp_color_code(";
 	QueryColor += performance_percentage+")";
 	rs1 = st1.executeQuery(QueryColor);
-	while(rs1.next())
-	{
-		tableFun += "";
-	}
 
 	tableFun += "Field7: \"";
-	tableFun += "<center><div id='target'><div id='percentage'>" + performance_percentage +"</div></div></center> \",";
+	tableFun += "<center><div id='target'><div id='percentage'>" + performance_percentage +"</div></div></center> ";
+	while(rs1.next())
+	{
+		int positionBall =  rs1.getInt("color_order");
+		String colorCode = rs1.getString("color_code");
+		tableFun += getColorBall(positionBall,colorCode);
+	//	out.print(getColorBall(1,colorCode));
+	}
+	tableFun += "\",";
 
 	String kpi_wavg_score = rs.getString("kpi_wavg_score");
 	tableFun += "Field7_1: \"";
 	tableFun += "<div id=textR>"+ kpi_wavg_score +"</div> \",";
-
 	//===============GraphLine Start=====================
 	tableFun += "Field9: \"";
 	
@@ -202,6 +225,13 @@ tableFun += "]";
 	background-image:url("images/chart-wrapper.png");
 	background-color:#CFCFCF;
 	}
+	.ball{
+       width:20px;
+       height:20px;border-radius:100px; 
+       float:left;
+	}
+
+
 	#head_graph{
 	/*background-color:#CFCFCF;*/
 	}
