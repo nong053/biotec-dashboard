@@ -110,7 +110,19 @@
 			</style>
 
 	<%
-		/*------------------- Set Connection -------------------*/
+	String connectionURL="jdbc:mysql://localhost:3306/biotec_dwh";
+String Driver = "com.mysql.jdbc.Driver";
+String User="root";
+String Pass="root";
+String Query="";
+String center_name="";
+Connection conn= null;
+Statement st;
+ResultSet  rs;
+Class.forName(Driver).newInstance();
+conn = DriverManager.getConnection(connectionURL,User,Pass);
+
+		/*------------------- Set Connection -------------------
 		String connectionURL = "jdbc:mysql://localhost:3306/mysql"; 
 		String driver = "com.mysql.jdbc.Driver";
 		String userName = "root"; 
@@ -119,7 +131,7 @@
 		Connection conn = null; 
 		Statement st;
 		ResultSet rs;
-		/*------------------- End Set Connection -------------------*/
+		------------------- End Set Connection -------------------*/
 
 		/*------------------- Set Variable -------------------*/
 
@@ -134,17 +146,42 @@
 		/*------------------- End Set Variable -------------------*/
 
 		/*------------------- Parameter Year -------------------*/
-
+		st = conn.createStatement();
+		Query="CALL sp_fiscal_year;";
+		rs = st.executeQuery(Query);
+		int i = 0;
+		while(rs.next()){
+			if(i==0){
+				V_Year += "<option value=\""+rs.getString("fiscal_year")+"\"  selected='selected'>"+rs.getString("buddhist_era_year")+"</option>";
+				}else{
+				V_Year += "<option value=\""+rs.getString("fiscal_year")+"\">"+rs.getString("buddhist_era_year")+"</option>";
+				
+				}
+				i++;
+		}
+/*
 		V_Year += "<option value=\"2012\"  selected='selected'>2555</option>";
 		V_Year += "<option value=\"2011\">2554</option>";
 		V_Year += "<option value=\"2010\">2553</option>";
 		V_Year += "<option value=\"2009\">2552</option>";
 		
-		/*------------------- End Parameter Year -------------------*/
+		------------------- End Parameter Year -------------------*/
 
 		/*------------------- Parameter Month -------------------*/
-
-		
+		st = conn.createStatement();
+		Query="CALL sp_fiscal_month;";
+		rs = st.executeQuery(Query);
+		i = 0;
+		while(rs.next()){
+			if(i==0){
+				V_Month += "<option value=\""+rs.getString("fiscal_month_no")+"\"  selected='selected'>"+rs.getString("calendar_th_month_name")+"</option>";
+			}else{
+				V_Month += "<option value=\""+rs.getString("fiscal_month_no")+"\">"+rs.getString("calendar_th_month_name")+"</option>";
+				
+			}
+			i++;
+		}
+		/*
 		V_Month += "<option value=\"10\" selected='selected' >ตุลาคม </option>";
 		V_Month += "<option value=\"11\">พฤศจิกายน </option>";
 		V_Month += "<option value=\"12\">ธันวาคม</option>";
@@ -158,7 +195,7 @@
 		V_Month += "<option value=\"8\">สิงหาคม </option>";
 		V_Month += "<option value=\"9\">กันยายน </option>";
 
-		/*------------------- End Parameter Month -------------------*/
+		------------------- End Parameter Month -------------------*/
 
 
 		/*------------------- End Organization Parameter -------------------*/
@@ -170,7 +207,7 @@
 	<script type="text/javascript">
 
 		var conURL = "<%=connectionURL%>";
-		var pw = "<%=password%>";
+		var pw = "<%=Pass%>";
 		var ParamYear = "<%=ParamYear%>";
 		var ParamMonth = "<%=ParamMonth%>";
 		var ParamOrg = "<%=ParamOrg%>";
@@ -199,9 +236,7 @@
 		}
 
 		/*########## Function jQuery Start#########*/
-		$(document).ready(function(){
-
-		
+		$(document).ready(function(){		
 
 		  /*$('.inlinesparkline').sparkline(); */
 
@@ -250,17 +285,8 @@
 			
 
 	// Dialog Link
-				$('.inlinesparkline').live("click",function(){
-					//alert("hello");
-					$('#dialog').dialog('open');
-					return false;
-				});
-					$('.inlinesparkline_sub').live("click",function(){
-					//alert("hello");
-					$('#dialog').dialog('open');
-
-					return false;
-				});
+	
+		
 				$('#date').datepicker();
 		
 	// Dialog Link
@@ -270,31 +296,7 @@
 		});
 //#######################Graph Program Start#######################
 		$(document).ready(function(){
-			$("#chart").kendoChart({
-			title: {
-				 text: "ข้อมูลผลการดำเนินงานเทียบเป้าหมาย"
-			},
-			series: [
-				 { name: "ผลการดำเนินงาน", data: [2, 3, 4, 5,6,6,7,7,8,8,9,9],
-				color: "BLUE"
-				 }
-				 , 
-				
-				 {
-                            type: "line",
-                            data: [10, 10, 10, 10, 10,10, 10, 10, 10, 10,10,10],
-                            name: "เป้าหมาย",
-                            color: "GREEN"
-							
-                  }
-			],
-			categoryAxis:{
-			  categories: [" ต.ค."," พ.ย."," ธ.ค."," ม.ค."," ก.พ."," มี.ค."," เม.ย."," พ.ค."," มิ.ย."," ก.ค."," ส.ค."," ก.ย."]
-			},
-			legend:{
-			position:"bottom"
-			}
-		});
+
 		//#######################Graph Program End#######################
 		
 		
@@ -443,11 +445,11 @@
 				$("a[href=#tab1_1]").click(function(){
 			
 					$.ajax({
-						url:'nstda1.jsp',
+						url:'ns.jsp',
 						type:'GET',
 						dataType:'html',
 					//	data:$(this).serialize(),
-						data:{"ParamYear":$("#ParamYear").val(),"ParamMonth":$("#ParamMonth").val(),"ParamOrg":$("#ParamOrg").val()},
+						data:{"ParamYear":$("#ParamYear").val(),"ParamMonth":$("#ParamMonth").val(),"ParamOrg":"NS"},
 						success:function(data){
 							//alert("data ok");
 							$("#tab1").empty();
@@ -495,11 +497,11 @@
 			});
 			$("a[href=#tab1_2]").click(function(){
 					$.ajax({
-						url:'nstda2.jsp',
+						url:'ct.jsp',
 						type:'GET',
 						dataType:'html',
 					//	data:$(this).serialize(),
-						data:{"ParamYear":$("#ParamYear").val(),"ParamMonth":$("#ParamMonth").val(),"ParamOrg":$("#ParamOrg").val()},
+						data:{"ParamYear":$("#ParamYear").val(),"ParamMonth":$("#ParamMonth").val(),"ParamOrg":"CT"},
 						success:function(data){
 							//alert("data ok");
 							$("#tab1").empty();
@@ -513,15 +515,78 @@
 							$("#tab6").empty();
 							$("#tab1_2").append(data);
 
+
+				//	$('.inlinesparkline_sub').live("click",function(){
+					//alert("hello");
+			//		$('#dialog').dialog('open');
+
+			//		return false;
+		//		});
 							/*### Manage Tootip Start###*/
 								 $(".kpiN").hover(function(e){
-									var $X =  e.pageX+10;
-									 var $Y = e.pageY+10;
-									$(".tootip").css({"left":$X+"px","top":$Y+"px"}).fadeIn();
+								     var $X =  e.pageX;
+									 var $Y = e.pageY;
+									 var $pos = e.target.id;
+									 var classT = ".tootip#"+$pos;
+									$(classT).css({"left":$X+"px","top":$Y+"px"}).fadeIn();
 								
 								 },function(){
 									 $(".tootip").hide();
 								 });
+
+
+
+							//alert($(".inlinesparkline").length);
+			$(".inlinesparkline").click(function(e){
+					var position =  this.id;
+					intpos = (parseInt(position,10))+100;
+					var classG = "\".inlinedata#"+intpos+"\"";
+					var strClass = $(classG).text();
+					var dataStr = "["+strClass+"]";
+					alert(dataStr);
+					$('#dialog').dialog('open');
+			//		return false;
+
+			$("#chart").kendoChart({
+			title: {
+				 text: "ข้อมูลผลการดำเนินงานเทียบเป้าหมาย"
+			},
+			series: [
+				 { name: "ผลการดำเนินงาน", data: dataStr,
+				color: "BLUE"
+				 }
+				 , 
+				
+				 {
+                            type: "line",
+                            data: dataStr,
+                            name: "เป้าหมาย",
+                            color: "GREEN"
+							
+                  }
+			],
+			categoryAxis:{
+			  categories: [" ต.ค."," พ.ย."," ธ.ค."," ม.ค."," ก.พ."," มี.ค."," เม.ย."," พ.ค."," มิ.ย."," ก.ค."," ส.ค."," ก.ย."]
+			},
+			legend:{
+			position:"bottom"
+			}
+		});
+
+
+
+
+
+
+
+
+
+
+
+				});/*
+
+
+
 					/*### Manage Tootip Stop ###*/
 					/*### Manage Tootip Range Start ###*/
 					  
@@ -547,11 +612,11 @@
 			});
 			$("a[href=#tab1_3]").click(function(){
 					$.ajax({
-						url:'nstda3.jsp',
+						url:'cpmo-hrd.jsp',
 						type:'GET',
 						dataType:'html',
 					//	data:$(this).serialize(),
-						data:{"ParamYear":$("#ParamYear").val(),"ParamMonth":$("#ParamMonth").val(),"ParamOrg":$("#ParamOrg").val()},
+						data:{"ParamYear":$("#ParamYear").val(),"ParamMonth":$("#ParamMonth").val(),"ParamOrg":"CPMO-HRD"},
 						success:function(data){
 							//alert("data ok");
 							$("#tab1").empty();
@@ -602,7 +667,7 @@
 						type:'GET',
 						dataType:'html',
 					//	data:$(this).serialize(),
-						data:{"ParamYear":$("#ParamYear").val(),"ParamMonth":$("#ParamMonth").val(),"ParamOrg":"BIOTEC "},
+						data:{"ParamYear":$("#ParamYear").val(),"ParamMonth":$("#ParamMonth").val(),"ParamOrg":"BIOTEC"},
 						success:function(data){
 							//alert("data ok");
 							$("#tab1").empty();
@@ -616,14 +681,15 @@
 							$("#tab6").empty();
 							$("#tab2").append(data);
 							/*### Manage Tootip Start###*/
-								 $(".kpiN").hover(function(e){
-									var $X =  e.pageX+10;
-									 var $Y = e.pageY+10;
-									$(".tootip").css({"left":$X+"px","top":$Y+"px"}).fadeIn();
-					
-								 },function(){
-									 $(".tootip").hide();
-								 });
+									 $(".kpiN").hover(function(e){
+						var $X =  e.pageX+10;
+						 var $Y = e.pageY+10
+						$(".tootip").css({"left":$X+"px","top":$Y+"px"}).fadeIn();
+						
+					 },function(){
+						 $(".tootip").hide();
+					 });
+
 					/*### Manage Tootip Stop ###*/
 					/*### Manage Tootip Range Start ###*/
 					  
@@ -654,7 +720,7 @@
 						type:'GET',
 						dataType:'html',
 					//	data:$(this).serialize(),
-						data:{"ParamYear":$("#ParamYear").val(),"ParamMonth":$("#ParamMonth").val(),"ParamOrg":"MTEC  "},
+						data:{"ParamYear":$("#ParamYear").val(),"ParamMonth":$("#ParamMonth").val(),"ParamOrg":"MTEC"},
 						success:function(data){
 							//alert("data ok");
 							$("#tab1").empty();
@@ -707,7 +773,7 @@
 						type:'GET',
 						dataType:'html',
 					//	data:$(this).serialize(),
-						data:{"ParamYear":$("#ParamYear").val(),"ParamMonth":$("#ParamMonth").val(),"ParamOrg":"NECTEC  "},
+						data:{"ParamYear":$("#ParamYear").val(),"ParamMonth":$("#ParamMonth").val(),"ParamOrg":"NECTEC"},
 						success:function(data){
 							//alert("data ok");
 							$("#tab1").empty();
@@ -760,7 +826,7 @@
 						type:'GET',
 						dataType:'html',
 					//	data:$(this).serialize(),
-						data:{"ParamYear":$("#ParamYear").val(),"ParamMonth":$("#ParamMonth").val(),"ParamOrg":"NANOTEC  "},
+						data:{"ParamYear":$("#ParamYear").val(),"ParamMonth":$("#ParamMonth").val(),"ParamOrg":"NANOTEC"},
 						success:function(data){
 							//alert("data ok");
 							$("#tab1").empty();
@@ -814,7 +880,7 @@
 						type:'GET',
 						dataType:'html',
 					//	data:$(this).serialize(),
-						data:{"ParamYear":$("#ParamYear").val(),"ParamMonth":$("#ParamMonth").val(),"ParamOrg":"TMC  "},
+						data:{"ParamYear":$("#ParamYear").val(),"ParamMonth":$("#ParamMonth").val(),"ParamOrg":"TMC"},
 						success:function(data){
 							//alert("data ok");
 							$("#tab1").empty();
@@ -896,7 +962,6 @@
 	
 	</div>
 	<!--------------------------- Details Start--------------------------->
-<div class="tootip" ><b>การลงทุนด้าน ว และ ท ในภาคการผลิต ภาคบริการและภาคการผลิต ภาคบริการและภาคเกษตรกรรม</b></div>
 <div id="tooltip"></div>
 	<div id="content">
 			

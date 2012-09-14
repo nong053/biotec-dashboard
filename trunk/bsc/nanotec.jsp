@@ -1,45 +1,159 @@
-
-
+<%@page import="java.sql.*"%>
+<%@page import="java.io.*"%>
+<%@page import="java.lang.*"%>
 <% 
-
 String ParamYear  = request.getParameter("ParamYear");
 String ParamMonth  = request.getParameter("ParamMonth");
 String ParamOrg  = request.getParameter("ParamOrg");
-
+Integer YearBY = (java.lang.Integer.parseInt(ParamYear))+543;
 String titleStr = "";
-//out.print("{"+ParamYear+","+ParamMonth+","+ParamOrg+"}");
-//out.print('{"0":"nong","1":"nuy","2":"TEST"}');
-//out.print(ParamOrg);
 
-//out.print(ParamOrg);
-//out.print(ParamOrg.trim());
-
-
-if(ParamOrg.equals("NSTDA")){
-	
-	
-	titleStr=" ผลการดำเนินงานสะสมของ นายทวีศักดิ์ กออนันตกูล ได้ 36.42 %&nbsp;&nbsp;  ";
-
-}else if(ParamOrg.equals("BIOTEC")){
-	
-	titleStr=" ผลการดำเนินงานสะสมของ นายวีระศักดิ์ อุดมกิจเดชา ได้ 47.5%";
-
-}else if(ParamOrg.equals("MTEC")){
-	
-titleStr=" ผลการดำเนินงานสะสมของ นายทวีศักดิ์ นายวีระศักดิ์ อุดมกิจเดชา 36.42 %  ";
+String connectionURL="jdbc:mysql://localhost:3306/biotec_dwh";
+String Driver = "com.mysql.jdbc.Driver";
+String User="root";
+String Pass="root";
+String Query="";
+String center_name="";
+Connection conn= null;
+Statement st;
+ResultSet  rs;
+Class.forName(Driver).newInstance();
+conn = DriverManager.getConnection(connectionURL,User,Pass);
 
 
-}else if(ParamOrg.equals("NECTEC")){
-	
-titleStr=" ผลการดำเนินงานสะสมของ นายทวีศักดิ์ นายพันธ์ศักดิ์ ศิริรัชตพงษ์ 36.42 คะแนน  ";
-
-
-}else{
-	
-
-titleStr="ผลสำเร็จศูนย์นาโนเทคโนโลยีแห่งชาติได้ 33.56 คะแนน";
-//NANOTEC
+st = conn.createStatement();
+Query="CALL sp_owner_wavg_score(";
+Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
+rs = st.executeQuery(Query);
+while(rs.next()){
+	String ParamScore =  rs.getString("owner_wavg_score") ;
+	titleStr="ผลสำเร็จ ศูนย์นาโนเทคโนโลยีแห่งชาติได้ " + ParamScore +" คะแนน";
 }
+
+st = conn.createStatement();
+Query="CALL sp_parent_kpi_list(";
+Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
+rs = st.executeQuery(Query);
+String tableFun = "[";
+int i=0;
+
+while(rs.next()){
+	if(i>0){
+		tableFun += ",";
+	}
+	String kpi_code = rs.getString("kpi_code");
+	String kpi = rs.getString("kpi") ;
+	tableFun += "{Field2: \"";
+	tableFun += "<div class =kpiN>"+kpi_code+"</div>"+kpi;
+
+	//=============Get Url with Details Button Start============
+	String urlpage = rs.getString("url");
+	//out.print("["+urlpage+"]WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW") ;
+	if(urlpage == null || urlpage.equals(""))
+	{
+		tableFun +="";
+	}
+	else
+	{
+		tableFun +=" <a href="+urlpage+" target=_blank><button class=k-button>รายละเอียด</button></a> ";
+	}
+	tableFun += "\", ";
+
+	//=============Get Url with Details Button End============
+	String target_value = rs.getString("target_value");
+	tableFun += "Field3: \"";
+	tableFun += "<div id=textR>"+ target_value +"</div> \",";
+
+	String kpi_uom = rs.getString("kpi_uom");
+	tableFun += "Field4: \"";
+	tableFun += kpi_uom + "\",";
+
+	String kpi_weighting = rs.getString("kpi_weighting");
+	tableFun += "Field5: \"";
+	tableFun +=  "<div id=textR>"+kpi_weighting +"</div> \",";
+
+	String baseline = rs.getString("baseline") ;
+	tableFun += "Field5_1: \"";
+	tableFun += baseline + "\",";
+
+	String performance_value = rs.getString("performance_value") ;
+	tableFun += "Field6: \"";
+	tableFun += "<div id=textR>"+ performance_value +"</div> \",";
+
+//=================================Color Start=========================
+	String performance_percentage = rs.getString("performance_percentage");
+
+	Statement st1;
+	ResultSet  rs1;
+	String QueryColor = "";
+	st1 = conn.createStatement();
+	QueryColor="CALL sp_color_code(";
+	QueryColor += performance_percentage+")";
+	rs1 = st1.executeQuery(QueryColor);
+	while(rs1.next())
+	{
+		tableFun += "";
+	}
+
+	tableFun += "Field7: \"";
+	tableFun += "<center><div id='target'><div id='percentage'>" + performance_percentage +"</div></div></center> \",";
+
+	String kpi_wavg_score = rs.getString("kpi_wavg_score");
+	tableFun += "Field7_1: \"";
+	tableFun += "<div id=textR>"+ kpi_wavg_score +"</div> \",";
+
+	//===============GraphLine Start=====================
+	tableFun += "Field9: \"";
+	
+	//Statement st2;
+	//ResultSet  rs2;
+	String QueryGraph = "";
+	String KpiID= rs.getString("kpi_id");
+
+	//st2 = conn.createStatement();
+	QueryGraph = "CALL sp_parent_kpi_trend(";
+	QueryGraph += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\","+KpiID+")";
+	rs1 = st1.executeQuery(QueryGraph);
+	while(rs1.next())
+	{
+		//	if(KpiID.equals(rs1.getString("kpi_id") ))
+		//	{
+				String Oct = rs1.getString("Oct");
+				String Nov = rs1.getString("Nov");
+				String Dec = rs1.getString("Dec");
+				String Jan = rs1.getString("Jan");
+				String Feb = rs1.getString("Feb");
+				String Mar = rs1.getString("Mar");
+				String Apr = rs1.getString("Apr");
+				String May = rs1.getString("May");
+				String Jun = rs1.getString("Jun");
+				String Jul = rs1.getString("Jul");
+				String Aug = rs1.getString("Aug");
+				String Sep = rs1.getString("Sep");
+
+				tableFun += "<span class=inlinesparkline>"
+								+Oct+","
+								+Nov+","
+								+Dec+","
+								+Jan+","
+								+Feb+","
+								+Mar+","
+								+Apr+","
+								+May+","
+								+Jun+","
+								+Jul+","
+								+Aug+","
+								+Sep
+								+"</span>\"";
+				tableFun += "}";
+		//	}
+	}
+	//===============GraphLine End=====================
+	i++;
+}
+tableFun += "]";
+
+
 
 %>
 
@@ -205,322 +319,11 @@ font-size:14px;
                   field: "Field9",
 				  width:80
 			 }];
-
-
-var $titleJ2 =[
-              {
-                  field: "Field1",
-				  title:"ตัวชีวัด",
-				   width: 200
-              },
-              {
-                  field: "Field3",
-				   title:"เป้าหมาย",
-				  width: 62
-			 },
-              {
-                  field: "Field4",
-				   title:"หน่วยวัด",
-				  width: 83
-			
-			 },
-              {
-                  field: "Field5",
-				   title:"น้ำหนัก",
-				width: 63
-			
-			 },
-              {
-                  field: "Field5_1",
-				  title:"ข้อมูลฐาน",
-					  width: 83
-				
-
-			 },
-            
-              {
-                  field: "Field6",
-				   title:"ผลงานสะสม",
-				  width: 83
-			 },
-              {
-                  field: "Field7",
-				   title:"%เทียบแผน",
-					width: 104
-			 },
-              {
-                  field: "Field7_1",
-				   title:"% เฉลี่ยถ่วงน้ำหนัก",
-				width: 83
-				
-			 },
-              
-              {
-                  field: "Field9",
-				  title:"แนวโน้ม",
-				  width: 83	 
-				
-				 
-			 }];
+	var $dataJ = <%=tableFun%>;
 
 
 	// TITLE BY JSON END
 	//CONTENT BY JSON START 
-
-
-	var $dataJ =[
-                  {
-                   
-					  Field2: "<div class='kpiN'>KS1</div>การลงทุนด้าน ว และ ท ในภาคการผลิต ภาคบริการและภาคการผลิต ภาคบริการและภาคเกษตรกรรม",
-
-                      Field3: " <div id='textR'>1.1</div> ",
-					  Field4: "เท่าของการลงทุนปี54",
-                      Field5: "<div id='textR'>25</div>",
-					  Field5_1:"4,500 (ล้านบาท)",
-		
-					  Field6: " <div id='textR'>0.44  <br>2,000 <br>ล้านบาท<div>",
-                      Field7: "<center><div id='target'><div id='percentage'>40%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></center> ",
-					 Field7_1:"<div id='textR'>10.10</div>",
-					 
-					  Field9: " <span class='inlinesparkline'>1,4,4,7,5,9,10</span> "
-                     
-					  
-                     
-                  },
-                  {
-                   
-					  
-					  Field2: "<div class='kpiN'>KS1-A</div>มูลค่าผลกระทบต่อเศรษฐกิจและสังคมของประเทศที่เกิดจากการนำผลงานวิจัยไปใช้ประโยชน์ <a href='File/test.pdf' target='_blank'><button class='k-button'>รายละเอียด</button></a> ",
-               
-					  Field3: "<div id='textR'>2.4</div> ",
-					  Field4: " เท่าของค่าใช้จ่าย",
-                      Field5: " <div id='textR'>25</div>",
-					  Field5_1:"9,290(ล้านบาท)",
-		
-					  Field6: "<div id='textR'>0.58  <br>3,000 <br>ล้านบาท</div>",
-                      Field7: " <center><div id='target'><div id='percentage'>24%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></center> ",
-					  Field7_1:"<div id='textR'>6.05</div>",
-					 
-					  Field9: " <span class='inlinesparkline'>1,4,4,7,5,9,10</span> "
-				  },
-                  {
-                    
-					  Field2: "<div class='kpiN'>KS5</div>สัดส่วนรายได้ต่อค่าใช้จ่ายทั้งหมด",
-                    
-					  Field3: "<div id='textR'>1</div>  ",
-					  Field4: "-",
-                      Field5: "<div id='textR'> 10</div>",
-					  Field5_1:"1.07",
-		
-					  Field6: "<div id='textR'>1.13 <div>",
-                      Field7: "<center><div id='target'><div id='percentage'>113%</div> <div id='score'>"+ballGray+""+ballGray+""+ballGreen+"</div></div></center>",
-					  Field7_1:"<div id='textR'>11.30<div>",
-					
-					  Field9: "  <span class='inlinesparkline'>1,4,4,7,5,9,10</span>"
-                  },
-                  {
-                     
-					  Field2: "<div class='kpiN'>KS7</div>สัดส่วนบทบาทความวารสารารนานาชาติต่อคลาการวิจัย ",
-                      
-					  Field3: "<div id='textR'>40</div>  ",
-					  Field4: " ฉบับ/100 คน/ปี",
-                      Field5: "<div id='textR'>15</div>",
-					  Field5_1:"36",
-			
-					  Field6: "<div id='textR'>4.30<div> ",
-                      Field7: "<center><div id='target'><div id='percentage'>11%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></center> ",
-					   Field7_1:"<div id='textR'>1.61<div>",
-					 
-					  Field9: " <span class='inlinesparkline'>1,4,4,7,5,9,10</span> "
-                  },
-                  {
-                 
-					  Field2: " <div class='kpiN'>KS7-B</div>สัดส่วนทรัพย์สินทางปัญญาต่อบุคคลาการวิจัย",
-                      
-					  Field3: "<div id='textR'>20</div>  ",
-					  Field4: "ฉบับ/100 คน/ปี",
-                      Field5: "<div id='textR'>15</div> ",
-					  Field5_1:"20",
-				
-					  Field6: "<div id='textR'>5.00<div>",
-                      Field7: " <center><div id='target'><div id='percentage'>25%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></cener>",
-					  Field7_1:"<div id='textR'>3.75<div>",
-					
-					  Field9: " <span class='inlinesparkline'>1,4,4,7,5,9,10</span>"
-                  },
-                  {
-                    
-					  Field2: "<div class='kpiN'>KS9-A</div> ร้อยละความสำเร็จในการผลักดัน 9 กลยุทธ์ได้ตามแผน",
-                      
-					  Field3: "<div id='textR'>100</div>  ",
-					  Field4: "ร้อยละ ",
-                      Field5: "<div id='textR'>10 </div>",
-					  Field5_1:"-",
-					
-					  Field6: "<div id='textR'>36.00<div>",
-                      Field7: " <center><div id='target'><div id='percentage'>36%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></cener>",
-					  Field7_1:"<div id='textR'>3.60</div>",
-					  
-					  Field9: " <span class='inlinesparkline'>1,4,4,7,5,9,10</span>"
-                  }
-				  
-				  ]; 		
-	
-
-
-	var $dataJ2 =[
-                  {
-                      Field1: "<b>(BIOTEC)</b> Lead2 ร้อยละความสำเร็จในการส่งมอบ flagship",
-					 
-
-                      Field3: "<div id='textR'>100</div> ",
-					  Field4: "ร้อบละ",
-                      Field5: "<div id='textR'>15</div>",
-					  Field5_1:"1,500 (ล้านบาท)",
-					
-					  Field6: " <div id='textR'>0.50</div>",
-                      Field7: " <center><div id='target'><div id='percentage'>40%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></center> ",
-					 Field7_1:"<div id='textR'>8.01	</div>",
-					
-					  Field9: "<span class='inlinesparkline_sub'>1,4,4,7,5,9,10</span>"
-                     
-					  
-                     
-                  },
-                  {
-                      Field1: "<b>(MTEC) </b>Lead2 ร้อยละความสำเร็จในการส่งมอบ flagship",
-				
-
-                      Field3: " <div id='textR'>100</div>",
-					  Field4: "ร้อบละ",
-                      Field5: "<div id='textR'>10</div>",
-					  Field5_1:"1,500 (ล้านบาท)",
-					 
-					  Field6: "<div id='textR'>0.70 </div>",
-                      Field7: "<center><div id='target'><div id='percentage'>40%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></center>  ",
-					 Field7_1:"<div id='textR'>8.00</div>",
-				
-					  Field9: "<span class='inlinesparkline_sub'>1,4,4,7,5,9,10</span>"
-                     
-					  
-                     
-                  },
-				   {
-                      Field1: "<b>(NANOTEC)</b> Lead2 ร้อยละความสำเร็จในการส่งมอบ flagship",
-					
-
-                      Field3: "  <div id='textR'>100</div>",
-					  Field4: "ร้อบละ",
-                      Field5: "<div id='textR'>15</div>",
-					  Field5_1:"1,500 (ล้านบาท)",
-					  
-					  Field6: "<div id='textR'>0.50 </div>",
-                      Field7: "<center><div id='target'><div id='percentage'>40%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></center>  ",
-					 Field7_1:"<div id='textR'>7.01</div>",
-					 
-					  Field9: "<span class='inlinesparkline_sub'>1,4,4,7,5,9,10</span>"
-                     
-					  
-                     
-                  },
-				   {
-                      Field1: "<b>(NECTEC)</b> Lead2 ร้อยละความสำเร็จในการส่งมอบ flagship",
-					
-
-                      Field3: " <div id='textR'>100</div> ",
-					  Field4: "ร้อบละ",
-                      Field5: "<div id='textR'>15</div>",
-					  Field5_1:"1,500 (ล้านบาท)",
-					  
-					  Field6: "<div id='textR'>0.60 </div>",
-                      Field7: "<center><div id='target'><div id='percentage'>40%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></center>  ",
-					 Field7_1:"<div id='textR'>8.03</div>",
-					 
-					  Field9: "<span class='inlinesparkline_sub'>1,4,4,7,5,9,10</span>"
-                     
-					  
-                     
-                  },
-				   {
-                      Field1: "<b>(BIOTEC)</b>Lead4 จำนวนรายได้อุดหนุนการวิจัย รับจ้าง/ร่วมวิจัย ลิขสิทธิ์/สิทธิประโยชน์ และบริการเทคนิควิชาการ",
-				
-
-                      Field3: " <div id='textR'>100 </div>",
-					  Field4: "ล้านบาท",
-                      Field5: "<div id='textR'>15</div>",
-					  Field5_1:"1,500 (ล้านบาท)",
-					
-					  Field6: "<div id='textR'>0.70 </div>",
-                      Field7: "<center><div id='target'><div id='percentage'>40%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></center>  ",
-					 Field7_1:"<div id='textR'>8.04</div>",
-					
-					  Field9: "<span class='inlinesparkline_sub'>1,4,4,7,5,9,10</span>"
-                     
-					  
-                     
-                  },
-				   {
-                      Field1: "<b>(MTEC)</b> Lead4 จำนวนรายได้อุดหนุนการวิจัย รับจ้าง/ร่วมวิจัย ลิขสิทธิ์/สิทธิประโยชน์ และบริการเทคนิควิชาการ",
-				
-
-                      Field3: " <div id='textR'>129</div> ",
-					  Field4: "ล้านบาท",
-                      Field5: "<div id='textR'>20</div>",
-					  Field5_1:"1,500 (ล้านบาท)",
-					 
-					  Field6: "<div id='textR'>0.80</div> ",
-                      Field7: " <center><div id='target'><div id='percentage'>40%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></center> ",
-					 Field7_1:"<div id='textR'>7.30</div>",
-					  
-					  Field9: "<span class='inlinesparkline_sub'>1,4,4,7,5,9,10</span>"
-                     
-					  
-                     
-                  },
-				   {
-                      Field1: "<b>(NANOTEC)</b> Lead4 จำนวนรายได้อุดหนุนการวิจัย รับจ้าง/ร่วมวิจัย ลิขสิทธิ์/สิทธิประโยชน์ และบริการเทคนิควิชาการ",
-				
-
-                      Field3: "<div id='textR'>120</div>  ",
-					  Field4: "ล้านบาท",
-                      Field5: "<div id='textR'>25</div>",
-					  Field5_1:"1,500 (ล้านบาท)",
-				
-					  Field6: " <div id='textR'>0.60</div>",
-                      Field7: " <center><div id='target'><div id='percentage'>40%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></center> ",
-					 Field7_1:"<div id='textR'>7.71</div>",
-					 
-					  Field9: "<span class='inlinesparkline_sub'>1,4,4,7,5,9,10</span>"
-                     
-					  
-                     
-                  },
-				   {
-                      Field1: "<b>(NECTEC)</b> Lead4 จำนวนรายได้อุดหนุนการวิจัย รับจ้าง/ร่วมวิจัย ลิขสิทธิ์/สิทธิประโยชน์ และบริการเทคนิควิชาการ",
-				
-
-                      Field3: " <div id='textR'>120 </div>",
-					  Field4: "ล้านบาท",
-                      Field5: "25",
-					  Field5_1:"1,500 (ล้านบาท)",
-					
-					  Field6: "<div id='textR'> 0.40 </div>",
-                      Field7: " <center><div id='target'><div id='percentage'>40%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></center> ",
-					 Field7_1:"<div id='textR'>7.56</div>",
-					  
-					  Field9: "<span class='inlinesparkline_sub'>1,4,4,7,5,9,10</span>"
-                     
-					  
-                     
-                  }
-				  
-				  ]; 
-	//CONTENT BY JSON END
-
-//console.log($dataJ2[0]["Field3"]);
-
-$dataJ2[0]["Field3"];
-
 
 
 	$("#grid").kendoGrid({
@@ -555,30 +358,6 @@ $dataJ2[0]["Field3"];
 		//#######################Menagement Table End #######################
 	
 
-	 function detailInit(e) {
-
-	/*var $table="<table><tr><td><h1>test</h1></td><td>hello work testing create table</td></tr></table>";
-	$($table).appendTo(e.detailCell);*/
-			
-							$("<table bgcolor='#f5f5f5'><th></th></talbe>").kendoGrid({
-								columns: $titleJ2,
-								dataSource: {
-								data: $dataJ2,
-								pageSize: 8,
-								
-							}
-							}).appendTo(e.detailCell);
-			
-						 $('.inlinesparkline_sub').sparkline(); 
-						 /*Content Suffer Color Row*/
-						 $("tr[data-uid]").css({"background-color":"#fcddcf"});
-						$(".k-alt").css({"background-color":"#fdefe9"});
-						/*Content Suffer Suffer Color Row*/
-				// REMOVE COLUMN START
-			//	$("tr.k-detail-row td.k-hierarchy-cell").remove();
-				// REMOVE COLUMN END
-			
-                } // End Function detailInit
 
 		/*##########Function jQuery  add Deatail  result  End ########*/
 		/*Remove  numberic  bottom tab*/
@@ -614,11 +393,11 @@ $dataJ2[0]["Field3"];
 <!--### Header Start ###-->
 <div id="contentMain1">
 	<div id="contentL">
-	<img src="images/sirirurg.jpg">
+	<img src="owner_picture/nanotec.jpg">
 	</div>
 	<div id="contentR">
 		<div id="contentDetail">
-		ตัวชี้วัดผลสำเร็จศูนย์นาโนเทคโนโลยีแห่งชาติ<br>ประจำปีงบประมาณ 2555
+		ตัวชี้วัดผลสำเร็จศูนย์นาโนเทคโนโลยีแห่งชาติ<br>ประจำปีงบประมาณ <%=YearBY%>
 		</div>
 	</div>
 </div>
@@ -681,6 +460,87 @@ $dataJ2[0]["Field3"];
  </div>
 
 </div>
+
+
+
+<style>
+	table#grid2 thead th{
+	padding:5px;
+	}
+	table#grid2 thead tr th{
+		text-align:left;
+	}
+	ol {
+	font-weight:bold;
+	}
+	ol li{
+	font-weight:normal;
+	}
+</style>
+<script type="text/javascript">
+$(document).ready(function(){
+	//alert("hello wold");
+	//console.log($("table#grid2 tbody tr:odd").get());
+$("table#grid2 tbody tr td").css("padding","5px");
+$("table#grid2 tbody tr:odd").css("background-color","#FDEFE9");
+$("table#grid2 tbody tr:even").css("background","#FCDDCF");
+
+
+//set corner object
+$(".ball").corner();
+
+});
+</script>
+
+<p>
+
+</p>
+ <div id="table_title" style="clear:both">
+ 
+	<div id="title">
+
+งานในหน้าที่ ที่ใช้ Resource ของหน่วยงาน
+<!--<span class="inlinebar">4.5,5,5,5,5,5</span>-->
+
+	</div>
+ </div>
+
+<table id="grid2"  width="100%">
+	<thead >
+		<tr bgcolor="#F79646">
+			<th data-field="Field21" style="text-align:center;color:white;">ลำดับ</th>
+			<th data-field="Field22" style="text-align:center;color:white;">งานที่ได้รับมอบหมาย</th>
+		</tr>
+	</thead>
+	<tbody>
+	<%
+	st = conn.createStatement();
+	Query="CALL sp_owner_assignment(";
+	Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
+	rs = st.executeQuery(Query);
+	while(rs.next()){
+%>
+		<tr>
+			<td style="text-align:center"><%=rs.getString("assign_order")%></td> 
+			<td><%=rs.getString("assign_desc")%></td>
+		</tr>
+<%}%>
+	</tbody>
+</table>
+
+<%
+	st = conn.createStatement();
+	Query="CALL sp_owner_comment(";
+	Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
+	rs = st.executeQuery(Query);
+	while(rs.next()){
+			out.print(rs.getString("comment")); 
+	}
+%>
+
+
+
+
 <br style="clear:both">
 
 

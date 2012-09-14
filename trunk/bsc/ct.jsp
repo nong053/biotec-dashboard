@@ -1,11 +1,11 @@
 <%@page import="java.sql.*"%>
 <%@page import="java.io.*"%>
 <%@page import="java.lang.*"%>
+<%@ page import="java.util.ArrayList" language="java" %>
 <% 
 String ParamYear  = request.getParameter("ParamYear");
 String ParamMonth  = request.getParameter("ParamMonth");
 String ParamOrg  = request.getParameter("ParamOrg");
-// convert to buddhism Year
 Integer YearBY = (java.lang.Integer.parseInt(ParamYear))+543;
 String titleStr = "";
 
@@ -15,7 +15,6 @@ String User="root";
 String Pass="root";
 String Query="";
 String center_name="";
-
 Connection conn= null;
 Statement st;
 ResultSet  rs;
@@ -29,24 +28,26 @@ Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
 rs = st.executeQuery(Query);
 while(rs.next()){
 	String ParamScore =  rs.getString("owner_wavg_score") ;
-	titleStr="ผลสำเร็จ ศูนย์พันธุวิศวกรรมและเทคโนโลยีชีวภาพแห่งชาติได้ " + ParamScore +" คะแนน";
+	titleStr="ผลสำเร็จ สายงานด้านวิจัยนโยบาย สารสนเทศและสื่อสารองค์กรได้ " + ParamScore +" คะแนน";
 }
-
 st = conn.createStatement();
 Query="CALL sp_parent_kpi_list(";
 Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
 rs = st.executeQuery(Query);
+//ArrayList kpiComment=new ArrayList();
+
 String tableFun = "[";
 int i=0;
-
 while(rs.next()){
 	if(i>0){
 		tableFun += ",";
 	}
+//	kpiComment.add(rs.getString("kpi_comment"));
 	String kpi_code = rs.getString("kpi_code");
 	String kpi = rs.getString("kpi") ;
 	tableFun += "{Field2: \"";
-	tableFun += "<div class =kpiN>"+kpi_code+"</div>"+kpi;
+	tableFun += "<div class =kpiN id="+i+">"+kpi_code+"</div>"+kpi;
+	out.print("<div class=tootip id="+i+"><b>"+rs.getString("kpi_comment")+"</b></div>");
 
 	//=============Get Url with Details Button Start============
 	String urlpage = rs.getString("url");
@@ -132,8 +133,9 @@ while(rs.next()){
 				String Jul = rs1.getString("Jul");
 				String Aug = rs1.getString("Aug");
 				String Sep = rs1.getString("Sep");
-
-				tableFun += "<span class=inlinesparkline>"
+					tableFun += "<div class=inlinesparkline id="+(i+100)+">1,2,3,4,5,6,7,8,9,10</div> <span class=inlinedata id="+(i+200)+" style='display:none'>'3','1','2','3','4','5','6','7','8','9','5','"+i+"'</span>\"";
+				/*
+				tableFun += "<div class=inlinesparkline id="+i+">"
 								+Oct+","
 								+Nov+","
 								+Dec+","
@@ -146,7 +148,7 @@ while(rs.next()){
 								+Jul+","
 								+Aug+","
 								+Sep
-								+"</span>\"";
+								+"</div>\"";*/
 				tableFun += "}";
 		//	}
 	}
@@ -157,7 +159,9 @@ tableFun += "]";
 
 
 
+
 %>
+
 
 
 	<style type="text/css">
@@ -181,12 +185,11 @@ tableFun += "]";
 	padding:5px;
 	}
 	.content{
-	width:100%;
-	margin:auto;
+	width:100%
 	}
 	.content #table_content{
 	float:left;
-	width:100%;
+	width:100%
 	}
 	.content #graph_content{
 	float:right;
@@ -205,16 +208,19 @@ tableFun += "]";
 	/*background-color:#CFCFCF;*/
 	}
 	#table_title{
-	background:#dafbd1;
+	background:#dbeef3;
 	border-radius:3px;
 	width:100%;
 	color:black;
 	margin:0px;
 	}
 	#table_title  #title{
-	padding:5px;
-	font-weight:bold;
-	font-size:14px;
+
+padding:5px;
+
+font-weight:bold;
+font-size:14px;
+
 	}
 	#textR{
 	/*background:red;*/
@@ -234,8 +240,7 @@ tableFun += "]";
 	.inlinesparkline_sub{
 	cursor:pointer;
 	}
-
-/*###  Config file Header  Start###*/
+			/*###  Config file Header  Start###*/
 #contentMain1{
 	
 	width:auto;
@@ -254,36 +259,40 @@ tableFun += "]";
 	float:right;
 	}
 	#contentMain1 #contentR #contentDetail{
-	border:2px solid #DAFBD1;
+	border:2px solid #cccccc;
 	padding:20px;
 	margin:auto;
 	width:600px;
 	margin-top:30px;
 	height:40px;
 	border-radius:10px;
-	background-color:#63f763;
+	background-color:#008EC3 ;
 	font-size:16px;
 	font-weight:bold;
 	text-align:center;
+	color:white;
 	}
 /*### Config file   Header End###*/
-	
 	</style>
 
 	<script type="text/javascript">
+		$(document).ready(function(){
+
+//	$(".kpiN").live("click",function(e){
+	//alert(e.target.title);
+	//});
 
 	var ballRed  = "<div id='ballRed'  class='ball' style='background-color:#e51e25; width:20px;height:20px;border-radius:100px; float:left;'></div>";
 	var ballYellow  = "<div id='ballYellow'  class='ball' style='background-color:yellow; width:20px;height:20px;border-radius:100px; float:left;'></div>";
 	var ballGreen  = "<div id='ballGreen'  class='ball' style='background-color:#8fbc01; width:20px;height:20px;border-radius:100px; float:left;'></div>";
 	var ballGray  = "<div id='ballGray'  class='ball' style='background-color:#cccccc; width:20px;height:20px;border-radius:100px; float:left;'></div>";
-	
 	// TITLE BY JSON START
 	/*########## Table Content Start ##########*/
 	var $titleJ =[
-            
+             
               {
                   field: "Field2",
-				  width: 240
+				  width: 200
 			 },
               {
                   field: "Field3",
@@ -291,24 +300,24 @@ tableFun += "]";
 			 },
               {
                   field: "Field4",
-				  width:60
+				  width:80
 			 },
               {
                   field: "Field5",
-				  width: 50
+				  width: 60
 			 },
               {
                   field: "Field5_1",
 				  width: 80
 			 },
-            
+           
               {
                   field: "Field6",
 				  width: 80
 			 },
               {
                   field: "Field7",
-				  width: 90
+				  width: 100
 			 },
               {
                   field: "Field7_1",
@@ -316,123 +325,22 @@ tableFun += "]";
 			 },
               {
                   field: "Field9",
-				  width: 80
+				  width:80
 			 }];
 
-
+	// TITLE BY JSON END
+	//CONTENT BY JSON START 
 	var $dataJ = <%=tableFun%>;
-
-
-//var $dataJ = [{Field2: "EXIM BANK 1697-9_11130_2700", Field3: "21239",Field4: "17",Field5: "590373.53",Field5_1: "68446.16",Field6: "-521927.37",Field7: "590373.53",Field7_1: "590373.53",Field9: "1,4,4,7,8,9,10"}] ;
-/*
-	var $dataJ =[
-                  {
-                    
-					  Field2: "<div class='kpiN'>KS1</div>สัดส่วนโครงการ RDDE/TT ที่มีการประเมินผลกระทบจากผลงานวิจัยต่อโครงการ RDD/TT ที่ดำเนินการทั้งหมด",
-                      Field3: " <div id='textR'>0.15</div> ",
-					  Field4: "-",
-                      Field5: "<div id='textR'>25</div>",
-					  Field5_1:"4,500 (ล้านบาท)",
-
-					  Field6: " <div id='textR'>0.44  <br>2,000 <br>ล้านบาท<div>",
-                      Field7: "<center><div id='target'><div id='percentage'>40%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></center> ",
-					 Field7_1:"<div id='textR'>10.10</div>",
-					 
-					  Field9: " <span class='inlinesparkline'>1,4,4,7,8,9,1,11,14,16,20,1</span> "
-                     
-					  
-                     
-                  },
-                  {
-                 
-					  Field2: "<div class='kpiN'>KS5</div>ร้อยละความสำเร็จในการขับเคลื่อน Flagship- ผลิตภัณฑ์จากทรัพยากรชีวภาพ เพื่อการถ่ายทอดเชิงพาณิชย์ - เทคโนโลยี สวทช. นำไปเผยแพร่แก่ชุมชน ชึ่งก่อให้เกิดรายได้เพื่ม และเป็นชุมชนต้นแบบให้กับชุมชนอื่นๆ",
-                    
-					  Field3: "<div id='textR'>100</div>  ",
-					  Field4: "ร้อยละ",
-                      Field5: "<div id='textR'> 15</div>",
-					  Field5_1:"1.07",
-				
-					  Field6: "<div id='textR'>1.13 <div>",
-                      Field7: "<center><div id='target'><div id='percentage'>113%</div> <div id='score'>"+ballGray+""+ballGray+""+ballGreen+"</div></div></center>",
-					  Field7_1:"<div id='textR'>11.30<div>",
-					
-					  Field9: "  <span class='inlinesparkline'>1,4,4,7,8,9,10</span>"
-                  },
-                  {
-                   
-					  Field2: "<div class='kpiN'>KS7</div>จำนวนรายได้อุดหนุนการวิจัย รับจ้าง/ร่วมวิจัยลิขสิทิธิ์/สิทธิประโยชน์และบริการเทคนิค/วิชาการ",
-                      
-					  Field3: "<div id='textR'>100</div>  ",
-					  Field4: " ล้านบาท",
-                      Field5: "<div id='textR'>15</div>",
-					  Field5_1:"15",
-			
-					  Field6: "<div id='textR'>4.30<div> ",
-                      Field7: "<center><div id='target'><div id='percentage'>11%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></center> ",
-					   Field7_1:"<div id='textR'>1.61<div>",
-					 
-					  Field9: " <span class='inlinesparkline'>1,4,4,7,8,9,10</span> "
-                  },
-                  {
-                
-					  Field2: " <div class='kpiN'>KS7-B</div>สัดส่วนรายได้ ต่อค่าใช้จ่าย(SBBU)",
-                      
-					  Field3: "<div id='textR'>0.69</div>  ",
-					  Field4: "-",
-                      Field5: "<div id='textR'>5</div> ",
-					  Field5_1:"20",
-					 
-					  Field6: "<div id='textR'>5.00<div>",
-                      Field7: " <center><div id='target'><div id='percentage'>25%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></cener>",
-					  Field7_1:"<div id='textR'>3.75<div>",
-					
-					  Field9: " <span class='inlinesparkline'>1,4,4,7,8,9,10</span>"
-                  },
-                  {
-                
-					  Field2: "<div class='kpiN'>KS9-A</div> จัดการระบบการรับงานทุกประเภทโดยใช้ระบบคุณภาพตามมาตรฐาน ISO 9001",
-                      
-					  Field3: "<div id='textR'>สอดคล้องกับมาตรฐาน ISO 9001</div>  ",
-					  Field4: "- ",
-                      Field5: "<div id='textR'>10 </div>",
-					  Field5_1:"-",
-				
-					  Field6: "<div id='textR'>36.00<div>",
-                      Field7: " <center><div id='target'><div id='percentage'>36%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></cener>",
-					  Field7_1:"<div id='textR'>3.60</div>",
-					  
-					  Field9: " <span class='inlinesparkline'>1,4,4,7,8,9,10</span>"
-                  },
-					
-                  {
-                  
-					  
-					  Field2: "<div class='kpiN'>KS1-A</div>สัดส่วน IC scoreต่อบุคคากรวิจัย</a> ",
-               
-					  Field3: "<div id='textR'>ไม่ต่ำกว่า 11.5</div> ",
-					  Field4: " -",
-                      Field5: " <div id='textR'>30</div>",
-					  Field5_1:"9,290(ล้านบาท)",
-					
-					  Field6: "<div id='textR'>0.58</div>",
-                      Field7: " <center><div id='target'><div id='percentage'>24%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></center> ",
-					  Field7_1:"<div id='textR'>6.05</div>",
-					 
-					  Field9: " <span class='inlinesparkline'>1,4,4,7,8,9,10</span> "
-				  }
-				  
-				  ]; 		
-	*/
-
+	
 
 	$("#grid").kendoGrid({
 		
-           height: 630,
+          height: 490,
 	      //groupable: true,
-         // scrollable: true,
+          //scrollable: true,
           //sortable: true,
          // pageable: true,
-		//  detailInit: detailInit,
+		  //detailInit: detailInit,
 
 		/*   dataBound: function() {
                             this.expandRow(this.tbody.find("tr.k-master-row").first());
@@ -445,138 +353,107 @@ tableFun += "]";
           }
 		
       });
-
-
-
 	  /*########## Table Content End ##########*/
 			//SET SPARKLINE
 		$('.inlinesparkline').sparkline(); 
+		//$('.inlinesparkline').sparkline('html',{type:'line',width:'100'}); 
 		$('.inlinebar').sparkline('html', {type: 'bullet',height: '30',width:'200', barColor: 'red'} );
-	    $("th.k-header , .k-minus").click(function(){
+
+	   // $("th.k-header , .k-minus").click(function(){
 		//$('.inlinesparkline').sparkline(); 
 		//$('.inlinesparkline').sparkline('html',{type:'line',width:'100'}); 
 
-	});
-
-
-		//#######################Menagement Table Start ######################
+	//});
 
 
 		//#######################Menagement Table End #######################
-
 	
-
-
 		/*##########Function jQuery  add Deatail  result  End ########*/
 
-		
 		//#######################Menagement Tab Start ######################
+		/*Remove  numberic  bottom tab*/
 		$("ul.k-numeric li span").removeClass();
 		$("ul.k-numeric li span").html("");
 		/*Remove  numberic  bottom tab*/
 		/*Header Bgcolor*/
-		$("th.k-header").css({"background":"#33cc33 "});
-		$(".k-grid-header").css({"background":"#33cc33 "});
+		$("th.k-header").css({"background":"#99ccff "});
+		$(".k-grid-header").css({"background":"#99ccff "});
 		/*Header Bgcolor*/
-		/*Content Suffer Color Row*/
-		 $("tr[data-uid]").css({"background":"#d7e4bd"});
-		$(".k-alt").css({"background":"#dafbd1"});
-		/*Content Suffer Suffer Color Row*/
+
 		/*Footer Bgcolor*/
-		$(".k-pager-wrap").css({"background":"#33cc33"});
-	
+		$(".k-pager-wrap").css({"background":"#99ccff"});
 		/*Footer Bgcolor*/
 		//set font white
-			$(".k-header").css({"color":"white"});
-
-		/*### management grid2 Start###*/
-		var $title21=[{
-			field:"Field21",
-			width:100
-		},{
-			field:"Field22",
-			width:200
-		}];
-		var $data21=[{
-			
-			Field21:"test21",
-			Field22:"test content22"
-		},{
-			Field21:"2test21",
-			Field22:"2test content22"
-		}];
-/*
-		$("#grid2").kendoGrid({
-			columns:$title21,
-			dataSource:{
-			data:$data21,
-			pageSize:10
-			}
-		});
-*/
-		/*### Management grid2 End###*/
+			//$(".k-header").css({"color":"white"});
 		//#######################Menagement Tab End #######################
+		//set corner object
+		$(".ball").corner();
+	});
 
+	
 
 	</script>
 
 
  <!-- Define the HTML table, with rows, columns, and data -->
 
-
+<!--### Header Start ###-->
 <div id="contentMain1">
 	<div id="contentL">
-	<img src="owner_picture/biotec.jpg">
+	
+
+	<img src="owner_picture/ct.jpg">
 	</div>
 	<div id="contentR">
 		<div id="contentDetail">
-	ตัวชี้วัดผลสำเร็จศูนย์พันธุวิศวกรรมและเทคโนโลยีชีวภาพ<br>ประจำปีงบประมาณ  <%=YearBY%>
+	ตัวชี้วัดผลสำเร็จสายงานด้านวิจัยนโยบาย สารสนเทศและสื่อสารองค์กร<br>ประจำปีงบประมาณ <%=YearBY%>
 		</div>
 	</div>
 </div>
+<br style="clear:both">
+<!--### Header End ###-->
 
 
 
 
 
- <div id="table_title" style="clear:both">
- 
+ <div id="table_title">
 	<div id="title">
-
 	<%
 	out.print(titleStr);
 	%>
 <!--<span class="inlinebar">4.5,5,5,5,5,5</span>-->
-
+	
 	</div>
  </div>
-
+ 
  <div class="content">
  <div id="table_content">
- 
  <table id="grid">
   <thead>
       <tr>
 		  
-<!--<th class="k-hierarchy-cell k-header">&nbsp;</th>
-          <th data-field="Field1" ><center><b>มุมมอง</b></center></th>-->
+<!--<th class="k-hierarchy-cell k-header">&nbsp;</th>-->
+     
+
 		  <th  data-field="Field2"><center><b>ตัวชี้วัด</center></th>
+		 
 		  <th data-field="Field3"><center><b>เป้าหมาย</b></center></th>
 		  <th data-field="Field4"><center><b>หน่วยนับ</b></center></th>
 		  <th data-field="Field5"><center><b>น้ำหนัก</b></center></th>
 		  <th data-field="Field5_1"><center><b>ข้อมูลฐาน</b></center></th>
-		 
+	
 		  <th data-field="Field6"><center><b>ผลงานสะสม</b></center></th>
-		  <th data-field="Field7"><center><b>% เทียบ<br>เป้าหมาย</b></center></th>
+		  <th data-field="Field7"><center><b>% เทียบเป้าหมาย</b></center></th>
 		  <th data-field="Field7_1"><center><b>คะแนน<br>ถ่วงน้ำหนัก </b></center></th>
-		  <th data-field="Field9"><center><b> กราฟคะแนน<br>ถ่วงน้ำหนัก</b></center></th>
+		  <th data-field="Field9"><center><b> กราฟ<br>ผลงานสะสม</b></center></th>
 
 	  </tr>
   </thead>
   <tbody>
       <tr>
-          <td></td>
-          <td></td>
+    
+ 
 		  <td></td>
           <td></td>
 		  <td></td>
@@ -584,7 +461,9 @@ tableFun += "]";
 		  <td></td>
           <td></td>
 		  <td></td>
-     
+      	  <td></td>
+      	  <td></td>
+	
       	
 </tr>
 
@@ -594,8 +473,6 @@ tableFun += "]";
  </div>
 
 </div>
-
-
 <style>
 	table#grid2 thead th{
 	padding:5px;
@@ -615,8 +492,8 @@ $(document).ready(function(){
 	//alert("hello wold");
 	//console.log($("table#grid2 tbody tr:odd").get());
 $("table#grid2 tbody tr td").css("padding","5px");
-$("table#grid2 tbody tr:odd").css("background-color","#d7e4bd");
-$("table#grid2 tbody tr:even").css("background","#dafbd1");
+$("table#grid2 tbody tr:odd").css("background-color","#DBEEF3");
+$("table#grid2 tbody tr:even").css("background","white");
 
 
 //set corner object
@@ -640,9 +517,10 @@ $(".ball").corner();
 
 <table id="grid2"  width="100%">
 	<thead >
-		<tr bgcolor="#33CC33">
-			<th data-field="Field21" style="text-align:center;color:white;">ลำดับ</th>
-			<th data-field="Field22" style="text-align:center;color:white;">งานที่ได้รับมอบหมาย</th>
+		
+		<tr bgcolor="#99CCFF">
+			<th data-field="Field21" style="text-align:center;">ลำดับ</th>
+			<th data-field="Field22" style="text-align:center;">งานที่ได้รับมอบหมาย</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -669,10 +547,16 @@ $(".ball").corner();
 	while(rs.next()){
 			out.print(rs.getString("comment")); 
 	}
+/*
+	for(i=0;i<kpiComment.size();i++)
+     {
+      out.print("ArrayList Elements       :"+kpiComment.get(i)+"<br/>");
+     }*/
+	
 %>
 
-<br style="clear:both">
 
+<br style="clear:both">
 
 
 	
