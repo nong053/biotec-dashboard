@@ -8,11 +8,11 @@ String ParamMonth = request.getParameter("ParamMonth");
 String ParamYear = request.getParameter("ParamYear");
 String ParamOrg = request.getParameter("ParamOrg");
 String Param_sp_center = "";
-/*
+
 out.print("ParamMonth"+ParamMonth);
 out.print("ParamYear"+ParamYear);
 out.print("ParamOrg"+ParamOrg);
-*/
+
 /*
 -- biotec_dwh --
 Type: MYSQL
@@ -22,10 +22,10 @@ user: root
 pass: bioteccockpit
 */
 // Jsp  Server-side
-String connectionURL="jdbc:mysql://10.226.202.114:3306/biotec_dwh";
+String connectionURL="jdbc:mysql://localhost:3306/biotec_dwh";
 String Driver = "com.mysql.jdbc.Driver";
 String User="root";
-String Pass="bioteccockpit";
+String Pass="root";
 String Query="";
 String center_name="";
 Connection conn= null;
@@ -36,7 +36,6 @@ Statement st;
 ResultSet rs;
 
 String sp_emp_by_center="";
-
 String sum_total_employee="";
 String shortname="";
 
@@ -496,7 +495,7 @@ var pieChart= function(id_param,data_param,summ_param){
 pieChart("#pie_emp_by_center",<%=sp_emp_by_center%>,900);
 pieChart("#pie_emp_by_employ_type",<%=sp_emp_by_employ_type%>,900);
 pieChart("#pie_emp_by_education_level_group",<%=sp_emp_by_education_level_group%>,900);
-pieChart("#pie_emp_by_job_family",<%=sp_emp_by_job_family%>,900);
+//pieChart("#pie_emp_by_job_family",<%=sp_emp_by_job_family%>,900);
 pieChart("#pie_emp_by_function_type",<%=sp_emp_by_function_type%>,900);
 pieChart("#pie_hr_expense",<%=sp_hr_expense%>,900);
 
@@ -510,7 +509,6 @@ pieChart("#pie_hr_expense",<%=sp_hr_expense%>,900);
 /* Tab2 Start*/
 
 	
-
 
 
 $("#tabHr1.ui-tabs-panel ").css({"padding":"0px"});
