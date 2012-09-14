@@ -570,7 +570,7 @@ tableFun += "]";
 		  <th data-field="Field6"><center><b>ผลงานสะสม</b></center></th>
 		  <th data-field="Field7"><center><b>% เทียบ<br>เป้าหมาย</b></center></th>
 		  <th data-field="Field7_1"><center><b>คะแนน<br>ถ่วงน้ำหนัก </b></center></th>
-		  <th data-field="Field9"><center><b> กราฟคะแนน<br>ถ่วงน้ำหนัก</b></center></th>
+		  <th data-field="Field9"><center><b> กราฟ<br>ผลงานสะสม</b></center></th>
 
 	  </tr>
   </thead>

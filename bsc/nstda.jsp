@@ -43,9 +43,19 @@ while(rs.next()){
 		{
 		tableFun += ",";
 	}
+	String OwnerID = rs.getString("owner_id") ;
+	tableFun += "{Field0: \"";
+	tableFun += OwnerID;
+	tableFun += "\", ";
+
+	String KpiID= rs.getString("kpi_id");
+	tableFun += "Field0_1: \"";
+	tableFun += KpiID;
+	tableFun += "\", ";
+
 
 	String perspective_code = rs.getString("krs.perspective_code");
-	tableFun += "{Field1: \"";
+	tableFun += "Field1: \"";
 	tableFun += perspective_code;
 	tableFun += "\", ";
 
@@ -116,7 +126,6 @@ while(rs.next()){
 	//Statement st2;
 	//ResultSet  rs2;
 	String QueryGraph = "";
-	String KpiID= rs.getString("kpi_id");
 
 	//st2 = conn.createStatement();
 	QueryGraph = "CALL sp_parent_kpi_trend(";
@@ -447,6 +456,7 @@ tableFun2 += "]";
 
 
 var $titleJ2 =[
+	
               {
                   field: "Field1",
 				  title:"Testตัวชีวัด",
@@ -512,9 +522,126 @@ var $titleJ2 =[
 	// TITLE BY JSON END
 	//CONTENT BY JSON START 
 	var $dataJ = <%=tableFun%>;
-
-	var $dataJ2 =[
+/*
+	var $dataJ =[
                   {
+						Field0: "1",
+													Field0_1: "1",
+
+					  Field1: "test",
+					  Field2: "<div class='kpiN'>KS1</div>สัดส่วนโครงการ RDDE/TT ที่มีการประเมินผลกระทบจากผลงานวิจัยต่อโครงการ RDD/TT ที่ดำเนินการทั้งหมด",
+
+                      Field3: " <div id='textR'>0.15</div> ",
+					  Field4: "-",
+                      Field5: "<div id='textR'>25</div>",
+					  Field5_1:"4,500 (ล้านบาท)",
+				
+					  Field6: " <div id='textR'>0.44  <br>2,000 <br>ล้านบาท<div>",
+                      Field7: "<center><div id='target'><div id='percentage'>40%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></center> ",
+					 Field7_1:"<div id='textR'>10.10</div>",
+					 
+					  Field9: " <span class='inlinesparkline'>1,4,4,7,8,9,10</span> "
+                     
+					  
+                     
+                  },
+                  {
+					  						Field0: "2",
+													Field0_1: "21",
+
+					  Field1: "test",
+					  Field2: "<div class='kpiN'>KS5</div>ร้อยละความสำเร็จในการขับเคลื่อน Flagship- ผลิตภัณฑ์จากทรัพยากรชีวภาพ เพื่อการถ่ายทอดเชิงพาณิชย์ - เทคโนโลยี สวทช. นำไปเผยแพร่แก่ชุมชน ชึ่งก่อให้เกิดรายได้เพื่ม และเป็นชุมชนต้นแบบให้กับชุมชนอื่นๆ",
+                    
+					  Field3: "<div id='textR'>100</div>  ",
+					  Field4: "ร้อยละ",
+                      Field5: "<div id='textR'> 15</div>",
+					  Field5_1:"1.07",
+				
+					  Field6: "<div id='textR'>1.13 <div>",
+                      Field7: "<center><div id='target'><div id='percentage'>113%</div> <div id='score'>"+ballGray+""+ballGray+""+ballGreen+"</div></div></center>",
+					  Field7_1:"<div id='textR'>11.30<div>",
+					
+					  Field9: "  <span class='inlinesparkline'>1,4,4,7,8,9,10</span>"
+					  
+                  },
+                  {
+					  						Field0: "3",
+													Field0_1: "31",
+
+					  Field1: "test",
+					  Field2: "<div class='kpiN'>KS7</div>จำนวนรายได้อุดหนุนการวิจัย รับจ้าง/ร่วมวิจัยลิขสิทิธิ์/สิทธิประโยชน์และบริการเทคนิค/วิชาการ",
+                      
+					  Field3: "<div id='textR'>100</div>  ",
+					  Field4: " ล้านบาท",
+                      Field5: "<div id='textR'>15</div>",
+					  Field5_1:"15",
+			
+					  Field6: "<div id='textR'>4.30<div> ",
+                      Field7: "<center><div id='target'><div id='percentage'>11%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></center> ",
+					   Field7_1:"<div id='textR'>1.61<div>",
+					 
+					  Field9: " <span class='inlinesparkline'>1,4,4,7,8,9,10</span> "
+                  },
+                  {
+					  						Field0: "4",
+													Field0_1: "41",
+					  Field1: "test",
+					  Field2: " <div class='kpiN'>KS7-B</div>สัดส่วนรายได้ ต่อค่าใช้จ่าย(SBBU)",
+                      
+					  Field3: "<div id='textR'>0.69</div>  ",
+					  Field4: "-",
+                      Field5: "<div id='textR'>5</div> ",
+					  Field5_1:"20",
+					 
+					  Field6: "<div id='textR'>5.00<div>",
+                      Field7: " <center><div id='target'><div id='percentage'>25%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></cener>",
+					  Field7_1:"<div id='textR'>3.75<div>",
+					
+					  Field9: " <span class='inlinesparkline'>1,4,4,7,8,9,10</span>"
+                  },
+                  {
+					  						Field0: "5",
+													Field0_1: "51",
+					  Field1: "test",
+					  Field2: "<div class='kpiN'>KS9-A</div> จัดการระบบการรับงานทุกประเภทโดยใช้ระบบคุณภาพตามมาตรฐาน ISO 9001",
+                      
+					  Field3: "<div id='textR'>สอดคล้องกับมาตรฐาน ISO 9001</div>  ",
+					  Field4: "- ",
+                      Field5: "<div id='textR'>10 </div>",
+					  Field5_1:"-",
+				
+					  Field6: "<div id='textR'>36.00<div>",
+                      Field7: " <center><div id='target'><div id='percentage'>36%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></cener>",
+					  Field7_1:"<div id='textR'>3.60</div>",
+					  
+					  Field9: " <span class='inlinesparkline'>1,4,4,7,8,9,10</span>"
+                  },
+					
+                  {
+                  						Field0: "6",
+													Field0_1: "61",
+
+					  Field1: "test",
+					  Field2: "<div class='kpiN'>KS1-A</div>สัดส่วน IC scoreต่อบุคคากรวิจัย</a> ",
+               
+					  Field3: "<div id='textR'>ไม่ต่ำกว่า 11.5</div> ",
+					  Field4: " -",
+                      Field5: " <div id='textR'>30</div>",
+					  Field5_1:"9,290(ล้านบาท)",
+					
+					  Field6: "<div id='textR'>0.58</div>",
+                      Field7: " <center><div id='target'><div id='percentage'>24%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></center> ",
+					  Field7_1:"<div id='textR'>6.05</div>",
+					 
+					  Field9: " <span class='inlinesparkline'>1,4,4,7,8,9,10</span> "
+				  }
+				  
+				  ]; 		
+	
+var $dataJ2 =[
+                  {
+		                  						Field0: "1",
+
                       Field1: "<b>(BIOTEC)</b> Lead2 ร้อยละความสำเร็จในการส่งมอบ flagship",
 					 
 
@@ -533,6 +660,8 @@ var $titleJ2 =[
                      
                   },
                   {
+					                    						Field0: "1",
+
                       Field1: "<b>(MTEC) </b>Lead2 ร้อยละความสำเร็จในการส่งมอบ flagship",
 				
 
@@ -551,6 +680,8 @@ var $titleJ2 =[
                      
                   },
 				   {
+					                    						Field0: "2",
+
                       Field1: "<b>(NANOTEC)</b> Lead2 ร้อยละความสำเร็จในการส่งมอบ flagship",
 					
 
@@ -569,6 +700,8 @@ var $titleJ2 =[
                      
                   },
 				   {
+					                    						Field0: "3",
+
                       Field1: "<b>(NECTEC)</b> Lead2 ร้อยละความสำเร็จในการส่งมอบ flagship",
 					
 
@@ -587,6 +720,8 @@ var $titleJ2 =[
                      
                   },
 				   {
+					                    						Field0: "4",
+
                       Field1: "<b>(BIOTEC)</b>Lead4 จำนวนรายได้อุดหนุนการวิจัย รับจ้าง/ร่วมวิจัย ลิขสิทธิ์/สิทธิประโยชน์ และบริการเทคนิควิชาการ",
 				
 
@@ -605,6 +740,8 @@ var $titleJ2 =[
                      
                   },
 				   {
+					                    						Field0: "4",
+
                       Field1: "<b>(MTEC)</b> Lead4 จำนวนรายได้อุดหนุนการวิจัย รับจ้าง/ร่วมวิจัย ลิขสิทธิ์/สิทธิประโยชน์ และบริการเทคนิควิชาการ",
 				
 
@@ -623,6 +760,8 @@ var $titleJ2 =[
                      
                   },
 				   {
+					                    						Field0: "5",
+
                       Field1: "<b>(NANOTEC)</b> Lead4 จำนวนรายได้อุดหนุนการวิจัย รับจ้าง/ร่วมวิจัย ลิขสิทธิ์/สิทธิประโยชน์ และบริการเทคนิควิชาการ",
 				
 
@@ -641,6 +780,8 @@ var $titleJ2 =[
                      
                   },
 				   {
+					  Field0: "6",
+
                       Field1: "<b>(NECTEC)</b> Lead4 จำนวนรายได้อุดหนุนการวิจัย รับจ้าง/ร่วมวิจัย ลิขสิทธิ์/สิทธิประโยชน์ และบริการเทคนิควิชาการ",
 				
 
@@ -660,11 +801,14 @@ var $titleJ2 =[
                   }
 				  
 				  ]; 
+*/
+
+	
 	//CONTENT BY JSON END
 
 //console.log($dataJ2[0]["Field3"]);
 
-$dataJ2[0]["Field3"];
+//$dataJ2[0]["Field3"];
 
 
 
@@ -693,6 +837,7 @@ $dataJ2[0]["Field3"];
 		$('.inlinesparkline').sparkline(); 
 		$('.inlinebar').sparkline('html', {type: 'bullet',height: '30',width:'200', barColor: 'red'} );
 	    $("th.k-header , .k-minus").click(function(){
+	//		alert("test");
 		//$('.inlinesparkline').sparkline(); 
 		//$('.inlinesparkline').sparkline('html',{type:'line',width:'100'}); 
 
@@ -707,16 +852,42 @@ $dataJ2[0]["Field3"];
 	
 
 	 function detailInit(e) {
+		 //alert(e.data.Field0);
+		 $.ajax({
+		 url:'nstdalv1.jsp',
+			type:'get',
+		dataType:'html',
+		data:{'year':<%=ParamYear%>,'month':<%=ParamMonth%>,'name':"<%=ParamOrg%>",'owner_id':e.data.Field0,'kpi_id':e.data.Field0_1},
+		success:function(data){
+			 console.log(data);
+							var tableFun2 = eval("(" + data + ")");
+
 							$("<table bgcolor='#f5f5f5'><th></th></table>").kendoGrid({
 								columns: $titleJ2,
 								dataSource: {
-								data: $dataJ2,
+								data: tableFun2,
 								pageSize: 8,
-								
+						//		filter: { field: "Field0", operator: "eq", value: e.data.Field0 }
+
 							}
 							}).appendTo(e.detailCell);
-			
-						 $('.inlinesparkline_sub').sparkline(); 
+							$('.inlinesparkline_sub').sparkline(); 
+				//			alert("test");
+									 $(".kpiN").hover(function(e){
+								     var $X =  e.pageX;
+									 var $Y = e.pageY;
+									 var $pos = e.target.id;
+									 var classT = ".tootip#"+$pos;
+									 alert(classT);
+								//	 alert($(".tootip#1000").text());
+									$(classT).css({"left":$X+"px","top":$Y+"px"}).fadeIn();
+											
+								 },function(){
+									 $(".tootip").hide();
+								 });
+			 }
+	 });
+						 
 						 /*Content Suffer Color Row*/
 						// $("tr[data-uid]").css({"background-color":"#d7e4bd"});
 						$(".k-alt").css({"background-color":"#dbeef3"});
@@ -729,7 +900,7 @@ $dataJ2[0]["Field3"];
 				// REMOVE COLUMN END
 			
                 } // End Function detailInit
-
+	
 		/*##########Function jQuery  add Deatail  result  End ########*/
 
 		
