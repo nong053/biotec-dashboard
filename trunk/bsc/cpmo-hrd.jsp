@@ -31,7 +31,6 @@ while(rs.next()){
 }
 
 
-
 st = conn.createStatement();
 Query="CALL sp_parent_kpi_list(";
 Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
@@ -46,8 +45,8 @@ while(rs.next()){
 	String kpi_code = rs.getString("kpi_code");
 	String kpi = rs.getString("kpi") ;
 	tableFun += "{Field2: \"";
-	tableFun += "<div class =kpiN>"+kpi_code+"</div>"+kpi;
-
+	tableFun += "<div class =kpiN id="+i+">"+kpi_code+"</div>"+kpi;
+	out.print("<div class=tootip id="+i+"><b>"+rs.getString("kpi_comment")+"</b></div>");
 
 	//=============Get Url with Details Button Start============
 	String urlpage = rs.getString("url");
@@ -81,7 +80,7 @@ while(rs.next()){
 
 	String performance_value = rs.getString("performance_value") ;
 	tableFun += "Field6: \"";
-	tableFun += "<div id=textR> "+ performance_value +"</div> \",";
+	tableFun += "<div id=textR>"+ performance_value +"</div> \",";
 
 //=================================Color Start=========================
 	String performance_percentage = rs.getString("performance_percentage");
@@ -134,7 +133,7 @@ while(rs.next()){
 				String Aug = rs1.getString("Aug");
 				String Sep = rs1.getString("Sep");
 
-				tableFun += "<span class=inlinesparkline>"
+				out.print("<span class=inlinedata id="+(i+200)+" style='display:none'>"
 								+Oct+","
 								+Nov+","
 								+Dec+","
@@ -147,7 +146,22 @@ while(rs.next()){
 								+Jul+","
 								+Aug+","
 								+Sep
-								+"</span>\"";
+								+"</span>");
+				
+				tableFun += "<div class=inlinesparkline id="+(i+100)+">"
+								+Oct+","
+								+Nov+","
+								+Dec+","
+								+Jan+","
+								+Feb+","
+								+Mar+","
+								+Apr+","
+								+May+","
+								+Jun+","
+								+Jul+","
+								+Aug+","
+								+Sep
+								+"</div>\"";
 				tableFun += "}";
 		//	}
 	}
@@ -155,8 +169,6 @@ while(rs.next()){
 	i++;
 }
 tableFun += "]";
-
-
 
 
 
@@ -234,14 +246,14 @@ font-size:14px;
 	display:inline;
 	border-radius:5px;
 	margin:2px;
-	}
+	}/*
 	.inlinesparkline{
 	cursor:pointer;
 	}
 	.inlinesparkline_sub{
 	cursor:pointer;
 	}
-			/*###  Config file Header  Start###*/
+			###  Config file Header  Start###*/
 #contentMain1{
 	
 	width:auto;
