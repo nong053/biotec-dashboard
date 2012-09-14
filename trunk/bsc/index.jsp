@@ -415,6 +415,17 @@ conn = DriverManager.getConnection(connectionURL,User,Pass);
 									 $(".tootip").hide();
 								 });
 
+								  $(".ball").live("hover",function(ex){
+									  //alert("test");
+								     var $BX =  ex.pageX-60;
+									 var $BY = ex.pageY-60;
+									 var Bpos = String(ex.target.id);
+									 var $classB = ".commentBall#"+Bpos;
+alert($($classB).length);
+									// alert(classB);
+									$($classB).css({"left":$BX+"px","top":$BY+"px"}).fadeIn();
+								
+								 });
 
 
 
