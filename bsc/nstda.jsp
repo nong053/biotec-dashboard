@@ -1,42 +1,279 @@
-  
+  <%@page import="java.sql.*"%>
+<%@page import="java.io.*"%>
+<%@page import="java.lang.*"%>
 <% 
-
 String ParamYear  = request.getParameter("ParamYear");
 String ParamMonth  = request.getParameter("ParamMonth");
 String ParamOrg  = request.getParameter("ParamOrg");
-
+Integer YearBY = (java.lang.Integer.parseInt(ParamYear))+543;
 String titleStr = "";
-//out.print("{"+ParamYear+","+ParamMonth+","+ParamOrg+"}");
-//out.print('{"0":"nong","1":"nuy","2":"TEST"}');
-//out.print(ParamOrg);
 
-//out.print(ParamOrg);
-//out.print(ParamOrg.trim());
-
-if(ParamOrg.equals("NSTDA")){
-	
-	titleStr="ผลสำเร็จ สำนักงานพัฒนาวิทยาศาสตร์และเทคโนโลยีแห่งชาติได้ 36.42 คะแนน";
-
-}else if(ParamOrg.equals("BIOTEC")){
-	
-	titleStr=" ผลการดำเนินงานสะสมของ นายวีระศักดิ์ อุดมกิจเดชา ได้ 47.5 คะแนน";
-
-}else if(ParamOrg.equals("MTEC")){
-	
-titleStr=" ผลการดำเนินงานสะสมของ นายทวีศักดิ์ นายวีระศักดิ์ อุดมกิจเดชา 36.42 คะแนน  ";
+String connectionURL="jdbc:mysql://localhost:3306/biotec_dwh";
+String Driver = "com.mysql.jdbc.Driver";
+String User="root";
+String Pass="root";
+String Query="";
+String center_name="";
+Connection conn= null;
+Statement st;
+ResultSet  rs;
+Class.forName(Driver).newInstance();
+conn = DriverManager.getConnection(connectionURL,User,Pass);
 
 
-}else if(ParamOrg.equals("NECTEC")){
-	
-titleStr=" ผลการดำเนินงานสะสมของ นายทวีศักดิ์ นายพันธ์ศักดิ์ ศิริรัชตพงษ์ 36.42 คะแนน  ";
-
-
-}else{
-	
-
-titleStr=" ผลการดำเนินงานสะสมของ  นายพันธ์ศักดิ์ ศิริรัชตพงษ์ 36.42 คะแนน  ";
-//NANOTEC
+st = conn.createStatement();
+Query="CALL sp_owner_wavg_score(";
+Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
+rs = st.executeQuery(Query);
+while(rs.next()){
+	String ParamScore =  rs.getString("owner_wavg_score") ;
+	titleStr="ผลสำเร็จ สำนักงานพัฒนาวิทยาศาสตร์และเทคโนโลยีแห่งชาติได้ " + ParamScore +" คะแนน";
 }
+//=================================== DataJ Start===============================================
+
+st = conn.createStatement();
+Query="CALL sp_parent_kpi_list(";
+Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
+rs = st.executeQuery(Query);
+String tableFun = "[";
+int i=0;
+
+while(rs.next()){
+	if(i>0)
+		{
+		tableFun += ",";
+	}
+
+	String perspective_code = rs.getString("krs.perspective_code");
+	tableFun += "{Field1: \"";
+	tableFun += perspective_code;
+	tableFun += "\", ";
+
+	String kpi_code = rs.getString("krs.kpi_code");
+	String kpi = rs.getString("kpi") ;
+	tableFun += "Field2: \"";
+	tableFun += "<div class =kpiN>"+kpi_code+"</div>"+kpi;
+
+	//=============Get Url with Details Button Start============
+	String urlpage = rs.getString("url");
+	if(urlpage == null || urlpage.equals(""))
+	{
+		tableFun +="";
+	}
+	else
+	{
+		tableFun +=" <a href="+urlpage+" target=_blank><button class=k-button>รายละเอียด</button></a> ";
+	}
+	tableFun += "\", ";
+
+	//=============Get Url with Details Button End============
+	String target_value = rs.getString("target_value");
+	tableFun += "Field3: \"";
+	tableFun += "<div id=textR>"+ target_value +"</div> \",";
+
+	String kpi_uom = rs.getString("kpi_uom");
+	tableFun += "Field4: \"";
+	tableFun += kpi_uom + "\",";
+
+	String kpi_weighting = rs.getString("kpi_weighting");
+	tableFun += "Field5: \"";
+	tableFun +=  "<div id=textR>"+kpi_weighting +"</div> \",";
+
+	String baseline = rs.getString("baseline") ;
+	tableFun += "Field5_1: \"";
+	tableFun += baseline + "\",";
+
+	String performance_value = rs.getString("performance_value") ;
+	tableFun += "Field6: \"";
+	tableFun += "<div id=textR>"+ performance_value +"</div> \",";
+
+//=================================Color Start=========================
+	String performance_percentage = rs.getString("performance_percentage");
+
+	Statement st1;
+	ResultSet  rs1;
+	String QueryColor = "";
+	st1 = conn.createStatement();
+	QueryColor="CALL sp_color_code(";
+	QueryColor += performance_percentage+")";
+	rs1 = st1.executeQuery(QueryColor);
+	while(rs1.next())
+	{
+		tableFun += "";
+	}
+
+	tableFun += "Field7: \"";
+	tableFun += "<center><div id='target'><div id='percentage'>" + performance_percentage +"</div></div></center> \",";
+
+	String kpi_wavg_score = rs.getString("kpi_wavg_score");
+	tableFun += "Field7_1: \"";
+	tableFun += "<div id=textR>"+ kpi_wavg_score +"</div> \",";
+
+	//===============GraphLine Start=====================
+	tableFun += "Field9: \"";
+	
+	//Statement st2;
+	//ResultSet  rs2;
+	String QueryGraph = "";
+	String KpiID= rs.getString("kpi_id");
+
+	//st2 = conn.createStatement();
+	QueryGraph = "CALL sp_parent_kpi_trend(";
+	QueryGraph += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\","+KpiID+")";
+	rs1 = st1.executeQuery(QueryGraph);
+	while(rs1.next())
+	{
+		//	if(KpiID.equals(rs1.getString("kpi_id") ))
+		//	{
+				String Oct = rs1.getString("Oct");
+				String Nov = rs1.getString("Nov");
+				String Dec = rs1.getString("Dec");
+				String Jan = rs1.getString("Jan");
+				String Feb = rs1.getString("Feb");
+				String Mar = rs1.getString("Mar");
+				String Apr = rs1.getString("Apr");
+				String May = rs1.getString("May");
+				String Jun = rs1.getString("Jun");
+				String Jul = rs1.getString("Jul");
+				String Aug = rs1.getString("Aug");
+				String Sep = rs1.getString("Sep");
+
+				tableFun += "<span class=inlinesparkline>"
+								+Oct+","
+								+Nov+","
+								+Dec+","
+								+Jan+","
+								+Feb+","
+								+Mar+","
+								+Apr+","
+								+May+","
+								+Jun+","
+								+Jul+","
+								+Aug+","
+								+Sep
+								+"</span>\"";
+				tableFun += "}";
+		//	}
+	}
+	//===============GraphLine End=====================
+	i++;
+}
+tableFun += "]";
+
+//=================================== DataJ  END ===============================================
+
+
+/*
+
+//=================================== DataJ2 Start===============================================
+String kpi_id = kpi_id;   //Parameter to get query
+String owner_id = owner_id ; //Parameter to get query
+st = conn.createStatement();
+Query="CALL sp_child_kpi_list(";
+Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\","+  kpi_id + "," +  owner_id +")";
+rs = st.executeQuery(Query);
+String tableFun2 = "[";
+int i=0;
+
+while(rs.next()){
+	if(i>0){
+		tableFun2 += ","
+	}
+
+	String lead_kpi = rs.getString("lead_kpi") ;
+	tableFun2 += "{Field1: \"";
+	tableFun2 += lead_kpi;
+
+	//=============Get Url with Details Button Start============
+	String url = rs.getString("url");
+	if(url.equals(""))
+		{}
+	else{
+		tableFun2 +=" <a href="+url+" target=_blank><button class=k-button>รายละเอียด</button></a> "
+	}
+	tableFun2 += "\", ";
+
+	//=============Get Url with Details Button End============
+	String target_value = rs.getString("krs.target_value");
+	tableFun2 += "Field3: \"";
+	tableFun2 += "<div id=textR>"+ target_value +"</div> \",";
+
+	String kpi_uom = rs.getString("krs.kpi_uom");
+	tableFun2 += "Field4: \"";
+	tableFun2 += krs.kpi_uom + "\",";
+
+	String kpi_uom = rs.getString("krs.kpi_weighting");
+	tableFun2 += "Field5: \"";
+	tableFun2 +=  "<div id=textR>"+krs.kpi_weighting +"</div> \",";
+
+	String baseline = rs.getString("baseline") ;
+	tableFun2 += "Field5_1: \"";
+	tableFun2 += baseline + "\",";
+
+	String performance_value = rs.getString("performance_value") ;
+	tableFun2 += "Field6: \"";
+	tableFun2 += "<div id=textR>"+ performance_value +"</div> \",";
+
+	Integer performance_percentage = java.lang.Integer.parseInt(rs.getString("krs.performance_percentage"));
+	tableFun2 += "Field7: \"";
+	tableFun2 += "<center><div id='target'><div id='percentage'>" + performance_percentage +"</div></div></center> \",";
+
+	String kpi_wavg_score = rs.getString("krs.kpi_wavg_score") ;
+	tableFun2 += "Field7_1: \"";
+	tableFun2 += "<div id=textR>"+ kpi_wavg_score +"</div> \",";
+
+	//===============GraphLine Start=====================
+	tableFun2 += "Field9: \"";
+	
+	Statement st1;
+	ResultSet  rs1;
+	String QueryGraph = "";
+	st1 = conn.createStatement();
+	QueryGraph="CALL sp_parent_kpi_trend(";
+	QueryGraph += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
+	rs1 = st1.executeQuery(QueryGraph);
+	String KpiID= rs.getString("krs.kpi_id");
+	while(rs.next())
+	{
+			if(KpiID.equals(rs1.getString("krs.kpi_id") ))
+			{
+				String Oct = rs1.getString("Oct");
+				String Nov = rs1.getString("Nov");
+				String Dec = rs1.getString("Dec");
+				String Jan = rs1.getString("Jan");
+				String Feb = rs1.getString("Feb");
+				String Mar = rs1.getString("Mar");
+				String Apr = rs1.getString("Apr");
+				String May = rs1.getString("May");
+				String Jun = rs1.getString("Jun");
+				String Jul = rs1.getString("Jul");
+				String Aug = rs1.getString("Aug");
+				String Sep = rs1.getString("Sep");
+
+				tableFun2 += "<span class=inlinesparkline>"
+								+Oct+","
+								+Nov+","
+								+Dec+","
+								+Jan+","
+								+Feb+","
+								+Mar+","
+								+Apr+","
+								+May+","
+								+Jun+","
+								+Jul+","
+								+Aug+","
+								+Sep
+								+"</span>\"";
+				tableFun2 += "}";
+			}
+	}
+	//===============GraphLine End=====================
+	i++
+}
+tableFun2 += "]";
+
+*/
+//=================================== DataJ2  END ===============================================
 
 %>
 
@@ -270,121 +507,10 @@ var $titleJ2 =[
 			 }];
 
 
+
 	// TITLE BY JSON END
 	//CONTENT BY JSON START 
-
-//ST/ST/PA&FI/IM/IM/LG
-//Lag/Lead:: KS1/KS1-A/KS5/KS7/KS7-B/KS9-A
-/*
-ตัวชี้วัด::
- การลงทุนด้าน ว และ ท ในภาคการผลิต ภาคบริการและภาคการผลิต ภาคบริการและภาคเกษตรกรรม
-/มลูค่าผลกระทบต่อเศรษฐกิจและสังคมของประเทศที่เกิดจากการนำผลงานวิจัยไปใช้ประโยชน์
-/สัดส่วนรายได้ต่อค่าใช้จ่ายทั้งหมด
-/สัดส่วนบทบาทความวารสารารนานาชาติต่อคลาการวิจัย
-/สัดส่วนทรัพย์สินทางปัญญาต่อบุคคลาการวิจัย
-/ร้อยละความสำเร็จในการผลักดัน 9 กลยุทธ์ได้ตามแผน
-น้ำหนัก:: 25/25/10/15/15/10
-*/
-//หนวยนับ::เท่าของการลงทุนปี54/เท่าของค่าใช้จ่าย/-/ฉบับ/100คน/ปี/ร้อยละ
-	var $dataJ =[
-                  {
-                      Field1: "ST",
-					  Field2: "<div class='kpiN'>KS1</div>การลงทุนด้าน ว และ ท ในภาคการผลิต ภาคบริการและภาคการผลิต ภาคบริการและภาคเกษตรกรรม",
-
-                      Field3: " <div id='textR'>1.1</div> ",
-					  Field4: "เท่าของการลงทุนปี54",
-                      Field5: "<div id='textR'>25</div>",
-					  Field5_1:"4,500 (ล้านบาท)",
-					 
-					  Field6: " <div id='textR'>0.44 <br>2,000 <br>ล้านบาท<div>",
-                      Field7: "<center><div id='target'><div id='percentage'>40%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></center> ",
-					 Field7_1:"<div id='textR'>10.10</div>",
-					 
-					  Field9: " <span class='inlinesparkline'>1,4,4,7,5,9,10</span> "
-                     
-					  
-                     
-                  },
-                  {
-                      Field1: "ST ",
-					  
-					  Field2: "<div class='kpiN'>KS1-A</div>มูลค่าผลกระทบต่อเศรษฐกิจและสังคมของประเทศที่เกิดจากการนำผลงานวิจัยไปใช้ประโยชน์ <a href='File/test.pdf' target='_blank'><button class='k-button'>รายละเอียด</button></a> ",
-               
-					  Field3: "<div id='textR'>2.4</div> ",
-					  Field4: " เท่าของค่าใช้จ่าย",
-                      Field5: " <div id='textR'>25</div>",
-					  Field5_1:"9,290(ล้านบาท)",
-					
-					  Field6: "<div id='textR'>0.58  <br>3,000 <br>ล้านบาท</div>",
-                      Field7: " <center><div id='target'><div id='percentage'>24%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></center> ",
-					  Field7_1:"<div id='textR'>6.05</div>",
-					 
-					  Field9: " <span class='inlinesparkline'>1,4,4,7,5,9,10</span> "
-				  },
-                  {
-                      Field1: "PA&FI ",
-					  Field2: "<div class='kpiN'>KS5</div>สัดส่วนรายได้ต่อค่าใช้จ่ายทั้งหมด",
-                    
-					  Field3: "<div id='textR'>1</div>  ",
-					  Field4: "-",
-                      Field5: "<div id='textR'> 10</div>",
-					  Field5_1:"1.07",
-					 
-					  Field6: "<div id='textR'>1.13 <div>",
-                      Field7: "<center><div id='target'><div id='percentage'>113%</div> <div id='score'>"+ballGray+""+ballGray+""+ballGreen+"</div></div></center>",
-					  Field7_1:"<div id='textR'>11.30<div>",
-					
-					  Field9: "  <span class='inlinesparkline'>1,4,4,7,5,9,10</span>"
-                  },
-                  {
-                      Field1: "IM ",
-					  Field2: "<div class='kpiN'>KS7</div>สัดส่วนบทบาทความวารสารารนานาชาติต่อคลาการวิจัย ",
-                      
-					  Field3: "<div id='textR'>40</div>  ",
-					  Field4: " ฉบับ/100 คน/ปี",
-                      Field5: "<div id='textR'>15</div>",
-					  Field5_1:"36",
-					  
-					  Field6: "<div id='textR'>4.30<div> ",
-                      Field7: "<center><div id='target'><div id='percentage'>11%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></center> ",
-					   Field7_1:"<div id='textR'>1.61<div>",
-					 
-					  Field9: " <span class='inlinesparkline'>1,4,4,7,5,9,10</span> "
-                  },
-                  {
-                      Field1: "IM ",
-					  Field2: " <div class='kpiN'>KS7-B</div>สัดส่วนทรัพย์สินทางปัญญาต่อบุคคลาการวิจัย",
-                      
-					  Field3: "<div id='textR'>20</div>  ",
-					  Field4: "ฉบับ/100 คน/ปี",
-                      Field5: "<div id='textR'>15</div> ",
-					  Field5_1:"20",
-					
-					  Field6: "<div id='textR'>5.00<div>",
-                      Field7: " <center><div id='target'><div id='percentage'>25%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></cener>",
-					  Field7_1:"<div id='textR'>3.75<div>",
-					
-					  Field9: " <span class='inlinesparkline'>1,4,4,7,5,9,10</span>"
-                  },
-                  {
-                      Field1: "LG ",
-					  Field2: "<div class='kpiN'>KS9-A</div> ร้อยละความสำเร็จในการผลักดัน 9 กลยุทธ์ได้ตามแผน",
-                      
-					  Field3: "<div id='textR'>100</div>  ",
-					  Field4: "ร้อยละ ",
-                      Field5: "<div id='textR'>10 </div>",
-					  Field5_1:"-",
-					
-					  Field6: "<div id='textR'>36.00<div>",
-                      Field7: " <center><div id='target'><div id='percentage'>36%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></cener>",
-					  Field7_1:"<div id='textR'>3.60</div>",
-					  
-					  Field9: " <span class='inlinesparkline'>1,4,4,7,5,9,10</span>"
-                  }
-				  
-				  ]; 		
-	
-
+	var $dataJ = <%=tableFun%>;
 
 	var $dataJ2 =[
                   {
@@ -580,7 +706,6 @@ $dataJ2[0]["Field3"];
 	
 
 	 function detailInit(e) {
-
 							$("<table bgcolor='#f5f5f5'><th></th></table>").kendoGrid({
 								columns: $titleJ2,
 								dataSource: {
@@ -595,7 +720,6 @@ $dataJ2[0]["Field3"];
 						// $("tr[data-uid]").css({"background-color":"#d7e4bd"});
 						$(".k-alt").css({"background-color":"#dbeef3"});
 						/*Content Suffer Suffer Color Row*/
-
 						//set corner object
 						$(".ball").corner();
 
@@ -643,17 +767,15 @@ $dataJ2[0]["Field3"];
 
 
  <!-- Define the HTML table, with rows, columns, and data -->
-
-
 <div id="contentMain1">
 	<div id="contentL">
-	<img src="images/taweesak.jpg">
+	<img src="owner_picture/nstda.jpg">
 	</div>
 	<div id="contentR">
 		<div id="contentDetail">
 		<center>
 ตัวชี้วัดผลสำเร็จสำนักงานพัฒนาวิทยาศาสตร์และเทคโนโลยีแห่งชาติ<br>
-ประจำปีงบประมาณ 2555 
+ประจำปีงบประมาณ <%=YearBY%> 
 		</center>
 		</div>
 	</div>
@@ -689,7 +811,6 @@ $dataJ2[0]["Field3"];
 		  <th data-field="Field4"><center><b>หน่วยนับ</b></center></th>
 		  <th data-field="Field5"><center><b>น้ำหนัก</b></center></th>
 		  <th data-field="Field5_1"><center><b>ข้อมูลฐาน</b></center></th>
-		
 		  <th data-field="Field6"><center><b>ผลงานสะสม</b></center></th>
 		  <th data-field="Field7"><center><b>% เทียบ<br>เป้าหมาย</b></center></th>
 		  <th data-field="Field7_1"><center><b>คะแนน<br>ถ่วงน้ำหนัก </b></center></th>
@@ -719,6 +840,83 @@ $dataJ2[0]["Field3"];
  </div>
 
 </div>
+
+
+<style>
+	table#grid2 thead th{
+	padding:5px;
+	}
+	table#grid2 thead tr th{
+		text-align:left;
+	}
+	ol {
+	font-weight:bold;
+	}
+	ol li{
+	font-weight:normal;
+	}
+</style>
+<script type="text/javascript">
+$(document).ready(function(){
+	//alert("hello wold");
+	//console.log($("table#grid2 tbody tr:odd").get());
+$("table#grid2 tbody tr td").css("padding","5px");
+$("table#grid2 tbody tr:odd").css("background-color","#DBEEF3");
+$("table#grid2 tbody tr:even").css("background","white");
+
+
+//set corner object
+$(".ball").corner();
+
+});
+</script>
+
+<p>
+
+</p>
+ <div id="table_title" style="clear:both">
+ 
+	<div id="title">
+
+งานในหน้าที่ ที่ใช้ Resource ของหน่วยงาน
+<!--<span class="inlinebar">4.5,5,5,5,5,5</span>-->
+
+	</div>
+ </div>
+
+<table id="grid2"  width="100%">
+	<thead >
+		<tr bgcolor="#008EC3">
+			<th data-field="Field21" style="text-align:center;color:white;">ลำดับ</th>
+			<th data-field="Field22" style="text-align:center;color:white;">งานที่ได้รับมอบหมาย</th>
+		</tr>
+	</thead>
+	<tbody>
+	<%
+	st = conn.createStatement();
+	Query="CALL sp_owner_assignment(";
+	Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
+	rs = st.executeQuery(Query);
+	while(rs.next()){
+%>
+		<tr>
+			<td style="text-align:center"><%=rs.getString("assign_order")%></td> 
+			<td><%=rs.getString("assign_desc")%></td>
+		</tr>
+<%}%>
+	</tbody>
+</table>
+
+<%
+	st = conn.createStatement();
+	Query="CALL sp_owner_comment(";
+	Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
+	rs = st.executeQuery(Query);
+	while(rs.next()){
+			out.print(rs.getString("comment")); 
+	}
+%>
+
 <br style="clear:both">
 
 
