@@ -58,7 +58,7 @@
 			width:100px;
 			height:100px;
 			}
-			#contentMain{
+			.contentMain{
 			display:none;
 			}
 		</style>
@@ -159,35 +159,21 @@
 	$("#form_1").submit(function(){
 	
 			$.ajax({
-			url:'DefaultContent.jsp',
-			type:'get',
-			dataType:'json',
-			data:{"ParamMonth":$("#ParamMonth").val(),"ParamYear":$("#ParamYear").val(),"ParamOrg":$("#ParamOrg").val()},
+			'url':'content1.html',
+			'type':'get',
+			'dataType':'html',
 			success:function(data){
-				//console.log(data);
-				//$("#contentMain").empty();
-				console.log(data[0]["category_center"]);
-				console.log(data[1]["series_center"]);
-
-				console.log(data[2]["category_division"]);
-				console.log(data[3]["series_division"]);
-
-				console.log(data[4]["category_top20_ic_score"]);
-				console.log(data[5]["series_top20_ic_score"]);
-
-				console.log(data[6]["pie_sp_ic_score"]);
-				console.log(data[7]["sum_pie_sp_ic_score"]);
-				
-				
-			
-				baChart_sp_ic_score_by_center(data[1]["series_center"],data[0]["category_center"]);
-				baChart_sp_ic_score_by_division(data[2]["category_division"],data[3]["series_division"]);
-				//baChart_sp_top20_ic_score(data[4]["category_top20_ic_score"],data[5]["series_top20_ic_score"]);
-				pieChart_sp_ic_score_by_job_family(data[6]["pie_sp_ic_score"],data[7]["sum_pie_sp_ic_score"]);
-				stackChart_sp_count_emp_all_vs_jf2000();//1
-				stackChart_sp_count_emp_by_job_grade();//2
-				stackChart_sp_ic_score_by_output_type();//3
-				$("#contentMain").show();
+				//alert(data);
+				$("#contentMain").empty();
+				$("#contentMain").append(data)
+				barChartRd1();
+				barChartRd2();
+				barChartRd3();
+				barChartRd4();
+				pieChartRd1();
+				stackChartRd1();
+				stackChartRd2();
+				stackChartRd3();
 			}
 			
 			});
@@ -196,40 +182,17 @@
 	//$("#submit1").trigger("click");
 	/*### jQuery Funtions End ###*/
 
-	/*###  baChart_sp_ic_score_by_center  start ###*/
-function  checkBarTypeCenter(e){
-	$.ajax({
-			url:'CenterContent.jsp',
-			type:'get',
-			dataType:'json',
-			data:{"ParamMonth":$("#ParamMonth").val(),"ParamYear":$("#ParamYear").val(),"ParamCenter":e.category()},
-			success:function(data){
-				//console.log(data);
-				//$("#contentMain").empty();
-				console.log(data[0]["category_center"]);
-				console.log(data[1]["series_center"]);
-
-				console.log(data[2]["category_division"]);
-				console.log(data[3]["series_division"]);
-
-				console.log(data[4]["category_top20_ic_score"]);
-				console.log(data[5]["series_top20_ic_score"]);
-
-				console.log(data[6]["pie_sp_ic_score"]);
-				console.log(data[7]["sum_pie_sp_ic_score"]);
-
-				baChart_sp_ic_score_by_division();
-				baChart_sp_ic_score_by_department();
-				pieChart_sp_ic_score_by_job_family();
-				stackChart_sp_ic_score_by_output_type();
-				stackChart_sp_count_emp_all_vs_jf2000();
-				stackChart_sp_count_emp_by_job_grade();
-			}
-	});
-
+	/*###  barChartRd1  start ###*/
+function  checkBarType(e){
+barChartRd2();
+barChartRd3();
+pieChartRd1();
+stackChartRd1();
+stackChartRd2();
+stackChartRd3();
 }
-var baChart_sp_ic_score_by_center= function(seriesParam, categoryParam){
-	$("#baChart_sp_ic_score_by_center").kendoChart({
+var barChartRd1= function(){
+	$("#barChartRd1").kendoChart({
                         theme: $(document).data("kendoSkin") || "metro",
                         title: {
                             text: ""
@@ -247,7 +210,16 @@ var baChart_sp_ic_score_by_center= function(seriesParam, categoryParam){
                             type: "column",
 							stack: false
                         },
-                        series:seriesParam,
+                        series: [{
+                            name: "IC Score",
+                            data: [1940,1090,1870,1420]
+                        }, {
+                            name: "BSC",
+                            data: [1944,1000,1850,1400]
+                        }, {
+                            name: "Employee(JF2000)",
+                            data: [1934,1110,1820,1490]
+                        }],
                       valueAxis: [{
                             title: { text: "" },
                             min: 0,
@@ -259,7 +231,7 @@ var baChart_sp_ic_score_by_center= function(seriesParam, categoryParam){
                             max: 450
                         }],
                         categoryAxis: {
-                            categories:categoryParam,
+                            categories: [ "BIOTEC" ," MTEC", "NECTECH ", "NANOTECH"],
 							axisCrossingValue: [0,100]
 							
                         },
@@ -267,47 +239,25 @@ var baChart_sp_ic_score_by_center= function(seriesParam, categoryParam){
                             visible: true,
                             format: "{0}"
                         },
-						seriesClick:checkBarTypeCenter
+						seriesClick:checkBarType
 				
                     });
 
 
 }
-/*###  baChart_sp_ic_score_by_center  end ###*/
-/*###  baChart_sp_ic_score_by_division  start ###*/
-function checkBarTypeDivision(e){
-	$.ajax({
-			url:'DivisionContent.jsp',
-			type:'get',
-			dataType:'json',
-			data:{"ParamMonth":$("#ParamMonth").val(),"ParamYear":$("#ParamYear").val(),"ParamCenter":e.category()},
-			success:function(data){
-				//console.log(data);
-				//$("#contentMain").empty();
-				console.log(data[0]["category_center"]);
-				console.log(data[1]["series_center"]);
 
-				console.log(data[2]["category_division"]);
-				console.log(data[3]["series_division"]);
-
-				console.log(data[4]["category_top20_ic_score"]);
-				console.log(data[5]["series_top20_ic_score"]);
-
-				console.log(data[6]["pie_sp_ic_score"]);
-				console.log(data[7]["sum_pie_sp_ic_score"]);
-			
-				baChart_sp_ic_score_by_department();
-				pieChart_sp_ic_score_by_job_family();
-				stackChart_sp_ic_score_by_output_type();
-				stackChart_sp_count_emp_all_vs_jf2000();
-				stackChart_sp_count_emp_by_job_grade();
-			}
-	});
-
+/*###  barChartRd1  end ###*/
+/*###  barChartRd2  start ###*/
+function checkBarType2(e){
+barChartRd3();
+pieChartRd1();
+stackChartRd1();
+stackChartRd2();
+stackChartRd3();
 }
-var baChart_sp_ic_score_by_division= function(categoryParam,seriesParam){
+var barChartRd2= function(){
 
-	$("#baChart_sp_ic_score_by_division").kendoChart({
+	$("#barChartRd2").kendoChart({
                         theme: $(document).data("kendoSkin") || "metro",
                         title: {
                             text: ""
@@ -325,7 +275,16 @@ var baChart_sp_ic_score_by_division= function(categoryParam,seriesParam){
                             type: "column",
 							stack: false
                         },
-                        series:seriesParam,
+                        series: [{
+                            name: "IC Score",
+                            data: [488,309,269,228,176,130]
+                        }, {
+                            name: "BSC",
+                            data: [488,389,299,248,116,120]
+                        }, {
+                            name: "EMPLOYEE(JF2000)",
+                            data: [498,309,219,228,126,140]
+                        }],
                       valueAxis: [{
                             title: { text: "" },
                             min: 0,
@@ -337,7 +296,7 @@ var baChart_sp_ic_score_by_division= function(categoryParam,seriesParam){
                             max: 140
                         }],
                         categoryAxis: {
-                            categories:categoryParam ,
+                            categories: [ "BTU" ," AGU", "GEI ", "JRU", "MMU","FBU"],
 							axisCrossingValue: [0,100],
 							
                         },
@@ -345,42 +304,20 @@ var baChart_sp_ic_score_by_division= function(categoryParam,seriesParam){
                             visible: true,
                             format: "{0}"
                         },
-						seriesClick:checkBarTypeDivision
+						seriesClick:checkBarType2
                     });
 }
 
-/*###  baChart_sp_ic_score_by_division  end ###*/
-/*###  baChart_sp_ic_score_by_department  start ###*/
-function checkBarTypeDepartment(){
-			$.ajax({
-			url:'DepartmentContent.jsp',
-			type:'get',
-			dataType:'json',
-			data:{"ParamMonth":$("#ParamMonth").val(),"ParamYear":$("#ParamYear").val(),"ParamCenter":e.category()},
-			success:function(data){
-				//console.log(data);
-				//$("#contentMain").empty();
-				console.log(data[0]["category_center"]);
-				console.log(data[1]["series_center"]);
-
-				console.log(data[2]["category_division"]);
-				console.log(data[3]["series_division"]);
-
-				console.log(data[4]["category_top20_ic_score"]);
-				console.log(data[5]["series_top20_ic_score"]);
-
-				console.log(data[6]["pie_sp_ic_score"]);
-				console.log(data[7]["sum_pie_sp_ic_score"]);
-
-				pieChart_sp_ic_score_by_job_family();
-				stackChart_sp_ic_score_by_output_type();
-				stackChart_sp_count_emp_all_vs_jf2000();
-				stackChart_sp_count_emp_by_job_grade();
-			}
-			});
+/*###  barChartRd2  end ###*/
+/*###  barChartRd3  start ###*/
+function checkBarType3(){
+pieChartRd1();
+stackChartRd1();
+stackChartRd2();
+stackChartRd3();
 }
-var baChart_sp_ic_score_by_department= function(){
-	$("#baChart_sp_ic_score_by_department").kendoChart({
+var barChartRd3= function(){
+	$("#barChartRd3").kendoChart({
                         theme: $(document).data("kendoSkin") || "metro",
                         title: {
                             text: "",
@@ -427,17 +364,17 @@ var baChart_sp_ic_score_by_department= function(){
                             visible: true,
                             format: "{0}"
                         },
-						seriesClick:checkBarTypeDepartment
+						seriesClick:checkBarType3
 						
                     });
 	
 }
 
-/*###  baChart_sp_ic_score_by_department  end ###*/
+/*###  barChartRd3  end ###*/
+/*###  barChartRd4  start ###*/
 
-/*###  stackChart_sp_top20_ic_score  start ###*/
-var baChart_sp_top20_ic_score= function(categoryParam,seriesParam){
-	$("#baChart_sp_top20_ic_score").kendoChart({
+var barChartRd4= function(){
+	$("#barChartRd4").kendoChart({
                         theme: $(document).data("kendoSkin") || "metro",
                         title: {
                             text: "Top 20 IC Score"
@@ -455,7 +392,16 @@ var baChart_sp_top20_ic_score= function(categoryParam,seriesParam){
                             type: "column",
 							stack: false
                         },
-                        series: seriesParam,
+                        series: [{
+							name:"IC Score",
+							data:[1261,488,484,445,442,372,355,314,309,269,262,244,242,231,228,216,211,176,170,161]
+							},{
+							name:"BSC",
+							data:[1261,488,1261,445,442,1261,355,314,1309,269,262,1261,242,231,228,1261,211,176,1261,161]
+							},{
+							name:"EMPLOYEE(JF2000)",
+							data:[1261,488,1484,1445,1442,1372,1355,314,1309,169,262,1244,1242,231,1228,1216,1211,1176,170,1161]
+							}],
                        valueAxis: [{
                             title: { text: "" },
                             min: 0,
@@ -470,7 +416,7 @@ var baChart_sp_top20_ic_score= function(categoryParam,seriesParam){
 							labels: {
                                 rotation: -90
                             },
-                            categories: categoryParam,
+                            categories: ["NANOTEC-NLAB","BIOTEC-BTU","MTEC-PRU","NECTEC-IDSRU","NECTEC-INIRU","NECTEC-TMEC","MTEC-MCRU","NECTEC-WISRU","BIOTEC-AGU","BIOTEC-GEI","MTEC-CARU","MTC-MRRU","NECTEC-ICCRU","MTTEC-CERRU","BIOTEC-JRU","MTEC-ENVRU","NECTEC-AAERU","BIOTEC-MMU","MTEC-BMERU","MTEC-DERU"],
 							axisCrossingValue: [0,100]
                         },
 
@@ -483,14 +429,14 @@ var baChart_sp_top20_ic_score= function(categoryParam,seriesParam){
 	
 }
 
-/*###  StackChart_sp_top20_ic_score  end ###*/
-/*###  pieChart_sp_ic_score_by_job_family start ###*/
+/*###  barChartRd4  end ###*/
+/*###  pieChartRd1 start ###*/
 
 
 
-var pieChart_sp_ic_score_by_job_family= function(categoryParam,sum_pie_sp_ic_score){
+var pieChartRd1= function(){
 
-		$("#pieChart_sp_ic_score_by_job_family").kendoChart({
+		$("#pieRd1").kendoChart({
 			//theme: $(document).data("kendoSkin") || "metro",
 			theme: $(document).data("kendoSkin") || "metro",
 			title: {
@@ -512,13 +458,36 @@ var pieChart_sp_ic_score_by_job_family= function(categoryParam,sum_pie_sp_ic_sco
 			series: [{
                             type: "pie",
 
-                            data:categoryParam
+                            data: [ {
+	
+                                category: "JF2000",
+                                value: 220
+								 
+                            }, {
+	
+                                category: "JF2001",
+                                value: 240
+                            }, {
+		
+                                category: "JF2002 ",
+                                value: 220
+                            }, {
+			
+                                category: "JF2003 ",
+                                value: 220
+								
+                            }, {
+			
+                                category: "JF2004 ",
+                                value: 220
+								
+                            }]
                         }],
                         tooltip: {
                             visible: true,
                          //  format: "{0}"
 						 //  template: "${ category } ,${ value }%"
-						 template: "#= templateFormat(value,"+sum_pie_sp_ic_score+") #"
+						 template: "#= templateFormat(value,900) #"
 
                         },
 			
@@ -539,14 +508,14 @@ var pieChart_sp_ic_score_by_job_family= function(categoryParam,sum_pie_sp_ic_sco
 		
 }
 
-/*###  pieChart_sp_ic_score_by_job_family End ###*/
-/*###  stackChart_sp_ic_score_by_output_type start ###*/
+/*###  pieChartRd1 End ###*/
+/*###  stackChartRd1 start ###*/
 
 
 
-var stackChart_sp_ic_score_by_output_type= function(){
+var stackChartRd1= function(){
 
-		$("#stackChart_sp_ic_score_by_output_type").kendoChart({
+		$("#stackRd1").kendoChart({
 
 			theme: $(document).data("kendoSkin") || "metro",
                         title: {
@@ -600,10 +569,10 @@ var stackChart_sp_ic_score_by_output_type= function(){
 		
 }
 
-/*###  stackChart_sp_count_emp_all_vs_jf2000 start ###*/
-var stackChart_sp_count_emp_all_vs_jf2000= function(){
+/*###  stackChartRd2 start ###*/
+var stackChartRd2= function(){
 
-		$("#stackChart_sp_count_emp_all_vs_jf2000").kendoChart({
+		$("#stackRd2").kendoChart({
 
 			theme: $(document).data("kendoSkin") || "metro",
                         title: {
@@ -652,11 +621,11 @@ var stackChart_sp_count_emp_all_vs_jf2000= function(){
 		
 }
 
-/*###  stackChart_sp_count_emp_all_vs_jf2000 End ###*/
-/*###  stackChart_sp_count_emp_by_job_grade start ###*/
-var stackChart_sp_count_emp_by_job_grade= function(){
+/*###  stackChartRd2 End ###*/
+/*###  stackChartRd3 start ###*/
+var stackChartRd3= function(){
 
-		$("#stackChart_sp_count_emp_by_job_grade").kendoChart({
+		$("#stackRd3").kendoChart({
 
 			theme: $(document).data("kendoSkin") || "metro",
                         title: {
@@ -716,7 +685,7 @@ var stackChart_sp_count_emp_by_job_grade= function(){
 		
 }
 
-/*###  stackChart_sp_count_emp_by_job_grade End ###*/
+/*###  stackChartRd3 End ###*/
 
 });
 
@@ -760,7 +729,10 @@ function templateFormat(value,summ) {
 					</select>
 					</td>
 
-					<td>
+					<td><label for="ParamOrg">ศูนย์ :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+					<select name="ParamOrg" id="ParamOrg" onChange="getParamOrg(this.value);">
+						<%out.print(V_Org);%>
+					</select>
 					</td>
 
 					<td>
@@ -781,78 +753,7 @@ function templateFormat(value,summ) {
 	<div id="contentMain">
 
 <!-- TAB MANAGEMENT START -->
-<div id="content">
-		<div id="row1">
-				<div id="column1">
-						<div id="head1">
-							<div id="title1">
-						<button>Up NC</button>
-							IC Score Per NC
-							</div>
-						</div>
-						<div id="content1">
-								<div id="baChart_sp_ic_score_by_center"></div>
-						</div>
-				</div>
-				<div id="column2">
-						<div id="head2">
-								<div id="title2">
-							BIOTEC(RU)
-							</div>
-						</div>
-						<div id="content2">
-								<div id="baChart_sp_ic_score_by_division"></div>
-						</div>
-				</div>
-				<div id="column3">
-						<div id="head3">
-							<div id="title3">
-							(Lab)
-							</div>
-						</div>
-						<div id="content3">
-							<div id="baChart_sp_ic_score_by_department"></div>
-						</div>
-				</div>
-		</div>
-		<div id="row2">
-				<div id="column21">
-						<div class="head">
-								<div class="title">
-								 Employee(Count)
-								</div>
-						</div>
-						<div class="content">
-								<div id="stackChart_sp_count_emp_all_vs_jf2000"></div>
-								<div id="stackChart_sp_count_emp_by_job_grade"></div>
-						</div>
-				</div>
-				<div id="column22">
-						<div class="head">
-								<div class="title">
-								 IC Score by OutpuType<button>Open</button>
-								</div>
-						</div>
-						<div class="content">
-								<div id="stackChart_sp_ic_score_by_output_type"></div>
-						</div>
-				</div>
-				<div id="column23">
-						<div class="head">
-								<div class="title">
-								IC Score by JobFamily
-								</div>
-						</div>
-						<div class="content">
-									<div id="pieChart_sp_ic_score_by_job_family">
-									</div>
-						</div>
-				</div>
-		</div>
-		<div id="row3">
-			<div id="baChart_sp_top20_ic_score"></div>
-		</div>
-</div>
+
 <!-- TAB MANAGEMENT END -->
 
 	</div>

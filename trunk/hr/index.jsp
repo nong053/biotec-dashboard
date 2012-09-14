@@ -6,10 +6,10 @@
 <%
 // Jsp  Server-side
 //Define Connection
-String connectionURL="jdbc:mysql://10.226.202.114:3306/biotec_dwh";
+String connectionURL="jdbc:mysql://localhost/biotec_dwh";
 String Driver = "com.mysql.jdbc.Driver";
 String User="root";
-String Pass="bioteccockpit";
+String Pass="root";
 String Query="";
 //Define Connection
 
@@ -199,24 +199,30 @@ out.println("Error"+ex);
 
 	/*### Function Ajax Management Start###*/
 	var includeHr_1 = function(){
-		$.ajax({
-		url:'hr.jsp',
-		type:'get',
-		dataType:'html',
-		success:function(data){
-		//alert(data);
-		$("#content1").append(data);
-		}
-	});
+		//AJAX1
+				$.ajax({
+					url:'hr.jsp',
+					type:'get',
+					dataType:'html',
+					//catch:false,
+					data:{"ParamMonth":$("#ParamMonthSubmit").val(),"ParamYear":$("#ParamYearSubmit").val(),"ParamOrg":$("#ParamOrgSubmit").val()},
+					success:function(data){
+						//alert(data);
+						$("#content1").append(data);
+					}
+					
+				});
+				//AJAX1
 	} 
 
 	var includeNpr_2 = function(){
 		$.ajax({
-		url:'npr-2.jsp',
+		url:'npr.jsp',
 		type:'get',
 		dataType:'html',
+		data:{"ParamMonth":$("#ParamMonthSubmit").val(),"ParamYear":$("#ParamYearSubmit").val(),"ParamOrg":$("#ParamOrgSubmit").val()},
 		success:function(data){
-		//alert(data);
+		//alert("hellodworld");
 		$("#content2").append(data);
 		}
 	});
@@ -226,8 +232,6 @@ out.println("Error"+ex);
 		$("#content2").empty();
 		includeHr_1();
 	});
-	
-
 
 	$("a[href=#content2]").click(function(){
 		$("#content1").empty();
@@ -240,8 +244,10 @@ out.println("Error"+ex);
 		
 		$("form#form_1").submit(function(){
 			//delete all area content
+			
 			$("#content1").empty();
 			$("#content2").empty();
+			//$("a[href=#content1]").trigger("click");
 			
 			$("#contentMain").show();
 			$("#tabHr").tabs();
@@ -250,33 +256,36 @@ out.println("Error"+ex);
 				console.log($("#ParamMonth").val());
 				console.log($("#ParamYear").val());
 				console.log($("#ParamOrg").val());
-
+				
+				//AJAX1
 				$.ajax({
 					url:'hr.jsp',
 					type:'get',
 					dataType:'html',
-					//catch:false,
+					catch:false,
 					data:{"ParamMonth":$("#ParamMonth").val(),"ParamYear":$("#ParamYear").val(),"ParamOrg":$("#ParamOrg").val()},
 					success:function(data){
-						$("#content1").append(data);
+					//	$("#content1").append(data);
+					
+						$(".paramSubmit").remove();
+
+						$("body").append("<input type='text' value='"+$("#ParamMonth").val()+"' name='ParamMonthSubmit' id='ParamMonthSubmit' class='paramSubmit'> ");
+						$("body").append("<input type='text' value='"+$("#ParamYear").val()+"' name='ParamYearSubmit' id='ParamYearSubmit' class='paramSubmit'>");
+						$("body").append("<input type='text' value='"+$("#ParamOrg").val()+"' name='ParamOrgSubmit' id='ParamOrgSubmit' class='paramSubmit'>");
+						
+						$("a[href=#content1]").trigger("click");
 					}
 					
 				});
-			
+				//AJAX1
+
 			//includeHr_1();
 				return false;
 		});
-
 	/*### jQuery Funtions End ###*/
 	/*### tab hr ###*/
 	/* ### Tab1 Start ###*/
-		
 	/*###  Tab1 End ###*/
-
-
-
-	
-
 	});
 
 
