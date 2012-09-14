@@ -405,13 +405,16 @@ conn = DriverManager.getConnection(connectionURL,User,Pass);
 						
 					 /*### Manage Tootip Start###*/
 					 $(".kpiN").hover(function(e){
-						var $X =  e.pageX+10;
-						 var $Y = e.pageY+10
-						$(".tootip").css({"left":$X+"px","top":$Y+"px"}).fadeIn();
-						
-					 },function(){
-						 $(".tootip").hide();
-					 });
+								     var $X =  e.pageX;
+									 var $Y = e.pageY;
+									 var $pos = e.target.id;
+									 var classT = ".tootip#"+$pos;
+									$(classT).css({"left":$X+"px","top":$Y+"px"}).fadeIn();
+								
+								 },function(){
+									 $(".tootip").hide();
+								 });
+
 
 
 
@@ -463,14 +466,20 @@ conn = DriverManager.getConnection(connectionURL,User,Pass);
 							$("#tab6").empty();
 							$("#tab1_1").append(data);
 							/*### Manage Tootip Start###*/
-								 $(".kpiN").hover(function(e){
-									var $X =  e.pageX+10;
-									 var $Y = e.pageY+10;
-									$(".tootip").css({"left":$X+"px","top":$Y+"px"}).fadeIn();
+
+
+							 $(".kpiN").hover(function(e){
+								     var $X =  e.pageX;
+									 var $Y = e.pageY;
+									 var $pos = e.target.id;
+									 var classT = ".tootip#"+$pos;
+									$(classT).css({"left":$X+"px","top":$Y+"px"}).fadeIn();
 								
 								 },function(){
 									 $(".tootip").hide();
 								 });
+
+
 					/*### Manage Tootip Stop ###*/
 					/*### Manage Tootip Range Start ###*/
 					  
@@ -536,7 +545,7 @@ conn = DriverManager.getConnection(connectionURL,User,Pass);
 
 
 
-							//alert($(".inlinesparkline").length);
+	/*						//alert($(".inlinesparkline").length);
 			$(".inlinesparkline").click(function(e){
 					var position =  this.id;
 					intpos = (parseInt(position,10))+100;
@@ -631,13 +640,16 @@ conn = DriverManager.getConnection(connectionURL,User,Pass);
 							$("#tab1_3").append(data);
 							/*### Manage Tootip Start###*/
 								 $(".kpiN").hover(function(e){
-									var $X =  e.pageX+10;
-									 var $Y = e.pageY+10;
-									$(".tootip").css({"left":$X+"px","top":$Y+"px"}).fadeIn();
-									
+								     var $X =  e.pageX;
+									 var $Y = e.pageY;
+									 var $pos = e.target.id;
+									 var classT = ".tootip#"+$pos;
+									$(classT).css({"left":$X+"px","top":$Y+"px"}).fadeIn();
+								
 								 },function(){
 									 $(".tootip").hide();
 								 });
+
 					/*### Manage Tootip Stop ###*/
 					/*### Manage Tootip Range Start ###*/
 					  
@@ -681,14 +693,17 @@ conn = DriverManager.getConnection(connectionURL,User,Pass);
 							$("#tab6").empty();
 							$("#tab2").append(data);
 							/*### Manage Tootip Start###*/
-									 $(".kpiN").hover(function(e){
-						var $X =  e.pageX+10;
-						 var $Y = e.pageY+10
-						$(".tootip").css({"left":$X+"px","top":$Y+"px"}).fadeIn();
-						
-					 },function(){
-						 $(".tootip").hide();
-					 });
+					 $(".kpiN").hover(function(e){
+								     var $X =  e.pageX;
+									 var $Y = e.pageY;
+									 var $pos = e.target.id;
+									 var classT = ".tootip#"+$pos;
+									$(classT).css({"left":$X+"px","top":$Y+"px"}).fadeIn();
+								
+								 },function(){
+									 $(".tootip").hide();
+								 });
+
 
 					/*### Manage Tootip Stop ###*/
 					/*### Manage Tootip Range Start ###*/
@@ -735,13 +750,16 @@ conn = DriverManager.getConnection(connectionURL,User,Pass);
 							$("#tab3").append(data);
 							/*### Manage Tootip Start###*/
 								 $(".kpiN").hover(function(e){
-									var $X =  e.pageX+10;
-									 var $Y = e.pageY+10;
-									$(".tootip").css({"left":$X+"px","top":$Y+"px"}).fadeIn();
-							
+								     var $X =  e.pageX;
+									 var $Y = e.pageY;
+									 var $pos = e.target.id;
+									 var classT = ".tootip#"+$pos;
+									$(classT).css({"left":$X+"px","top":$Y+"px"}).fadeIn();
+								
 								 },function(){
 									 $(".tootip").hide();
 								 });
+
 					/*### Manage Tootip Stop ###*/
 					/*### Manage Tootip Range Start ###*/
 					  
@@ -787,14 +805,17 @@ conn = DriverManager.getConnection(connectionURL,User,Pass);
 							$("#tab6").empty();
 							$("#tab4").append(data);
 							/*### Manage Tootip Start###*/
-								 $(".kpiN").hover(function(e){
-									var $X =  e.pageX+10;
-									 var $Y = e.pageY+10;
-									$(".tootip").css({"left":$X+"px","top":$Y+"px"}).fadeIn();
+							 $(".kpiN").hover(function(e){
+								     var $X =  e.pageX;
+									 var $Y = e.pageY;
+									 var $pos = e.target.id;
+									 var classT = ".tootip#"+$pos;
+									$(classT).css({"left":$X+"px","top":$Y+"px"}).fadeIn();
 								
 								 },function(){
 									 $(".tootip").hide();
 								 });
+
 					/*### Manage Tootip Stop ###*/
 					/*### Manage Tootip Range Start ###*/
 					  
@@ -840,14 +861,17 @@ conn = DriverManager.getConnection(connectionURL,User,Pass);
 							$("#tab6").empty();
 							$("#tab5").append(data);
 							/*### Manage Tootip Start###*/
-								 $(".kpiN").hover(function(e){
-									var $X =  e.pageX+10;
-									 var $Y = e.pageY+10;
-									$(".tootip").css({"left":$X+"px","top":$Y+"px"}).fadeIn();
+							 $(".kpiN").hover(function(e){
+								     var $X =  e.pageX;
+									 var $Y = e.pageY;
+									 var $pos = e.target.id;
+									 var classT = ".tootip#"+$pos;
+									$(classT).css({"left":$X+"px","top":$Y+"px"}).fadeIn();
 								
 								 },function(){
 									 $(".tootip").hide();
 								 });
+
 					/*### Manage Tootip Stop ###*/
 					/*### Manage Tootip Range Start ###*/
 					  
@@ -894,14 +918,17 @@ conn = DriverManager.getConnection(connectionURL,User,Pass);
 							$("#tab6").empty();
 							$("#tab6").append(data);
 							/*### Manage Tootip Start###*/
-								 $(".kpiN").hover(function(e){
-									var $X =  e.pageX+10;
-									 var $Y = e.pageY+10;
-									$(".tootip").css({"left":$X+"px","top":$Y+"px"}).fadeIn();
+							 $(".kpiN").hover(function(e){
+								     var $X =  e.pageX;
+									 var $Y = e.pageY;
+									 var $pos = e.target.id;
+									 var classT = ".tootip#"+$pos;
+									$(classT).css({"left":$X+"px","top":$Y+"px"}).fadeIn();
 								
 								 },function(){
 									 $(".tootip").hide();
 								 });
+
 						/*### Manage Tootip Stop ###*/
 						/*### Manage Tootip Range Start ###*/
 					  

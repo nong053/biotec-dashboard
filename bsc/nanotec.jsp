@@ -44,7 +44,8 @@ while(rs.next()){
 	String kpi_code = rs.getString("kpi_code");
 	String kpi = rs.getString("kpi") ;
 	tableFun += "{Field2: \"";
-	tableFun += "<div class =kpiN>"+kpi_code+"</div>"+kpi;
+	tableFun += "<div class =kpiN id="+i+">"+kpi_code+"</div>"+kpi;
+	out.print("<div class=tootip id="+i+"><b>"+rs.getString("kpi_comment")+"</b></div>");
 
 	//=============Get Url with Details Button Start============
 	String urlpage = rs.getString("url");
@@ -228,14 +229,14 @@ font-size:14px;
 	display:inline;
 	border-radius:5px;
 	margin:2px;
-	}
+	}/*
 	.inlinesparkline{
 	cursor:pointer;
 	}
 	.inlinesparkline_sub{
 	cursor:pointer;
 	}
-	/*###  Config file Header  Start###*/
+	###  Config file Header  Start###*/
 #contentMain1{
 	
 	width:auto;

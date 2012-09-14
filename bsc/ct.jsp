@@ -133,9 +133,10 @@ while(rs.next()){
 				String Jul = rs1.getString("Jul");
 				String Aug = rs1.getString("Aug");
 				String Sep = rs1.getString("Sep");
-					tableFun += "<div class=inlinesparkline id="+(i+100)+">1,2,3,4,5,6,7,8,9,10</div> <span class=inlinedata id="+(i+200)+" style='display:none'>'3','1','2','3','4','5','6','7','8','9','5','"+i+"'</span>\"";
-				/*
-				tableFun += "<div class=inlinesparkline id="+i+">"
+
+		//		tableFun += "<div class=inlinesparkline id="+(i+100)+">1,2,3,4,5,6,7,8,9,10</div><span class=inlinedata id="+(i+200)+" style='display:none'>3,1,2,3,4,5,6,7,8,9,5,"+i+"</span>\"";
+				
+				tableFun += "<div class=inlinesparkline>"
 								+Oct+","
 								+Nov+","
 								+Dec+","
@@ -148,7 +149,7 @@ while(rs.next()){
 								+Jul+","
 								+Aug+","
 								+Sep
-								+"</div>\"";*/
+								+"</div>\"";
 				tableFun += "}";
 		//	}
 	}
@@ -233,14 +234,14 @@ font-size:14px;
 	display:inline;
 	border-radius:5px;
 	margin:2px;
-	}
+	}/*
 	.inlinesparkline{
 	cursor:pointer;
 	}
 	.inlinesparkline_sub{
 	cursor:pointer;
 	}
-			/*###  Config file Header  Start###*/
+			###  Config file Header  Start###*/
 #contentMain1{
 	
 	width:auto;
