@@ -410,7 +410,7 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 catch(Exception ex){
 out.println("<font color='red'>Error sp_npr_by_center_drilldown</font>"+ex);
 }
-*/
+/*
 //############################bar  sp_npr_by_center  End ############################ /
 
 //############################ pie sp_npr_by_type  Start ######################### /
@@ -462,7 +462,7 @@ out.println("<font color='red'>Error sp_npr_by_type</font>"+ex);
 //############################ pie sp_npr_by_type  End ############################ /
 
 //############################bar  sp_npr_by_type_drilldown  Start ############################ /
-/*
+
 String categoryAxis_npr_type = "";
 String[] categoryAxis_npr_type_array;
 String categoryAxis_npr_type_using="";
@@ -477,14 +477,14 @@ Class.forName(Driver).newInstance();
 conn=DriverManager.getConnection(connectionURL,User,Pass);
 	if(!conn.isClosed()){
 		st = conn.createStatement();
-		Query="CALL sp_npr_by_type_drilldown(2012,11,'สวทช.')";
+		Query="CALL sp_npr_by_type_drilldown(2012,11,'สวทช.','นักวิจัยร่วมวิจัย')";
 		rs = st.executeQuery(Query);
 		Integer i=0;
 		categoryAxis_npr_type_using+="[";
 		series_job_type+="[";
 		while(rs.next()){
 			if(i==0){
-				categoryAxis_npr_type=rs.getString("npr_ist");
+				categoryAxis_npr_type=rs.getString("npr_list");
 				categoryAxis_npr_type_array=categoryAxis_npr_type.split(",");
 				series_job_type+="{name:"+"\""+rs.getString("npr_country_group")+"\","+"data:["+rs.getString("total_list")+"]}";
 				for(int j=0; j< categoryAxis_npr_type_array.length; j++){
@@ -513,7 +513,7 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 catch(Exception ex){
 out.println("<font color='red'>Error sp_npr_by_type_drilldown</font>"+ex);
 }
-*/
+
 //############################bar  sp_npr_by_type_drilldown  End ############################ /
 
 //############################ pie sp_npr_by_country_group  Start ######################### /
@@ -563,7 +563,7 @@ out.println("<font color='red'>Error sp_npr_by_country_group</font>"+ex);
 */
 //############################pie  sp_npr_by_country_group  End ############################ /
 //############################bar  sp_npr_by_country_group_drilldown  Start ############################ /
-
+/*
 String categoryAxis_npr_country_group = "";
 String[] categoryAxis_npr_country_group_array;
 String categoryAxis_npr_country_group_using="";
@@ -613,6 +613,6 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 catch(Exception ex){
 out.println("<font color='red'>Error sp_npr_by_country_group_drilldown</font>"+ex);
 }
-
+*/
 //############################bar  sp_npr_by_country_group_drilldown  End ############################ /
 %>

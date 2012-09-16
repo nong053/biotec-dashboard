@@ -17,6 +17,7 @@ ResultSet rs;
 <%
 String ParamMonth = request.getParameter("ParamMonth");
 String ParamYear = request.getParameter("ParamYear");
+String ParamOrg = request.getParameter("ParamOrg");
 String ParamWorkingRangelist = request.getParameter("ParamWorkingRangelist");
 //out.println("it is parameter is send form ajax"+param1);
 
@@ -38,7 +39,7 @@ Class.forName(Driver).newInstance();
 conn=DriverManager.getConnection(connectionURL,User,Pass);
 	if(!conn.isClosed()){
 		st = conn.createStatement();
-		Query="CALL sp_npr_by_country_group_drilldown("+ParamYear+","+ParamMonth+",'"+ParamWorkingRangelist+"')";
+		Query="CALL sp_npr_by_country_group_drilldown("+ParamYear+","+ParamMonth+",'"+ParamOrg+"','"+ParamWorkingRangelist+"')";
 		rs = st.executeQuery(Query);
 		Integer i=0;
 		categoryAxis_npr_country_group_using+="[";

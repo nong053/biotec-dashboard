@@ -9,9 +9,9 @@ String ParamYear = request.getParameter("ParamYear");
 String ParamOrg = request.getParameter("ParamOrg");
 String Param_sp_center = "";
 
-out.print("ParamMonth"+ParamMonth);
-out.print("ParamYear"+ParamYear);
-out.print("ParamOrg"+ParamOrg);
+//out.print("ParamMonth"+ParamMonth);
+//out.print("ParamYear"+ParamYear);
+//out.print("ParamOrg"+ParamOrg);
 
 /*
 -- biotec_dwh --
@@ -66,10 +66,10 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 	i++;
 		}
 		sp_npr_by_center+="]";
-		out.println("-------------------------------------------------------"+"<br>");
-		out.println("sum_npr_by_center"+sum_npr_by_center+"<br>");
-		out.println("sp_npr_by_center"+sp_npr_by_center+"<br>");
-		out.println("-------------------------------------------------------"+"<br>");
+		//out.println("-------------------------------------------------------"+"<br>");
+		//out.println("sum_npr_by_center"+sum_npr_by_center+"<br>");
+		//out.println("sp_npr_by_center"+sp_npr_by_center+"<br>");
+		//out.println("-------------------------------------------------------"+"<br>");
 		conn.close();
 	}
 }
@@ -120,8 +120,8 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 	series_job_center+="]";
 	
 	//Success fully Start
-	out.println("categoryAxis_npr_center_using"+categoryAxis_npr_center_using+"<br>");
-	out.println("series_job_center"+series_job_center+"<br>");
+	//out.println("categoryAxis_npr_center_using"+categoryAxis_npr_center_using+"<br>");
+	//out.println("series_job_center"+series_job_center+"<br>");
 	//Success fully Stop
 
 
@@ -151,7 +151,7 @@ Class.forName(Driver).newInstance();
 conn=DriverManager.getConnection(connectionURL,User,Pass);
 	if(!conn.isClosed()){
 		st = conn.createStatement();
-		Query="CALL sp_npr_by_type(2012,09);";
+		Query="CALL sp_npr_by_type(2012,09,'สวทช.');";
 		rs = st.executeQuery(Query);
 		sp_npr_by_type+="[";
 		Integer i =1;
@@ -176,10 +176,10 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 	i++;
 		}
 		sp_npr_by_type+="]";
-		out.println("-------------------------------------------------------"+"<br>");
-		out.println("sum_npr_by_type"+sum_npr_by_type+"<br>");
-		out.println("sp_npr_by_type"+sp_npr_by_type+"<br>");
-		out.println("-------------------------------------------------------"+"<br>");
+		//out.println("-------------------------------------------------------"+"<br>");
+		//out.println("sum_npr_by_type"+sum_npr_by_type+"<br>");
+		//out.println("sp_npr_by_type"+sp_npr_by_type+"<br>");
+		//out.println("-------------------------------------------------------"+"<br>");
 		conn.close();
 	}
 }
@@ -204,7 +204,7 @@ Class.forName(Driver).newInstance();
 conn=DriverManager.getConnection(connectionURL,User,Pass);
 	if(!conn.isClosed()){
 		st = conn.createStatement();
-		Query="CALL sp_npr_by_type_drilldown("+ParamYear+","+ParamMonth+",'')";
+		Query="CALL sp_npr_by_type_drilldown("+ParamYear+","+ParamMonth+",'สวทช.','')";
 		rs = st.executeQuery(Query);
 		Integer i=0;
 		categoryAxis_npr_type_using+="[";
@@ -231,8 +231,8 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 	series_job_type+="]";
 	
 	//Success fully Start
-	out.println("categoryAxis_npr_type_using-----------2"+categoryAxis_npr_type_using+"<br>");
-	out.println("series_job_type-----------2"+series_job_type+"<br>");
+	//out.println("categoryAxis_npr_type_using-----------2"+categoryAxis_npr_type_using+"<br>");
+	//out.println("series_job_type-----------2"+series_job_type+"<br>");
 	//Success fully Stop
 		conn.close();
 	}
@@ -253,7 +253,7 @@ Class.forName(Driver).newInstance();
 conn=DriverManager.getConnection(connectionURL,User,Pass);
 	if(!conn.isClosed()){
 		st = conn.createStatement();
-		Query="CALL sp_npr_by_country_group("+ParamYear+","+ParamMonth+");";
+		Query="CALL sp_npr_by_country_group("+ParamYear+","+ParamMonth+",'"+ParamOrg+"');";
 		rs = st.executeQuery(Query);
 		sp_npr_by_country_group+="[";
 		Integer i =1;
@@ -277,10 +277,10 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 	i++;
 		}
 		sp_npr_by_country_group+="]";
-		out.println("-------------------------------------------------------"+"<br>");
-		out.println("sum_npr_by_country_group"+sum_npr_by_country_group+"<br>");
-		out.println("sp_npr_by_country_group"+sp_npr_by_country_group+"<br>");
-		out.println("-------------------------------------------------------"+"<br>");
+		//out.println("-------------------------------------------------------"+"<br>");
+		//out.println("sum_npr_by_country_group"+sum_npr_by_country_group+"<br>");
+		//out.println("sp_npr_by_country_group"+sp_npr_by_country_group+"<br>");
+		//out.println("-------------------------------------------------------"+"<br>");
 		conn.close();
 	}
 }
@@ -305,7 +305,7 @@ Class.forName(Driver).newInstance();
 conn=DriverManager.getConnection(connectionURL,User,Pass);
 	if(!conn.isClosed()){
 		st = conn.createStatement();
-		Query="CALL sp_npr_by_country_group_drilldown("+ParamYear+","+ParamMonth+",'NA.')";
+		Query="CALL sp_npr_by_country_group_drilldown("+ParamYear+","+ParamMonth+",'สวทช.','')";
 		rs = st.executeQuery(Query);
 		Integer i=0;
 		categoryAxis_npr_country_group_using+="[";
@@ -331,8 +331,8 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 	series_job_country_group+="]";
 	
 	//Success fully Start
-	out.println(categoryAxis_npr_country_group_using+"<br>");
-	out.println(series_job_country_group+"<br>");
+	//out.println(categoryAxis_npr_country_group_using+"<br>");
+	//out.println(series_job_country_group+"<br>");
 	//Success fully Stop
 		conn.close();
 	}
@@ -665,9 +665,9 @@ function checkBarTypeCenter(e){
 		dataType:'json',
 		data:{'ParamMonth':<%=ParamMonth%>,'ParamYear':<%=ParamYear%>,'ParamOrg':e.category},
 		success:function(data){
-		console.log(data[0]["category"]);
-		console.log(data[1]["series"]);
-		console.log(data);
+		//console.log(data[0]["category"]);
+		//console.log(data[1]["series"]);
+		//console.log(data);
 		barChart("#bar_sp_npr_by_center_drilldown",data[0]["category"],data[1]["series"],e.category);
 		}
 	});
@@ -678,11 +678,11 @@ function checkBarTypeByType(e){
 		url:'sp_npr_by_type_drilldown.jsp',
 		type:'get',
 		dataType:'json',
-		data:{'ParamMonth':<%=ParamMonth%>,'ParamYear':<%=ParamYear%>,'ParamNprlist':e.category},
+		data:{'ParamMonth':<%=ParamMonth%>,'ParamYear':<%=ParamYear%>,'ParamOrg':'<%=ParamOrg%>','ParamNprlist':e.category},
 		success:function(data){
-		console.log(data[0]["category"]);
-		console.log(data[1]["series"]);
-		console.log(data);
+		//console.log(data[0]["category"]);
+		//console.log(data[1]["series"]);
+		//console.log(data);
 		barChart("#bar_sp_npr_by_type_drilldown",data[0]["category"],data[1]["series"],e.category);
 		}
 	});
@@ -692,11 +692,11 @@ function checkBarTypeByCountryGroup(e){
 		url:'sp_npr_by_country_group_drilldown.jsp',
 		type:'get',
 		dataType:'json',
-		data:{'ParamMonth':<%=ParamMonth%>,'ParamYear':<%=ParamYear%>,'ParamWorkingRangelist':e.category},
+		data:{'ParamMonth':<%=ParamMonth%>,'ParamYear':<%=ParamYear%>,'ParamOrg':'<%=ParamOrg%>','ParamWorkingRangelist':e.category},
 		success:function(data){
-		console.log(data[0]["category"]);
-		console.log(data[1]["series"]);
-		console.log(data);
+		//console.log(data[0]["category"]);
+		//console.log(data[1]["series"]);
+		//console.log(data);
 		barChart("#bar_sp_npr_by_country_group_drilldown",data[0]["category"],data[1]["series"],e.category);
 		}
 	});
@@ -709,9 +709,9 @@ pieChartCenter("#pie_sp_npr_by_center",<%=sp_npr_by_center%>,<%=sum_npr_by_cente
 pieChartByType("#pie_sp_npr_by_type",<%=sp_npr_by_type%>,<%=sum_npr_by_type%>);
 pieChartByCountryGroup("#pie_sp_npr_by_country_group",<%=sp_npr_by_country_group%>,<%=sum_npr_by_country_group%>);
 /* Using PieChart*/
-barChart("#bar_sp_npr_by_center_drilldown", <%=categoryAxis_npr_center_using%>, <%=series_job_center%> )	;
-barChart("#bar_sp_npr_by_type_drilldown", <%=categoryAxis_npr_type_using%>, <%=series_job_type%>);
-barChart("#bar_sp_npr_by_country_group_drilldown", <%=categoryAxis_npr_country_group_using%>, <%=series_job_country_group%>);
+barChart("#bar_sp_npr_by_center_drilldown", <%=categoryAxis_npr_center_using%>, <%=series_job_center%>,'สวทช.' )	;
+barChart("#bar_sp_npr_by_type_drilldown", <%=categoryAxis_npr_type_using%>, <%=series_job_type%>,'สวทช.');
+barChart("#bar_sp_npr_by_country_group_drilldown", <%=categoryAxis_npr_country_group_using%>, <%=series_job_country_group%>,'สวทช.');
 /* Using BarChart*/
 
 /* Using BarChart*/

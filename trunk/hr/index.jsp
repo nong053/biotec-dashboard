@@ -142,13 +142,12 @@ out.println("Error"+ex);
 			display:none;
 			color:black;
 			width:50px;
-			height:50px;
+			height:100px;
 			background-image:url("images/loading.gif");
+			background-repeat:no-repeat;
 			position:absolute ;
 			position:center;
 			z-index:5;
-			
-			
 			}
 			.inlinesparkline{
 			width:100px;
@@ -187,6 +186,17 @@ out.println("Error"+ex);
 	<script type="text/javascript">
 		/*#### Tab search above top start ###*/
 	$(document).ready(function(){
+		/*#### Loading Start ###*/
+		var $width=($('body').width()/2)-25;
+		//console.log($width);
+
+		$("#loading").css({"top":"250px","left":$width+"px"}).ajaxStart(function(){
+		$(this).show();
+		}).ajaxStop(function(){
+		$(this).hide();
+		});
+		/*#### Loading End ###*/
+
 	  $("#ParamYear").kendoDropDownList();
 
 	  $("#ParamMonth").kendoDropDownList();
@@ -243,66 +253,29 @@ out.println("Error"+ex);
 	/*### Function Ajax Management End###*/
 		
 		$("form#form_1").submit(function(){
-			//delete all area content
-			
+
 			$("#content1").empty();
 			$("#content2").empty();
-			//$("a[href=#content1]").trigger("click");
-			
+
 			$("#contentMain").show();
 			$("#tabHr").tabs();
 			$(".ui-tabs-panel").css("padding","0px");
-			
-				console.log($("#ParamMonth").val());
-				console.log($("#ParamYear").val());
-				console.log($("#ParamOrg").val());
-				
-				//AJAX1
-				$.ajax({
-					url:'hr.jsp',
-					type:'get',
-					dataType:'html',
-					catch:false,
-					data:{"ParamMonth":$("#ParamMonth").val(),"ParamYear":$("#ParamYear").val(),"ParamOrg":$("#ParamOrg").val()},
-					success:function(data){
-					//	$("#content1").append(data);
-					
+						//console.log($("#ParamMonth").val());
+						//console.log($("#ParamYear").val());
+						//console.log($("#ParamOrg").val());
+
 						$(".paramSubmit").remove();
-
-						$("body").append("<input type='text' value='"+$("#ParamMonth").val()+"' name='ParamMonthSubmit' id='ParamMonthSubmit' class='paramSubmit'> ");
-						$("body").append("<input type='text' value='"+$("#ParamYear").val()+"' name='ParamYearSubmit' id='ParamYearSubmit' class='paramSubmit'>");
-						$("body").append("<input type='text' value='"+$("#ParamOrg").val()+"' name='ParamOrgSubmit' id='ParamOrgSubmit' class='paramSubmit'>");
-						
+						$("body").append("<input type='hidden' value='"+$("#ParamMonth").val()+"' name='ParamMonthSubmit' id='ParamMonthSubmit' class='paramSubmit'> ");
+						$("body").append("<input type='hidden' value='"+$("#ParamYear").val()+"' name='ParamYearSubmit' id='ParamYearSubmit' class='paramSubmit'>");
+						$("body").append("<input type='hidden' value='"+$("#ParamOrg").val()+"' name='ParamOrgSubmit' id='ParamOrgSubmit' class='paramSubmit'>");
 						$("a[href=#content1]").trigger("click");
-					}
-					
-				});
-				//AJAX1
-
-			//includeHr_1();
 				return false;
 		});
 	/*### jQuery Funtions End ###*/
-	/*### tab hr ###*/
-	/* ### Tab1 Start ###*/
-	/*###  Tab1 End ###*/
 	});
-
-
 	</script>
-
-
-
     </head>
     <body>
-
-
-
-		
-
-
-
-
 
 	<div align="center">
 		<div id="Main-Panel" class="k-content">
@@ -357,7 +330,16 @@ out.println("Error"+ex);
 <!--### Management HR TAB ###-->
 <!-- TAB MANAGEMENT END -->
 	</div>
-	<div id="loading" ></div>
+	<div id="loading" >
+	<br>
+	<br>
+	<br>
+	<br>
+	<span id="loading_span" style="margin-top:100px;">
+		<b>Loading...</b>
+	</span>
+	</div>
+	
 	<!--------------------------- Details End--------------------------->
 	</body>
 </html>

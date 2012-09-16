@@ -2,6 +2,7 @@
 <%@page import="java.sql.*" %> 
 <%@page import="java.io.*" %> 
 <%@page import="java.lang.*"%> 
+
 <%
 String connectionURL="jdbc:mysql://localhost:3306/biotec_dwh";
 String Driver = "com.mysql.jdbc.Driver";
@@ -17,6 +18,7 @@ ResultSet rs;
 <%
 String ParamMonth = request.getParameter("ParamMonth");
 String ParamYear = request.getParameter("ParamYear");
+String ParamOrg = request.getParameter("ParamOrg");
 String ParamNprlist = request.getParameter("ParamNprlist");
 
 
@@ -38,7 +40,7 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 	if(!conn.isClosed()){
 		st = conn.createStatement();
 		//นักวิจัยหลังปริญญาเอก
-		Query="CALL sp_npr_by_type_drilldown("+ParamYear+","+ParamMonth+",'สวทช.')";
+		Query="CALL sp_npr_by_type_drilldown("+ParamYear+","+ParamMonth+",'"+ParamOrg+"','"+ParamNprlist+"')";
 		rs = st.executeQuery(Query);
 		Integer i=0;
 		categoryAxis_npr_type_using+="[";
