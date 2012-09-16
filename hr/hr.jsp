@@ -9,9 +9,9 @@ String ParamYear = request.getParameter("ParamYear");
 String ParamOrg = request.getParameter("ParamOrg");
 String Param_sp_center = "";
 
-out.print("ParamMonth"+ParamMonth);
-out.print("ParamYear"+ParamYear);
-out.print("ParamOrg"+ParamOrg);
+//out.print("ParamMonth"+ParamMonth);
+//out.print("ParamYear"+ParamYear);
+//out.print("ParamOrg"+ParamOrg);
 
 /*
 -- biotec_dwh --
@@ -36,7 +36,7 @@ Statement st;
 ResultSet rs;
 
 String sp_emp_by_center="";
-String sum_total_employee="";
+Integer sum_total_employee=0;
 String shortname="";
 
 try{
@@ -55,21 +55,22 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 	
 		sp_emp_by_center+= "\""+rs.getString("center_th_shortname") +"\"";
 		sp_emp_by_center+= ",value:"+rs.getString("total_employee") ;
+		sum_total_employee+=rs.getInt("total_employee");
 		sp_emp_by_center+="}";
 		}else{
 		sp_emp_by_center+=",{category:";
 	
 		sp_emp_by_center+= "\""+rs.getString("center_th_shortname") +"\"";
 		sp_emp_by_center+= ",value:"+rs.getString("total_employee");
-		sum_total_employee+=rs.getString("total_employee");
+		sum_total_employee+=rs.getInt("total_employee");
 		sp_emp_by_center+="}";
 		}
 		
 	i++;
 		}
 		sp_emp_by_center+="]";
-		//out.println(center_name);
-		out.println("sp_emp_by_center"+sp_emp_by_center);
+		//out.println("sum---"+sum_total_employee+"<br>");
+		//out.println("sp_emp_by_center"+sp_emp_by_center);
 		
 		conn.close();
 	}
@@ -81,6 +82,7 @@ out.println("Error"+ex);
 
 //sp_emp_by_employ_type
 String sp_emp_by_employ_type ="";
+Integer sum_sp_emp_by_employ_type =0;
 Integer j =1;
 try{
 	//out.println("---------------------------------------------"+i);
@@ -103,12 +105,14 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 	
 		sp_emp_by_employ_type+= "\""+rs.getString("employ_type") +"\"";
 		sp_emp_by_employ_type+= ",value:"+rs.getString("total_employee") ;
+		sum_sp_emp_by_employ_type+=rs.getInt("total_employee");
 		sp_emp_by_employ_type+="}";
 		}else{
 		sp_emp_by_employ_type+=",{category:";
 	
 		sp_emp_by_employ_type+= "\""+rs.getString("employ_type") +"\"";
 		sp_emp_by_employ_type+= ",value:"+rs.getString("total_employee");
+		sum_sp_emp_by_employ_type+=rs.getInt("total_employee");
 		sp_emp_by_employ_type+="}";
 		}
 		
@@ -116,7 +120,7 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 		}
 		sp_emp_by_employ_type+="]";
 		//out.println(center_name);
-		out.println("sp_emp_by_employ_type"+sp_emp_by_employ_type);
+		//out.println("sp_emp_by_employ_type"+sp_emp_by_employ_type);
 		conn.close();
 	}
 }
@@ -128,6 +132,7 @@ out.println("<font color='red'>Error</font>"+ex);
 
 //sp_emp_by_education_level_group
 String sp_emp_by_education_level_group ="";
+Integer sum_sp_emp_by_education_level_group=0;
 try{
 	//out.println("---------------------------------------------"+i);
 Class.forName(Driver).newInstance();
@@ -147,20 +152,22 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 	
 		sp_emp_by_education_level_group+= "\""+rs.getString("education_level_group") +"\"";
 		sp_emp_by_education_level_group+= ",value:"+rs.getString("total_employee") ;
+		sum_sp_emp_by_education_level_group+=rs.getInt("total_employee");
 		sp_emp_by_education_level_group+="}";
 		}else{
 		sp_emp_by_education_level_group+=",{category:";
 	
 		sp_emp_by_education_level_group+= "\""+rs.getString("education_level_group") +"\"";
 		sp_emp_by_education_level_group+= ",value:"+rs.getString("total_employee");
+		sum_sp_emp_by_education_level_group+=rs.getInt("total_employee");
 		sp_emp_by_education_level_group+="}";
 		}
 		
 	i++;
 		}
 		sp_emp_by_education_level_group+="]";
-		out.println("-------------------------------------------------------");
-		out.println("sp_emp_by_education_level_group"+sp_emp_by_education_level_group);
+		//out.println("sum--"+sum_sp_emp_by_education_level_group+"<br>");
+		//out.println("sp_emp_by_education_level_group"+sp_emp_by_education_level_group);
 		conn.close();
 	}
 }
@@ -171,6 +178,7 @@ out.println("<font color='red'>Error sp_emp_by_education_level_group</font>"+ex)
 
 //############################  sp_emp_by_job_family  Start ############################ //
 String sp_emp_by_job_family ="";
+Integer sum_sp_emp_by_job_family =0;
 try{
 	//out.println("---------------------------------------------"+i);
 Class.forName(Driver).newInstance();
@@ -187,22 +195,24 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 	
 		sp_emp_by_job_family+="{category:";
 	
-		sp_emp_by_job_family+= "\""+rs.getString("job_family") +"\"";
+		sp_emp_by_job_family+= "\""+rs.getString("job_family_name") +"\"";
 		sp_emp_by_job_family+= ",value:"+rs.getString("total_employee") ;
+		sum_sp_emp_by_job_family+=rs.getInt("total_employee") ;
 		sp_emp_by_job_family+="}";
 		}else{
 		sp_emp_by_job_family+=",{category:";
 	
-		sp_emp_by_job_family+= "\""+rs.getString("job_family") +"\"";
+		sp_emp_by_job_family+= "\""+rs.getString("job_family_name") +"\"";
 		sp_emp_by_job_family+= ",value:"+rs.getString("total_employee");
+		sum_sp_emp_by_job_family+=rs.getInt("total_employee") ;
 		sp_emp_by_job_family+="}";
 		}
 		
 	i++;
 		}
 		sp_emp_by_job_family+="]";
-		out.println("-------------------------------------------------------");
-		out.println("sp_emp_by_job_family"+sp_emp_by_job_family);
+		//out.println("-------------------------------------------------------");
+		//out.println("sp_emp_by_job_family"+sp_emp_by_job_family);
 		conn.close();
 	}
 }
@@ -215,6 +225,7 @@ out.println("<font color='red'>Error sp_emp_by_job_family</font>"+ex);
 //############################  sp_emp_by_function_type  Start ############################ //
 
 String sp_emp_by_function_type ="";
+Integer sum_sp_emp_by_function_type=0;
 try{
 	//out.println("---------------------------------------------"+i);
 Class.forName(Driver).newInstance();
@@ -233,20 +244,23 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 	
 		sp_emp_by_function_type+= "\""+rs.getString("function_type") +"\"";
 		sp_emp_by_function_type+= ",value:"+rs.getString("total_employee") ;
+		sum_sp_emp_by_function_type+=rs.getInt("total_employee") ;
 		sp_emp_by_function_type+="}";
 		}else{
 		sp_emp_by_function_type+=",{category:";
 	
 		sp_emp_by_function_type+= "\""+rs.getString("function_type") +"\"";
 		sp_emp_by_function_type+= ",value:"+rs.getString("total_employee");
+		sum_sp_emp_by_function_type+=rs.getInt("total_employee") ;
+	
 		sp_emp_by_function_type+="}";
 		}
 		
 	i++;
 		}
 		sp_emp_by_function_type+="]";
-		out.println("-------------------------------------------------------");
-		out.println("sp_emp_by_function_type"+sp_emp_by_function_type);
+		//out.println("-------------------------------------------------------");
+		//out.println("sp_emp_by_function_type"+sp_emp_by_function_type);
 		conn.close();
 	}
 }
@@ -259,6 +273,7 @@ out.println("<font color='red'>Error sp_emp_by_function_type</font>"+ex);
 //############################  sp_hr_expense  Start ############################ //
 
 String sp_hr_expense ="";
+Integer sum_sp_hr_expense=0;
 try{
 	//out.println("---------------------------------------------"+i);
 Class.forName(Driver).newInstance();
@@ -276,21 +291,23 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 		sp_hr_expense+="{category:";
 	
 		sp_hr_expense+= "\""+rs.getString("hr_group_name") +"\"";
-		sp_hr_expense+= ",value:"+rs.getString("total_employee") ;
+		sp_hr_expense+= ",value:"+rs.getString("finance_amount") ;
+		sum_sp_hr_expense+=rs.getInt("finance_amount") ;
 		sp_hr_expense+="}";
 		}else{
 		sp_hr_expense+=",{category:";
 	
 		sp_hr_expense+= "\""+rs.getString("hr_group_name") +"\"";
-		sp_hr_expense+= ",value:"+rs.getString("total_employee");
+		sp_hr_expense+= ",value:"+rs.getString("finance_amount");
+		sum_sp_hr_expense+=rs.getInt("finance_amount") ;
 		sp_hr_expense+="}";
 		}
 		
 	i++;
 		}
 		sp_hr_expense+="]";
-		out.println("-------------------------------------------------------");
-		out.println("sp_hr_expense"+sp_hr_expense);
+		//out.println("-------------------------------------------------------");
+		//out.println("sp_hr_expense"+sp_hr_expense);
 		conn.close();
 	}
 }
@@ -492,12 +509,12 @@ var pieChart= function(id_param,data_param,summ_param){
 
 /* Using PieChart*/
 
-pieChart("#pie_emp_by_center",<%=sp_emp_by_center%>,900);
-pieChart("#pie_emp_by_employ_type",<%=sp_emp_by_employ_type%>,900);
-pieChart("#pie_emp_by_education_level_group",<%=sp_emp_by_education_level_group%>,900);
-//pieChart("#pie_emp_by_job_family",<%=sp_emp_by_job_family%>,900);
-pieChart("#pie_emp_by_function_type",<%=sp_emp_by_function_type%>,900);
-pieChart("#pie_hr_expense",<%=sp_hr_expense%>,900);
+pieChart("#pie_emp_by_center",<%=sp_emp_by_center%>,<%=sum_total_employee%>);
+pieChart("#pie_emp_by_employ_type",<%=sp_emp_by_employ_type%>,<%=sum_sp_emp_by_employ_type%>);
+pieChart("#pie_emp_by_education_level_group",<%=sp_emp_by_education_level_group%>,<%=sum_sp_emp_by_education_level_group%>);
+pieChart("#pie_emp_by_job_family",<%=sp_emp_by_job_family%>,<%=sum_sp_emp_by_job_family%>);
+pieChart("#pie_emp_by_function_type",<%=sp_emp_by_function_type%>,<%=sum_sp_emp_by_function_type%>);
+pieChart("#pie_hr_expense",<%=sp_hr_expense%>,<%=sum_sp_hr_expense%>);
 
 
 /* Using PieChart*/
