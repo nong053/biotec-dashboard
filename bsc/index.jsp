@@ -110,7 +110,7 @@
 			</style>
 
 	<%
-	String connectionURL="jdbc:mysql://localhost:3306/biotec_dwh";
+String connectionURL="jdbc:mysql://localhost:3306/biotec_dwh";
 String Driver = "com.mysql.jdbc.Driver";
 String User="root";
 String Pass="root";
