@@ -76,18 +76,6 @@
 			width:100px;
 			height:100px;
 			}
-			.tootip{
-			width:200px;
-			height:auto;
-			position:absolute;
-			z-index:10;
-			background:white;
-			display:none;
-			border-radius:5px;
-			border:1px solid #cccccc;
-			cursor:pointer;
-			padding:5px;
-			}
 		</style>
 				<!--------------------------- Configuration --------------------------->
 			<style scoped>
@@ -405,17 +393,19 @@ conn = DriverManager.getConnection(connectionURL,User,Pass);
 						
 					 /*### Manage Tootip Start###*/
 					 $(".kpiN").hover(function(e){
-								     var $X =  e.pageX-60;
-									 var $Y = e.pageY-60;
+								     var $AX =  e.pageX;
+									 var $AY = e.pageY;
 									 var $pos = e.target.id;
 									 var classT = ".tootip#"+$pos;
-									$(classT).css({"left":$X+"px","top":$Y+"px"}).fadeIn();
-								
+									$(classT).css({"left":$AX+"px","top":$AY+"px"}).fadeIn();
+							//		console.log($AX);
+							//		console.log($AY);
+
 								 },function(){
 									 $(".tootip").hide();
 								 });
 
-						
+						/*
 						$(".ball").hover(function(e){
 								     var $X =  e.pageX-60;
 									 var $Y = e.pageY-60;
@@ -426,28 +416,29 @@ conn = DriverManager.getConnection(connectionURL,User,Pass);
 								 },function(){
 									 $(".tootip").hide();
 								 });
+*/
 
-/*
 								  $(".ball").hover(function(ex){
 									  //alert("test");
 								     var $BX =  ex.pageX-60;
 									 var $BY = ex.pageY-60;
-									 var Bpos = String(ex.target.id);
-									 var $classB = ".commentBall#"+Bpos;
-									console.log($(".commentBall#20000").text());
-								//alert($(".commentBall#1000").text());
+									 var Bpos = ex.target.id;
+									 var $classB = ".commentball#"+Bpos;
+					//				 									console.log($BX);
+					//				console.log($BY);
 
+								//	console.log($classB);
+									//console.log($(".commentball#20000").text());
+									//alert($(".commentBall#1000").text());
 									//alert(Bpos);
-									//alert($(".commentBall#20000").text());
-									$(".commentBall#20000").tooltip({
-									txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-									color:"black"
-									});
-								
+							//		alert($(".commentball#20000").text());
+										$($classB).css({"left":$BX+"px","top":$BY+"px"}).fadeIn();
+							},function(){
+									 $(".commentball").hide();
 								 });
 
 
-*/
+
 
 					/*### Manage Tootip Range Start ###*/
 					  
@@ -504,9 +495,19 @@ conn = DriverManager.getConnection(connectionURL,User,Pass);
 									 var $pos = e.target.id;
 									 var classT = ".tootip#"+$pos;
 									$(classT).css({"left":$X+"px","top":$Y+"px"}).fadeIn();
-								
 								 },function(){
 									 $(".tootip").hide();
+								 });
+
+							  $(".ball").hover(function(ex){
+									  //alert("test");
+								     var $BX =  ex.pageX-60;
+									 var $BY = ex.pageY-60;
+									 var Bpos = ex.target.id;
+									 var $classB = ".commentball#"+Bpos;
+									$($classB).css({"left":$BX+"px","top":$BY+"px"}).fadeIn();
+							},function(){
+									 $(".commentball").hide();
 								 });
 
 
@@ -572,57 +573,16 @@ conn = DriverManager.getConnection(connectionURL,User,Pass);
 								 },function(){
 									 $(".tootip").hide();
 								 });
-
-
-
-	/*						//alert($(".inlinesparkline").length);
-			$(".inlinesparkline").click(function(e){
-					var position =  this.id;
-					intpos = (parseInt(position,10))+100;
-					var classG = "\".inlinedata#"+intpos+"\"";
-					var strClass = $(classG).text();
-					var dataStr = "["+strClass+"]";
-					alert(dataStr);
-					$('#dialog').dialog('open');
-			//		return false;
-
-			$("#chart").kendoChart({
-			title: {
-				 text: "ข้อมูลผลการดำเนินงานเทียบเป้าหมาย"
-			},
-			series: [
-				 { name: "ผลการดำเนินงาน", data: dataStr,
-				color: "BLUE"
-				 }
-				 , 
-				
-				 {
-                            type: "line",
-                            data: dataStr,
-                            name: "เป้าหมาย",
-                            color: "GREEN"
-							
-                  }
-			],
-			categoryAxis:{
-			  categories: [" ต.ค."," พ.ย."," ธ.ค."," ม.ค."," ก.พ."," มี.ค."," เม.ย."," พ.ค."," มิ.ย."," ก.ค."," ส.ค."," ก.ย."]
-			},
-			legend:{
-			position:"bottom"
-			}
-		});
-
-
-
-
-
-
-
-
-
-
-
-				});/*
+							  $(".ball").hover(function(ex){
+									  //alert("test");
+								     var $BX =  ex.pageX-60;
+									 var $BY = ex.pageY-60;
+									 var Bpos = ex.target.id;
+									 var $classB = ".commentball#"+Bpos;
+									$($classB).css({"left":$BX+"px","top":$BY+"px"}).fadeIn();
+							},function(){
+									 $(".commentball").hide();
+								 });
 
 
 
@@ -675,11 +635,20 @@ conn = DriverManager.getConnection(connectionURL,User,Pass);
 									 var $pos = e.target.id;
 									 var classT = ".tootip#"+$pos;
 									$(classT).css({"left":$X+"px","top":$Y+"px"}).fadeIn();
-								
+						
 								 },function(){
 									 $(".tootip").hide();
 								 });
-
+							  $(".ball").hover(function(ex){
+									  //alert("test");
+								     var $BX =  ex.pageX-60;
+									 var $BY = ex.pageY-60;
+									 var Bpos = ex.target.id;
+									 var $classB = ".commentball#"+Bpos;
+									$($classB).css({"left":$BX+"px","top":$BY+"px"}).fadeIn();
+							},function(){
+									 $(".commentball").hide();
+								 });
 					/*### Manage Tootip Stop ###*/
 					/*### Manage Tootip Range Start ###*/
 					  
@@ -733,7 +702,16 @@ conn = DriverManager.getConnection(connectionURL,User,Pass);
 								 },function(){
 									 $(".tootip").hide();
 								 });
-
+							  $(".ball").hover(function(ex){
+									  //alert("test");
+								     var $BX =  ex.pageX-60;
+									 var $BY = ex.pageY-60;
+									 var Bpos = ex.target.id;
+									 var $classB = ".commentball#"+Bpos;
+									$($classB).css({"left":$BX+"px","top":$BY+"px"}).fadeIn();
+							},function(){
+									 $(".commentball").hide();
+								 });
 
 					/*### Manage Tootip Stop ###*/
 					/*### Manage Tootip Range Start ###*/
@@ -789,7 +767,16 @@ conn = DriverManager.getConnection(connectionURL,User,Pass);
 								 },function(){
 									 $(".tootip").hide();
 								 });
-
+							  $(".ball").hover(function(ex){
+									  //alert("test");
+								     var $BX =  ex.pageX-60;
+									 var $BY = ex.pageY-60;
+									 var Bpos = ex.target.id;
+									 var $classB = ".commentball#"+Bpos;
+									$($classB).css({"left":$BX+"px","top":$BY+"px"}).fadeIn();
+							},function(){
+									 $(".commentball").hide();
+								 });
 					/*### Manage Tootip Stop ###*/
 					/*### Manage Tootip Range Start ###*/
 					  
@@ -845,7 +832,16 @@ conn = DriverManager.getConnection(connectionURL,User,Pass);
 								 },function(){
 									 $(".tootip").hide();
 								 });
-
+							  $(".ball").hover(function(ex){
+									  //alert("test");
+								     var $BX =  ex.pageX-60;
+									 var $BY = ex.pageY-60;
+									 var Bpos = ex.target.id;
+									 var $classB = ".commentball#"+Bpos;
+									$($classB).css({"left":$BX+"px","top":$BY+"px"}).fadeIn();
+							},function(){
+									 $(".commentball").hide();
+								 });
 					/*### Manage Tootip Stop ###*/
 					/*### Manage Tootip Range Start ###*/
 					  
@@ -901,7 +897,16 @@ conn = DriverManager.getConnection(connectionURL,User,Pass);
 								 },function(){
 									 $(".tootip").hide();
 								 });
-
+							  $(".ball").hover(function(ex){
+									  //alert("test");
+								     var $BX =  ex.pageX-60;
+									 var $BY = ex.pageY-60;
+									 var Bpos = ex.target.id;
+									 var $classB = ".commentball#"+Bpos;
+									$($classB).css({"left":$BX+"px","top":$BY+"px"}).fadeIn();
+							},function(){
+									 $(".commentball").hide();
+								 });
 					/*### Manage Tootip Stop ###*/
 					/*### Manage Tootip Range Start ###*/
 					  
@@ -958,7 +963,16 @@ conn = DriverManager.getConnection(connectionURL,User,Pass);
 								 },function(){
 									 $(".tootip").hide();
 								 });
-
+							  $(".ball").hover(function(ex){
+									  //alert("test");
+								     var $BX =  ex.pageX-60;
+									 var $BY = ex.pageY-60;
+									 var Bpos = ex.target.id;
+									 var $classB = ".commentball#"+Bpos;
+									$($classB).css({"left":$BX+"px","top":$BY+"px"}).fadeIn();
+							},function(){
+									 $(".commentball").hide();
+								 });
 						/*### Manage Tootip Stop ###*/
 						/*### Manage Tootip Range Start ###*/
 					  
@@ -1020,7 +1034,6 @@ conn = DriverManager.getConnection(connectionURL,User,Pass);
 	</div>
 	<!--------------------------- Details Start--------------------------->
 <div id="tooltip"></div>
-<div class="commentBall" id="20000"></div>
 
 	<div id="content">
 			
