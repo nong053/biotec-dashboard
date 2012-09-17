@@ -82,7 +82,7 @@
 
 	<%
 		/*------------------- Set Connection -------------------*/
-		String connectionURL = "jdbc:mysql://localhost:3306/mysql"; 
+		String connectionURL = "jdbc:mysql://localhost:3306/biotec_dwh"; 
 		String driver = "com.mysql.jdbc.Driver";
 		String userName = "root"; 
 		String password = "root";
@@ -148,6 +148,17 @@
 	<script type="text/javascript">
 			   /*#### Tab search above top start ###*/
 	$(document).ready(function(){
+		/*#### Loading Start ###*/
+		var $width=($('body').width()/2)-50;
+		//console.log($width);
+
+		$("#loading").css({"top":"250px","left":$width+"px"}).ajaxStart(function(){
+		$(this).show();
+		}).ajaxStop(function(){
+		$(this).hide();
+		});
+		/*#### Loading End ###*/
+
 	  $("#ParamYear").kendoDropDownList();
 
 	  $("#ParamMonth").kendoDropDownList();
@@ -162,31 +173,47 @@
 			url:'DefaultContent.jsp',
 			type:'get',
 			dataType:'json',
-			data:{"ParamMonth":$("#ParamMonth").val(),"ParamYear":$("#ParamYear").val(),"ParamOrg":$("#ParamOrg").val()},
+			data:{"ParamMonth":$("#ParamMonth").val(),"ParamYear":$("#ParamYear").val()},
 			success:function(data){
+				$(".domParam").remove();
+				$("body").append("<input type='text' name='domParamCenter' class='domParam' id='domParamCenter' value='BIOTEC'>");
+				$("body").append("<input type='text' name='domParamMonth' class='domParam' id='domParamMonth' value='"+$("#ParamMonth").val()+"'>");
+				$("body").append("<input type='text' name='domParamYear' class='domParam' id='domParamYear' value='"+$("#ParamYear").val()+"'>");
+
+
 				//console.log(data);
 				//$("#contentMain").empty();
+				/*
 				console.log(data[0]["category_center"]);
 				console.log(data[1]["series_center"]);
 
 				console.log(data[2]["category_division"]);
 				console.log(data[3]["series_division"]);
 
-				console.log(data[4]["category_top20_ic_score"]);
-				console.log(data[5]["series_top20_ic_score"]);
+				//console.log(data[4]["category_top20_ic_score"]);
+				//console.log(data[5]["series_top20_ic_score"]);
 
-				console.log(data[6]["pie_sp_ic_score"]);
-				console.log(data[7]["sum_pie_sp_ic_score"]);
+				console.log(data[4]["pie_sp_ic_score"]);
+				console.log(data[5]["sum_pie_sp_ic_score"]);
 				
+				console.log(data[6]["category_by_output_type"]);
+				console.log(data[7]["series_by_output_type"]);
+
+				console.log(data[8]["category_emp_all_vs_jf2000"]);
+				console.log(data[9]["series_emp_all_vs_jf2000"]);
 				
-			
+				console.log(data[10]["category_emp_by_job_grade"]);
+				console.log(data[11]["series_emp_by_job_grade"]);
+*/
+				
+				baChart_sp_ic_score_by_department('','');
 				baChart_sp_ic_score_by_center(data[1]["series_center"],data[0]["category_center"]);
 				baChart_sp_ic_score_by_division(data[2]["category_division"],data[3]["series_division"]);
 				//baChart_sp_top20_ic_score(data[4]["category_top20_ic_score"],data[5]["series_top20_ic_score"]);
-				pieChart_sp_ic_score_by_job_family(data[6]["pie_sp_ic_score"],data[7]["sum_pie_sp_ic_score"]);
-				stackChart_sp_count_emp_all_vs_jf2000();//1
-				stackChart_sp_count_emp_by_job_grade();//2
-				stackChart_sp_ic_score_by_output_type();//3
+				pieChart_sp_ic_score_by_job_family(data[4]["pie_sp_ic_score"],data[5]["sum_pie_sp_ic_score"]);
+				stackChart_sp_count_emp_all_vs_jf2000(data[8]["category_emp_all_vs_jf2000"],data[9]["series_emp_all_vs_jf2000"]);//1
+				stackChart_sp_count_emp_by_job_grade(data[10]["category_emp_by_job_grade"],data[11]["series_emp_by_job_grade"]);//2
+				stackChart_sp_ic_score_by_output_type(data[6]["category_by_output_type"],data[7]["series_by_output_type"]);//3
 				$("#contentMain").show();
 			}
 			
@@ -198,32 +225,47 @@
 
 	/*###  baChart_sp_ic_score_by_center  start ###*/
 function  checkBarTypeCenter(e){
+	$("#domParamCenter").remove();
+	$("body").append("<input type='text' name='domParamCenter' class='domParam' id='domParamCenter' value='"+e.category+"'>");
+	
 	$.ajax({
 			url:'CenterContent.jsp',
 			type:'get',
 			dataType:'json',
-			data:{"ParamMonth":$("#ParamMonth").val(),"ParamYear":$("#ParamYear").val(),"ParamCenter":e.category()},
+			data:{"ParamMonth":$("#domParamMonth").val(),"ParamYear":$("#domParamYear").val(),"ParamCenter":e.category},
 			success:function(data){
-				//console.log(data);
-				//$("#contentMain").empty();
+				/*
 				console.log(data[0]["category_center"]);
 				console.log(data[1]["series_center"]);
 
 				console.log(data[2]["category_division"]);
 				console.log(data[3]["series_division"]);
 
-				console.log(data[4]["category_top20_ic_score"]);
-				console.log(data[5]["series_top20_ic_score"]);
+				//console.log(data[4]["category_top20_ic_score"]);
+				//console.log(data[5]["series_top20_ic_score"]);
 
-				console.log(data[6]["pie_sp_ic_score"]);
-				console.log(data[7]["sum_pie_sp_ic_score"]);
+				console.log(data[4]["pie_sp_ic_score"]);
+				console.log(data[5]["sum_pie_sp_ic_score"]);
+				
+				console.log(data[6]["category_by_output_type"]);
+				console.log(data[7]["series_by_output_type"]);
 
-				baChart_sp_ic_score_by_division();
-				baChart_sp_ic_score_by_department();
-				pieChart_sp_ic_score_by_job_family();
-				stackChart_sp_ic_score_by_output_type();
-				stackChart_sp_count_emp_all_vs_jf2000();
-				stackChart_sp_count_emp_by_job_grade();
+				console.log(data[8]["category_emp_all_vs_jf2000"]);
+				console.log(data[9]["series_emp_all_vs_jf2000"]);
+				
+				console.log(data[10]["category_emp_by_job_grade"]);
+				console.log(data[11]["series_emp_by_job_grade"]);
+*/
+				baChart_sp_ic_score_by_department('','');
+				baChart_sp_ic_score_by_division(data[2]["category_division"],data[3]["series_division"]);
+				pieChart_sp_ic_score_by_job_family(data[4]["pie_sp_ic_score"],data[5]["sum_pie_sp_ic_score"]);
+				stackChart_sp_ic_score_by_output_type(data[6]["category_by_output_type"],data[7]["series_by_output_type"]);
+				stackChart_sp_count_emp_all_vs_jf2000(data[8]["category_emp_all_vs_jf2000"],data[9]["series_emp_all_vs_jf2000"]);
+				stackChart_sp_count_emp_by_job_grade(data[10]["category_emp_by_job_grade"],data[11]["series_emp_by_job_grade"]);
+					
+				
+
+				$("#contentMain").show();
 			}
 	});
 
@@ -280,27 +322,45 @@ function checkBarTypeDivision(e){
 			url:'DivisionContent.jsp',
 			type:'get',
 			dataType:'json',
-			data:{"ParamMonth":$("#ParamMonth").val(),"ParamYear":$("#ParamYear").val(),"ParamCenter":e.category()},
+			data:{"ParamMonth":$("#domParamMonth").val(),"ParamYear":$("#domParamYear").val(),'ParamCenter':$("#domParamCenter").val(),"ParamDivision":e.category},
 			success:function(data){
-				//console.log(data);
-				//$("#contentMain").empty();
+
+			$("#domParamDivision").remove();
+			$("body").append("<input type='text' name='domParamDivision' class='domParam' id='domParamDivision' value='"+e.category+"'>");
+/*
 				console.log(data[0]["category_center"]);
 				console.log(data[1]["series_center"]);
 
 				console.log(data[2]["category_division"]);
 				console.log(data[3]["series_division"]);
 
-				console.log(data[4]["category_top20_ic_score"]);
-				console.log(data[5]["series_top20_ic_score"]);
+				//console.log(data[4]["category_top20_ic_score"]);
+				//console.log(data[5]["series_top20_ic_score"]);
 
-				console.log(data[6]["pie_sp_ic_score"]);
-				console.log(data[7]["sum_pie_sp_ic_score"]);
-			
-				baChart_sp_ic_score_by_department();
-				pieChart_sp_ic_score_by_job_family();
-				stackChart_sp_ic_score_by_output_type();
-				stackChart_sp_count_emp_all_vs_jf2000();
-				stackChart_sp_count_emp_by_job_grade();
+				console.log(data[4]["pie_sp_ic_score"]);
+				console.log(data[5]["sum_pie_sp_ic_score"]);
+				
+				console.log(data[6]["category_by_output_type"]);
+				console.log(data[7]["series_by_output_type"]);
+
+				console.log(data[8]["category_emp_all_vs_jf2000"]);
+				console.log(data[9]["series_emp_all_vs_jf2000"]);
+				
+				console.log(data[10]["category_emp_by_job_grade"]);
+				console.log(data[11]["series_emp_by_job_grade"]);
+
+				console.log(data[12]["category_by_department"]);
+				console.log(data[13]["series_by_department"]);
+*/
+				
+
+				
+				
+				baChart_sp_ic_score_by_department(data[12]["category_by_department"],data[13]["series_by_department"]);
+				pieChart_sp_ic_score_by_job_family(data[4]["pie_sp_ic_score"],data[5]["sum_pie_sp_ic_score"]);
+				stackChart_sp_ic_score_by_output_type(data[6]["category_by_output_type"],data[7]["series_by_output_type"]);
+				stackChart_sp_count_emp_all_vs_jf2000(data[8]["category_emp_all_vs_jf2000"],data[9]["series_emp_all_vs_jf2000"]);
+				stackChart_sp_count_emp_by_job_grade(data[10]["category_emp_by_job_grade"],data[11]["series_emp_by_job_grade"]);
 			}
 	});
 
@@ -351,35 +411,49 @@ var baChart_sp_ic_score_by_division= function(categoryParam,seriesParam){
 
 /*###  baChart_sp_ic_score_by_division  end ###*/
 /*###  baChart_sp_ic_score_by_department  start ###*/
-function checkBarTypeDepartment(){
+function checkBarTypeDepartment(e){
 			$.ajax({
 			url:'DepartmentContent.jsp',
 			type:'get',
 			dataType:'json',
-			data:{"ParamMonth":$("#ParamMonth").val(),"ParamYear":$("#ParamYear").val(),"ParamCenter":e.category()},
+			data:{"ParamMonth":$("#domParamMonth").val(),"ParamYear":$("#domParamYear").val(),"ParamCenter":$("#domParamCenter").val(),"ParamDivision":$("#domParamDivision").val(),"ParamDepartment":e.category},
 			success:function(data){
-				//console.log(data);
-				//$("#contentMain").empty();
+
+			$("#domParamDepartment").remove();
+			$("body").append("<input type='text' name='domParamDepartment' class='domParam' id='domParamDepartment' value='"+e.category+"'>");
+/*
 				console.log(data[0]["category_center"]);
 				console.log(data[1]["series_center"]);
 
 				console.log(data[2]["category_division"]);
 				console.log(data[3]["series_division"]);
 
-				console.log(data[4]["category_top20_ic_score"]);
-				console.log(data[5]["series_top20_ic_score"]);
+				//console.log(data[4]["category_top20_ic_score"]);
+				//console.log(data[5]["series_top20_ic_score"]);
 
-				console.log(data[6]["pie_sp_ic_score"]);
-				console.log(data[7]["sum_pie_sp_ic_score"]);
+				console.log(data[4]["pie_sp_ic_score"]);
+				console.log(data[5]["sum_pie_sp_ic_score"]);
+				
+				console.log(data[6]["category_by_output_type"]);
+				console.log(data[7]["series_by_output_type"]);
 
-				pieChart_sp_ic_score_by_job_family();
-				stackChart_sp_ic_score_by_output_type();
-				stackChart_sp_count_emp_all_vs_jf2000();
-				stackChart_sp_count_emp_by_job_grade();
+				console.log(data[8]["category_emp_all_vs_jf2000"]);
+				console.log(data[9]["series_emp_all_vs_jf2000"]);
+				
+				console.log(data[10]["category_emp_by_job_grade"]);
+				console.log(data[11]["series_emp_by_job_grade"]);
+
+				console.log(data[12]["category_by_department"]);
+				console.log(data[13]["series_by_department"]);
+*/
+				pieChart_sp_ic_score_by_job_family(data[4]["pie_sp_ic_score"],data[5]["sum_pie_sp_ic_score"]);
+				stackChart_sp_ic_score_by_output_type(data[6]["category_by_output_type"],data[7]["series_by_output_type"]);
+				stackChart_sp_count_emp_all_vs_jf2000(data[8]["category_emp_all_vs_jf2000"],data[9]["series_emp_all_vs_jf2000"]);
+				stackChart_sp_count_emp_by_job_grade(data[10]["category_emp_by_job_grade"],data[11]["series_emp_by_job_grade"]);
 			}
 			});
 }
-var baChart_sp_ic_score_by_department= function(){
+var baChart_sp_ic_score_by_department= function(categoryParam,seriesParam){
 	$("#baChart_sp_ic_score_by_department").kendoChart({
                         theme: $(document).data("kendoSkin") || "metro",
                         title: {
@@ -399,16 +473,7 @@ var baChart_sp_ic_score_by_department= function(){
                             type: "column",
 							stack: false
                         },
-                        series: [{
-                            name: "IC Score",
-                            data: [488,309,269,228,176,130]
-                        }, {
-                            name: "BSC",
-                            data: [488,389,299,248,116,120]
-                        }, {
-                            name: "EMPLOYEE(JF2000)",
-                            data: [498,309,219,228,126,140]
-                        }],
+                        series:seriesParam,
                        valueAxis: [{
                             title: { text: "" },
                          /*   min: 0,
@@ -420,7 +485,7 @@ var baChart_sp_ic_score_by_department= function(){
                             max: 6*/
                         }],
                         categoryAxis: {
-                            categories: [ "Lap1" ," Lap2", "Lap3 ", "Lap4", "Lap5","Lap6"],
+                            categories:categoryParam,
 							axisCrossingValue:[0,100]
                         },
                         tooltip: {
@@ -544,7 +609,7 @@ var pieChart_sp_ic_score_by_job_family= function(categoryParam,sum_pie_sp_ic_sco
 
 
 
-var stackChart_sp_ic_score_by_output_type= function(){
+var stackChart_sp_ic_score_by_output_type= function(categoryParam,seriesParam){
 
 		$("#stackChart_sp_ic_score_by_output_type").kendoChart({
 
@@ -563,19 +628,7 @@ var stackChart_sp_ic_score_by_output_type= function(){
                             type: "bar",
                             stack: true
                         },
-                        series: [{
-                            name: "Revenue",
-                            data: [67.96, 68.93, 75]
-                        }, {
-                            name: "Publication",
-                            data: [15.7, 16.7, 20]
-                        }, {
-                            name: "Prototype",
-                            data: [15.7, 16.7, 20]
-                        }, {
-                            name: "Patent",
-                            data: [15.7, 16.7, 20]
-                        }],
+                        series: seriesParam,
                         valueAxis: {
                             labels: {
                               //  format: "{0}%"
@@ -583,7 +636,7 @@ var stackChart_sp_ic_score_by_output_type= function(){
                             }
                         },
                         categoryAxis: {
-                            categories: ["ICScore", "Completed", "Piperline"]
+                            categories:categoryParam
                         },
                         tooltip: {
                             visible: true,
@@ -601,7 +654,7 @@ var stackChart_sp_ic_score_by_output_type= function(){
 }
 
 /*###  stackChart_sp_count_emp_all_vs_jf2000 start ###*/
-var stackChart_sp_count_emp_all_vs_jf2000= function(){
+var stackChart_sp_count_emp_all_vs_jf2000= function(categoryParam,seriesParam){
 
 		$("#stackChart_sp_count_emp_all_vs_jf2000").kendoChart({
 
@@ -621,13 +674,7 @@ var stackChart_sp_count_emp_all_vs_jf2000= function(){
                             type: "bar",
                             stack: true
                         },
-                        series: [{
-                            name: "Employee(All)",
-                            data: [356,0]
-                        }, {
-                            name: "Employee(JF2000)",
-                            data: [  0,412]
-                        }],
+                        series:seriesParam,
                         valueAxis: {
                             labels: {
                               //  format: "{0}%"
@@ -635,7 +682,7 @@ var stackChart_sp_count_emp_all_vs_jf2000= function(){
                             }
                         },
                         categoryAxis: {
-                            categories: ["Employee(All)", "Employee(JF2000)"]
+                            categories:categoryParam
                         },
                         tooltip: {
                             visible: true,
@@ -654,7 +701,7 @@ var stackChart_sp_count_emp_all_vs_jf2000= function(){
 
 /*###  stackChart_sp_count_emp_all_vs_jf2000 End ###*/
 /*###  stackChart_sp_count_emp_by_job_grade start ###*/
-var stackChart_sp_count_emp_by_job_grade= function(){
+var stackChart_sp_count_emp_by_job_grade= function(categoryParam,seriesParam){
 
 		$("#stackChart_sp_count_emp_by_job_grade").kendoChart({
 
@@ -673,25 +720,7 @@ var stackChart_sp_count_emp_by_job_grade= function(){
                             type: "bar",
                             stack: true
                         },
-                        series: [{
-                            name: "A1",
-                            data: [67]
-                        }, {
-                            name: "A2",
-                            data: [20]
-                        }, {
-                            name: "A3",
-                            data: [20]
-                        }, {
-                            name: "AR1",
-                            data: [15.7]
-                        }, {
-                            name: "AR2",
-                            data: [15.7]
-                        }, {
-                            name: "Other",
-                            data: [15.7]
-                        }],
+                        series: seriesParam,
                         valueAxis: {
                             labels: {
                               //  format: "{0}%"
@@ -699,7 +728,7 @@ var stackChart_sp_count_emp_by_job_grade= function(){
                             }
                         },
                         categoryAxis: {
-                            categories: ["Type"]
+                            categories:categoryParam
                         },
                         tooltip: {
                             visible: true,
@@ -856,9 +885,17 @@ function templateFormat(value,summ) {
 <!-- TAB MANAGEMENT END -->
 
 	</div>
-	<div id="loading" ></div>
+	
 
 	<!--------------------------- Details End--------------------------->
-
+			<div id="loading" >
+				<br>
+				<br>
+				<br>
+				<br>
+				<span id="loading_span" style="margin-top:100px;">
+					<b>Loading...</b>
+				</span>
+			</div>
 	</body>
 </html>
