@@ -94,7 +94,7 @@ Class.forName(Driver).newInstance();
 conn=DriverManager.getConnection(connectionURL,User,Pass);
 	if(!conn.isClosed()){
 		st = conn.createStatement();
-		Query="CALL sp_npr_by_center_drilldown("+ParamYear+","+ParamMonth+",'สวทช.')";
+		Query="CALL sp_npr_by_center_drilldown("+ParamYear+","+ParamMonth+",'ALL')";
 		rs = st.executeQuery(Query);
 		Integer i=0;
 		categoryAxis_npr_center_using+="[";
@@ -151,7 +151,7 @@ Class.forName(Driver).newInstance();
 conn=DriverManager.getConnection(connectionURL,User,Pass);
 	if(!conn.isClosed()){
 		st = conn.createStatement();
-		Query="CALL sp_npr_by_type(2012,09,'สวทช.');";
+		Query="CALL sp_npr_by_type("+ParamYear+","+ParamMonth+",'"+ParamOrg+"');";
 		rs = st.executeQuery(Query);
 		sp_npr_by_type+="[";
 		Integer i =1;
@@ -204,7 +204,7 @@ Class.forName(Driver).newInstance();
 conn=DriverManager.getConnection(connectionURL,User,Pass);
 	if(!conn.isClosed()){
 		st = conn.createStatement();
-		Query="CALL sp_npr_by_type_drilldown("+ParamYear+","+ParamMonth+",'สวทช.','')";
+		Query="CALL sp_npr_by_type_drilldown("+ParamYear+","+ParamMonth+",'"+ParamOrg+"','ALL')";
 		rs = st.executeQuery(Query);
 		Integer i=0;
 		categoryAxis_npr_type_using+="[";
@@ -305,7 +305,7 @@ Class.forName(Driver).newInstance();
 conn=DriverManager.getConnection(connectionURL,User,Pass);
 	if(!conn.isClosed()){
 		st = conn.createStatement();
-		Query="CALL sp_npr_by_country_group_drilldown("+ParamYear+","+ParamMonth+",'สวทช.','')";
+		Query="CALL sp_npr_by_country_group_drilldown("+ParamYear+","+ParamMonth+",'"+ParamOrg+"','ALL')";
 		rs = st.executeQuery(Query);
 		Integer i=0;
 		categoryAxis_npr_country_group_using+="[";
