@@ -2,7 +2,7 @@
 <%@page import="java.io.*"%>
 <%@page import="java.lang.*"%>
 <%! 
-    String getColorBall(int position,String color)
+    String getColorBall(int position,String color,int id)
     {
 		String ballScoll = "";
                if(position==1){
@@ -14,9 +14,9 @@
                        ballScoll+="<div id=ball2  class=ball style=background-color:"+color+"></div>";
                        ballScoll+="<div id=ball3  class=ball style=background-color:#cccccc></div>";
                }else if(position==3){
-                       ballScoll+="<div id=ball1  class=ball style=background-color:#cccccc></div>";
-                       ballScoll+="<div id=ball2  class=ball style=background-color:#cccccc></div>";
-                       ballScoll+="<div id=ball3  class=ball style=background-color:"+color+"></div>";
+                       ballScoll+="<div id="+id+"  class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id="+id+"   class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id="+id+"   class=ball style=background-color:"+color+"></div>";
                }
       return ballScoll;
     }
@@ -135,7 +135,7 @@ while(rs.next()){
 	{
 		int positionBall =  rs1.getInt("color_order");
 		String colorCode = rs1.getString("color_code");
-		tableFun += getColorBall(positionBall,colorCode);
+		tableFun += "<div class=allBall id="+(i+20000)+">"+getColorBall(positionBall,colorCode,(i+20000))+"</div>";
 	//	out.print(getColorBall(1,colorCode));
 		
 			Statement st2;
@@ -144,7 +144,7 @@ while(rs.next()){
 			st2 = conn.createStatement();
 			QueryColorRange="CALL sp_color_range;";
 			rs2 = st2.executeQuery(QueryColorRange);
-					out.print("<div class=commentBall id=ball"+i+" >");
+					out.print("<div class=commentBall id="+(i+20000)+">");
 				while(rs2.next()){
 					out.print(rs2.getString("description")+"<br />");
 				}
@@ -914,18 +914,20 @@ var $dataJ2 =[
 							}).appendTo(e.detailCell);
 							$('.inlinesparkline_sub').sparkline(); 
 				//			alert("test");
-									 $(".kpiN").hover(function(e){
+				/*					 $(".kpiN").live("hover",function(e){
 								     var $X =  e.pageX;
 									 var $Y = e.pageY;
 									 var $pos = e.target.id;
-									 var classT = ".tootip#"+$pos;
-									 alert(classT);
-								//	 alert($(".tootip#1000").text());
-									$(classT).css({"left":$X+"px","top":$Y+"px"}).fadeIn();
+									 var $classT = ".tooltip#"+$pos;
+									// alert(classT);
+									//alert($($classT).text());
+									//$(classT).fadeIn("slow");
+									alert($(".tooltip#1000").text());
+									$($classT).css({"left":$X+"px","top":$Y+"px"}).fadeIn();
 											
 								 },function(){
-									 $(".tootip").hide();
-								 });
+									 $(".tooltip").hide();
+								 });*/
 			 }
 	 });
 						 

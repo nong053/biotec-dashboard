@@ -405,8 +405,8 @@ conn = DriverManager.getConnection(connectionURL,User,Pass);
 						
 					 /*### Manage Tootip Start###*/
 					 $(".kpiN").hover(function(e){
-								     var $X =  e.pageX;
-									 var $Y = e.pageY;
+								     var $X =  e.pageX-60;
+									 var $Y = e.pageY-60;
 									 var $pos = e.target.id;
 									 var classT = ".tootip#"+$pos;
 									$(classT).css({"left":$X+"px","top":$Y+"px"}).fadeIn();
@@ -415,20 +415,39 @@ conn = DriverManager.getConnection(connectionURL,User,Pass);
 									 $(".tootip").hide();
 								 });
 
-								  $(".ball").live("hover",function(ex){
+						
+						$(".ball").hover(function(e){
+								     var $X =  e.pageX-60;
+									 var $Y = e.pageY-60;
+									 var $pos = e.target.id;
+									 var classT = ".commentBall#20000";
+									$(classT).css({"left":$X+"px","top":$Y+"px"}).fadeIn();
+								
+								 },function(){
+									 $(".tootip").hide();
+								 });
+
+/*
+								  $(".ball").hover(function(ex){
 									  //alert("test");
 								     var $BX =  ex.pageX-60;
 									 var $BY = ex.pageY-60;
 									 var Bpos = String(ex.target.id);
 									 var $classB = ".commentBall#"+Bpos;
-alert($($classB).length);
-									// alert(classB);
-									$($classB).css({"left":$BX+"px","top":$BY+"px"}).fadeIn();
+									console.log($(".commentBall#20000").text());
+								//alert($(".commentBall#1000").text());
+
+									//alert(Bpos);
+									//alert($(".commentBall#20000").text());
+									$(".commentBall#20000").tooltip({
+									txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
+									color:"black"
+									});
 								
 								 });
 
 
-
+*/
 
 					/*### Manage Tootip Range Start ###*/
 					  
@@ -1001,6 +1020,8 @@ alert($($classB).length);
 	</div>
 	<!--------------------------- Details Start--------------------------->
 <div id="tooltip"></div>
+<div class="commentBall" id="20000"></div>
+
 	<div id="content">
 			
 			<div id="tabBsc">
