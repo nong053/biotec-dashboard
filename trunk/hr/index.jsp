@@ -187,7 +187,7 @@ out.println("Error"+ex);
 		/*#### Tab search above top start ###*/
 	$(document).ready(function(){
 		/*#### Loading Start ###*/
-		var $width=($('body').width()/2)-25;
+		var $width=($('body').width()/2)-50;
 		//console.log($width);
 
 		$("#loading").css({"top":"250px","left":$width+"px"}).ajaxStart(function(){
