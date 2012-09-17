@@ -2,26 +2,25 @@
 <%@page import="java.io.*"%>
 <%@page import="java.lang.*"%>
 <%! 
-    String getColorBall(int position,String color)
+    String getColorBall(int position,String color,int id)
     {
 		String ballScoll = "";
                if(position==1){
-                       ballScoll+="<div id=ball1  class=ball style=background-color:"+color+"></div>";
-                       ballScoll+="<div id=ball2  class=ball style=background-color:#cccccc></div>";
-                       ballScoll+="<div id=ball3  class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id="+id+"  class=ball style=background-color:"+color+"></div>";
+                       ballScoll+="<div id="+id+"  class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id="+id+"  class=ball style=background-color:#cccccc></div>";
                }else if(position==2){
-                       ballScoll+="<div id=ball1  class=ball style=background-color:#cccccc></div>";
-                       ballScoll+="<div id=ball2  class=ball style=background-color:"+color+"></div>";
-                       ballScoll+="<div id=ball3  class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id="+id+"  class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id="+id+"  class=ball style=background-color:"+color+"></div>";
+                       ballScoll+="<div id="+id+"  class=ball style=background-color:#cccccc></div>";
                }else if(position==3){
-                       ballScoll+="<div id=ball1  class=ball style=background-color:#cccccc></div>";
-                       ballScoll+="<div id=ball2  class=ball style=background-color:#cccccc></div>";
-                       ballScoll+="<div id=ball3  class=ball style=background-color:"+color+"></div>";
+                       ballScoll+="<div id="+id+"  class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id="+id+"   class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id="+id+"   class=ball style=background-color:"+color+"></div>";
                }
       return ballScoll;
     }
  %>
-
 <% 
 String ParamYear  = request.getParameter("ParamYear");
 String ParamMonth  = request.getParameter("ParamMonth");
@@ -120,8 +119,20 @@ while(rs.next()){
 	{
 		int positionBall =  rs1.getInt("color_order");
 		String colorCode = rs1.getString("color_code");
-		tableFun += getColorBall(positionBall,colorCode);
+		tableFun += getColorBall(positionBall,colorCode,(i+20000));
 	//	out.print(getColorBall(1,colorCode));
+		
+			Statement st2;
+			ResultSet  rs2;
+			String QueryColorRange = "";
+			st2 = conn.createStatement();
+			QueryColorRange="CALL sp_color_range;";
+			rs2 = st2.executeQuery(QueryColorRange);
+					out.print("<div class=commentball id="+(i+20000)+">");
+				while(rs2.next()){
+					out.print(rs2.getString("description")+"<br />");
+				}
+					out.print("</div>");
 	}
 	tableFun += "\",";
 
@@ -156,7 +167,20 @@ while(rs.next()){
 				String Jul = rs1.getString("Jul");
 				String Aug = rs1.getString("Aug");
 				String Sep = rs1.getString("Sep");
-				
+						out.print ("\""
+								+Oct+","
+								+Nov+","
+								+Dec+","
+								+Jan+","
+								+Feb+","
+								+Mar+","
+								+Apr+","
+								+May+","
+								+Jun+","
+								+Jul+","
+								+Aug+","
+								+Sep
+								+"\"");
 				tableFun += "<div class=inlinesparkline>"
 								+Oct+","
 								+Nov+","
@@ -258,7 +282,33 @@ tableFun += "]";
 	display:inline;
 	border-radius:5px;
 	margin:2px;
-	}/*
+	}
+			.tootip{
+			width:200px;
+			height:auto;
+			position:absolute;
+			z-index:10;
+			background:white;
+			display:none;
+			border-radius:5px;
+			border:1px solid #cccccc;
+			cursor:pointer;
+			padding:5px;
+			}
+			.commentball{
+			width:200px;
+			height:auto;
+			position:absolute;
+			z-index:10;
+			background:white;
+			display:none;
+			border-radius:5px;
+			border:1px solid #cccccc;
+			cursor:pointer;
+			padding:5px;
+			}
+
+	/*
 	.inlinesparkline{
 	cursor:pointer;
 	}

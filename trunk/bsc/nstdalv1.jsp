@@ -1,26 +1,24 @@
 <%@page contentType="text/html" pageEncoding="utf-8"%><%@page import="java.sql.*"%><%@page import="java.io.*"%><%@page import="java.lang.*"%>
 <%! 
-    String getColorBall(int position,String color)
+    String getColorBall(int position,String color,int id)
     {
 		String ballScoll = "";
                if(position==1){
-                       ballScoll+="<div id=ball1  class=ball style=background-color:"+color+"></div>";
-                       ballScoll+="<div id=ball2  class=ball style=background-color:#cccccc></div>";
-                       ballScoll+="<div id=ball3  class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id="+id+"  class=ball style=background-color:"+color+"></div>";
+                       ballScoll+="<div id="+id+"  class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id="+id+"  class=ball style=background-color:#cccccc></div>";
                }else if(position==2){
-                       ballScoll+="<div id=ball1  class=ball style=background-color:#cccccc></div>";
-                       ballScoll+="<div id=ball2  class=ball style=background-color:"+color+"></div>";
-                       ballScoll+="<div id=ball3  class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id="+id+"  class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id="+id+"  class=ball style=background-color:"+color+"></div>";
+                       ballScoll+="<div id="+id+"  class=ball style=background-color:#cccccc></div>";
                }else if(position==3){
-                       ballScoll+="<div id=ball1  class=ball style=background-color:#cccccc></div>";
-                       ballScoll+="<div id=ball2  class=ball style=background-color:#cccccc></div>";
-                       ballScoll+="<div id=ball3  class=ball style=background-color:"+color+"></div>";
+                       ballScoll+="<div id="+id+"  class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id="+id+"   class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id="+id+"   class=ball style=background-color:"+color+"></div>";
                }
       return ballScoll;
     }
  %>
-
-
 <% /*
 	out.print("[{					  \"Field0\": \"2\",                      \"Field1\": \"Test\",                      \"Field3\": \"2\",					  \"Field4\": \"ล้านบาท\",                     \"Field5\": \"25\",					 \"Field5_1\":\"1,500 (ล้านบาท)\",					  					  \"Field6\": \"0.40\",                  \"Field7\": \"50\",	 \"Field7_1\": \"t\",	  \"Field9\": \"flsas\" }]"); */
 
@@ -57,7 +55,7 @@ while(rs.next()){
 	}
 	String kpi_code = rs.getString("krs.kpi_code");
 	String lead_kpi = rs.getString("lead_kpi") ;
-	tableFun2 += "{\"Field1\": \"<div class=kpiN id="+(i+1000)+">"+kpi_code+"</div><div class=tootip id="+(i+1000)+">"+rs.getString("kpi_comment")+"</div>";
+	tableFun2 += "{\"Field1\": \"<div class=tootip id="+(i+1000)+"><b>"+rs.getString("kpi_comment")+"</b></div><div class=kpiN id="+(i+1000)+">"+kpi_code+"</div>";
 	tableFun2 += lead_kpi;
 //	out.print("<div class=\"tootip\" id=\""+(i+1000)+"\"><b>"+rs.getString("kpi_comment")+"</b></div>");
 
@@ -112,8 +110,20 @@ while(rs.next()){
 	{
 		int positionBall =  rs1.getInt("color_order");
 		String colorCode = rs1.getString("color_code");
-		tableFun2 += getColorBall(positionBall,colorCode);
-	//	out.print(getColorBall(1,colorCode));
+					Statement st2;
+			ResultSet  rs2;
+			String QueryColorRange = "";
+			st2 = conn.createStatement();
+			QueryColorRange="CALL sp_color_range;";
+			rs2 = st2.executeQuery(QueryColorRange);
+			tableFun2 +="<div class=commentball id="+(i+3000)+">";
+			while(rs2.next()){
+					tableFun2 += rs2.getString("description")+"<br />";
+				}
+					tableFun2 +="</div>";
+
+		tableFun2 += getColorBall(positionBall,colorCode,(i+3000));
+
 	}
 	tableFun2 += "\",";
 

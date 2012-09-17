@@ -6,13 +6,13 @@
     {
 		String ballScoll = "";
                if(position==1){
-                       ballScoll+="<div id=ball1  class=ball style=background-color:"+color+"></div>";
-                       ballScoll+="<div id=ball2  class=ball style=background-color:#cccccc></div>";
-                       ballScoll+="<div id=ball3  class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id="+id+"  class=ball style=background-color:"+color+"></div>";
+                       ballScoll+="<div id="+id+"  class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id="+id+"  class=ball style=background-color:#cccccc></div>";
                }else if(position==2){
-                       ballScoll+="<div id=ball1  class=ball style=background-color:#cccccc></div>";
-                       ballScoll+="<div id=ball2  class=ball style=background-color:"+color+"></div>";
-                       ballScoll+="<div id=ball3  class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id="+id+"  class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id="+id+"  class=ball style=background-color:"+color+"></div>";
+                       ballScoll+="<div id="+id+"  class=ball style=background-color:#cccccc></div>";
                }else if(position==3){
                        ballScoll+="<div id="+id+"  class=ball style=background-color:#cccccc></div>";
                        ballScoll+="<div id="+id+"   class=ball style=background-color:#cccccc></div>";
@@ -135,7 +135,7 @@ while(rs.next()){
 	{
 		int positionBall =  rs1.getInt("color_order");
 		String colorCode = rs1.getString("color_code");
-		tableFun += "<div class=allBall id="+(i+20000)+">"+getColorBall(positionBall,colorCode,(i+20000))+"</div>";
+		tableFun += getColorBall(positionBall,colorCode,(i+20000));
 	//	out.print(getColorBall(1,colorCode));
 		
 			Statement st2;
@@ -144,7 +144,7 @@ while(rs.next()){
 			st2 = conn.createStatement();
 			QueryColorRange="CALL sp_color_range;";
 			rs2 = st2.executeQuery(QueryColorRange);
-					out.print("<div class=commentBall id="+(i+20000)+">");
+					out.print("<div class=commentball id="+(i+20000)+">");
 				while(rs2.next()){
 					out.print(rs2.getString("description")+"<br />");
 				}
@@ -397,7 +397,34 @@ tableFun2 += "]";
 	display:inline;
 	border-radius:5px;
 	margin:2px;
-	}/*
+	}
+
+				.tootip{
+			width:200px;
+			height:auto;
+			position:absolute;
+			z-index:10;
+			background:white;
+			display:none;
+			border-radius:5px;
+			border:1px solid #cccccc;
+			cursor:pointer;
+			padding:5px;
+			}
+			.commentball{
+			width:200px;
+			height:auto;
+			position:absolute;
+			z-index:10;
+			background:white;
+			display:none;
+			border-radius:5px;
+			border:1px solid #cccccc;
+			cursor:pointer;
+			padding:5px;
+			}
+
+	/*
 	.inlinesparkline{
 	cursor:pointer;
 	}
@@ -900,7 +927,7 @@ var $dataJ2 =[
 		dataType:'html',
 		data:{'year':<%=ParamYear%>,'month':<%=ParamMonth%>,'name':"<%=ParamOrg%>",'owner_id':e.data.Field0,'kpi_id':e.data.Field0_1},
 		success:function(data){
-			 console.log(data);
+			// console.log(data);
 							var tableFun2 = eval("(" + data + ")");
 
 							$("<table bgcolor='#f5f5f5'><th></th></table>").kendoGrid({
@@ -914,20 +941,39 @@ var $dataJ2 =[
 							}).appendTo(e.detailCell);
 							$('.inlinesparkline_sub').sparkline(); 
 				//			alert("test");
-				/*					 $(".kpiN").live("hover",function(e){
-								     var $X =  e.pageX;
-									 var $Y = e.pageY;
+									 $(".kpiN").hover(function(e){
+								     var $XX =  e.pageX;
+									 var $XY = e.pageY-300;
 									 var $pos = e.target.id;
-									 var $classT = ".tooltip#"+$pos;
-									// alert(classT);
+									 var $classT = ".tootip#"+$pos;
+									// 									console.log($XX);
+								//	console.log($XY);
+
+										// alert(classT);
 									//alert($($classT).text());
 									//$(classT).fadeIn("slow");
-									alert($(".tooltip#1000").text());
-									$($classT).css({"left":$X+"px","top":$Y+"px"}).fadeIn();
-											
+									//alert($(".tootip#1000").text());
+								//$($classT).fadeIn();
+								$($classT).css({"left":$XX+"px","top":$XY+"px"}).fadeIn();
 								 },function(){
-									 $(".tooltip").hide();
-								 });*/
+									 $(".tootip").hide();
+								 });
+
+								   $(".ball").hover(function(ex){
+									  //alert("test");
+								     var $CX =  ex.pageX-180;
+									 var $CY = ex.pageY-330;
+									 var Bpos = ex.target.id;
+									 var $classB = ".commentball#"+Bpos;
+							//		console.log($CX);
+							//		console.log($CY);
+									//alert($(".commentBall#3000").text());
+									//alert(Bpos);
+							//		alert($(".commentball#20000").text());
+										$($classB).css({"left":$CX+"px","top":$CY+"px"}).fadeIn("fast");
+							},function(){
+									 $(".commentball").hide();
+								 });
 			 }
 	 });
 						 
