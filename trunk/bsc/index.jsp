@@ -353,7 +353,7 @@ conn = DriverManager.getConnection(connectionURL,User,Pass);
 		<!-- Start jQuery 0001-->
 			<script type="text/javascript">
 			$(document).ready(function(){
- /*jQuery Taps Start Here*/
+		/*jQuery Taps Start Here*/
 			$("#form_1").submit(function(){
 					 $("#tabBsc").show("fast",function(){
 					$("a[href=#tab1]").trigger("click");
@@ -443,19 +443,19 @@ conn = DriverManager.getConnection(connectionURL,User,Pass);
 					/*### Manage Tootip Range Start ###*/
 					  
 				$(".ball#ballRed").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
+							
 							color:"black"
 							});
 				$(".ball#ballYellow").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
+							
 							color:"black"
 							});
 				$(".ball#ballGreen").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
+							
 							color:"black"
 							});
 				$(".ball#ballGray").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
+							
 							color:"black"
 							});
 					/*### Manage Tootip Range Stop ###*/

@@ -256,7 +256,7 @@ function checkBarType31(e){
 	if($subCategory=="01"){
 	lineChart1("เงินอุดหนุนจากรัฐบาล");
 	}else if($subCategory=="02"){
-	lineChart1("เงินอะดหนุนอื่น");
+	lineChart1("เงินอุดหนุนอื่น");
 	}else if($subCategory=="03"){
 	lineChart1("รายได้ค่าบริการและขายสินค้า");
 	}else if($subCategory=="04"){
@@ -324,7 +324,7 @@ var pieChart31 = function(){
                                 value: 50.94
                             }, {
 							
-                                category: "02-เงินอะดหนุนอื่น",
+                                category: "02-เงินอุดหนุนอื่น",
                                 value: 49.06
                             }, {
 								
@@ -645,11 +645,7 @@ var $titleJ2 =[
 			// REMOVE COLUMN START
 				$("tr.k-detail-row td.k-hierarchy-cell").remove();
 			// REMOVE COLUMN END
-
                 } // End Function detailInit
-
-
-
 	});
 
 	//set add row management title year current and year perv
@@ -661,7 +657,7 @@ var $titleJ2 =[
 
 		$(".k-icon").click(function(){
 
-		
+	
 		if($(".k-minus").length!=0){
 			//$("#chart").hide();
 			//$("#chart2").hide();//pie

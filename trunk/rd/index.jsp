@@ -3,6 +3,8 @@
 <%@page import="java.sql.*" %> 
 <%@page import="java.io.*" %> 
 <%@page import="java.lang.*"%> 
+<%@ include file="../config.jsp"%>
+
 <html>
     <head>
         <title>R&D Dashboard</title>
@@ -81,16 +83,7 @@
 
 
 	<%
-		/*------------------- Set Connection -------------------*/
-		String connectionURL = "jdbc:mysql://localhost:3306/biotec_dwh"; 
-		String driver = "com.mysql.jdbc.Driver";
-		String userName = "root"; 
-		String password = "root";
-		String query = "";
-		Connection conn = null; 
-		Statement st;
-		ResultSet rs;
-		/*------------------- End Set Connection -------------------*/
+	
 
 		/*------------------- Set Variable -------------------*/
 
@@ -104,13 +97,13 @@
 
 //###############Query Handler Organization start  ####################
 try{
-Class.forName(driver).newInstance();
-conn=DriverManager.getConnection(connectionURL,userName,password);
+Class.forName(Driver).newInstance();
+conn=DriverManager.getConnection(connectionURL,User,Pass);
 	if(!conn.isClosed()){
 	//insert code allow function start
 	st = conn.createStatement();
-		query="CALL sp_center();";
-		rs = st.executeQuery(query);
+		Query="CALL sp_center();";
+		rs = st.executeQuery(Query);
 		 
 		while(rs.next()){
 		//out.println(rs.getString("center_name"));
@@ -127,13 +120,13 @@ out.println("Error"+ex);
 
 //############### Query Handler Year start ###############
 try{
-Class.forName(driver).newInstance();
-conn=DriverManager.getConnection(connectionURL,userName,password);
+Class.forName(Driver).newInstance();
+conn=DriverManager.getConnection(connectionURL,User,Pass);
 	if(!conn.isClosed()){
 	//insert code allow function start
 	st = conn.createStatement();
-		query="CALL sp_fiscal_year();";
-		rs = st.executeQuery(query);
+		Query="CALL sp_fiscal_year();";
+		rs = st.executeQuery(Query);
 		
 		while(rs.next()){
 		//out.println(rs.getString("center_name"));
@@ -151,13 +144,13 @@ out.println("Error"+ex);
 
 //############### Query Handler Month start ###############
 try{
-Class.forName(driver).newInstance();
-conn=DriverManager.getConnection(connectionURL,userName,password);
+Class.forName(Driver).newInstance();
+conn=DriverManager.getConnection(connectionURL,User,Pass);
 	if(!conn.isClosed()){
 	//insert code allow function start
 	st = conn.createStatement();
-		query="CALL sp_fiscal_month();";
-		rs = st.executeQuery(query);
+		Query="CALL sp_fiscal_month();";
+		rs = st.executeQuery(Query);
 		
 		while(rs.next()){
 		//out.println(rs.getString("center_name"));
