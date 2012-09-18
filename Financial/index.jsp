@@ -298,8 +298,6 @@ var lineChart2 = function(){
 				 { 
 						 name: "Balance 2554", data: [6500, 6500, 6500, 6500,6500,6500,6500,6500,6500,6500,6500,6500],
 						color: "BLUE"
-						
-						
 				 } ,
 				 {
                             name: "Balance 2555",
@@ -506,7 +504,6 @@ return false;
 	
 	});
 		// ajax end 01
-
 		// ajax start 02
 	$("[href=#content2]").click(function(){
 	//alert("hello jquery");
@@ -672,13 +669,10 @@ function tootipFormat(value,summ){
 				<li ><a href="#content4">งบรายได้ค่าใช้จ่ายแยกศูนย์</a></li>
 			
 			</ul>
-		
-
 			<div id="content1">content1</div>
 			<div id="content3">content3</div>
 			<div id="content2">content2</div>
 			<div id="content4">content4</div>
-	
 <br style="clear:both" />
 		</div>
 		
