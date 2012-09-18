@@ -52,8 +52,6 @@
 			position:absolute ;
 			position:center;
 			z-index:5;
-			
-			
 			}
 			.inlinesparkline{
 			width:100px;
