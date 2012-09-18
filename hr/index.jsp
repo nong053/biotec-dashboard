@@ -218,6 +218,8 @@ out.println("Error"+ex);
 					data:{"ParamMonth":$("#ParamMonthSubmit").val(),"ParamYear":$("#ParamYearSubmit").val(),"ParamOrg":$("#ParamOrgSubmit").val()},
 					success:function(data){
 						//alert(data);
+						$(".pageRemember").remove();
+						$("body").append("<input type='hidden' id='pageHr' class='pageRemember' name='pageHr' value='pageHr'>");
 						$("#content1").append(data);
 					}
 					
@@ -233,6 +235,8 @@ out.println("Error"+ex);
 		data:{"ParamMonth":$("#ParamMonthSubmit").val(),"ParamYear":$("#ParamYearSubmit").val(),"ParamOrg":$("#ParamOrgSubmit").val()},
 		success:function(data){
 		//alert("hellodworld");
+		$(".pageRemember").remove();
+		$("body").append("<input type='hidden' id='pageNpr' class='pageRemember' name='pageNpr' value='pageNpr'>");
 		$("#content2").append(data);
 		}
 	});
@@ -268,7 +272,11 @@ out.println("Error"+ex);
 						$("body").append("<input type='hidden' value='"+$("#ParamMonth").val()+"' name='ParamMonthSubmit' id='ParamMonthSubmit' class='paramSubmit'> ");
 						$("body").append("<input type='hidden' value='"+$("#ParamYear").val()+"' name='ParamYearSubmit' id='ParamYearSubmit' class='paramSubmit'>");
 						$("body").append("<input type='hidden' value='"+$("#ParamOrg").val()+"' name='ParamOrgSubmit' id='ParamOrgSubmit' class='paramSubmit'>");
-						$("a[href=#content1]").trigger("click");
+						if($("#pageHr").val()){
+								$("a[href=#content1]").trigger("click");
+						}else{
+								$("a[href=#content2]").trigger("click");
+						}
 				return false;
 		});
 	/*### jQuery Funtions End ###*/
