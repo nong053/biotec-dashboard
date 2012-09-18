@@ -841,13 +841,13 @@ function templateFormat(value,summ) {
 				<table width=100%>
 				<tr>
 					<td><label for="ParamYear">ปีงบประมาณ :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-					<select name="ParamYear" id="ParamYear" onChange="getParamYear(this.value);">
+					<select name="ParamYear" id="ParamYear" >
 						<%out.print(V_Year);%>
 					</select>
 					</td>
 
 					<td><label for="ParamMonth">เดือน :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-					<select name="ParamMonth" id="ParamMonth" onChange="getParamMonth(this.value);">
+					<select name="ParamMonth" id="ParamMonth" >
 						<%out.print(V_Month);%>
 					</select>
 					</td>
