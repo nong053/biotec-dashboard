@@ -274,8 +274,10 @@ out.println("Error"+ex);
 						$("body").append("<input type='hidden' value='"+$("#ParamOrg").val()+"' name='ParamOrgSubmit' id='ParamOrgSubmit' class='paramSubmit'>");
 						if($("#pageHr").val()){
 								$("a[href=#content1]").trigger("click");
-						}else{
+						}else if($("#pageNpr").val()){
 								$("a[href=#content2]").trigger("click");
+						}else{
+								$("a[href=#content1]").trigger("click");
 						}
 				return false;
 		});
