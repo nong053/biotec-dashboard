@@ -815,7 +815,7 @@ function templateFormat(value,summ) {
 				<div id="column1">
 						<div id="head1">
 							<div id="title1">
-						<button>Up NC</button>
+						<!--<button>Up NC</button>-->
 							IC Score Per NC
 							</div>
 						</div>
