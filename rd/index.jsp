@@ -102,19 +102,89 @@
 		String V_Month = ""; // Values of Parameter Sales Region
 		String V_Org = ""; // Values of Parameter Branch
 
+//###############Query Handler Organization start  ####################
+try{
+Class.forName(driver).newInstance();
+conn=DriverManager.getConnection(connectionURL,userName,password);
+	if(!conn.isClosed()){
+	//insert code allow function start
+	st = conn.createStatement();
+		query="CALL sp_center();";
+		rs = st.executeQuery(query);
+		 
+		while(rs.next()){
+		//out.println(rs.getString("center_name"));
+		V_Org+="<option value="+rs.getString("center_name")+">"+rs.getString("center_name")+"</option>";
+		}
+	//insert code allow function end
+		conn.close();
+	}
+}
+catch(Exception ex){
+out.println("Error"+ex);
+}
+//############### Query Handler Organization end ###############
+
+//############### Query Handler Year start ###############
+try{
+Class.forName(driver).newInstance();
+conn=DriverManager.getConnection(connectionURL,userName,password);
+	if(!conn.isClosed()){
+	//insert code allow function start
+	st = conn.createStatement();
+		query="CALL sp_fiscal_year();";
+		rs = st.executeQuery(query);
+		
+		while(rs.next()){
+		//out.println(rs.getString("center_name"));
+		V_Year+="<option value="+rs.getString("fiscal_year")+">"+rs.getString("buddhist_era_year")+"</option>";
+		}
+	//insert code allow function end
+		conn.close();
+	}
+}
+catch(Exception ex){
+out.println("Error"+ex);
+}
+//############### Query Handler Year end ###############
+
+
+//############### Query Handler Month start ###############
+try{
+Class.forName(driver).newInstance();
+conn=DriverManager.getConnection(connectionURL,userName,password);
+	if(!conn.isClosed()){
+	//insert code allow function start
+	st = conn.createStatement();
+		query="CALL sp_fiscal_month();";
+		rs = st.executeQuery(query);
+		
+		while(rs.next()){
+		//out.println(rs.getString("center_name"));
+		V_Month+="<option value="+rs.getString("fiscal_month_no")+">"+rs.getString("calendar_th_month_name")+"</option>";
+		}
+	//insert code allow function end
+		conn.close();
+	}
+}
+catch(Exception ex){
+out.println("Error"+ex);
+}
+//############### Query Handler Month end ###############
+
 		/*------------------- End Set Variable -------------------*/
 
 		/*------------------- Parameter Year -------------------*/
-
+/*
 		V_Year += "<option value=\"2012\" selected='selected'>2555</option>";
 		V_Year += "<option value=\"2011\" >2554</option>";
 		V_Year += "<option value=\"2010\">2553</option>";
 		V_Year += "<option value=\"2009\">2552</option>";
-		
+	*/	
 		/*------------------- End Parameter Year -------------------*/
 
 		/*------------------- Parameter Month -------------------*/
-
+/*
 		
 		V_Month += "<option value=\"10\" selected='selected' >ตุลาคม </option>";
 		V_Month += "<option value=\"11\">พฤศจิกายน </option>";
@@ -128,11 +198,11 @@
 		V_Month += "<option value=\"7\">กรกฎาคม </option>";
 		V_Month += "<option value=\"8\">สิงหาคม </option>";
 		V_Month += "<option value=\"9\">กันยายน </option>";
-
+*/
 		/*------------------- End Parameter Month -------------------*/
 
 		/*------------------- Organization Parameter -------------------*/
-
+/*
 
 		V_Org +="<option value=\"NSTDA\">สก.</option>";
 		V_Org +="<option value=\"BIOTEC\">ศช. </option>";
@@ -140,7 +210,7 @@
 		V_Org +="<option value=\"NECTEC\">ศจ.</option>";
 		V_Org +="<option value=\"NANOTEC\">ศน.</option>";
 
-
+*/
 		/*------------------- End Organization Parameter -------------------*/
 
 	%>
