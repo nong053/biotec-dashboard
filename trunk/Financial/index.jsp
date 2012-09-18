@@ -90,14 +90,16 @@
 
 	<%
 		/*------------------- Set Connection -------------------*/
-		String connectionURL = "jdbc:mysql://localhost:3306/mysql"; 
-		String driver = "com.mysql.jdbc.Driver";
-		String userName = "root"; 
-		String password = "root";
-		String query = "";
-		Connection conn = null; 
-		Statement st;
-		ResultSet rs;
+//Define Connection
+String connectionURL="jdbc:mysql://localhost/biotec_dwh";
+String Driver = "com.mysql.jdbc.Driver";
+String User="root";
+String Pass="root";
+String Query="";
+Connection conn = null; 
+Statement st;
+ResultSet rs;
+//Define Connection
 		/*------------------- End Set Connection -------------------*/
 
 		/*------------------- Set Variable --------------------*/
@@ -112,50 +114,74 @@
 
 		/*------------------- End Set Variable -------------------*/
 
-		/*------------------- Parameter Year -------------------*/
-
-		V_Year += "<option value=\"2012\" selected='selected'>2555</option>";
-		V_Year += "<option value=\"2011\" >2554</option>";
-		V_Year += "<option value=\"2010\">2553</option>";
-		V_Year += "<option value=\"2009\">2552</option>";
-		
-		/*------------------- End Parameter Year -------------------*/
-
-		/*------------------- Parameter Month -------------------*/
-
-		
-		V_Month += "<option value=\"10\" selected='selected' >ตุลาคม </option>";
-		V_Month += "<option value=\"11\">พฤศจิกายน </option>";
-		V_Month += "<option value=\"12\">ธันวาคม</option>";
-		V_Month += "<option value=\"1\">มกราคม </option>";
-		V_Month += "<option value=\"2\">กุมภาพันธ์ </option>";
-		V_Month += "<option value=\"3\">มีนาคม </option>";
-		V_Month += "<option value=\"4\">เมษายน </option>";
-		V_Month += "<option value=\"5\">พฤษภาคม </option>";
-		V_Month += "<option value=\"6\">มิถุนายน </option>";
-		V_Month += "<option value=\"7\">กรกฎาคม </option>";
-		V_Month += "<option value=\"8\">สิงหาคม </option>";
-		V_Month += "<option value=\"9\">กันยายน </option>";
-
-		/*------------------- End Parameter Month -------------------*/
-
-		/*------------------- Organization Parameter -------------------*/
-
-//สก. ศช. ศว. ศอ. ศจ. ศน.
-
-		V_Org +="<option value=\"NSTDA\">สก.</option>";
-		V_Org +="<option value=\"BIOTEC\">ศช. </option>";
-		V_Org +="<option value=\"MTEC\">ศว.</option>";
-		V_Org +="<option value=\"NECTEC\">ศจ.</option>";
-		V_Org +="<option value=\"NANOTEC\">ศน.</option>";
-		V_Org +="<option value=\"NANOTEC\">สวทช.</option>";
-		V_Org +="<option value=\"NANOTEC\">ทุนประเดิม</option>";
+		//###############Query Handler Organization start  ####################
+try{
+Class.forName(Driver).newInstance();
+conn=DriverManager.getConnection(connectionURL,User,Pass);
+	if(!conn.isClosed()){
+	//insert code allow function start
+	st = conn.createStatement();
+		Query="CALL sp_center();";
+		rs = st.executeQuery(Query);
 		 
+		while(rs.next()){
+		//out.println(rs.getString("center_name"));
+		V_Org+="<option value="+rs.getString("center_name")+">"+rs.getString("center_name")+"</option>";
+		}
+	//insert code allow function end
+		conn.close();
+	}
+}
+catch(Exception ex){
+out.println("Error"+ex);
+}
+//############### Query Handler Organization end ###############
+
+//############### Query Handler Year start ###############
+try{
+Class.forName(Driver).newInstance();
+conn=DriverManager.getConnection(connectionURL,User,Pass);
+	if(!conn.isClosed()){
+	//insert code allow function start
+	st = conn.createStatement();
+		Query="CALL sp_fiscal_year();";
+		rs = st.executeQuery(Query);
 		
+		while(rs.next()){
+		//out.println(rs.getString("center_name"));
+		V_Year+="<option value="+rs.getString("fiscal_year")+">"+rs.getString("buddhist_era_year")+"</option>";
+		}
+	//insert code allow function end
+		conn.close();
+	}
+}
+catch(Exception ex){
+out.println("Error"+ex);
+}
+//############### Query Handler Year end ###############
 
-
-		/*------------------- End Organization Parameter -------------------*/
-
+//############### Query Handler Month start ###############
+try{
+Class.forName(Driver).newInstance();
+conn=DriverManager.getConnection(connectionURL,User,Pass);
+	if(!conn.isClosed()){
+	//insert code allow function start
+	st = conn.createStatement();
+		Query="CALL sp_fiscal_month();";
+		rs = st.executeQuery(Query);
+		
+		while(rs.next()){
+		//out.println(rs.getString("center_name"));
+		V_Month+="<option value="+rs.getString("fiscal_month_no")+">"+rs.getString("calendar_th_month_name")+"</option>";
+		}
+	//insert code allow function end
+		conn.close();
+	}
+}
+catch(Exception ex){
+out.println("Error"+ex);
+}
+//############### Query Handler Month end ###############
 	%>
 
 	<script type="text/javascript">
@@ -188,9 +214,7 @@ var setFont = function(){
 }
 var setHeader= function(){
 	//Set and Config Parameter Now!
-	$(".k-header").css({"padding":"2px"})
-	
-	
+	$(".k-header").css({"padding":"2px"});
 }
 
 var setHeaderDateYear = function(){
@@ -440,7 +464,6 @@ return false;
 							template :"#= tootipFormat(value,900) #"
 
                         },
-			
 			seriesDefaults: {
 				labels: {
 					visible: false,
@@ -450,9 +473,6 @@ return false;
 			
 		});
 
-
-		
-		
 }//function pie chart end
 /*### Financial Pie Chart End###*/
 
@@ -530,9 +550,6 @@ return false;
 
 	setHeaderDateYear();
 
-
-		
-		
 		}
 	});
 	
@@ -556,12 +573,8 @@ return false;
 		sufferTable();
 		setFont();
 		setHeader();
-		
-		
-		
 		}
 	});
-	
 	});
 		// ajax end 04
 
@@ -658,7 +671,6 @@ function tootipFormat(value,summ){
 				<li ><a href="#content2">งบแสดงฐานะการเงินแยกศูนย์</a></li>
 				<li ><a href="#content4">งบรายได้ค่าใช้จ่ายแยกศูนย์</a></li>
 			
-
 			</ul>
 		
 
