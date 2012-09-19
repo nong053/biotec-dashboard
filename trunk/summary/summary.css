@@ -103,7 +103,7 @@ font-size:11px;
 float:left;
 width:40%;
 }
-.content #row1 #boxR #mainContent #content #contentL #content #r{
+.content #row1 #boxR #mainContent #content #contentL #content .r{
 float:right;
 width:59%;
 text-align:right;

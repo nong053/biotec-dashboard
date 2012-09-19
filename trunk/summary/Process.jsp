@@ -1,25 +1,156 @@
-
-<% 
-
+<%
 String ParamYear  = request.getParameter("ParamYear");
 String ParamMonth  = request.getParameter("ParamMonth");
-//String ParamOrg  = request.getParameter("ParamOrg");
+String ParamOrg  = "NSTDA";
+session.setAttribute( "Year", ParamYear);
+session.setAttribute( "Month", ParamMonth);
+%>
+<%@page import="java.sql.*"%>
+<%@page import="java.io.*"%>
+<%@page import="java.lang.*"%>
 
+<%! 
+    String getColorBall(int position,String color,int id)
+    {
+		String ballScoll = "";
+               if(position==1){
+                       ballScoll+="<div id="+id+"  class=ball style=background-color:"+color+"></div>";
+                       ballScoll+="<div id="+id+"  class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id="+id+"  class=ball style=background-color:#cccccc></div>";
+               }else if(position==2){
+                       ballScoll+="<div id="+id+"  class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id="+id+"  class=ball style=background-color:"+color+"></div>";
+                       ballScoll+="<div id="+id+"  class=ball style=background-color:#cccccc></div>";
+               }else if(position==3){
+                       ballScoll+="<div id="+id+"  class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id="+id+"   class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id="+id+"   class=ball style=background-color:"+color+"></div>";
+               }
+      return ballScoll;
+    }
+ %>
+<% 
 String titleStr = "";
-//out.print("{"+ParamYear+","+ParamMonth+","+ParamOrg+"}");
-//out.print('{"0":"nong","1":"nuy","2":"TEST"}');
-//out.print(ParamOrg);
 
-//out.print(ParamOrg);
-//out.print(ParamOrg.trim());
+String connectionURL="jdbc:mysql://localhost:3306/biotec_dwh";
+String Driver = "com.mysql.jdbc.Driver";
+String User="root";
+String Pass="root";
+String Query="";
+String center_name="";
 
+Connection conn= null;
+Statement st;
+ResultSet  rs;
+Class.forName(Driver).newInstance();
+conn = DriverManager.getConnection(connectionURL,User,Pass);
 
+st = conn.createStatement();
+Query="CALL sp_parent_kpi_list(";
+Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
+rs = st.executeQuery(Query);
+String tableFun = "[";
+int i=0;
 
+while(rs.next()){
+	if(i>0){
+		tableFun += ",";
+	}
+
+	String perspective_code = rs.getString("krs.perspective_code");
+	tableFun += "{Field1: \"";
+	tableFun += perspective_code;
+	tableFun += "\", ";
+
+	String kpi_code = rs.getString("krs.kpi_code");
+	String kpi = rs.getString("kpi") ;
+	tableFun += "Field2: \"";
+	tableFun += "<div class =kpiN id="+i+">"+kpi_code+"</div>"+kpi;
+	out.print("<div class=tootip id="+i+"><b>"+rs.getString("kpi_comment")+"</b></div>");
+
+	//=============Get Url with Details Button Start============
+	String urlpage = rs.getString("url");
+	//out.print("["+urlpage+"]WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW") ;
+	if(urlpage == null || urlpage.equals(""))
+	{
+		tableFun +="";
+	}
+	else
+	{
+		tableFun +=" <a href="+urlpage+" target=_blank><button class=k-button>รายละเอียด</button></a> ";
+	}
+	tableFun += "\", ";
+
+	//=============Get Url with Details Button End============
+	String target_value = rs.getString("target_value");
+	tableFun += "Field3: \"";
+	tableFun += "<div id=textR>"+ target_value +"</div> \",";
+
+	String kpi_uom = rs.getString("kpi_uom");
+	tableFun += "Field4: \"";
+	tableFun += kpi_uom + "\",";
+
+	String kpi_weighting = rs.getString("kpi_weighting");
+	tableFun += "Field5: \"";
+	tableFun +=  "<div id=textR>"+kpi_weighting +"</div> \",";
+
+	String baseline = rs.getString("baseline") ;
+	tableFun += "Field5_1: \"";
+	tableFun += baseline + "\",";
+
+	String performance_value = rs.getString("performance_value") ;
+	tableFun += "Field6: \"";
+	tableFun += "<div id=textR>"+ performance_value +"</div> \",";
+//=================================Color Start=========================
+	String performance_percentage = rs.getString("performance_percentage");
+
+	Statement st1;
+	ResultSet  rs1;
+	String QueryColor = "";
+	st1 = conn.createStatement();
+	QueryColor="CALL sp_color_code(";
+	QueryColor += performance_percentage+")";
+	rs1 = st1.executeQuery(QueryColor);
+
+	tableFun += "Field7: \"";
+	tableFun += "<center><div id='target'><div id='percentage'>" + performance_percentage +"</div></div></center> ";
+	while(rs1.next())
+	{
+		int positionBall =  rs1.getInt("color_order");
+		String colorCode = rs1.getString("color_code");
+		tableFun += getColorBall(positionBall,colorCode,(i+1000));
+	//	out.print(getColorBall(1,colorCode));
+		
+			Statement st2;
+			ResultSet  rs2;
+			String QueryColorRange = "";
+			st2 = conn.createStatement();
+			QueryColorRange="CALL sp_color_range;";
+			rs2 = st2.executeQuery(QueryColorRange);
+					out.print("<div class=tootip id="+(i+1000)+">");
+				while(rs2.next()){
+					out.print(rs2.getString("description")+"<br />");
+				}
+					out.print("</div>");
+	}
+	tableFun += "\"";
+	tableFun += "}";
+	
+	//===============GraphLine End=====================
+	i++;
+}
+tableFun += "]";
 %>
 
 
 
 	<style type="text/css">
+		.ball{
+       width:20px;
+       height:20px;border-radius:100px; 
+       float:left;
+	}
+
 	#test{
 	color:red;
 	font-size:20px;
@@ -91,9 +222,31 @@ font-size:14px;
 	border-radius:5px;
 	margin:2px;
 	}
-	.inlinesparkline{
-	cursor:pointer;
-	}
+			.tootip{
+			width:200px;
+			height:auto;
+			position:absolute;
+			z-index:10;
+			background:white;
+			display:none;
+			border-radius:5px;
+			border:1px solid #cccccc;
+			cursor:pointer;
+			padding:5px;
+			}
+			.commentball{
+			width:200px;
+			height:auto;
+			position:absolute;
+			z-index:10;
+			background:white;
+			display:none;
+			border-radius:5px;
+			border:1px solid #cccccc;
+			cursor:pointer;
+			padding:5px;
+			}
+
 	</style>
 	<!--<script src="http://code.jquery.com/jquery.js"></script>
 	<script src="js/kendo.all.min.js"></script>
@@ -104,7 +257,6 @@ font-size:14px;
 	<script type="text/javascript" src="jqueryUI/js/jquery-ui-1.8.20.custom.min.js"></script>--> 
 	<script type="text/javascript">
 	$(document).ready(function(){
-
 	var ballRed  = "<div id='ballRed' class='ball' style='background-color:#e51e25; color:white;width:17px;height:17px; border-radius:100px; float:left;'></div>";
 	var ballYellow  = "<div id='ballYellow' class='ball' style='background-color:yellow; color:white;width:17px;height:17px;float:left;border-radius:100px; border:1px solid #cccccc;'></div>";
 	var ballGreen  = "<div id='ballGreen' class='ball' style='background-color:#8fbc01; color:white;width:17px;height:17px; float:left; border-radius:100px;border:1px solid #cccccc;'></div>";
@@ -133,7 +285,6 @@ var ballGreen = $("<div id='ballRed'>HELLO</div>").css({"background-color":"gree
 	var $titleJ =[
               {
                   field: "Field1",
-				  title:"testtttt",
 				   width: 40
               },
               {
@@ -167,68 +318,6 @@ var ballGreen = $("<div id='ballRed'>HELLO</div>").css({"background-color":"gree
 			 }];
 
 
-var $titleJ2 =[
-              {
-                  field: "Field1",
-				  title:"ตัวชีวัด",
-				   width: 210
-              },
-              {
-                  field: "Field2",
-				   title:"หน่วยงาน",
-				  width: 100
-			 },
-              {
-                  field: "Field3",
-				   title:"เป้าหมาย",
-				  width: 80
-			 },
-              {
-                  field: "Field4",
-				   title:"หน่วยวัด",
-				  width: 70
-			 },
-              {
-                  field: "Field5",
-				   title:"น้ำหนัก",
-				  width: 60
-			 },
-              {
-                  field: "Field5_1",
-				  title:"baseline",
-				  width: 70
-
-			 },
-              {
-                  field: "Field5_2",
-				   title:"actual",
-				  width: 70
-			 },
-              {
-                  field: "Field6",
-				   title:"ผลงานสะสม",
-				  width: 80
-			 },
-              {
-                  field: "Field7",
-				   title:"%เทียบแผน",
-				  width: 80
-			 },
-              {
-                  field: "Field7_1",
-				   title:"% เฉลี่ยถ่วงน้ำหนัก",
-				  width: 150
-			 },
-              {
-                  field: "Field8",
-				   title:"ข้อมูลล่าสุด",
-				   width:100
-			 },
-              {
-                  field: "Field9",
-				  title:"แนวโน้ม",
-				  width: 100
-			 }];
 
 
 	// TITLE BY JSON END
@@ -247,7 +336,9 @@ var $titleJ2 =[
 น้ำหนัก:: 25/25/10/15/15/10
 */
 //หนวยนับ::เท่าของการลงทุนปี54/เท่าของค่าใช้จ่าย/-/ฉบับ/100คน/ปี/ร้อยละ
-	var $dataJ =[
+var $dataJ = <%=tableFun%>;
+
+/*	var $dataJ =[
                   {
                       Field1: "ST",
 					  Field2: "<div class='kpiN'>KS1</div>การลงทุนด้าน ว และ ท ในภาคการผลิต ภาคบริการและภาคการผลิต",
@@ -333,156 +424,8 @@ var $titleJ2 =[
 				  
 				  
 				  ]; 		
-	
+	*/
 
-
-	var $dataJ2 =[
-                  {
-                      Field1: "Lead2 ร้อยละความสำเร็จในการส่งมอบ flagship",
-					  Field2: "BIOTEC",
-
-                      Field3: " 100 ",
-					  Field4: "ร้อบละ",
-                      Field5: "15",
-					  Field5_1:"1,500 (ล้านบาท)",
-					  Field5_2:"500 (ล้านบาท)",
-					  Field6: " 0.50",
-                      Field7: " ",
-					 Field7_1:"8.01	",
-					  Field8: "2012-05-10 12:00:31 ",
-					  Field9: ""
-                     
-					  
-                     
-                  },
-                  {
-                      Field1: "Lead2 ร้อยละความสำเร็จในการส่งมอบ flagship",
-					  Field2: "MTEC",
-
-                      Field3: " 100 ",
-					  Field4: "ร้อบละ",
-                      Field5: "10",
-					  Field5_1:"1,500 (ล้านบาท)",
-					  Field5_2:"800 (ล้านบาท)",
-					  Field6: "0.7 ",
-                      Field7: " ",
-					 Field7_1:"8.00",
-					  Field8: "2012-05-10 12:00:31  ",
-					  Field9: ""
-                     
-					  
-                     
-                  },
-				   {
-                      Field1: "Lead2 ร้อยละความสำเร็จในการส่งมอบ flagship",
-					  Field2: "NANOTEC",
-
-                      Field3: "  100",
-					  Field4: "ร้อบละ",
-                      Field5: "15",
-					  Field5_1:"1,500 (ล้านบาท)",
-					  Field5_2:"800 (ล้านบาท)",
-					  Field6: "0,5 ",
-                      Field7: " ",
-					 Field7_1:"7.01",
-					  Field8: "2012-05-10 12:00:31  ",
-					  Field9: ""
-                     
-					  
-                     
-                  },
-				   {
-                      Field1: "Lead2 ร้อยละความสำเร็จในการส่งมอบ flagship",
-					  Field2: "NECTEC",
-
-                      Field3: " 100 ",
-					  Field4: "ร้อบละ",
-                      Field5: "15",
-					  Field5_1:"1,500 (ล้านบาท)",
-					  Field5_2:"800 (ล้านบาท)",
-					  Field6: "0.6 ",
-                      Field7: " ",
-					 Field7_1:"8.03",
-					  Field8: " 2012-05-10 12:00:31 ",
-					  Field9: ""
-                     
-					  
-                     
-                  },
-				   {
-                      Field1: "Lead4 จำนวนรายได้อุดหนุนการวิจัย รับจ้าง/ร่วมวิจัย ลิขสิทธิ์/สิทธิประโยชน์ และบริการเทคนิควิชาการ",
-					  Field2: "BIOTEC",
-
-                      Field3: " 100 ",
-					  Field4: "ล้านบาท",
-                      Field5: "15",
-					  Field5_1:"1,500 (ล้านบาท)",
-					  Field5_2:"800 (ล้านบาท)",
-					  Field6: "0.7 ",
-                      Field7: " ",
-					 Field7_1:"8.04",
-					  Field8: "2012-05-10 12:00:31  ",
-					  Field9: ""
-                     
-					  
-                     
-                  },
-				   {
-                      Field1: "Lead4 จำนวนรายได้อุดหนุนการวิจัย รับจ้าง/ร่วมวิจัย ลิขสิทธิ์/สิทธิประโยชน์ และบริการเทคนิควิชาการ",
-					  Field2: "MTEC",
-
-                      Field3: " 129 ",
-					  Field4: "ล้านบาท",
-                      Field5: "20",
-					  Field5_1:"1,500 (ล้านบาท)",
-					  Field5_2:"800 (ล้านบาท)",
-					  Field6: "0.8 ",
-                      Field7: " ",
-					 Field7_1:"7.30",
-					  Field8: " 2012-05-10 12:00:31 ",
-					  Field9: ""
-                     
-					  
-                     
-                  },
-				   {
-                      Field1: "Lead4 จำนวนรายได้อุดหนุนการวิจัย รับจ้าง/ร่วมวิจัย ลิขสิทธิ์/สิทธิประโยชน์ และบริการเทคนิควิชาการ",
-					  Field2: "NANOTEC",
-
-                      Field3: "120  ",
-					  Field4: "ล้านบาท",
-                      Field5: "25",
-					  Field5_1:"1,500 (ล้านบาท)",
-					  Field5_2:"800 (ล้านบาท)",
-					  Field6: " 0.6",
-                      Field7: " ",
-					 Field7_1:"7.71",
-					  Field8: " 2012-05-10 12:00:31 ",
-					  Field9: ""
-                     
-					  
-                     
-                  },
-				   {
-                      Field1: "Lead4 จำนวนรายได้อุดหนุนการวิจัย รับจ้าง/ร่วมวิจัย ลิขสิทธิ์/สิทธิประโยชน์ และบริการเทคนิควิชาการ",
-					  Field2: "NECTEC",
-
-                      Field3: " 120 ",
-					  Field4: "ล้านบาท",
-                      Field5: "25",
-					  Field5_1:"1,500 (ล้านบาท)",
-					  Field5_2:"800 (ล้านบาท)",
-					  Field6: "0.4 ",
-                      Field7: " ",
-					 Field7_1:"7.56",
-					  Field8: "2012-05-10 12:00:31  ",
-					  Field9: ""
-                     
-					  
-                     
-                  }
-				  
-				  ]; 
 	//CONTENT BY JSON END
 
 	$("#grid").kendoGrid({
@@ -545,32 +488,6 @@ var $titleJ2 =[
 
 		//#######################Menagement Table End #######################
 	
-
-	 function detailInit(e) {
-	
-					//alert("hello");
-							$("<div/>").kendoGrid({
-								
-								scrollable: true,
-								sortable: true,
-								pageable: true,
-								 dataBound: function() {
-                            this.expandRow(this.tbody.find("tr.k-master-row").first());
-                        },
-								columns: $titleJ2,
-								dataSource: {
-								data: $dataJ2,
-								pageSize: 8
-							}
-							}).appendTo(e.detailCell);
-						 
-				// REMOVE COLUMN START
-				$("tr.k-detail-row td.k-hierarchy-cell").remove();
-				// REMOVE COLUMN END
-			
-                } // End Function detailInit
-
-
 
 		/*##########Function jQuery  add Deatail  result  Start ########*/
 /*
