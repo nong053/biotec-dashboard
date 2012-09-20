@@ -1,9 +1,7 @@
 <%@page contentType="text/html" pageEncoding="utf-8"%>
+<%@ include file="../config.jsp"%>
 <!doctype html>
-<%@page import="java.sql.*" %> 
-<%@page import="java.io.*" %> 
-<%@page import="java.lang.*"%> 
-<html>
+ <html>
     <head>
         <title>Budgeting Dashboard</title>
 		<link href="budget.css" rel="stylesheet" type="text/css">
@@ -88,20 +86,8 @@
 					background-color:#008EC3 ;
 				}
 			</style>
-
-
 	<%
-		/*------------------- Set Connection -------------------*/
-		String connectionURL = "jdbc:mysql://localhost:3306/mysql"; 
-		String driver = "com.mysql.jdbc.Driver";
-		String userName = "root"; 
-		String password = "root";
-		String query = "";
-		Connection conn = null; 
-		Statement st;
-		ResultSet rs;
-		/*------------------- End Set Connection -------------------*/
-
+String center_name="";
 		/*------------------- Set Variable -------------------*/
 
 		String ParamYear = "";
@@ -114,18 +100,42 @@
 
 		/*------------------- End Set Variable -------------------*/
 
-		/*------------------- Parameter Year -------------------*/
-
-		V_Year += "<option value=\"2012\" selected='selected' >2555</option>";
-		V_Year += "<option value=\"2011\" >2554</option>";
+		Query="CALL sp_fiscal_year;";
+		rs = st.executeQuery(Query);
+		int i = 0;
+		while(rs.next()){
+			if(i==0){
+				V_Year += "<option value=\""+rs.getString("fiscal_year")+"\"  selected='selected'>"+rs.getString("buddhist_era_year")+"</option>";
+				ParamYear = rs.getString("fiscal_year");
+				}else{
+				V_Year += "<option value=\""+rs.getString("fiscal_year")+"\">"+rs.getString("buddhist_era_year")+"</option>";
+				}
+				i++;
+		}
+/*
+		V_Year += "<option value=\"2012\"  selected='selected'>2555</option>";
+		V_Year += "<option value=\"2011\">2554</option>";
 		V_Year += "<option value=\"2010\">2553</option>";
 		V_Year += "<option value=\"2009\">2552</option>";
 		
-		/*------------------- End Parameter Year -------------------*/
+		------------------- End Parameter Year -------------------*/
 
 		/*------------------- Parameter Month -------------------*/
 
-		
+		Query="CALL sp_fiscal_month;";
+		rs = st.executeQuery(Query);
+		i = 0;
+		while(rs.next()){
+			if(i==0){
+				V_Month += "<option value=\""+rs.getString("fiscal_month_no")+"\"  selected='selected'>"+rs.getString("calendar_th_month_name")+"</option>";
+				ParamMonth = rs.getString("fiscal_month_no");
+			}else{
+				V_Month += "<option value=\""+rs.getString("fiscal_month_no")+"\">"+rs.getString("calendar_th_month_name")+"</option>";
+				
+			}
+			i++;
+		}
+		/*
 		V_Month += "<option value=\"10\" selected='selected' >ตุลาคม </option>";
 		V_Month += "<option value=\"11\">พฤศจิกายน </option>";
 		V_Month += "<option value=\"12\">ธันวาคม</option>";
@@ -139,8 +149,7 @@
 		V_Month += "<option value=\"8\">สิงหาคม </option>";
 		V_Month += "<option value=\"9\">กันยายน </option>";
 
-		/*------------------- End Parameter Month -------------------*/
-
+		------------------- End Parameter Month -------------------*/
 		/*------------------- Organization Parameter -------------------*/
 
 
@@ -156,6 +165,44 @@
 	%>
 
 	<script type="text/javascript">
+//===================================== Function to add comma in decimal
+function addCommas(nStr)
+{
+	nStr += '';
+	x = nStr.split('.');
+	x1 = x[0];
+	x2 = x.length > 1 ? '.' + x[1] : '';
+	var rgx = /(\d+)(\d{3})/;
+	while (rgx.test(x1)) {
+		x1 = x1.replace(rgx, '$1' + ',' + '$2');
+	}
+	return x1 + x2;
+}
+//==========================================end=====================
+
+		
+
+		var conURL = "<%=connectionURL%>";
+		var pw = "<%=Pass%>";
+		var ParamYear = "<%=ParamYear%>";
+		var ParamMonth = "<%=ParamMonth%>";
+		//var ParamOrg = "<%=ParamOrg%>";
+
+		function getParamYear(value)
+		{
+			ParamYear = value;
+		}
+
+		function getParamMonth(value)
+		{
+			ParamMonth = value;
+		}
+
+		function getParamOrg(value)
+		{
+			ParamOrg = value;
+		}
+
 			   /*#### Tab search above top start ###*/
 	$(document).ready(function(){
 	  $("#ParamYear").kendoDropDownList();
@@ -163,7 +210,8 @@
 	  $("#ParamMonth").kendoDropDownList();
 
 	  $("#ParamOrg").kendoDropDownList();
-	
+	var dropdownList1 = $("#select1").kendoDropDownList();
+	var dropdownList2 =$("#select2").kendoDropDownList();
 
 	/*### jQuery Funtions Start ###*/
 
@@ -173,7 +221,7 @@
 	//alert("hello submit");
 	$("#tabs").slideDown(500,function(){
 		$("a[href=#content1]").trigger("click");
-		 $("#select1").kendoDropDownList();
+	//	 $("#select1").kendoDropDownList();
 	});
 	return false;
 	});
@@ -181,30 +229,75 @@
 	
 
 	/*### Tabs Content Start ###*/
+		$("#select1").change(function(){
+				$.ajax({
+				url:"content1.jsp",
+				type:"get",
+				dataType:"json",
+				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val(),"center":$(this).val()},
+				success:function(data){
+					var serie1 = data[0]["series1"];
+					var category1 = data[1]["category1"];
+					barChart1(serie1,category1);
+
+				}
+			});
+		});
+
+		$("#select2").change(function(){
+				//alert($(this).val());
+				$.ajax({
+				url:"content2.jsp",
+				type:"get",
+				dataType:"json",
+				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val(),"cluster":$(this).val()},
+				success:function(data){
+					var serie1 = data[0]["series1"];
+					var category1 = data[1]["category1"];
+					//console.log(serie1);
+					//console.log(category1);
+
+					barChart21(serie1,category1);
+
+					var serie2 = data[2]["series2"];
+					var category2 = data[3]["category2"];
+					barChart22(serie2,category2);
+
+					var serie3 = data[4]["series3"];
+					var category3 = data[5]["category3"];
+					barChart23(serie3,category3);
+				
+				}
+			});
+		});
+
+
+
 
 	$("a[href=#content1]").click(function(){
-	
+		var dropDown = $("#select1").data("kendoDropDownList");
+		dropDown.select(0);				
 			$.ajax({
-				'url':'content1.html',
-				'type':'get',
-				'dataType':'html',
+				url:"content1.jsp",
+				type:"get",
+				dataType:"json",
+				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val(),"center":$("#select1").val()},
 				success:function(data){
-				//alert(data);
 
-				$("#content1").empty();
-				$("#content2").empty();
-				$("#content3").empty();
-				$("#content4").empty();
-				$("#content5").empty();
+				$("#content1").hide();
+				$("#content2").hide();
+				$("#content3").hide();
+				$("#content4").hide();
+				$("#content5").hide();
+				$("#content1").slideDown("slow",function(){
+					//console.log(data);
+					var serie1 = data[0]["series1"];
+					var category1 = data[1]["category1"];
+					//console.log(serie1);
+					//console.log(category1);
+					barChart1(serie1,category1);
 
-				$("#content1").append(data).hide();
-				$("#content1").slideDown("fast",function(){
-					//alert(data);
-				barChart1();
-				//barChart2(15.7, 16.7, 20, 23.5, 26.6, 26.6, 70, 80, 82, 89);
-				//barChart3(89,85,80,75,70,68,66,65,63,60);
 				});
-				$("#select1").kendoDropDownList();
 				
 				/*### call function sufferRow  Start ###*/
 				colorSufferRow();
@@ -238,26 +331,41 @@
 	});
 
 	$("a[href=#content2]").click(function(){
+			var dropDown = $("#select2").data("kendoDropDownList");
+			dropDown.select(0);
+			//alert($("#select2").val());
 
 			$.ajax({
-				'url':'content2.html',
-				'type':'get',
-				'dataType':'html',
+				url:"content2.jsp",
+				type:"get",
+				dataType:"json",
+				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val(),"cluster":$("#select2").val()},
 				success:function(data){
 				
-				$("#content1").empty();
-				$("#content2").empty();
-				$("#content3").empty();
-				$("#content4").empty();
-				$("#content5").empty();
+				$("#content1").hide();
+				$("#content2").hide();
+				$("#content3").hide();
+				$("#content4").hide();
+				$("#content5").hide();
+				//$("#content2").append(data).hide();
+				$("#content2").slideDown("slow",function(){
+				//console.log(data);
 
-				$("#content2").append(data).hide();
-				$("#content2").slideDown(function(){
-				barChart21();
-				barChart22();
-				barChart23();
+				var serie1 = data[0]["series1"];
+				var category1 = data[1]["category1"];
+				//console.log(serie1);
+				//console.log(category1);
+				barChart21(serie1,category1);
+
+				var serie2 = data[2]["series2"];
+				var category2 = data[3]["category2"];
+				barChart22(serie2,category2);
+
+				var serie3 = data[4]["series3"];
+				var category3 = data[5]["category3"];
+				barChart23(serie3,category3);
 				});
-				$("#select2").kendoDropDownList();
+				//$("#select2").kendoDropDownList();
 				
 				}
 			});
@@ -267,23 +375,33 @@
 		$("a[href=#content3]").click(function(){
 
 			$.ajax({
-				'url':'content3.html',
-				'type':'get',
-				'dataType':'html',
+				url:"content3.jsp",
+				type:"get",
+				dataType:"json",
+				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val()},
 				success:function(data){
-				
-				$("#content1").empty();
-				$("#content2").empty();
-				$("#content3").empty();
-				$("#content4").empty();
-				$("#content5").empty();
-
-				$("#content3").append(data).hide();
+				$("#content1").hide();
+				$("#content2").hide();
+				$("#content3").hide();
+				$("#content4").hide();
+				$("#content5").hide();
 				$("#content3").slideDown(function(){
-				barChart31();
-				barChart32();
-				barChart33();
+				//console.log(data);
 
+				var serie1 = data[0]["series1"];
+				var category1 = data[1]["category1"];
+				//console.log(serie1);
+				//console.log(category1);
+				barChart31(serie1,category1);
+/*
+				var serie2 = data[2]["series2"];
+				var category2 = data[3]["category2"];
+				barChart32(serie2,category2);
+
+				var serie3 = data[4]["series3"];
+				var category3 = data[5]["category3"];
+				barChart33(serie3,category3);
+*/
 				});
 			
 				
@@ -292,26 +410,40 @@
 			return false;
 	});
 
-$("a[href=#content4]").click(function(){
+	$("a[href=#content4]").click(function(){
 
 			$.ajax({
-				'url':'content4.html',
-				'type':'get',
-				'dataType':'html',
+				url:"content4.jsp",
+				type:"get",
+				dataType:"json",
+				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val()},
 				success:function(data){
 				
-				$("#content1").empty();
-				$("#content2").empty();
-				$("#content3").empty();
-				$("#content4").empty();
-				$("#content5").empty();
+				$("#content1").hide();
+				$("#content2").hide();
+				$("#content3").hide();
+				$("#content4").hide();
+				$("#content5").hide();
+				//$("#content4").append(data).hide();
+				$("#content4").slideDown("slow",function(){
+				//console.log(data);
+
+				var serie1 = data[0]["series1"];
+				var category1 = data[1]["category1"];
+				//console.log(serie1);
+				//console.log(category1);
+				barChart41(serie1,category1);
+				/*
+				var serie2 = data[2]["series2"];
+				var category2 = data[3]["category2"];
+				barChart42(serie2,category2);
+
+				var serie3 = data[4]["series3"];
+				var category3 = data[5]["category3"];
+				barChart43(serie3,category3);
+				*/
 
 
-				$("#content4").append(data).hide();
-				$("#content4").slideDown(function(){
-				barChart41();
-				barChart42();
-				barChart43();
 				});
 			
 				
@@ -323,22 +455,25 @@ $("a[href=#content4]").click(function(){
 	$("a[href=#content5]").click(function(){
 
 			$.ajax({
-				'url':'content5.html',
-				'type':'get',
-				'dataType':'html',
+				url:"content5.jsp",
+				type:"get",
+				dataType:"json",
+				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val()},
 				success:function(data){
+				$("#content1").hide();
+				$("#content2").hide();
+				$("#content3").hide();
+				$("#content4").hide();
+				$("#content5").hide();
+				$("#content5").slideDown("slow",function(){
+				var serie1 = data[0]["serieChart"];
+				var category1 = data[1]["category"];
+				barChart51(category1,serie1);
+
+				var value = data[2]["value"];
+				var sum = data[3]["sumVal"];
+				pieChart52(value,sum);
 				
-				$("#content1").empty();
-				$("#content2").empty();
-				$("#content3").empty();
-				$("#content4").empty();
-				$("#content5").empty();
-
-
-				$("#content5").append(data).hide();
-				$("#content5").slideDown(function(){
-				barChart51();
-				pieChart52();
 				});
 			
 				
@@ -350,12 +485,9 @@ $("a[href=#content4]").click(function(){
 	
 		$("#tabs").tabs();
 	/*### Tabs Content End ###*/
-
-
-
     /*### barChart1 Start###*/
 
-var barChart1 = function(){
+var barChart1 = function(seriesParam,categoryParam){
 	//alert("hello barChart");
 	//alert("require baChart"+$("#barchart1").length);
 		
@@ -371,7 +503,8 @@ var barChart1 = function(){
 			legend: {
                             position: "right"
             },
-			series: [
+			series: seriesParam,
+				/*[
 				 { 
 						 name: "แผน",
 						data: [600,170,700,100,250,900,150,160],
@@ -402,7 +535,7 @@ var barChart1 = function(){
                    }
 				
 				 
-			],
+			],*/
 			valueAxis: {
 							// ie can not reading font-size
                            title: {text: "งบประมาณ(ล้านบาท)" , font:"14px Tahoma"},
@@ -416,9 +549,14 @@ var barChart1 = function(){
                         },
 
 			categoryAxis:{
-			categories: [ "Cluster", "Platform", "Essential Program","Improvement Project","Director Initiative", "Investment", "Seed Money", "Others" ]
+			categories: categoryParam//[ "Cluster", "Platform", "Essential Program","Improvement Project","Director Initiative", "Investment", "Seed Money", "Others" ]
 					
-			}
+			},
+                        tooltip: {
+                            visible: true,
+                           // format: "{0} ล้านบาท",
+							template: "#= addCommas(value)# ล้านบาท"
+                        }
 		});
 }
 
@@ -570,7 +708,7 @@ $("#row211 .head .title").html("แหล่งทุน "+trim);
 
 	  /*### barChart21 Start###*/
 
-var barChart21 = function(){
+var barChart21 = function(seriesParam,categoryParam){
 	//alert("require baChart"+$("#barchart1").length);
 		
 			$("#barChart21").kendoChart({
@@ -584,7 +722,7 @@ var barChart21 = function(){
 			legend: {
                             position: "right"
             },
-			series: [
+			series: seriesParam,/*[
 				 { 
 						 name: "แผน",
 						data: [600,170,700,100,250,900,150,160,600,170,700,100,250,900,150],
@@ -615,7 +753,7 @@ var barChart21 = function(){
                    }
 				
 				 
-			],
+			],*/
 			valueAxis: {
                             title: { text: "งบประมาณ(ล้านบาท)" ,font:"14px Tahoma"},
                             min: 0,
@@ -623,16 +761,42 @@ var barChart21 = function(){
                         },
 
 			categoryAxis:{
-			categories: [ "B1","A1","A7","A8","B1-1","B1-2","B1-3","B1-4",
-"B1-5","B1-6","B1-7","B1-8","B1-9","B1-10","B1-11" ],
+			categories: categoryParam,// [ "B1","A1","A7","A8","B1-1","B1-2","B1-3","B1-4","B1-5","B1-6","B1-7","B1-8","B1-9","B1-10","B1-11" ],
 			
-			}
+			},
+                        tooltip: {
+                            visible: true,
+                           // format: "{0} ล้านบาท",
+							template: "#= addCommas(value)# ล้านบาท"
+                        },
+							seriesClick:funContent2
 		});
 }
 	/*### barChart21 End ###*/
+
+	function funContent2(e){
+			var category = e.category;
+			$.ajax({
+				url:'content2_1.jsp',
+				type:'get',
+				dataType:'json',
+				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val(),"category":category},
+
+				success:function(data){
+					var serie1 = data[0]["series1"];
+					var category1 = data[1]["category1"];
+					barChart22(serie1,category1);
+
+					var serie2 = data[2]["series2"];
+					var category2 = data[3]["category2"];
+					barChart23(serie2,category2);
+					}
+			});
+}
+
 	  /*### barChart22Start###*/
 
-var barChart22 = function(){
+var barChart22 = function(seriesParam,categoryParam){
 	//alert("require baChart"+$("#barchart1").length);
 		
 			$("#barChart22").kendoChart({
@@ -673,7 +837,7 @@ var barChart22 = function(){
 	/*### barChart22 End ###*/
 	  /*### barChart23 Start###*/
 
-var barChart23 = function(){
+var barChart23 = function(seriesParam,categoryParam){
 	//alert("require baChart"+$("#barchart1").length);
 		
 			$("#barChart23").kendoChart({
@@ -714,7 +878,7 @@ var barChart23 = function(){
 	/*### barChart23 End ###*/
 
 	/*### barChart31 Start###*/
-var barChart31 = function(){
+var barChart31 = function(seriesParam,categoryParam){
 	//alert("require baChart"+$("#barchart1").length);
 		
 			$("#barChart31").kendoChart({
@@ -728,7 +892,8 @@ var barChart31 = function(){
 			legend: {
                             position: "right"
             },
-			series: [
+			series: seriesParam,
+				/*[
 				 { 
 						 name: "แผน",
 						data: [1400,190,190,210,180,50],
@@ -759,7 +924,7 @@ var barChart31 = function(){
                    }
 				
 				 
-			],
+			],*/
 			valueAxis: {
                             title: { text: "งบประมาณ(ล้านบาท)" ,font:"14px Tahoma"},
                           /*  min: 0,
@@ -768,15 +933,44 @@ var barChart31 = function(){
                         },
 
 			categoryAxis:{
-			categories: [ "สก.","ศช.","ศว.","ศอ.","ศจ.","ศน."],
+			categories: categoryParam,//[ "สก.","ศช.","ศว.","ศอ.","ศจ.","ศน."],
 			
-			}
+			},
+                        tooltip: {
+                            visible: true,
+                           // format: "{0} ล้านบาท",
+							template: "#= addCommas(value)# ล้านบาท"
+                        },
+						seriesClick:funContent3
 		});
 }
 	/*### barChart31 End ###*/
+
+function funContent3(e){
+			var center = e.category;
+			$.ajax({
+				url:'content3_1.jsp',
+				type:'get',
+				dataType:'json',
+				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val(),"center":center},
+
+				success:function(data){
+					var serie1 = data[0]["series1"];
+					var category1 = data[1]["category1"];
+					barChart32(serie1,category1);
+
+					var serie2 = data[2]["series2"];
+					var category2 = data[3]["category2"];
+					barChart33(serie2,category2);
+				}
+			});
+}
+
+
+
 	  /*### barChart32Start###*/
 
-var barChart32 = function(){
+var barChart32 = function(seriesParam,categoryParam){
 	//alert("require baChart"+$("#barchart1").length);
 		
 			$("#barChart32").kendoChart({
@@ -796,17 +990,17 @@ var barChart32 = function(){
                         seriesDefaults: {
                             type: "bar"
                         },
-                        series: [{
-                            name: "Project",
-                            data: [15.7, 16.7, 20, 23.5, 26.6, 26.6, 70, 80, 82, 89]
-                        }],
+                        series: seriesParam,// [{
+                           // name: "Project",
+                         //   data: [15.7, 16.7, 20, 23.5, 26.6, 26.6, 70, 80, 82, 89]
+                     //   }],
                         valueAxis: {
                             labels: {
                                 format: "{0}%"
                             }
                         },
                         categoryAxis: {
-                            categories: ["Project Z", "Project Y", "Project X", "Project W", "Project V", "Project U", "Project T", "Project S", "Project R", "Project Q"]
+                            categories: categoryParam//["Project Z", "Project Y", "Project X", "Project W", "Project V", "Project U", "Project T", "Project S", "Project R", "Project Q"]
                         },
                         tooltip: {
                             visible: true,
@@ -817,7 +1011,7 @@ var barChart32 = function(){
 	/*### barChart32 End ###*/
 	  /*### barChart33 Start###*/
 
-var barChart33 = function(){
+var barChart33 = function(seriesParam,categoryParam){
 	//alert("require baChart"+$("#barchart1").length);
 		
 			$("#barChart33").kendoChart({
@@ -838,18 +1032,18 @@ var barChart33 = function(){
                         seriesDefaults: {
                             type: "bar"
                         },
-                        series: [{
-                            name: "Project",
-                            data: [89,85,80,75,70,68,66,65,63,60],
+                        series: seriesParam,// [{
+                          //  name: "Project",
+                         //   data: [89,85,80,75,70,68,66,65,63,60],
 							//color:"red"
-                        }],
+                     //   }],
                         valueAxis: {
                             labels: {
                                 format: "{0}%"
                             }
                         },
                         categoryAxis: {
-                            categories: ["Project A", "Project B", "Project C", "Project D", "Project E", "Project F", "Project H", "Project I", "Project J", "Project K"]
+                            categories: categoryParam//["Project A", "Project B", "Project C", "Project D", "Project E", "Project F", "Project H", "Project I", "Project J", "Project K"]
                         },
                         tooltip: {
                             visible: true,
@@ -860,7 +1054,7 @@ var barChart33 = function(){
 	/*### barChart33 End ###*/
 
 	/*### barChart41 Start###*/
-var barChart41 = function(){
+var barChart41 = function(seriesParam,categoryParam){
 	//alert("require baChart"+$("#barchart1").length);
 		
 			$("#barChart41").kendoChart({
@@ -874,7 +1068,8 @@ var barChart41 = function(){
 			legend: {
                             position: "right"
             },
-			series: [
+			series: seriesParam,
+				/* [
 				 { 
 						 name: "แผน",
 						data: [270,90,100,80,110,30],
@@ -898,7 +1093,7 @@ var barChart41 = function(){
                    }
 				
 				 
-			],
+			],*/
 			valueAxis: {
                             title: { text: "งบประมาณ(ล้านบาท)",font:"14px Tahoma" },
                           /*  min: 0,
@@ -907,15 +1102,42 @@ var barChart41 = function(){
                         },
 
 			categoryAxis:{
-			categories: [ "สก.","ศช.","ศว.","ศอ.","ศจ.","ศน."],
+			categories: categoryParam, // [ "สก.","ศช.","ศว.","ศอ.","ศจ.","ศน."],
 			
-			}
+			},
+                        tooltip: {
+                            visible: true,
+                           // format: "{0} ล้านบาท",
+							template: "#= addCommas(value)# ล้านบาท"
+                        },
+						seriesClick:funContent4
 		});
 }
+
+function funContent4(e){
+			var center = e.category;
+			$.ajax({
+				url:'content4_1.jsp',
+				type:'get',
+				dataType:'json',
+				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val(),"center":center},
+
+				success:function(data){
+					var serie1 = data[0]["series1"];
+					var category1 = data[1]["category1"];
+					barChart42(serie1,category1);
+
+					var serie2 = data[2]["series2"];
+					var category2 = data[3]["category2"];
+					barChart43(serie2,category2);
+				}
+			});
+}
+
 	/*### barChart41 End ###*/
 	  /*### barChart42Start###*/
 
-var barChart42 = function(){
+var barChart42 = function(seriesParam,categoryParam){
 	//alert("require baChart"+$("#barchart1").length);
 			
 			$("#barChart42").kendoChart({
@@ -935,17 +1157,18 @@ var barChart42 = function(){
                         seriesDefaults: {
                             type: "bar"
                         },
-                        series: [{
+                        series: seriesParam,
+							/*[{
                             name: "Project",
                             data: [15.7, 16.7, 20, 23.5, 26.6, 26.6, 70, 80, 82, 89]
-                        }],
+                        }],*/
                         valueAxis: {
                             labels: {
                                 format: "{0}%"
                             }
                         },
                         categoryAxis: {
-                            categories: ["Project Z", "Project Y", "Project X", "Project W", "Project V", "Project U", "Project T", "Project S", "Project R", "Project Q"]
+                            categories: categoryParam//["Project Z", "Project Y", "Project X", "Project W", "Project V", "Project U", "Project T", "Project S", "Project R", "Project Q"]
                         },
                         tooltip: {
                             visible: true,
@@ -956,7 +1179,7 @@ var barChart42 = function(){
 	/*### barChart42 End ###*/
 	  /*### barChart43 Start###*/
 
-var barChart43 = function(){
+var barChart43 = function(seriesParam,categoryParam){
 	//alert("require baChart"+$("#barchart1").length);
 		
 			$("#barChart43").kendoChart({
@@ -976,17 +1199,18 @@ var barChart43 = function(){
                         seriesDefaults: {
                             type: "bar"
                         },
-                        series: [{
+                        series: seriesParam,
+							/*[{
                             name: "Project",
                             data: [89,85,80,75,70,68,66,65,63,60]
-                        }],
+                        }],*/
                         valueAxis: {
                             labels: {
                                 format: "{0}%"
                             }
                         },
                         categoryAxis: {
-                            categories: ["Project A", "Project B", "Project C", "Project D", "Project E", "Project F", "Project H", "Project I", "Project J", "Project K"]
+                            categories: categoryParam //["Project A", "Project B", "Project C", "Project D", "Project E", "Project F", "Project H", "Project I", "Project J", "Project K"]
                         },
                         tooltip: {
                             visible: true,
@@ -998,10 +1222,8 @@ var barChart43 = function(){
 
 
 	/*### barChart51 Start###*/
-var barChart51 = function(){
-	//alert("require baChart"+$("#barchart1").length);
-		
-			$("#barChart51").kendoChart({
+var barChart51 = function(categoryParam,seriesParam){
+			$("#barChart51").kendoChart({	
 			theme:$(document).data("kendoSkin") || "metro",
 			title: {
 				 text: " "
@@ -1012,49 +1234,45 @@ var barChart51 = function(){
 			legend: {
                             position: "right"
             },
-			series: [
-				 { 
-						 name: "แผน",
-						data: [270,90,100,80,110,30],
-						color: "BLUE"
-						
-						
-				 } ,
-				 {
-                            name: "ผูกพัน",
-                            data: [90,30,30,40,30,10]
-						
-						
-
-                   } ,
-				 {
-                            name: "เบิกจ่าย",
-                            data: [70,40,30,40,30,10]
-						
-						
-
-                   }
-				
-				 
-			],
+			series: seriesParam,
 			valueAxis: {
                             title: { text: "งบประมาณ(ล้านบาท)" ,font:"14px Tahoma"},
-                          /*  min: 0,
-                            max: 1200
-							*/
+                
                         },
 
 			categoryAxis:{
-			categories: [ "สก.","ศช.","ศว.","ศอ.","ศจ.","ศน."],
+			categories: categoryParam,
 			
-			}
+			},
+                        tooltip: {
+                            visible: true,
+                           // format: "{0} ล้านบาท",
+							template: "#= addCommas(value)# ล้านบาท"
+                        },
+						seriesClick:funContent5
 		});
 }
 	/*### barChart51 End ###*/
+
+	function funContent5(e){
+			var center = e.category;
+			$.ajax({
+				url:'content5_1.jsp',
+				type:'get',
+				dataType:'json',
+				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val(),"center":center},
+
+				success:function(data){
+					var value = data[0]["value"];
+					var sum = data[1]["sumVal"];
+					pieChart52(value,sum);
+					}
+			});
+}
+
 	  /*### barChart52Start###*/
 
-var pieChart52 = function(){
-		
+var pieChart52 = function(valueParam,sumParam){
 			$("#pieChart52").kendoChart({
 					theme:$(document).data("kendoSkin") || "metro",
 					title: {
@@ -1073,13 +1291,14 @@ var pieChart52 = function(){
                         },
                        series: [{
                             type: "pie",
-                            data: [ {
+                            data: valueParam
+								/*[ {
                                 category: "IO ที่ปิดแล้ว ",
                                 value: 30
                             }, {
                                 category: "IO ที่เหลืออยู่",
                                 value: 70
-                            }]
+                            }]*/
                         }],
                         valueAxis: {
                             labels: {
@@ -1091,7 +1310,7 @@ var pieChart52 = function(){
                         tooltip: {
                             visible: true,
                            // format: "{0}%"
-							 template: "#= templateFormat(value,100) #"
+							 template: "#= templateFormat(value,"+sumParam+") #"
                         }
 		});
 }
@@ -1202,19 +1421,524 @@ function templateFormat(value,summ) {
 			<li><a href="#content5">งบครุภัณฑ์-หน่วยงาน</a></li>
 		</ul>
 		<div id="content1">
-			content1...		
+						<!--This is Content 1 html ==================================================-->
+<div id="content">
+	<div id="row1">
+		<div id="column11">
+				<div class="head">
+						<div class="title">
+							<table>
+								<tr>
+									<td>
+									แหล่งทุน :
+									</td>
+									<td>
+									<select id="select1">
+										<option value="NSTDA" id="select11">สวทช</option>
+										<option value="BIOTEC" id="select12">ศช.</option>
+									</select>
+
+									</td>
+								</tr>
+							</table>
+						</div>
+				</div>
+				<div class="content">
+				
+						<div id="barChart1"></div>
+						<center><b>แหล่งทุน</b></center><br>
+				</div>
+		</div>
+	</div>
+	<div  id="row2">
+		<div id="column21">
+			<div id="row211">
+				<div class="head">
+					<!--<div class="title">
+					
+					</div>-->
+				</div>
+			</div>
+			<div id="row212">
+				<div class="content">
+						<div id="contentL">
+						
+								<!--<div id="barChart2"></div>
+								<div id="barChart12"></div>-->
+
+								<table width="100%" id="top10Tbl" >
+									<thead>
+										<tr id="h1">
+												<th colspan="2"><div class="projectHead1">Top 10 Project Most Spending </div></th>
+										</tr>
+										<tr>
+												<th  width="60%"><div class="projectHead">Project </div></th>
+												<th  width="40%"><div class="projectHead">Value %</div></th>
+										</tr>
+									</thead>
+									</tbody>
+										<tr>
+											<td><div class="projectName">ProjectZ</div></td>
+											<td>
+												<div class="projectValue">
+														<div class="percentage">
+														30%
+														</div>
+														<div class="value">
+															 <div id="progressbar11"></div>
+														</div>
+											  </div>
+											</td>
+										</tr>
+										<tr>
+											<td><div class="projectName">ProjectY</td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														32%
+														</div>
+														<div class="value">
+															 <div id="progressbar12"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName">ProjectX</td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														34%
+														</div>
+														<div class="value">
+															 <div id="progressbar13"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName">ProjectW</div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														50%
+														</div>
+														<div class="value">
+															 <div id="progressbar14"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName">ProjectV</div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														55%
+														</div>
+														<div class="value">
+															 <div id="progressbar15"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName">ProjectU</div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														60%
+														</div>
+														<div class="value">
+															 <div id="progressbar16"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName">ProjectT</div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														62%
+														</div>
+														<div class="value">
+															 <div id="progressbar17"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName">ProjectS</div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														68%
+														</div>
+														<div class="value">
+															 <div id="progressbar18"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName">ProjectR</div></td>
+										<td>
+											<div class="projectValue">
+														<div class="percentage">
+														70%
+														</div>
+														<div class="value">
+															 <div id="progressbar19"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName">ProjectQ</div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														80%
+														</div>
+														<div class="value">
+															 <div id="progressbar110"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+									</tbody>
+								</table>
+
+
+						</div>
+						<div id="contentR">
+						
+							<!--	<div id="barChart3"></div>
+								<div id="barChart13"></div>-->
+								<table width="100%" id="top10Tbl" >
+									<thead>
+									<tr id="h1">
+												<th colspan="2"><div class="projectHead1">Top 10 Project Least Spending</div></th>
+										</tr>
+										<tr>
+												<th  width="60%"><div class="projectHead">Project </div></th>
+												<th  width="40%"><div class="projectHead">Value %</div></th>
+										</tr>
+									</thead>
+									</tbody>
+										<tr>
+											<td><div class="projectName">ProjectA</div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														79%
+														</div>
+														<div class="value">
+															 <div id="progressbar21"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName">ProjectB</td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														70%
+														</div>
+														<div class="value">
+															 <div id="progressbar22"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName">ProjectC</td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														69%
+														</div>
+														<div class="value">
+															 <div id="progressbar23"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName">ProjectD</div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														66%
+														</div>
+														<div class="value">
+															 <div id="progressbar24"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName">ProjectE</div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														50%
+														</div>
+														<div class="value">
+															 <div id="progressbar25"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName">ProjectF</div></td>
+										<td>
+											<div class="projectValue">
+														<div class="percentage">
+														45%
+														</div>
+														<div class="value">
+															 <div id="progressbar26"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName">ProjectG</div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														42%
+														</div>
+														<div class="value">
+															 <div id="progressbar27"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName">ProjectH</div></td>
+										<td>
+											<div class="projectValue">
+														<div class="percentage">
+														39%
+														</div>
+														<div class="value">
+															 <div id="progressbar28"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName">ProjectI</div></td>
+										<td>
+											<div class="projectValue">
+														<div class="percentage">
+														32%
+														</div>
+														<div class="value">
+															 <div id="progressbar29"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName">ProjectJ</div></td>
+									<td>
+											<div class="projectValue">
+														<div class="percentage">
+														30%
+														</div>
+														<div class="value">
+															 <div id="progressbar210"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+									</tbody>
+								</table>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- END -->
 		</div>
 		<div id="content2">
-			content2...			
+				<!--This is Content 2 html -->
+
+		<div id="content">
+	<div id="row1">
+		<div id="column11">
+				<div class="head">
+						<div class="title">
+							<table>
+								<tr>
+									<td>
+									คลัสเตอร์ :
+									</td>
+									<td>
+									<select id="select2"  style="width:300px;">
+										<option value="Food" id="select21">คลัสเตอร์อาหารและการเกษตร</option>
+										<option value="Uranium" id="select22">ยูเรเนียม</option>
+									</select>
+									</td>
+								</tr>
+							</table>
+						</div>
+				</div>
+				<div class="content">
+				
+						<div id="barChart21"></div>
+						<center><b>โปรแกรม</b></center><br>
+				</div>
+		</div>
+	</div>
+	<div  id="row2">
+		<div id="column21">
+			<div id="row211">
+				<div class="head">
+					<!--<div class="title">
+					โปรแกรม
+					</div>-->
+				</div>
+			</div>
+			<div id="row212">
+				<div class="content">
+						<div id="contentL">
+						
+								<div id="barChart22"></div>
+						</div>
+						<div id="contentR">
+						
+								<div id="barChart23"></div>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- END -->
 		</div>
 		<div id="content3">
-			content3...
+				<!--This is Content 3 html -->
+		<div id="content">
+	<div id="row1"  style="height:295px;">
+		<div id="column11">
+				
+				<div class="content">
+				
+						<div id="barChart31"></div>
+						<center><b>ศูนย์</b></center><br>
+				</div>
+		</div>
+	</div>
+	<div  id="row2">
+		<div id="column21">
+			<div id="row211">
+				<div class="head">
+					<!--<div class="title">
+					ศูนย์
+					</div>-->
+				</div>
+			</div>
+			<div id="row212">
+				<div class="content">
+						<div id="contentL">
+						
+								<div id="barChart32"></div>
+						</div>
+						<div id="contentR">
+						
+								<div id="barChart33"></div>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- END -->
 		</div>
 		<div id="content4">
-			content4...
+				<!--This is Content 4 html -->
+
+		<div id="content">
+	<div id="row1"  style="height:295px;">
+		<div id="column11">
+				<div class="content">
+						<div id="barChart41"></div>
+						<center><b>ศูนย์</b></center><br>
+				</div>
+		</div>
+	</div>
+	<div  id="row2" >
+		<div id="column21">
+			<div id="row211">
+				<div class="head">
+				</div>
+			</div>
+			<div id="row212">
+				<div class="content">
+						<div id="contentL">
+						
+								<div id="barChart42"></div>
+						</div>
+						<div id="contentR">
+						
+								<div id="barChart43"></div>
+
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- END -->
 		</div>
 		<div id="content5">
-			content5...
+		<!--This is Content 5 html -->
+<div id="content">
+	<div id="row1"  style="height:340px;">
+		<div id="column11">
+				<div class="content"  style="height:340px;" >
+						<div id="barChart" style="float:left; width:60%;">
+							<div id="barChart51"></div>
+						</div>
+						<div id="pieChart" style="float:right;width:40%;">
+							<div id="pieChart52"></div>
+						</div>
+
+						<center><b>ศูนย์</b></center>
+				</div>
+		</div>
+	</div>
+	
+</div>
+<br style="clear:both">
+<!-- END -->
+
 		</div>
 		<br style="clear:both">
 	</div>
