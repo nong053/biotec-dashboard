@@ -1,6 +1,5 @@
-  <%@page import="java.sql.*"%>
-<%@page import="java.io.*"%>
-<%@page import="java.lang.*"%>
+<%@page contentType="text/html" pageEncoding="utf-8"%>
+<%@ include file="../config.jsp"%>
 <%! 
     String getColorBall(int position,String color,int id)
     {
@@ -28,20 +27,7 @@ String ParamOrg  = request.getParameter("ParamOrg");
 Integer YearBY = (java.lang.Integer.parseInt(ParamYear))+543;
 String titleStr = "";
 
-String connectionURL="jdbc:mysql://localhost:3306/biotec_dwh";
-String Driver = "com.mysql.jdbc.Driver";
-String User="root";
-String Pass="root";
-String Query="";
-String center_name="";
-Connection conn= null;
-Statement st;
-ResultSet  rs;
-Class.forName(Driver).newInstance();
-conn = DriverManager.getConnection(connectionURL,User,Pass);
 
-
-st = conn.createStatement();
 Query="CALL sp_owner_wavg_score(";
 Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
 rs = st.executeQuery(Query);
@@ -51,7 +37,7 @@ while(rs.next()){
 }
 //=================================== DataJ Start===============================================
 
-st = conn.createStatement();
+
 Query="CALL sp_parent_kpi_list(";
 Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
 rs = st.executeQuery(Query);
@@ -209,117 +195,6 @@ tableFun += "]";
 //=================================== DataJ  END ===============================================
 
 
-/*
-
-//=================================== DataJ2 Start===============================================
-String kpi_id = kpi_id;   //Parameter to get query
-String owner_id = owner_id ; //Parameter to get query
-st = conn.createStatement();
-Query="CALL sp_child_kpi_list(";
-Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\","+  kpi_id + "," +  owner_id +")";
-rs = st.executeQuery(Query);
-String tableFun2 = "[";
-int i=0;
-
-while(rs.next()){
-	if(i>0){
-		tableFun2 += ","
-	}
-
-	String lead_kpi = rs.getString("lead_kpi") ;
-	tableFun2 += "{Field1: \"";
-	tableFun2 += lead_kpi;
-
-	//=============Get Url with Details Button Start============
-	String url = rs.getString("url");
-	if(url.equals(""))
-		{}
-	else{
-		tableFun2 +=" <a href="+url+" target=_blank><button class=k-button>รายละเอียด</button></a> "
-	}
-	tableFun2 += "\", ";
-
-	//=============Get Url with Details Button End============
-	String target_value = rs.getString("krs.target_value");
-	tableFun2 += "Field3: \"";
-	tableFun2 += "<div id=textR>"+ target_value +"</div> \",";
-
-	String kpi_uom = rs.getString("krs.kpi_uom");
-	tableFun2 += "Field4: \"";
-	tableFun2 += krs.kpi_uom + "\",";
-
-	String kpi_uom = rs.getString("krs.kpi_weighting");
-	tableFun2 += "Field5: \"";
-	tableFun2 +=  "<div id=textR>"+krs.kpi_weighting +"</div> \",";
-
-	String baseline = rs.getString("baseline") ;
-	tableFun2 += "Field5_1: \"";
-	tableFun2 += baseline + "\",";
-
-	String performance_value = rs.getString("performance_value") ;
-	tableFun2 += "Field6: \"";
-	tableFun2 += "<div id=textR>"+ performance_value +"</div> \",";
-
-	Integer performance_percentage = java.lang.Integer.parseInt(rs.getString("krs.performance_percentage"));
-	tableFun2 += "Field7: \"";
-	tableFun2 += "<center><div id='target'><div id='percentage'>" + performance_percentage +"</div></div></center> \",";
-
-	String kpi_wavg_score = rs.getString("krs.kpi_wavg_score") ;
-	tableFun2 += "Field7_1: \"";
-	tableFun2 += "<div id=textR>"+ kpi_wavg_score +"</div> \",";
-
-	//===============GraphLine Start=====================
-	tableFun2 += "Field9: \"";
-	
-	Statement st1;
-	ResultSet  rs1;
-	String QueryGraph = "";
-	st1 = conn.createStatement();
-	QueryGraph="CALL sp_parent_kpi_trend(";
-	QueryGraph += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
-	rs1 = st1.executeQuery(QueryGraph);
-	String KpiID= rs.getString("krs.kpi_id");
-	while(rs.next())
-	{
-			if(KpiID.equals(rs1.getString("krs.kpi_id") ))
-			{
-				String Oct = rs1.getString("Oct");
-				String Nov = rs1.getString("Nov");
-				String Dec = rs1.getString("Dec");
-				String Jan = rs1.getString("Jan");
-				String Feb = rs1.getString("Feb");
-				String Mar = rs1.getString("Mar");
-				String Apr = rs1.getString("Apr");
-				String May = rs1.getString("May");
-				String Jun = rs1.getString("Jun");
-				String Jul = rs1.getString("Jul");
-				String Aug = rs1.getString("Aug");
-				String Sep = rs1.getString("Sep");
-
-				tableFun2 += "<span class=inlinesparkline>"
-								+Oct+","
-								+Nov+","
-								+Dec+","
-								+Jan+","
-								+Feb+","
-								+Mar+","
-								+Apr+","
-								+May+","
-								+Jun+","
-								+Jul+","
-								+Aug+","
-								+Sep
-								+"</span>\"";
-				tableFun2 += "}";
-			}
-	}
-	//===============GraphLine End=====================
-	i++
-}
-tableFun2 += "]";
-
-*/
-//=================================== DataJ2  END ===============================================
 
 %>
 
@@ -1154,7 +1029,7 @@ $(".ball").corner();
 	</thead>
 	<tbody>
 	<%
-	st = conn.createStatement();
+	
 	Query="CALL sp_owner_assignment(";
 	Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
 	rs = st.executeQuery(Query);
@@ -1169,7 +1044,7 @@ $(".ball").corner();
 </table>
 
 <%
-	st = conn.createStatement();
+	
 	Query="CALL sp_owner_comment(";
 	Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
 	rs = st.executeQuery(Query);

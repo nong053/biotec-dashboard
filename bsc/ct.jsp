@@ -1,7 +1,5 @@
-<%@page import="java.sql.*"%>
-<%@page import="java.io.*"%>
-<%@page import="java.lang.*"%>
-<%@ page import="java.util.ArrayList" language="java" %>
+<%@page contentType="text/html" pageEncoding="utf-8"%>
+<%@ include file="../config.jsp"%>
 <%! 
     String getColorBall(int position,String color,int id)
     {
@@ -30,20 +28,7 @@ String ParamOrg  = request.getParameter("ParamOrg");
 Integer YearBY = (java.lang.Integer.parseInt(ParamYear))+543;
 String titleStr = "";
 
-String connectionURL="jdbc:mysql://localhost:3306/biotec_dwh";
-String Driver = "com.mysql.jdbc.Driver";
-String User="root";
-String Pass="root";
-String Query="";
-String center_name="";
-Connection conn= null;
-Statement st;
-ResultSet  rs;
-Class.forName(Driver).newInstance();
-conn = DriverManager.getConnection(connectionURL,User,Pass);
 
-
-st = conn.createStatement();
 Query="CALL sp_owner_wavg_score(";
 Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
 rs = st.executeQuery(Query);
@@ -51,7 +36,7 @@ while(rs.next()){
 	String ParamScore =  rs.getString("owner_wavg_score") ;
 	titleStr="ผลสำเร็จ สายงานด้านวิจัยนโยบาย สารสนเทศและสื่อสารองค์กรได้ " + ParamScore +" คะแนน";
 }
-st = conn.createStatement();
+
 Query="CALL sp_parent_kpi_list(";
 Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
 rs = st.executeQuery(Query);
@@ -593,7 +578,7 @@ $(".ball").corner();
 	</thead>
 	<tbody>
 	<%
-	st = conn.createStatement();
+	
 	Query="CALL sp_owner_assignment(";
 	Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
 	rs = st.executeQuery(Query);
@@ -608,7 +593,7 @@ $(".ball").corner();
 </table>
 
 <%
-	st = conn.createStatement();
+	
 	Query="CALL sp_owner_comment(";
 	Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
 	rs = st.executeQuery(Query);

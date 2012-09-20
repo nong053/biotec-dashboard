@@ -1,8 +1,6 @@
 <%@page contentType="text/html" pageEncoding="utf-8"%>
+<%@ include file="../config.jsp"%>
 <!doctype html>
-<%@page import="java.sql.*" %> 
-<%@page import="java.io.*" %> 
-<%@page import="java.lang.*"%> 
 <html>
     <head>
         <title>BSC Dashboard</title>
@@ -98,18 +96,6 @@
 			</style>
 
 	<%
-String connectionURL="jdbc:mysql://localhost:3306/biotec_dwh";
-String Driver = "com.mysql.jdbc.Driver";
-String User="root";
-String Pass="root";
-String Query="";
-String center_name="";
-Connection conn= null;
-Statement st;
-ResultSet  rs;
-Class.forName(Driver).newInstance();
-conn = DriverManager.getConnection(connectionURL,User,Pass);
-
 		/*------------------- Set Connection -------------------
 		String connectionURL = "jdbc:mysql://localhost:3306/mysql"; 
 		String driver = "com.mysql.jdbc.Driver";
@@ -134,7 +120,7 @@ conn = DriverManager.getConnection(connectionURL,User,Pass);
 		/*------------------- End Set Variable -------------------*/
 
 		/*------------------- Parameter Year -------------------*/
-		st = conn.createStatement();
+		
 		Query="CALL sp_fiscal_year;";
 		rs = st.executeQuery(Query);
 		int i = 0;
@@ -156,7 +142,7 @@ conn = DriverManager.getConnection(connectionURL,User,Pass);
 		------------------- End Parameter Year -------------------*/
 
 		/*------------------- Parameter Month -------------------*/
-		st = conn.createStatement();
+		
 		Query="CALL sp_fiscal_month;";
 		rs = st.executeQuery(Query);
 		i = 0;
