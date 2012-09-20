@@ -1,3 +1,6 @@
+<%@page contentType="text/html" pageEncoding="utf-8"%>
+<%@page import="java.text.DecimalFormat" %>
+<%@ include file="../config.jsp"%>
 <%
 String ParamYear  = request.getParameter("ParamYear");
 String ParamMonth  = request.getParameter("ParamMonth");
@@ -5,10 +8,6 @@ String ParamOrg  = "NSTDA";
 session.setAttribute( "Year", ParamYear);
 session.setAttribute( "Month", ParamMonth);
 %>
-<%@page import="java.sql.*"%>
-<%@page import="java.io.*"%>
-<%@page import="java.lang.*"%>
-
 <%! 
     String getColorBall(int position,String color,int id)
     {
@@ -30,22 +29,19 @@ session.setAttribute( "Month", ParamMonth);
     }
  %>
 <% 
-String titleStr = "";
+String orgScore = "";
 
-String connectionURL="jdbc:mysql://localhost:3306/biotec_dwh";
-String Driver = "com.mysql.jdbc.Driver";
-String User="root";
-String Pass="root";
-String Query="";
-String center_name="";
-
-Connection conn= null;
-Statement st;
-ResultSet  rs;
-Class.forName(Driver).newInstance();
-conn = DriverManager.getConnection(connectionURL,User,Pass);
-
-st = conn.createStatement();
+Query="CALL sp_owner_wavg_score(";
+Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
+rs = st.executeQuery(Query);
+while(rs.next()){
+	String ParamScore =  rs.getString("owner_wavg_score") ;
+	orgScore ="คะแนนรวม " + ParamScore +" คะแนน";
+	
+}
+if(orgScore == null || orgScore.equals("")){
+			orgScore = "คะแนนรวม 0  คะแนน";
+	}
 Query="CALL sp_parent_kpi_list(";
 Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
 rs = st.executeQuery(Query);
@@ -248,40 +244,15 @@ font-size:14px;
 			}
 
 	</style>
-	<!--<script src="http://code.jquery.com/jquery.js"></script>
-	<script src="js/kendo.all.min.js"></script>
-	<script type="text/javascript" src="js/jquery.sparkline.min.js"></script>
-    <link href="styles/kendo.common.min.css" rel="stylesheet">
-    <link href="styles/kendo.default.min.css" rel="stylesheet">
-	<link href="jqueryUI/css/smoothness/jquery-ui-1.8.20.custom.css" rel="stylesheet">
-	<script type="text/javascript" src="jqueryUI/js/jquery-ui-1.8.20.custom.min.js"></script>--> 
 	<script type="text/javascript">
 	$(document).ready(function(){
+
 	var ballRed  = "<div id='ballRed' class='ball' style='background-color:#e51e25; color:white;width:17px;height:17px; border-radius:100px; float:left;'></div>";
 	var ballYellow  = "<div id='ballYellow' class='ball' style='background-color:yellow; color:white;width:17px;height:17px;float:left;border-radius:100px; border:1px solid #cccccc;'></div>";
 	var ballGreen  = "<div id='ballGreen' class='ball' style='background-color:#8fbc01; color:white;width:17px;height:17px; float:left; border-radius:100px;border:1px solid #cccccc;'></div>";
 	var ballGray  = "<div id='ballGray' class='ball' style='background-color:#cccccc; width:17px;height:17px;border-radius:100px; float:left;'></div>";
 
 	
-	/*setTimeout(function(){
-	//$(".ball").corner("0px");
-	
-	},100);*/
-
-/*
-var ballRed = $("<div id='ballRed'>HELLO</div>").css({"background-color":"red","border-radius":"100px","width":"50px","height":"50px"});
-var ballGray = $("<div id='ballRed'>HELLO</div>").css({"background-color":"#cccccc","border-radius":"100px","width":"50px","height":"50px"});
-var ballYellow = $("<div id='ballRed'>HELLO</div>").css({"background-color":"yellow","border-radius":"100px","width":"50px","height":"50px"});
-var ballGreen = $("<div id='ballRed'>HELLO</div>").css({"background-color":"green","border-radius":"100px","width":"0px","height":"50px"});
- $("body").prepend(ballRed);
- $("body").prepend(ballGray);
- $("body").prepend(ballYellow);
- $("body").prepend(ballGreen);
-	*/
-
-	//alert("hello jquery");
-	// TITLE BY JSON START
-	/*########## Table Content Start ##########*/
 	var $titleJ =[
               {
                   field: "Field1",
@@ -318,113 +289,8 @@ var ballGreen = $("<div id='ballRed'>HELLO</div>").css({"background-color":"gree
 			 }];
 
 
-
-
-	// TITLE BY JSON END
-	//CONTENT BY JSON START 
-
-//ST/ST/PA&FI/IM/IM/LG
-//Lag/Lead:: KS1/KS1-A/KS5/KS7/KS7-B/KS9-A
-/*
-ตัวชี้วัด::
- การลงทุนด้าน ว และ ท ในภาคการผลิต ภาคบริการและภาคการผลิต ภาคบริการและภาคเกษตรกรรม
-/มลูค่าผลกระทบต่อเศรษฐกิจและสังคมของประเทศที่เกิดจากการนำผลงานวิจัยไปใช้ประโยชน์
-/สัดส่วนรายได้ต่อค่าใช้จ่ายทั้งหมด
-/สัดส่วนบทบาทความวารสารารนานาชาติต่อคลาการวิจัย
-/สัดส่วนทรัพย์สินทางปัญญาต่อบุคคลาการวิจัย
-/ร้อยละความสำเร็จในการผลักดัน 9 กลยุทธ์ได้ตามแผน
-น้ำหนัก:: 25/25/10/15/15/10
-*/
-//หนวยนับ::เท่าของการลงทุนปี54/เท่าของค่าใช้จ่าย/-/ฉบับ/100คน/ปี/ร้อยละ
-var $dataJ = <%=tableFun%>;
-
-/*	var $dataJ =[
-                  {
-                      Field1: "ST",
-					  Field2: "<div class='kpiN'>KS1</div>การลงทุนด้าน ว และ ท ในภาคการผลิต ภาคบริการและภาคการผลิต",
-
-                      Field3: " <div id='textR'>1.1</div> ",
-					  Field4: "เท่าของการลงทุนปี54",
-                      Field5: "<div id='textR'>25</div>",
-					  Field5_1:"4,500 (ล้านบาท)",
-				
-					  Field6: " <div id='textR'>0.44 <br>2,000<br> ล้านบาท<div>",
-                      Field7: "<center><div id='target'><div id='percentage'>40%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+" </div></div></center> "
-				
-                     
-					  
-                     
-                  },
-                  {
-                      Field1: "ST ",
-					  
-					  Field2: "<div class='kpiN'>KS1-A</div>มูลค่าผลกระทบต่อเศรษฐกิจและสังคมของประเทศ",
-               
-					  Field3: "<div id='textR'>2.4</div> ",
-					  Field4: " เท่าของค่าใช้จ่าย",
-                      Field5: " <div id='textR'>25</div>",
-					  Field5_1:"9290(ล้านบาท)",
-					 
-					  Field6: "<div id='textR'>0.58  <br>3,000<br> ล้านบาท</div>",
-                      Field7: " <center><div id='target'><div id='percentage'>24%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+" </div></div></center> "
-					
-				
-				  },
-                  {
-                      Field1: "PA&FI ",
-					  Field2: "<div class='kpiN'>KS5</div>สัดส่วนรายได้ต่อค่าใช้จ่ายทั้งหมด <a href='File/test.pdf' target='_blank'><button class='k-button'>รายละเอียด</button></a>",
-                    
-					  Field3: "<div id='textR'>1</div>  ",
-					  Field4: "-",
-                      Field5: "<div id='textR'> 10</div>",
-					  Field5_1:"1.07",
-				
-					  Field6: "<div id='textR'>1.13 <div>",
-                      Field7: "<center><div id='target'><div id='percentage'>113%</div> <div id='score'>"+ballGray+""+ballGray+""+ballGreen+" </div></div></center>"
-				
-                  },
-                  {
-                      Field1: "IM ",
-					  Field2: "<div class='kpiN'>KS7</div>สัดส่วนบทบาทความวารสารารนานาชาติต่อคลาการวิจัย ",
-                      
-					  Field3: "<div id='textR'>40</div>  ",
-					  Field4: " ฉบับ/100 คน/ปี",
-                      Field5: "<div id='textR'>15</div>",
-					  Field5_1:"36",
-	
-					  Field6: "<div id='textR'>4.3<div> ",
-                      Field7: "<center><div id='target'><div id='percentage'>11%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+" </div></div></center> "
-					
-                  },
-                  {
-                      Field1: "IM ",
-					  Field2: " <div class='kpiN'>KS7-B</div>สัดส่วนทรัพย์สินทางปัญญาต่อบุคคลาการวิจัย",
-                      
-					  Field3: "<div id='textR'>20</div>  ",
-					  Field4: "ฉบับ/100 คน/ปี",
-                      Field5: "<div id='textR'>15</div> ",
-					  Field5_1:"20",
-			
-					  Field6: "<div id='textR'>5<div>",
-                      Field7: " <center><div id='target'><div id='percentage'>25%</div><div id='score'>"+ballRed+""+ballGray+""+ballGray+" </div></div></cener>"
-                  },
-                  {
-                      Field1: "LG ",
-					  Field2: "<div class='kpiN'>KS9-A</div> ร้อยละความสำเร็จในการผลักดัน 9 กลยุทธ์ได้ตามแผน",
-                      
-					  Field3: "<div id='textR'>100</div>  ",
-					  Field4: "ร้อยละ ",
-                      Field5: "<div id='textR'>10 <div>",
-					  Field5_1:"-",
-		
-					  Field6: "<div id='textR'>36<div>",
-                      Field7: " <center><div id='target'><div id='percentage'>36%</div><div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></cener>"
-				
-                  }
-				  
-				  
-				  ]; 		
-	*/
+	var $dataJ = <%=tableFun%>;
+	var orgScore=  "<%=orgScore%>";
 
 	//CONTENT BY JSON END
 
@@ -467,11 +333,10 @@ var $dataJ = <%=tableFun%>;
 		$(".k-pager-wrap").css({"background":"#99ccff"});
 		$('.k-pager-wrap').css({"padding":"0px"});
 		/*Footer Bgcolor*/
-
 		$(".k-grid td").css({"padding-top":"0px","padding-bottom":"0px"});
 		$("ul.k-numeric li span").removeClass();
 		$("ul.k-numeric li span").html("");
-		$(".k-pager-wrap ").html("<div id='right' style='text-align:right; padding-right:20px;'><span style='font-weight:bold';>สรุปคะแนน 30.4</span<></div>" );
+		$(".k-pager-wrap").html("<div id='right' style='text-align:right; padding-right:20px;'><span style='font-weight:bold';>"+orgScore+"</span></div>" );
 		$('.inlinesparkline').sparkline(); 
 		//$('.inlinesparkline').sparkline('html',{type:'line',width:'100'}); 
 		$('.inlinebar').sparkline('html', {type: 'bullet',height: '30',width:'200', barColor: 'red'} );
