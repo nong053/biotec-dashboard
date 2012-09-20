@@ -1,8 +1,7 @@
-<%@page contentType="text/html" pageEncoding="utf-8"%>
 <!doctype html>
-<%@page import="java.sql.*" %> 
-<%@page import="java.io.*" %> 
-<%@page import="java.lang.*"%> 
+<%@page contentType="text/html" pageEncoding="utf-8"%>
+<%@page import="java.text.DecimalFormat" %>
+<%@ include file="../config.jsp"%>
 <html>
 <head>
 <title>Summary Dashboard</title>
@@ -174,18 +173,6 @@
 		<body>
 
 	<%
-	String connectionURL="jdbc:mysql://localhost:3306/biotec_dwh";
-String Driver = "com.mysql.jdbc.Driver";
-String User="root";
-String Pass="root";
-String Query="";
-String center_name="";
-Connection conn= null;
-Statement st;
-ResultSet  rs;
-Class.forName(Driver).newInstance();
-conn = DriverManager.getConnection(connectionURL,User,Pass);
-
 		/*------------------- Set Connection -------------------
 		String connectionURL = "jdbc:mysql://localhost:3306/mysql"; 
 		String driver = "com.mysql.jdbc.Driver";
@@ -210,7 +197,7 @@ conn = DriverManager.getConnection(connectionURL,User,Pass);
 		/*------------------- End Set Variable -------------------*/
 
 		/*------------------- Parameter Year -------------------*/
-		st = conn.createStatement();
+
 		Query="CALL sp_fiscal_year;";
 		rs = st.executeQuery(Query);
 		int i = 0;
@@ -232,7 +219,7 @@ conn = DriverManager.getConnection(connectionURL,User,Pass);
 		------------------- End Parameter Year -------------------*/
 
 		/*------------------- Parameter Month -------------------*/
-		st = conn.createStatement();
+
 		Query="CALL sp_fiscal_month;";
 		rs = st.executeQuery(Query);
 		i = 0;
@@ -264,25 +251,7 @@ conn = DriverManager.getConnection(connectionURL,User,Pass);
 
 
 		/*------------------- End Organization Parameter -------------------*/
-Statement st1;
-ResultSet  rs1;
-st1 = conn.createStatement();
-String Query1 ="";
-Query1="CALL sp_construction_budget(";
-Query1 += ParamYear +"," + ParamMonth +");";
-//out.print(ParamYear + ParamMonth);
-rs1 = st1.executeQuery(Query1);
-//		while(rs1.next()){
-	//		double Plan = rs1.getDouble("plan");
-//			double Result = rs1.getDouble("result");
-	//}
-	%>
-
-	<%//out.print("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");%>
-<%//=ParamMonth%>
-<%
-//out.print(session.getAttribute( "Year" ));
-%>
+		%>
 
 <!--------------------- Function --------------------->
 
@@ -308,7 +277,7 @@ function addCommas(nStr)
 		var ParamMonth = "<%=ParamMonth%>";
 		//var ParamOrg = "<%=ParamOrg%>";
 
-		function getParamYear(value)
+	/*	function getParamYear(value)
 		{
 			ParamYear = value;
 		}
@@ -330,12 +299,12 @@ function addCommas(nStr)
 			//alert(ParamYear+' '+ParamMonth+' '+ParamOrg);
 			objFrame.src='<%=request.getContextPath()%>/BiotecDashBoard/BSC_Details.jsp';
 		}
-
+*/
 		/*########## Function jQuery Start#########*/
 
 		$(document).ready(function(){
 		//========================== Load Tooltip =======================
-		$.ajax({
+/*		$.ajax({
 		url:'revTooltip.jsp',
 		type:'get',
 		dataType:'html',
@@ -352,7 +321,7 @@ function addCommas(nStr)
 					//console.log($(".revTooltip#1").length);
 		}
 		});
-
+*/
 
 
 
@@ -380,9 +349,11 @@ function addCommas(nStr)
 			});
 // Dialog For Graph Start
 			$("#loading").ajaxStart(function(){
+			//	$("#piehr2").css("opacity","0.5");
 				$(this).show();
 			}).ajaxStop(function(){
 				$(this).hide();
+				//$("#piehr2").css("opacity","1");
 			});
 
 			// Dialog
@@ -1076,6 +1047,29 @@ var barChartFinancial= function(serieParam,categoryParam){
 					});
 				});
 
+		$("#form_1").submit(function(){
+		$.ajax({
+		url:'revTooltip.jsp',
+		type:'get',
+		dataType:'html',
+		data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val()},
+		success:function(data){
+				 var dataSplit= data.split(",");
+				 var htmlInput="";
+					for(var i=0; i<dataSplit.length; i++){
+					htmlInput+="<div id='"+(i+101)+"' class='revTooltip' style='display:none'>"+dataSplit[i]+"</div>";
+					//console.log(dataSplit[i]);
+					}
+					$(".revTooltip").remove();
+					$("body").append(htmlInput);
+					//console.log($(".revTooltip#1").length);
+		}
+		});
+				});
+
+
+
+
 
 
 		$("#form_1").submit(function(){
@@ -1110,6 +1104,11 @@ var barChartFinancial= function(serieParam,categoryParam){
 				});
 //====================== Radio Button Click
 		$(".radio1").click(function(){
+			$("#loading").ajaxStart(function(){
+				$("#piehr2").css("opacity","0.2");
+			}).ajaxStop(function(){
+				$("#piehr2").css("opacity","1");
+			});
 			//alert("yes");
 			//alert($("input:radio[id=notsum]:checked").val());
 					$.ajax({
@@ -1117,6 +1116,7 @@ var barChartFinancial= function(serieParam,categoryParam){
 						type:'get',
 						dataType:'json',
 						data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val(),"flag":$(this).val()},
+						
 						success:function(data2){
 							//console.log(data2)
 							//============= HR Pie 3================
@@ -1153,7 +1153,6 @@ var barChartFinancial= function(serieParam,categoryParam){
 						//	$("#piehr2").empty();
 						//	$("#notsum").trigger("click");
 						$("#checkRadio1").trigger("click");
-							
 						$.ajax({
 						url:'Process.jsp',
 						type:'GET',
@@ -1262,8 +1261,8 @@ return	$(idStr).text();
 
 				  $("#ParamYear").kendoDropDownList({
 				  theme:$(document).data("kendoSkin") || "metro",
-					  height:20,
-					  width:50
+					  height:400,
+					  //width:50
 				  });
 			
 				  $("#ParamMonth").kendoDropDownList({
@@ -1286,13 +1285,13 @@ return	$(idStr).text();
 									<table width=100%>
 									<tr>
 										<td><label for="ParamYear">ปีงบประมาณ :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-										<select name="ParamYear" id="ParamYear" onChange="getParamYear(this.value);">
+										<select name="ParamYear" id="ParamYear" >
 											<%out.print(V_Year);%>
 										</select>
 										</td>
 
 										<td><label for="ParamMonth">เดือน :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-										<select name="ParamMonth" id="ParamMonth" onChange="getParamMonth(this.value);">
+										<select name="ParamMonth" id="ParamMonth" >
 											<%out.print(V_Month);%>
 										</select>
 										</td>
@@ -1344,29 +1343,21 @@ return	$(idStr).text();
 																		แผนทั้งปี 
 																		</div>
 																		<div class="r" id="plan1">
-																	4,694.01 ล้านบาท
 																		</div>
 																		<div id="l">
 																		ผลการใช้จ่าย 
 																		</div>
 																		<div class="r" id="result1">
-																	3,177.33 ล้านบาท
 																		</div>
 
 															</div>
 													</div>
-<%				
-		while(rs1.next()){
-			double Plan = rs1.getDouble("plan");
-			double Result = rs1.getDouble("result");
-			
-%>
 													<div id="contentR">
 														<div id="container-gauge">
 																<div id="gauge2">
 																gauge2
 																</div>
-																<div class="gaugeValue"><%out.print((Result/Plan));%><!--70%--></div>
+																<div class="gaugeValue"></div>
 														</div>
 																<div id="head">
 																	<div id="title">
@@ -1378,21 +1369,18 @@ return	$(idStr).text();
 																แผนทั้งปี 
 																</div>
 																<div class="r" id="plan2">
-																<%=Plan%>
-																<!--1,4000.00 ล้านบาท-->
+															
 																</div>
 																<div id="l"  style="width:40%;">
 																ผลการใช้จ่าย 
 																</div>
 																<div class="r" id="result2" style="width:55%;">
-																	<%=Result%>
-																<!--818.74 ล้านบาท-->
+																
 																</div>
 													
 															</div>
 													</div>
 											</div>
-											<%}%>
 											<div id="bottom">
 												<div id="title">
 												งบดำเนินงาน(ล้านบาท)
@@ -1519,7 +1507,7 @@ return	$(idStr).text();
 												<div id="contentR">
 													<div id="container-gauge3">
 														<div id="gauge3"></div>
-														<div class="gaugeValue">65%</div>
+														<div class="gaugeValue"></div>
 													</div>
 													
 												</div>

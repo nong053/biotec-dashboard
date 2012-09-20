@@ -1,8 +1,6 @@
 <%@page contentType="text/html" pageEncoding="utf-8"%>
 <%@page import="java.text.DecimalFormat" %>
-<%@page import="java.sql.*" %> 
-<%@page import="java.io.*" %> 
-<%@page import="java.lang.*"%> 
+<%@ include file="../config.jsp"%>
 <%
 String month=request.getParameter("month");
 String year=request.getParameter("year");
@@ -10,19 +8,8 @@ String year=request.getParameter("year");
 //String year = "2012";
 //out.print(month);
 //out.print(year);
-String connectionURL="jdbc:mysql://localhost:3306/biotec_dwh";
-String Driver = "com.mysql.jdbc.Driver";
-String User="root";
-String Pass="root";
-String Query="";
-String center_name="";
-Connection conn= null;
-Class.forName(Driver).newInstance();
-conn = DriverManager.getConnection(connectionURL,User,Pass);
 //=====================Pie HR1==============
-Statement st;
-ResultSet  rs;
-st = conn.createStatement();
+
 Query="CALL sp_emp_by_mission(";
 Query += year +"," + month +");";
 //out.print(ParamYear + ParamMonth);
@@ -61,9 +48,9 @@ valuePieHR1 += "]}";
 //==================End Pie HR 1==================
 
 //============================ Pie HR 2============================
-st = conn.createStatement();
-//String centerQueryParam = "สวทช.";????.
-String centerQueryParam = "MTEC"; ///////////////////////// ++++++++++++++This For Test Query Only ! ! ! ! !+++++++
+
+//String centerQueryParam = "สวทช.";????. ====================== Use This ===================================
+String centerQueryParam = "MTEC"; ///////////////////////// ++++++++++++++This For Test Query Only ! ! ! ! !+
 Query="CALL sp_emp_by_job_family(";
 Query += year +"," + month +",\""+centerQueryParam+"\");";
 //out.print(ParamYear + ParamMonth);
@@ -93,7 +80,6 @@ valuePieHR2 += "]}";
 //==================End Pie HR 2==================
 
 
-st = conn.createStatement();
 Query="CALL sp_monthly_emp_turnover(";
 Query += year +"," + month +");";
 rs = st.executeQuery(Query);
