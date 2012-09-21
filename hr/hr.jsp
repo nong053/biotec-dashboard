@@ -3,6 +3,7 @@
 <%@page import="java.sql.*" %> 
 <%@page import="java.io.*" %> 
 <%@page import="java.lang.*"%> 
+<%@ include file="../config.jsp"%>
 <%
 String ParamMonth = request.getParameter("ParamMonth");
 String ParamYear = request.getParameter("ParamYear");
@@ -21,19 +22,8 @@ database: biotec_dwh
 user: root
 pass: bioteccockpit
 */
-// Jsp  Server-side
-String connectionURL="jdbc:mysql://localhost:3306/biotec_dwh";
-String Driver = "com.mysql.jdbc.Driver";
-String User="root";
-String Pass="root";
-String Query="";
-String center_name="";
-Connection conn= null;
 
 
-
-Statement st;
-ResultSet rs;
 
 String sp_emp_by_center="";
 Integer sum_total_employee=0;
@@ -331,8 +321,6 @@ width:960px;
 height:auto
 background:blue;
 clear:both;
-
-
 }
 .content  #row1 .box{
 width:314px;

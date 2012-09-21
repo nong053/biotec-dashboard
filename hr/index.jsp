@@ -3,15 +3,10 @@
 <%@page import="java.sql.*" %> 
 <%@page import="java.io.*" %> 
 <%@page import="java.lang.*"%> 
+<%@ include file="../config.jsp"%>
 <%
 // Jsp  Server-side
-//Define Connection
-String connectionURL="jdbc:mysql://localhost/biotec_dwh";
-String Driver = "com.mysql.jdbc.Driver";
-String User="root";
-String Pass="root";
-String Query="";
-//Define Connection
+
 
 //set variable
 String V_Year = ""; // Values of Parameter Organization
@@ -19,9 +14,7 @@ String V_Month = ""; // Values of Parameter Sales Region
 String V_Org = ""; // Values of Parameter Branch
 //set variable
 
-Connection conn= null;
-Statement st;
-ResultSet rs;
+
 
 
 //Query Handler Organization start
