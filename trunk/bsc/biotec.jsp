@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="utf-8"%>
 <%@ include file="../config.jsp"%>
+
 <%! 
     String getColorBall(int position,String color,int id)
     {
@@ -129,7 +130,7 @@ while(rs.next()){
 	//ResultSet  rs2;
 	String QueryGraph = "";
 	String KpiID= rs.getString("kpi_id");
-
+	//out.print(KpiID+"<br>");
 	//st2 = conn.createStatement();
 	QueryGraph = "CALL sp_parent_kpi_trend(";
 	QueryGraph += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\","+KpiID+")";
@@ -172,11 +173,7 @@ while(rs.next()){
 }
 tableFun += "]";
 
-
-
 %>
-
-
 	<style type="text/css">
 	#test{
 	color:red;
@@ -491,7 +488,7 @@ tableFun += "]";
           columns: $titleJ,
           dataSource: {
               data: $dataJ,
-			  pageSize: 10
+			  pageSize: 100
           }
 		
       });
@@ -580,7 +577,7 @@ tableFun += "]";
 	</div>
 	<div id="contentR">
 		<div id="contentDetail">
-	ตัวชี้วัดผลสำเร็จศูนย์พันธุวิศวกรรมและเทคโนโลยีชีวภาพ<br>ประจำปีงบประมาณ  <%=YearBY%>
+	ตัวชี้วัดผลสำเร็จศูนย์พันธุวิศวกรรมและเทคโนโลยีชีวภาพแห่งชาติ<br>ประจำปีงบประมาณ  <%=YearBY%>
 		</div>
 	</div>
 </div>
@@ -619,7 +616,7 @@ tableFun += "]";
 		  <th data-field="Field6"><center><b>ผลงานสะสม</b></center></th>
 		  <th data-field="Field7"><center><b>% เทียบ<br>เป้าหมาย</b></center></th>
 		  <th data-field="Field7_1"><center><b>คะแนน<br>ถ่วงน้ำหนัก </b></center></th>
-		  <th data-field="Field9"><center><b> กราฟ<br>ผลงานสะสม</b></center></th>
+		  <th data-field="Field9"><center><b> กราฟคะแนน<br>ถ่วงน้ำหนัก</b></center></th>
 
 	  </tr>
   </thead>
