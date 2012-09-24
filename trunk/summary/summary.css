@@ -138,11 +138,11 @@ font-size:11px;
 
 .content #row1 #boxR #mainContent #content #contentR #content #l{
 float:left;
-width:30%;
+width:40%;
 }
-.content #row1 #boxR #mainContent #content #contentR #content #r{
+.content #row1 #boxR #mainContent #content #contentR #content .r{
 float:right;
-width:61%;
+width:60%;
 text-align:right;
 }
 

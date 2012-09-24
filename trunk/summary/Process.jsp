@@ -13,17 +13,17 @@ session.setAttribute( "Month", ParamMonth);
     {
 		String ballScoll = "";
                if(position==1){
-                       ballScoll+="<div id="+id+"  class=ball style=background-color:"+color+"></div>";
+                       ballScoll+="<div id=visualball style='margin-left:13px'><div id="+id+"  class=ball style=background-color:"+color+"></div>";
                        ballScoll+="<div id="+id+"  class=ball style=background-color:#cccccc></div>";
-                       ballScoll+="<div id="+id+"  class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id="+id+"  class=ball style=background-color:#cccccc></div></div>";
                }else if(position==2){
-                       ballScoll+="<div id="+id+"  class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id=visualball style='margin-left:13px'><div id="+id+"  class=ball style=background-color:#cccccc></div>";
                        ballScoll+="<div id="+id+"  class=ball style=background-color:"+color+"></div>";
-                       ballScoll+="<div id="+id+"  class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id="+id+"  class=ball style=background-color:#cccccc></div></div>";
                }else if(position==3){
-                       ballScoll+="<div id="+id+"  class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id=visualball style='margin-left:13px'><div id="+id+"  class=ball style=background-color:#cccccc></div>";
                        ballScoll+="<div id="+id+"   class=ball style=background-color:#cccccc></div>";
-                       ballScoll+="<div id="+id+"   class=ball style=background-color:"+color+"></div>";
+                       ballScoll+="<div id="+id+"   class=ball style=background-color:"+color+"></div></div>";
                }
       return ballScoll;
     }
