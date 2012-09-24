@@ -771,7 +771,7 @@ var $dataJ2 =[
           columns: $titleJ,
           dataSource: {
               data: $dataJ,
-			  pageSize: 10
+			  pageSize: 100
           }
 		
       });
@@ -809,7 +809,7 @@ var $dataJ2 =[
 								columns: $titleJ2,
 								dataSource: {
 								data: tableFun2,
-								pageSize: 8,
+								pageSize: 100,
 						//		filter: { field: "Field0", operator: "eq", value: e.data.Field0 }
 
 							}
@@ -950,7 +950,7 @@ var $dataJ2 =[
 		  <th data-field="Field6"><center><b>ผลงานสะสม</b></center></th>
 		  <th data-field="Field7"><center><b>% เทียบ<br>เป้าหมาย</b></center></th>
 		  <th data-field="Field7_1"><center><b>คะแนน<br>ถ่วงน้ำหนัก </b></center></th>
-		  <th data-field="Field9"><center><b> กราฟ<br>ผลงานสะสม</b></center></th>
+		  <th data-field="Field9"><center><b> กราฟคะแนน<br>ถ่วงน้ำหนัก</b></center></th>
 
 	  </tr>
   </thead>

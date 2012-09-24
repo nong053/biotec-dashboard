@@ -396,7 +396,7 @@ font-size:14px;
           columns: $titleJ,
           dataSource: {
               data: $dataJ,
-			  pageSize: 10
+			  pageSize: 100
           }
 		
       });
@@ -456,7 +456,7 @@ font-size:14px;
 	</div>
 	<div id="contentR">
 		<div id="contentDetail">
-	ตัวชี้วัดผลสำเร็จศูนย์บริการจัดการเทคโนโลยี <br>ประจำปีงบประมาณ <%=YearBY%>
+	ตัวชี้วัดผลสำเร็จศูนย์บริหารจัดการเทคโนโลยี <br>ประจำปีงบประมาณ <%=YearBY%>
 		</div>
 	</div>
 </div>
@@ -489,7 +489,7 @@ font-size:14px;
 		  <th data-field="Field6"><center><b>ผลงานสะสม</b></center></th>
 		  <th data-field="Field7"><center><b>% เทียบเป้าหมาย</b></center></th>
 		  <th data-field="Field7_1"><center><b>คะแนน<br>ถ่วงน้ำหนัก </b></center></th>
-		  <th data-field="Field9"><center><b> กราฟ<br>ผลงานสะสม</b></center></th>
+		  <th data-field="Field9"><center><b> กราฟคะแนน<br>ถ่วงน้ำหนัก</b></center></th>
 
 	  </tr>
   </thead>
