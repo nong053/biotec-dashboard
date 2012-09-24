@@ -138,14 +138,14 @@
 				color:white;
 */
 				background-color: #008EC3;
-				border-radius: 5px 5px 5px 5px;
+				border-radius: 3px 3px 3px 3px;
 				color: white;
-				left: 40px;
-				padding: 5px;
+				left: 35px;
+				padding: 3px;
 				position: relative;
 				text-align: center;
-				top: -35px;
-				width: 20px;
+				top: -33px;
+				width: 30px;
 				}
 				
 		</style>
@@ -198,18 +198,30 @@
 
 		/*------------------- Parameter Year -------------------*/
 
+			int i = 0;
 		Query="CALL sp_fiscal_year;";
+		String Query1 ="";
+		ResultSet rs1;
+		Statement st1;
 		rs = st.executeQuery(Query);
-		int i = 0;
 		while(rs.next()){
-			if(i==0){
-				V_Year += "<option value=\""+rs.getString("fiscal_year")+"\"  selected='selected'>"+rs.getString("buddhist_era_year")+"</option>";
-				ParamYear = rs.getString("fiscal_year");
-				}else{
-				V_Year += "<option value=\""+rs.getString("fiscal_year")+"\">"+rs.getString("buddhist_era_year")+"</option>";
+		 Query1  = "SELECT Date_format(SYSDATE(),'%Y') as year_date;";
+			st1 = conn.createStatement();
+			rs1 = st1.executeQuery(Query1);
+			i = 0;
+			while(rs1.next()){
+				String present_year = rs1.getString("year_date");
+				String query_year = rs.getString("fiscal_year");
+				if(query_year.equals(present_year)){
+					V_Year += "<option value=\""+rs.getString("fiscal_year")+"\"  selected='selected'>"+rs.getString("buddhist_era_year")+"</option>";
 				}
-				i++;
+				else{
+					V_Year += "<option value=\""+rs.getString("fiscal_year")+"\">"+rs.getString("buddhist_era_year")+"</option>";
+				}
+			}
+			i++;
 		}
+
 /*
 		V_Year += "<option value=\"2012\"  selected='selected'>2555</option>";
 		V_Year += "<option value=\"2011\">2554</option>";
@@ -224,12 +236,22 @@
 		rs = st.executeQuery(Query);
 		i = 0;
 		while(rs.next()){
-			if(i==0){
-				V_Month += "<option value=\""+rs.getString("fiscal_month_no")+"\"  selected='selected'>"+rs.getString("calendar_th_month_name")+"</option>";
-				ParamMonth = rs.getString("fiscal_month_no");
-			}else{
-				V_Month += "<option value=\""+rs.getString("fiscal_month_no")+"\">"+rs.getString("calendar_th_month_name")+"</option>";
-				
+		 Query1  = "SELECT Date_format(SYSDATE(),'%m') as month_date;";
+			st1 = conn.createStatement();
+			rs1 = st1.executeQuery(Query1);
+			while(rs1.next()){
+				int presentMonth = rs1.getInt("month_date");
+				presentMonth = presentMonth +3 ;
+				if(presentMonth>12){
+					presentMonth=presentMonth-12;
+				}
+				String query_month = rs.getString("fiscal_month_no");
+				String presentMonthStr = presentMonth+"";
+				if(query_month.equals(presentMonthStr)){
+					V_Month += "<option value=\""+rs.getString("fiscal_month_no")+"\"  selected='selected'>"+rs.getString("calendar_th_month_name")+"</option>";	
+				}else{
+					V_Month += "<option value=\""+rs.getString("fiscal_month_no")+"\">"+rs.getString("calendar_th_month_name")+"</option>";	
+				}
 			}
 			i++;
 		}
@@ -544,7 +566,7 @@ var barChartBudget = function(categoryParam,seriesParam){
                         tooltip: {
                             visible: true,
                             format: "{0}",
-							template: "#= value # ล้านบาท"
+							template: "#= addCommas(value) # ล้านบาท"
 
                         }
                     });
@@ -1209,10 +1231,15 @@ var barChartFinancial= function(serieParam,categoryParam){
 
 
 
-/*###  pieChart hr  Defind start ###*/
+/*###  pieChart hr  Defind start ###
 function templateFormat(value,summ) {
    var value1 = Math.floor(value);
    var value2 = Math.floor((value/summ)*100);
+   return value1 + " , " + value2 + " %";
+}*/
+function templateFormat(value,summ) {
+   var value1 = addCommas(value.toFixed(2));
+   var value2 = ((value/summ)*100).toFixed(2);
    return value1 + " , " + value2 + " %";
 }
  /*  
@@ -1374,7 +1401,7 @@ return	$(idStr).text();
 																<div class="r" id="plan2">
 															
 																</div>
-																<div id="l"  style="width:40%;">
+																<div id="l" >
 																ผลการใช้จ่าย 
 																</div>
 																<div class="r" id="result2" >
