@@ -16,6 +16,7 @@ Query += year +"," + month +");";
 rs = st.executeQuery(Query);
 String resultSet = "";
 int i = 0;
+int j = 0;
 int totalPieHR1 = 0;
 String valuePieHR1 ="{\"value_piehr1\":[";
 				//		 [ 
@@ -49,8 +50,8 @@ valuePieHR1 += "]}";
 
 //============================ Pie HR 2============================
 
-//String centerQueryParam = "สวทช.";????. ====================== Use This ===================================
-String centerQueryParam = "MTEC"; ///////////////////////// ++++++++++++++This For Test Query Only ! ! ! ! !+
+String centerQueryParam = "สวทช.";//????. ====================== Use This ===================================
+//String centerQueryParam = "MTEC"; ///////////////////////// ++++++++++++++This For Test Query Only ! ! ! ! !+
 Query="CALL sp_emp_by_job_family(";
 Query += year +"," + month +",\""+centerQueryParam+"\");";
 //out.print(ParamYear + ParamMonth);
@@ -88,11 +89,20 @@ i = 0;
 
 String valueLineHR3 ="{\"value_linehr3\":[";
 String categoryLineHR3 = "{\"categorylinehr3\":[";
+String[] categoryLineHR3Arr ;
 	while(rs.next()){
 		if(i==0){
 			String category = rs.getString("month_list");
-			categoryLineHR3 += category;
-		}
+			categoryLineHR3Arr = category.split(",");
+			for(j=0; j< categoryLineHR3Arr.length; j++){
+				if(j>0)
+				{	
+					categoryLineHR3+=",";
+				}
+				categoryLineHR3 += "\""+categoryLineHR3Arr[j]+"\"";
+			}//for
+		}//if
+	
 		if(i>0){
 			valueLineHR3 += ",";
 		}
@@ -113,6 +123,6 @@ String categoryLineHR3 = "{\"categorylinehr3\":[";
 //out.println(valueLineHR3);
 //out.println(categoryLineHR3);
 //================End Line Chart =========================
-out.print("[{\"totalPieHR1\":\""+totalPieHR1+"\"},"+valuePieHR1+",{\"totalPieHR2\":\""+totalPieHR2+"\"},"+valuePieHR2+","+categoryLineHR3+","+valueLineHR3+"]");
+out.print("[{\"totalPieHR1\":"+totalPieHR1+"},"+valuePieHR1+",{\"totalPieHR2\":"+totalPieHR2+"},"+valuePieHR2+","+categoryLineHR3+","+valueLineHR3+"]");
 //out.print("[{\"gauge1\":\""+percentG1+"\",\"plang1\":\""+sumPlanG1+"\",\"resultg1\":\""+sumResultG1+"\",\"gauge2\":\""+percentG2+"\",\"plang2\":\""+planG2+"\",\"resultg2\":\""+resultG2+"\"},"+seriesBarchart+","+categoryBarchart+"]");
 %>

@@ -11,6 +11,6 @@ Query="CALL sp_executive_revenue_by_bsc(";
 Query += year +"," + month +");";
 rs = st.executeQuery(Query);
 	while(rs.next()){
-		out.print(rs.getString("bsc_name"));
+		out.print(rs.getString("bsc_name_list"));
 	}
 %>
