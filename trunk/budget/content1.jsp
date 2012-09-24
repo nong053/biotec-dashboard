@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="utf-8"%>
 <%@page import="java.text.DecimalFormat" %>
+<%@ page import="java.util.StringTokenizer"%>
 <%@ include file="../config.jsp"%>
 <%!
 public static float Round(double Rval, int Rpl) {
@@ -13,116 +14,122 @@ public static float Round(double Rval, int Rpl) {
 
 String month=request.getParameter("month");
 String year=request.getParameter("year");
-String center = request.getParameter("center");
+String pg_code = request.getParameter("pg_code");
+
 //String month = "11";
 //String year = "2012";
-//out.print(month+year+center);
-/*
-Query="CALL sp_emp_by_mission(";
-Query += year +"," + month +");";
+//String pg_code ="ALL";
+
+Query="CALL sp_budget_project_program_group(";
+Query += year +"," + month +",\""+pg_code+"\");";
 rs = st.executeQuery(Query);
 
-String seriesPlanBarchart ="{\"series_center\": [{ \"name\": \"แผน\",\"data\": [";
-String seriesReleaseBarchart =",{ \"name\": \"Release\",\"data\": [";
-String seriesMeetBarchart =",{ \"name\": \"ผูกพัน\",\"data\": [";
-String seriesPayBarchart =",{ \"name\": \"เบิกจ่าย\",\"data\": [";
-String categoryBarchart = "{\"category_center\":[";
-String seriesBarchart = "";
+String seriesBarchart ="{\"series1\": [";
+String categoryBarchart = "{\"category1\":[";
+String[] categoryBarchartArr;
+String categoryGetProgressBar ="" ;
+String test = "";
+
 int i = 0;
+int j=0;
 
 	while(rs.next()){
+		String typeName = rs.getString("typename");
+		String value_list = rs.getString("value_list"); 
+		String spa_list = rs.getString("spa_list");
 		if(i>0){
-			seriesPlanBarchart += ",";
-			seriesReleaseBarchart += ",";
-			seriesMeetBarchart += ",";
-			seriesPayBarchart += ",";
-			categoryBarchart += ",";
+			seriesBarchart += ",";
 		}
-		double Plan = rs.getDouble("mplan");
-		double Release = rs.getDouble("release");
-		double Meet = rs.getDouble("meet");
-		double Pay = rs.getDouble("pay");
-		String Type = rs.getString("type");
+		if(i==0)
+		{
+				categoryBarchartArr = spa_list.split(",");
+				categoryGetProgressBar = categoryBarchartArr[0];
+		       for(j=0; j< categoryBarchartArr.length; j++){
+				   if(j>0)
+				   {	
+						categoryBarchart+=",";
+				   }
+						categoryBarchart += "\""+categoryBarchartArr[j]+"\"";
+			   }//for
+		}//if
+		seriesBarchart += "{\"name\":\"";
+		seriesBarchart += typeName;
+		seriesBarchart += "\",\"data\":[";
+		seriesBarchart += value_list;
+		seriesBarchart += "]}";
 
-		seriesPlanBarchart += Round(Plan,2);
-		seriesReleaseBarchart += Round(Release,2);
-		seriesMeetBarchart += Round(Meet,2);
-		seriesPayBarchart += Round(Pay,2);
-		categoryBarchart += "\""+Type+"\"";
 		i++;
-	}
-seriesPlanBarchart += "]}";
-seriesReleaseBarchart += "]}";
-seriesMeetBarchart +="]}";
-seriesPayBarchart +="]}]}";
-categoryBarchart += "]}";
-seriesBarchart =  seriesPlanBarchart+seriesReleaseBarchart+seriesMeetBarchart+seriesPayBarchart;
+
+	}//while
+	seriesBarchart +="]}";
+	categoryBarchart +="]}";
 
 /////////====================================END Barchart1======================
 
-Query="CALL sp_emp_by_mission(";
-Query += year +"," + month +");";
+//===================== Get Progress Bar 1===========================================
+
+
+Query="CALL sp_budget_project_program_group_most_spending(";
+Query += year +"," + month +",\""+pg_code+"\",\""+categoryGetProgressBar+"\");";
 rs = st.executeQuery(Query);
+String progressBar1 = "";
+i=0;
+int lengthProgressBar1 = 0;
+while(rs.next()){
+	String spending_percent = rs.getString("spending_percent");
+	String wbs_name = rs.getString("wbs_name"); 
 
-String seriesProject1Barchart ="{\"series_center\": [{ \"name\": \"Project\",\"data\": [";
-String categoryProject1Barchart = "{\"category_center\":[";
-int i = 0;
-
-	while(rs.next()){
-		if(i>0){
-			seriesProject1Barchart += ",";
-			categoryProject1Barchart += ",";
-		}
-		double number = rs.getDouble("number");
-		String Type = rs.getString("type");
-
-		seriesProject1Barchart += Round(number,2);
-		categoryBarchart += "\""+Type+"\"";
-		i++;
+	if(i>0){
+		progressBar1 += ",";
 	}
-seriesProject1Barchart +="]}]}";
-categoryBarchart += "]}";
-
-
-//=========================================End Barchart 2==========================
-
-Query="CALL sp_emp_by_mission(";
-Query += year +"," + month +");";
-rs = st.executeQuery(Query);
-
-String seriesProject2Barchart ="{\"series_center\": [{ \"name\": \"Project\",\"data\": [";
-String categoryProject2Barchart = "{\"category_center\":[";
-int i = 0;
-
-	while(rs.next()){
-		if(i>0){
-			seriesProject2Barchart += ",";
-			categoryProject2Barchart += ",";
-		}
-		double number = rs.getDouble("number");
-		String Type = rs.getString("type");
-
-		seriesProject2Barchart += Round(number,2);
-		categoryProject2Barchart += "\""+Type+"\"";
-		i++;
-		//{"series_center": [{ "name": "แผน","data": [1881.4,0.0,67.46,0.0]}]},{"category_center":["???????","????????","????????????","???????"]}] 
-	}
-seriesProject2Barchart +="]}]}";
-categoryProject2Barchart += "]}";
-
-out.print("["+seriesBarchart+","+categoryBarchart+","+seriesProject1Barchart+","+categoryProject1Barchart+","+seriesProject2Barchart+","+categoryProject2Barchart+"]");
-
-//=========================================End Barchart 3==========================
-
-
-*/
-if(center.equals("NSTDA")){
-out.print("[{\"series1\": [ {  \"name\": \"แผน\",\"data\": [600,170,700,100,250,900,150,160]} ,{ \"name\": \"Release\", \"data\": [300,130,700,70,20,900,60,60]}, { \"name\": \"ผูกพัน\",\"data\": [20,10,60,10,0,700,5,10] } , {\"name\": \"เบิกจ่าย\",\"data\": [50,60,200,10,0,700,10,15] }]}, {\"category1\":[ \"Cluster\", \"Platform\", \"Essential Program\",\"Improvement Project\",\"Director Initiative\", \"Investment\", \"Seed Money\", \"Others\"]}]");
-}else{
-out.print("[{\"series1\": [ {  \"name\": \"แผน\",\"data\": [1100,170,700,100,250,900,230,160]} ,{ \"name\": \"Release\", \"data\": [300,130,700,170,20,900,60,60]}, { \"name\": \"ผูกพัน\",\"data\": [20,10,60,10,110,700,115,10] } , {\"name\": \"เบิกจ่าย\",\"data\": [50,60,200,10,120,700,120,115] }]}, {\"category1\":[ \"Cluster\", \"Platform\", \"Essential\",\"Improvement\",\"Director\", \"Investment\", \"Seed Money\", \"Others\"]}]");
+	progressBar1 += "{\"value\":"+spending_percent+"},{\"name\":\""+wbs_name+"\"}";
+	i++;	
+	lengthProgressBar1++;
+	
 }
 
-//,{\"series2\": [{\"name\": \"Project\",\"data\": [15.7, 16.7, 20, 23.5, 26.6, 26.6, 70, 80, 82, 89]}]},{\"category2\":[\"Project Z\", \"Project Y\", \"Project X\", \"Project W\", \"Project V\", \"Project U\", \"Project T\", \"Project S\", \"Project R\", \"Project Q\"]},{\"series3\": [{\"name\": \"Project\",\"data\":[89,85,80,75,70,68,66,65,63,60]}]} ,{\"category3\":[\"Project A\", \"Project B\", \"Project C\", \"Project D\", \"Project E\", \"Project F\", \"Project H\", \"Project I\", \"Project J\", \"Project K\"]} ]");
+if(i<10)
+{
+	for(;i<10;i++){
+		progressBar1 += ",{\"value\": 0},{\"name\":\"No data\"}";
+	}
+}
+//out.print(progressBar1+"<br>");
 
+// ========================End Get Progress Bar 1================================
+
+//===================== Get Progress Bar 2===========================================
+
+Query="CALL sp_budget_project_cluster_least_spending(";
+Query += year +"," + month +",\""+pg_code+"\",\""+categoryGetProgressBar+"\");";
+rs = st.executeQuery(Query);
+String progressBar2 = "";
+int lengthProgressBar2 = 0;
+i=0;
+while(rs.next()){
+	String spending_percent = rs.getString("spending_percent");
+	String wbs_name = rs.getString("wbs_name"); 
+
+	if(i>0){
+		progressBar2 += ",";
+	}
+	progressBar2 += "{\"value\":"+spending_percent+"},{\"name\":\""+wbs_name+"\"}";
+	i++;	
+	lengthProgressBar2++;
+}
+
+if(i<10)
+{
+	for(;i<10;i++){
+		progressBar2 += ",{\"value\": 0},{\"name\":\"No data\"}";
+	}
+}
+
+//out.println(lengthProgressBar1);
+//out.println(lengthProgressBar2);
+//out.print("["+seriesBarchart+","+categoryBarchart+",{\"lengthProgressBar1\":"+lengthProgressBar1+"}"+",{\"lengthProgressBar2\":"+lengthProgressBar2+"},"+progressBar1+","+progressBar2+"]");
+out.print("["+seriesBarchart+","+categoryBarchart+","+progressBar1+","+progressBar2+"]");
+
+// ========================End Get Progress Bar 2================================
 %>
 

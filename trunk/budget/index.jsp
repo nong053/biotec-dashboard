@@ -49,13 +49,12 @@
 			position:absolute ;
 			position:center;
 			z-index:5;
-			
-			
 			}
-			.inlinesparkline{
-			width:100px;
-			height:100px;
+/*
+			.ui-progressbar .ui-progressbar-value { 	
+				background: url("images/progressbar.gif");
 			}
+*/
 			.contentMain{
 			display:none;
 			width: 960px;
@@ -161,6 +160,39 @@ String center_name="";
 
 
 		/*------------------- End Organization Parameter -------------------*/
+		//====================select1 query ============================
+		String select1 ="";//"<option value=\"ALL\" >สวทช</option><option value=\"BIOTEC\" >ศช.</option>";
+
+		Query="CALL sp_program_group;";
+		rs = st.executeQuery(Query);
+		i = 0;
+		while(rs.next()){
+			if(i==0){
+				select1 += "<option value="+rs.getString("pg_code")+" selected='selected'>"+rs.getString("pg_name")+"</option>";
+			}else{
+				select1 += "<option value="+rs.getString("pg_code")+">"+rs.getString("pg_name")+"</option>";
+			}
+			i++;
+		}
+
+		String select2 ="";// "<option value=\"Food\" id=\"select21\">คลัสเตอร์อาหารและการเกษตร</option><option value=\"Uranium\" id=\"select22\">ยูเรเนียม</option>";
+
+		///////////////===================================== Select2 Query ============================
+
+		Query="select distinct cluster from dim_project_io_cctr where budget_type = 'project'  and grp_cluster = '01-Cluster' order by cluster";
+		rs = st.executeQuery(Query);
+		i = 0;
+		while(rs.next()){
+			if(i==0){
+				select2 += "<option value="+rs.getString("cluster")+" selected='selected'>"+rs.getString("cluster")+"</option>";
+			}else{
+				select2 += "<option value="+rs.getString("cluster")+">"+rs.getString("cluster")+"</option>";
+			}
+			i++;
+		}
+
+
+
 
 	%>
 
@@ -234,11 +266,52 @@ function addCommas(nStr)
 				url:"content1.jsp",
 				type:"get",
 				dataType:"json",
-				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val(),"center":$(this).val()},
+				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val(),"pg_code":$(this).val()},
 				success:function(data){
+					console.log(data);
 					var serie1 = data[0]["series1"];
 					var category1 = data[1]["category1"];
 					barChart1(serie1,category1);
+					colorSufferRow();
+	/*
+					var progressbarID1 =["111","112","113","114","115","116","117","118","119","1110"];
+					var progressbarID2 =["121","122","123","124","125","126","127","128","129","1210"];
+					var dataValueID1 = [4,6,8,10,12,14,16,18,20,22];
+					var dataNameID1 = [5,7,9,11,13,15,17,19,21,23];
+					var dataValueID2 = [24,26,28,30,32,34,36,38,40,42];
+					var dataNameID2 = [25,27,29,31,33,35,37,39,41,43];
+					var lengthProgressBar1 = data[2]["lengthProgressBar1"];
+					var lengthProgressBar2 = data[3]["lengthProgressBar2"];
+					for(var i=0;i<lengthProgressBar1;i++){
+						callProgressbar(progressbarID1[i],parseFloat(data[dataValueID1[i]]["value"]).toFixed(2),data[dataNameID1[i]]["name"]);
+					}
+					for(var i=0;i<lengthProgressBar1;i++){
+						callProgressbar(progressbarID2[i],parseFloat(data[dataValueID2[i]]["value"]).toFixed(2),data[dataNameID2[i]]["name"]);
+					}
+*/
+				
+					callProgressbar("111",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
+					callProgressbar("112",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
+					callProgressbar("113",parseFloat(data[6]["value"]).toFixed(2),data[7]["name"]);
+					callProgressbar("114",parseFloat(data[8]["value"]).toFixed(2),data[9]["name"]);
+					callProgressbar("115",parseFloat(data[10]["value"]).toFixed(2),data[11]["name"]);
+					callProgressbar("116",parseFloat(data[12]["value"]).toFixed(2),data[13]["name"]);
+					callProgressbar("117",parseFloat(data[14]["value"]).toFixed(2),data[15]["name"]);
+					callProgressbar("118",parseFloat(data[16]["value"]).toFixed(2),data[17]["name"]);
+					callProgressbar("119",parseFloat(data[18]["value"]).toFixed(2),data[19]["name"]);
+					callProgressbar("1110",parseFloat(data[20]["value"]).toFixed(2),data[21]["name"]);
+
+
+					callProgressbar("121",parseFloat(data[22]["value"]).toFixed(2),data[23]["name"]);
+					callProgressbar("122",parseFloat(data[24]["value"]).toFixed(2),data[25]["name"]);
+					callProgressbar("123",parseFloat(data[26]["value"]).toFixed(2),data[27]["name"]);
+					callProgressbar("124",parseFloat(data[28]["value"]).toFixed(2),data[29]["name"]);
+					callProgressbar("125",parseFloat(data[30]["value"]).toFixed(2),data[31]["name"]);
+					callProgressbar("126",parseFloat(data[32]["value"]).toFixed(2),data[33]["name"]);
+					callProgressbar("127",parseFloat(data[34]["value"]).toFixed(2),data[35]["name"]);
+					callProgressbar("128",parseFloat(data[36]["value"]).toFixed(2),data[37]["name"]);
+					callProgressbar("129",parseFloat(data[38]["value"]).toFixed(2),data[39]["name"]);
+					callProgressbar("1210",parseFloat(data[40]["value"]).toFixed(2),data[41]["name"]);
 
 				}
 			});
@@ -252,6 +325,7 @@ function addCommas(nStr)
 				dataType:"json",
 				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val(),"cluster":$(this).val()},
 				success:function(data){
+
 					var serie1 = data[0]["series1"];
 					var category1 = data[1]["category1"];
 					//console.log(serie1);
@@ -259,6 +333,31 @@ function addCommas(nStr)
 
 					barChart21(serie1,category1);
 
+					colorSufferRow();
+					callProgressbar("211",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
+					callProgressbar("212",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
+					callProgressbar("213",parseFloat(data[6]["value"]).toFixed(2),data[7]["name"]);
+					callProgressbar("214",parseFloat(data[8]["value"]).toFixed(2),data[9]["name"]);
+					callProgressbar("215",parseFloat(data[10]["value"]).toFixed(2),data[11]["name"]);
+					callProgressbar("216",parseFloat(data[12]["value"]).toFixed(2),data[13]["name"]);
+					callProgressbar("217",parseFloat(data[14]["value"]).toFixed(2),data[15]["name"]);
+					callProgressbar("218",parseFloat(data[16]["value"]).toFixed(2),data[17]["name"]);
+					callProgressbar("219",parseFloat(data[18]["value"]).toFixed(2),data[19]["name"]);
+					callProgressbar("2110",parseFloat(data[20]["value"]).toFixed(2),data[21]["name"]);
+
+
+					callProgressbar("221",parseFloat(data[22]["value"]).toFixed(2),data[23]["name"]);
+					callProgressbar("222",parseFloat(data[24]["value"]).toFixed(2),data[25]["name"]);
+					callProgressbar("223",parseFloat(data[26]["value"]).toFixed(2),data[27]["name"]);
+					callProgressbar("224",parseFloat(data[28]["value"]).toFixed(2),data[29]["name"]);
+					callProgressbar("225",parseFloat(data[30]["value"]).toFixed(2),data[31]["name"]);
+					callProgressbar("226",parseFloat(data[32]["value"]).toFixed(2),data[33]["name"]);
+					callProgressbar("227",parseFloat(data[34]["value"]).toFixed(2),data[35]["name"]);
+					callProgressbar("228",parseFloat(data[36]["value"]).toFixed(2),data[37]["name"]);
+					callProgressbar("229",parseFloat(data[38]["value"]).toFixed(2),data[39]["name"]);
+					callProgressbar("2210",parseFloat(data[40]["value"]).toFixed(2),data[41]["name"]);
+
+					/*
 					var serie2 = data[2]["series2"];
 					var category2 = data[3]["category2"];
 					barChart22(serie2,category2);
@@ -266,7 +365,7 @@ function addCommas(nStr)
 					var serie3 = data[4]["series3"];
 					var category3 = data[5]["category3"];
 					barChart23(serie3,category3);
-				
+				*/
 				}
 			});
 		});
@@ -281,7 +380,7 @@ function addCommas(nStr)
 				url:"content1.jsp",
 				type:"get",
 				dataType:"json",
-				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val(),"center":$("#select1").val()},
+				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val(),"pg_code":$("#select1").val()},
 				success:function(data){
 
 				$("#content1").hide();
@@ -290,40 +389,57 @@ function addCommas(nStr)
 				$("#content4").hide();
 				$("#content5").hide();
 				$("#content1").slideDown("slow",function(){
-					//console.log(data);
+					console.log(data);
 					var serie1 = data[0]["series1"];
 					var category1 = data[1]["category1"];
-					//console.log(serie1);
-					//console.log(category1);
 					barChart1(serie1,category1);
-
 				});
 				
 				/*### call function sufferRow  Start ###*/
 				colorSufferRow();
-				callProgressbar("#progressbar11",30);
-				callProgressbar("#progressbar12",32);
-				callProgressbar("#progressbar13",34);
-				callProgressbar("#progressbar14",50);
-				callProgressbar("#progressbar15",55);
-				callProgressbar("#progressbar16",60);
-				callProgressbar("#progressbar17",62);
-				callProgressbar("#progressbar18",68);
-				callProgressbar("#progressbar19",70);
-				callProgressbar("#progressbar110",80);
+				/*var progressbarID1 =["111","112","113","114","115","116","117","118","119","1110"];
+				var progressbarID2 =["121","122","123","124","125","126","127","128","129","1210"];
+				var dataValueID1 = [4,6,8,10,12,14,16,18,20,22];
+				var dataNameID1 = [5,7,9,11,13,15,17,19,21,23];
+				var dataValueID2 = [24,26,28,30,32,34,36,38,40,42];
+				var dataNameID2 = [25,27,29,31,33,35,37,39,41,43];
+				var lengthProgressBar1 = data[2]["lengthProgressBar1"];
+				var lengthProgressBar2 = data[3]["lengthProgressBar2"];
+				for(var i=0;i<lengthProgressBar1;i++){
+					//console.log(progressbarID1[i]);
+					callProgressbar(progressbarID1[i],parseFloat(data[dataValueID1[i]]["value"]).toFixed(2),data[dataNameID1[i]]["name"]);
+				}
+				for(var i=0;i<lengthProgressBar1;i++){
+					//console.log(progressbarID1[i]);
+					callProgressbar(progressbarID2[i],parseFloat(data[dataValueID2[i]]["value"]).toFixed(2),data[dataNameID2[i]]["name"]);
+				}
+				*/
+				
+				callProgressbar("111",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
+				callProgressbar("112",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
+				callProgressbar("113",parseFloat(data[6]["value"]).toFixed(2),data[7]["name"]);
+				callProgressbar("114",parseFloat(data[8]["value"]).toFixed(2),data[9]["name"]);
+				callProgressbar("115",parseFloat(data[10]["value"]).toFixed(2),data[11]["name"]);
+				callProgressbar("116",parseFloat(data[12]["value"]).toFixed(2),data[13]["name"]);
+				callProgressbar("117",parseFloat(data[14]["value"]).toFixed(2),data[15]["name"]);
+				callProgressbar("118",parseFloat(data[16]["value"]).toFixed(2),data[17]["name"]);
+				callProgressbar("119",parseFloat(data[18]["value"]).toFixed(2),data[19]["name"]);
+				callProgressbar("1110",parseFloat(data[20]["value"]).toFixed(2),data[21]["name"]);
 
 
-				callProgressbar("#progressbar21",79);
-				callProgressbar("#progressbar22",70);
-				callProgressbar("#progressbar23",69);
-				callProgressbar("#progressbar24",66);
-				callProgressbar("#progressbar25",50);
-				callProgressbar("#progressbar26",45);
-				callProgressbar("#progressbar27",42);
-				callProgressbar("#progressbar28",39);
-				callProgressbar("#progressbar29",32);
-				callProgressbar("#progressbar210",30);
-				/*### call function sufferRow  Start ###*/
+				callProgressbar("121",parseFloat(data[22]["value"]).toFixed(2),data[23]["name"]);
+				callProgressbar("122",parseFloat(data[24]["value"]).toFixed(2),data[25]["name"]);
+				callProgressbar("123",parseFloat(data[26]["value"]).toFixed(2),data[27]["name"]);
+				callProgressbar("124",parseFloat(data[28]["value"]).toFixed(2),data[29]["name"]);
+				callProgressbar("125",parseFloat(data[30]["value"]).toFixed(2),data[31]["name"]);
+				callProgressbar("126",parseFloat(data[32]["value"]).toFixed(2),data[33]["name"]);
+				callProgressbar("127",parseFloat(data[34]["value"]).toFixed(2),data[35]["name"]);
+				callProgressbar("128",parseFloat(data[36]["value"]).toFixed(2),data[37]["name"]);
+				callProgressbar("129",parseFloat(data[38]["value"]).toFixed(2),data[39]["name"]);
+				callProgressbar("1210",parseFloat(data[40]["value"]).toFixed(2),data[41]["name"]);
+
+				/*### call function sufferRow  End ###*/
+		
 				
 				}
 			});
@@ -341,7 +457,8 @@ function addCommas(nStr)
 				dataType:"json",
 				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val(),"cluster":$("#select2").val()},
 				success:function(data){
-				
+									console.log(data);
+
 				$("#content1").hide();
 				$("#content2").hide();
 				$("#content3").hide();
@@ -349,22 +466,36 @@ function addCommas(nStr)
 				$("#content5").hide();
 				//$("#content2").append(data).hide();
 				$("#content2").slideDown("slow",function(){
-				//console.log(data);
+					var serie1 = data[0]["series1"];
+					var category1 = data[1]["category1"];
+					barChart21(serie1,category1);		
+					colorSufferRow();
+					console.log(data);
+					callProgressbar("211",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
+					callProgressbar("212",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
+					callProgressbar("213",parseFloat(data[6]["value"]).toFixed(2),data[7]["name"]);
+					callProgressbar("214",parseFloat(data[8]["value"]).toFixed(2),data[9]["name"]);
+					callProgressbar("215",parseFloat(data[10]["value"]).toFixed(2),data[11]["name"]);
+					callProgressbar("216",parseFloat(data[12]["value"]).toFixed(2),data[13]["name"]);
+					callProgressbar("217",parseFloat(data[14]["value"]).toFixed(2),data[15]["name"]);
+					callProgressbar("218",parseFloat(data[16]["value"]).toFixed(2),data[17]["name"]);
+					callProgressbar("219",parseFloat(data[18]["value"]).toFixed(2),data[19]["name"]);
+					callProgressbar("2110",parseFloat(data[20]["value"]).toFixed(2),data[21]["name"]);
 
-				var serie1 = data[0]["series1"];
-				var category1 = data[1]["category1"];
-				//console.log(serie1);
-				//console.log(category1);
-				barChart21(serie1,category1);
 
-				var serie2 = data[2]["series2"];
-				var category2 = data[3]["category2"];
-				barChart22(serie2,category2);
+					callProgressbar("221",parseFloat(data[22]["value"]).toFixed(2),data[23]["name"]);
+					callProgressbar("222",parseFloat(data[24]["value"]).toFixed(2),data[25]["name"]);
+					callProgressbar("223",parseFloat(data[26]["value"]).toFixed(2),data[27]["name"]);
+					callProgressbar("224",parseFloat(data[28]["value"]).toFixed(2),data[29]["name"]);
+					callProgressbar("225",parseFloat(data[30]["value"]).toFixed(2),data[31]["name"]);
+					callProgressbar("226",parseFloat(data[32]["value"]).toFixed(2),data[33]["name"]);
+					callProgressbar("227",parseFloat(data[34]["value"]).toFixed(2),data[35]["name"]);
+					callProgressbar("228",parseFloat(data[36]["value"]).toFixed(2),data[37]["name"]);
+					callProgressbar("229",parseFloat(data[38]["value"]).toFixed(2),data[39]["name"]);
+					callProgressbar("2210",parseFloat(data[40]["value"]).toFixed(2),data[41]["name"]);
 
-				var serie3 = data[4]["series3"];
-				var category3 = data[5]["category3"];
-				barChart23(serie3,category3);
 				});
+				
 				//$("#select2").kendoDropDownList();
 				
 				}
@@ -386,22 +517,36 @@ function addCommas(nStr)
 				$("#content4").hide();
 				$("#content5").hide();
 				$("#content3").slideDown(function(){
-				//console.log(data);
 
-				var serie1 = data[0]["series1"];
-				var category1 = data[1]["category1"];
-				//console.log(serie1);
-				//console.log(category1);
-				barChart31(serie1,category1);
-/*
-				var serie2 = data[2]["series2"];
-				var category2 = data[3]["category2"];
-				barChart32(serie2,category2);
+					var serie1 = data[0]["series1"];
+					var category1 = data[1]["category1"];
+					barChart31(serie1,category1);
+					colorSufferRow();
+					console.log(data);
+					callProgressbar("311",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
+					callProgressbar("312",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
+					callProgressbar("313",parseFloat(data[6]["value"]).toFixed(2),data[7]["name"]);
+					callProgressbar("314",parseFloat(data[8]["value"]).toFixed(2),data[9]["name"]);
+					callProgressbar("315",parseFloat(data[10]["value"]).toFixed(2),data[11]["name"]);
+					callProgressbar("316",parseFloat(data[12]["value"]).toFixed(2),data[13]["name"]);
+					callProgressbar("317",parseFloat(data[14]["value"]).toFixed(2),data[15]["name"]);
+					callProgressbar("318",parseFloat(data[16]["value"]).toFixed(2),data[17]["name"]);
+					callProgressbar("319",parseFloat(data[18]["value"]).toFixed(2),data[19]["name"]);
+					callProgressbar("3110",parseFloat(data[20]["value"]).toFixed(2),data[21]["name"]);
 
-				var serie3 = data[4]["series3"];
-				var category3 = data[5]["category3"];
-				barChart33(serie3,category3);
-*/
+
+					callProgressbar("321",parseFloat(data[22]["value"]).toFixed(2),data[23]["name"]);
+					callProgressbar("322",parseFloat(data[24]["value"]).toFixed(2),data[25]["name"]);
+					callProgressbar("323",parseFloat(data[26]["value"]).toFixed(2),data[27]["name"]);
+					callProgressbar("324",parseFloat(data[28]["value"]).toFixed(2),data[29]["name"]);
+					callProgressbar("325",parseFloat(data[30]["value"]).toFixed(2),data[31]["name"]);
+					callProgressbar("326",parseFloat(data[32]["value"]).toFixed(2),data[33]["name"]);
+					callProgressbar("327",parseFloat(data[34]["value"]).toFixed(2),data[35]["name"]);
+					callProgressbar("328",parseFloat(data[36]["value"]).toFixed(2),data[37]["name"]);
+					callProgressbar("329",parseFloat(data[38]["value"]).toFixed(2),data[39]["name"]);
+					callProgressbar("3210",parseFloat(data[40]["value"]).toFixed(2),data[41]["name"]);
+
+
 				});
 			
 				
@@ -424,24 +569,35 @@ function addCommas(nStr)
 				$("#content3").hide();
 				$("#content4").hide();
 				$("#content5").hide();
-				//$("#content4").append(data).hide();
 				$("#content4").slideDown("slow",function(){
-				//console.log(data);
 
-				var serie1 = data[0]["series1"];
-				var category1 = data[1]["category1"];
-				//console.log(serie1);
-				//console.log(category1);
-				barChart41(serie1,category1);
-				/*
-				var serie2 = data[2]["series2"];
-				var category2 = data[3]["category2"];
-				barChart42(serie2,category2);
+					var serie1 = data[0]["series1"];
+					var category1 = data[1]["category1"];
+					barChart41(serie1,category1);
+					colorSufferRow();
+					console.log(data);
+					callProgressbar("411",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
+					callProgressbar("412",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
+					callProgressbar("413",parseFloat(data[6]["value"]).toFixed(2),data[7]["name"]);
+					callProgressbar("414",parseFloat(data[8]["value"]).toFixed(2),data[9]["name"]);
+					callProgressbar("415",parseFloat(data[10]["value"]).toFixed(2),data[11]["name"]);
+					callProgressbar("416",parseFloat(data[12]["value"]).toFixed(2),data[13]["name"]);
+					callProgressbar("417",parseFloat(data[14]["value"]).toFixed(2),data[15]["name"]);
+					callProgressbar("418",parseFloat(data[16]["value"]).toFixed(2),data[17]["name"]);
+					callProgressbar("419",parseFloat(data[18]["value"]).toFixed(2),data[19]["name"]);
+					callProgressbar("4110",parseFloat(data[20]["value"]).toFixed(2),data[21]["name"]);
 
-				var serie3 = data[4]["series3"];
-				var category3 = data[5]["category3"];
-				barChart43(serie3,category3);
-				*/
+
+					callProgressbar("421",parseFloat(data[22]["value"]).toFixed(2),data[23]["name"]);
+					callProgressbar("422",parseFloat(data[24]["value"]).toFixed(2),data[25]["name"]);
+					callProgressbar("423",parseFloat(data[26]["value"]).toFixed(2),data[27]["name"]);
+					callProgressbar("424",parseFloat(data[28]["value"]).toFixed(2),data[29]["name"]);
+					callProgressbar("425",parseFloat(data[30]["value"]).toFixed(2),data[31]["name"]);
+					callProgressbar("426",parseFloat(data[32]["value"]).toFixed(2),data[33]["name"]);
+					callProgressbar("427",parseFloat(data[34]["value"]).toFixed(2),data[35]["name"]);
+					callProgressbar("428",parseFloat(data[36]["value"]).toFixed(2),data[37]["name"]);
+					callProgressbar("429",parseFloat(data[38]["value"]).toFixed(2),data[39]["name"]);
+					callProgressbar("4210",parseFloat(data[40]["value"]).toFixed(2),data[41]["name"]);
 
 
 				});
@@ -460,18 +616,19 @@ function addCommas(nStr)
 				dataType:"json",
 				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val()},
 				success:function(data){
+					console.log(data);
 				$("#content1").hide();
 				$("#content2").hide();
 				$("#content3").hide();
 				$("#content4").hide();
 				$("#content5").hide();
 				$("#content5").slideDown("slow",function(){
-				var serie1 = data[0]["serieChart"];
-				var category1 = data[1]["category"];
+				var serie1 = data[0]["series1"];
+				var category1 = data[1]["category1"];
 				barChart51(category1,serie1);
 
-				var value = data[2]["value"];
-				var sum = data[3]["sumVal"];
+				var value = data[3]["value_pie"];
+				var sum = data[2]["totalPie"];
 				pieChart52(value,sum);
 				
 				});
@@ -496,7 +653,7 @@ var barChart1 = function(seriesParam,categoryParam){
 			title: {
 				 text: " "
 			},
-			seriesClick:onSeriesClick,
+			//seriesClick:onSeriesClick,
 			chartArea: {
 			height: 260
 			 },
@@ -538,10 +695,9 @@ var barChart1 = function(seriesParam,categoryParam){
 			],*/
 			valueAxis: {
 							// ie can not reading font-size
-                           title: {text: "งบประมาณ(ล้านบาท)" , font:"14px Tahoma"},
+                           title: {text: "งบประมาณ(ล้านบาท)" , font:"14px Tahoma"}
 						   //title: {text: "งบประมาณ(ล้านบาท)" },
-                            min: 0,
-                            max: 1200,
+                       
 						
 							
 		
@@ -556,12 +712,78 @@ var barChart1 = function(seriesParam,categoryParam){
                             visible: true,
                            // format: "{0} ล้านบาท",
 							template: "#= addCommas(value)# ล้านบาท"
-                        }
+                        }, seriesClick:funContent1
+
 		});
 }
 
 
 	/*### barChart1 End ###*/
+				
+	function funContent1(e){
+			var category = e.category;
+			$.ajax({
+				url:'content1_1.jsp',
+				type:'get',
+				dataType:'json',
+				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val(),"pg_code":$("#select1").val(),"spa":category},
+
+				success:function(data){
+				//console.log(data);
+				colorSufferRow();
+/*
+				var progressbarID1 =["111","112","113","114","115","116","117","118","119","1110"];
+				var progressbarID2 =["121","122","123","124","125","126","127","128","129","1210"];
+				var dataValueID1 = [4,6,8,10,12,14,16,18,20,22];
+				var dataNameID1 = [5,7,9,11,13,15,17,19,21,23];
+				var dataValueID2 = [24,26,28,30,32,34,36,38,40,42];
+				var dataNameID2 = [25,27,29,31,33,35,37,39,41,43];
+				var lengthProgressBar1 = data[2]["lengthProgressBar1"];
+				var lengthProgressBar2 = data[3]["lengthProgressBar2"];
+				for(var i=0;i<lengthProgressBar1;i++){
+					callProgressbar(progressbarID1[i],parseFloat(data[dataValueID1[i]]["value"]).toFixed(2),data[dataNameID1[i]]["name"]);
+				}
+				for(var i=0;i<lengthProgressBar2;i++){
+					callProgressbar(progressbarID2[i],parseFloat(data[dataValueID2[i]]["value"]).toFixed(2),data[dataNameID2[i]]["name"]);
+				}
+*/
+				
+				callProgressbar("111",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
+				callProgressbar("112",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
+				callProgressbar("113",parseFloat(data[6]["value"]).toFixed(2),data[7]["name"]);
+				callProgressbar("114",parseFloat(data[8]["value"]).toFixed(2),data[9]["name"]);
+				callProgressbar("115",parseFloat(data[10]["value"]).toFixed(2),data[11]["name"]);
+				callProgressbar("116",parseFloat(data[12]["value"]).toFixed(2),data[13]["name"]);
+				callProgressbar("117",parseFloat(data[14]["value"]).toFixed(2),data[15]["name"]);
+				callProgressbar("118",parseFloat(data[16]["value"]).toFixed(2),data[17]["name"]);
+				callProgressbar("119",parseFloat(data[18]["value"]).toFixed(2),data[19]["name"]);
+				callProgressbar("1110",parseFloat(data[20]["value"]).toFixed(2),data[21]["name"]);
+
+
+				callProgressbar("121",parseFloat(data[22]["value"]).toFixed(2),data[23]["name"]);
+				callProgressbar("122",parseFloat(data[24]["value"]).toFixed(2),data[25]["name"]);
+				callProgressbar("123",parseFloat(data[26]["value"]).toFixed(2),data[27]["name"]);
+				callProgressbar("124",parseFloat(data[28]["value"]).toFixed(2),data[29]["name"]);
+				callProgressbar("125",parseFloat(data[30]["value"]).toFixed(2),data[31]["name"]);
+				callProgressbar("126",parseFloat(data[32]["value"]).toFixed(2),data[33]["name"]);
+				callProgressbar("127",parseFloat(data[34]["value"]).toFixed(2),data[35]["name"]);
+				callProgressbar("128",parseFloat(data[36]["value"]).toFixed(2),data[37]["name"]);
+				callProgressbar("129",parseFloat(data[38]["value"]).toFixed(2),data[39]["name"]);
+				callProgressbar("1210",parseFloat(data[40]["value"]).toFixed(2),data[41]["name"]);
+
+					/*
+					var serie1 = data[0]["series1"];
+					var category1 = data[1]["category1"];
+					barChart22(serie1,category1);
+
+					var serie2 = data[2]["series2"];
+					var category2 = data[3]["category2"];
+					barChart23(serie2,category2);
+					*/
+					}
+			});
+}
+
 	  /*### barChart2Start###*/
 
 var barChart2 = function(a,b,c,d,e,f,g,h,i,j){
@@ -756,8 +978,8 @@ var barChart21 = function(seriesParam,categoryParam){
 			],*/
 			valueAxis: {
                             title: { text: "งบประมาณ(ล้านบาท)" ,font:"14px Tahoma"},
-                            min: 0,
-                            max: 1200
+                           // min: 0,
+                            //max: 1200
                         },
 
 			categoryAxis:{
@@ -780,9 +1002,39 @@ var barChart21 = function(seriesParam,categoryParam){
 				url:'content2_1.jsp',
 				type:'get',
 				dataType:'json',
-				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val(),"category":category},
+				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val(),"cluster":$("#select2").val(),"spa":category},
 
 				success:function(data){
+					colorSufferRow();
+					try{
+					callProgressbar("211",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
+					callProgressbar("212",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
+					callProgressbar("213",parseFloat(data[6]["value"]).toFixed(2),data[7]["name"]);
+					callProgressbar("214",parseFloat(data[8]["value"]).toFixed(2),data[9]["name"]);
+					callProgressbar("215",parseFloat(data[10]["value"]).toFixed(2),data[11]["name"]);
+					callProgressbar("216",parseFloat(data[12]["value"]).toFixed(2),data[13]["name"]);
+					callProgressbar("217",parseFloat(data[14]["value"]).toFixed(2),data[15]["name"]);
+					callProgressbar("218",parseFloat(data[16]["value"]).toFixed(2),data[17]["name"]);
+					callProgressbar("219",parseFloat(data[18]["value"]).toFixed(2),data[19]["name"]);
+					callProgressbar("2110",parseFloat(data[20]["value"]).toFixed(2),data[21]["name"]);
+
+
+					callProgressbar("221",parseFloat(data[22]["value"]).toFixed(2),data[23]["name"]);
+					callProgressbar("222",parseFloat(data[24]["value"]).toFixed(2),data[25]["name"]);
+					callProgressbar("223",parseFloat(data[26]["value"]).toFixed(2),data[27]["name"]);
+					callProgressbar("224",parseFloat(data[28]["value"]).toFixed(2),data[29]["name"]);
+					callProgressbar("225",parseFloat(data[30]["value"]).toFixed(2),data[31]["name"]);
+					callProgressbar("226",parseFloat(data[32]["value"]).toFixed(2),data[33]["name"]);
+					callProgressbar("227",parseFloat(data[34]["value"]).toFixed(2),data[35]["name"]);
+					callProgressbar("228",parseFloat(data[36]["value"]).toFixed(2),data[37]["name"]);
+					callProgressbar("229",parseFloat(data[38]["value"]).toFixed(2),data[39]["name"]);
+					callProgressbar("2210",parseFloat(data[40]["value"]).toFixed(2),data[41]["name"]);
+					}
+					catch(err)
+						{
+						console.log(err);
+					}
+					/*
 					var serie1 = data[0]["series1"];
 					var category1 = data[1]["category1"];
 					barChart22(serie1,category1);
@@ -790,6 +1042,7 @@ var barChart21 = function(seriesParam,categoryParam){
 					var serie2 = data[2]["series2"];
 					var category2 = data[3]["category2"];
 					barChart23(serie2,category2);
+					*/
 					}
 			});
 }
@@ -955,13 +1208,39 @@ function funContent3(e){
 				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val(),"center":center},
 
 				success:function(data){
+
+				colorSufferRow();
+					console.log(data);
+					callProgressbar("311",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
+					callProgressbar("312",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
+					callProgressbar("313",parseFloat(data[6]["value"]).toFixed(2),data[7]["name"]);
+					callProgressbar("314",parseFloat(data[8]["value"]).toFixed(2),data[9]["name"]);
+					callProgressbar("315",parseFloat(data[10]["value"]).toFixed(2),data[11]["name"]);
+					callProgressbar("316",parseFloat(data[12]["value"]).toFixed(2),data[13]["name"]);
+					callProgressbar("317",parseFloat(data[14]["value"]).toFixed(2),data[15]["name"]);
+					callProgressbar("318",parseFloat(data[16]["value"]).toFixed(2),data[17]["name"]);
+					callProgressbar("319",parseFloat(data[18]["value"]).toFixed(2),data[19]["name"]);
+					callProgressbar("3110",parseFloat(data[20]["value"]).toFixed(2),data[21]["name"]);
+
+
+					callProgressbar("321",parseFloat(data[22]["value"]).toFixed(2),data[23]["name"]);
+					callProgressbar("322",parseFloat(data[24]["value"]).toFixed(2),data[25]["name"]);
+					callProgressbar("323",parseFloat(data[26]["value"]).toFixed(2),data[27]["name"]);
+					callProgressbar("324",parseFloat(data[28]["value"]).toFixed(2),data[29]["name"]);
+					callProgressbar("325",parseFloat(data[30]["value"]).toFixed(2),data[31]["name"]);
+					callProgressbar("326",parseFloat(data[32]["value"]).toFixed(2),data[33]["name"]);
+					callProgressbar("327",parseFloat(data[34]["value"]).toFixed(2),data[35]["name"]);
+					callProgressbar("328",parseFloat(data[36]["value"]).toFixed(2),data[37]["name"]);
+					callProgressbar("329",parseFloat(data[38]["value"]).toFixed(2),data[39]["name"]);
+					callProgressbar("3210",parseFloat(data[40]["value"]).toFixed(2),data[41]["name"]);
+					/*
 					var serie1 = data[0]["series1"];
 					var category1 = data[1]["category1"];
 					barChart32(serie1,category1);
 
 					var serie2 = data[2]["series2"];
 					var category2 = data[3]["category2"];
-					barChart33(serie2,category2);
+					barChart33(serie2,category2);*/
 				}
 			});
 }
@@ -1123,13 +1402,37 @@ function funContent4(e){
 				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val(),"center":center},
 
 				success:function(data){
+					colorSufferRow();
+					callProgressbar("411",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
+					callProgressbar("412",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
+					callProgressbar("413",parseFloat(data[6]["value"]).toFixed(2),data[7]["name"]);
+					callProgressbar("414",parseFloat(data[8]["value"]).toFixed(2),data[9]["name"]);
+					callProgressbar("415",parseFloat(data[10]["value"]).toFixed(2),data[11]["name"]);
+					callProgressbar("416",parseFloat(data[12]["value"]).toFixed(2),data[13]["name"]);
+					callProgressbar("417",parseFloat(data[14]["value"]).toFixed(2),data[15]["name"]);
+					callProgressbar("418",parseFloat(data[16]["value"]).toFixed(2),data[17]["name"]);
+					callProgressbar("419",parseFloat(data[18]["value"]).toFixed(2),data[19]["name"]);
+					callProgressbar("4110",parseFloat(data[20]["value"]).toFixed(2),data[21]["name"]);
+
+
+					callProgressbar("421",parseFloat(data[22]["value"]).toFixed(2),data[23]["name"]);
+					callProgressbar("422",parseFloat(data[24]["value"]).toFixed(2),data[25]["name"]);
+					callProgressbar("423",parseFloat(data[26]["value"]).toFixed(2),data[27]["name"]);
+					callProgressbar("424",parseFloat(data[28]["value"]).toFixed(2),data[29]["name"]);
+					callProgressbar("425",parseFloat(data[30]["value"]).toFixed(2),data[31]["name"]);
+					callProgressbar("426",parseFloat(data[32]["value"]).toFixed(2),data[33]["name"]);
+					callProgressbar("427",parseFloat(data[34]["value"]).toFixed(2),data[35]["name"]);
+					callProgressbar("428",parseFloat(data[36]["value"]).toFixed(2),data[37]["name"]);
+					callProgressbar("429",parseFloat(data[38]["value"]).toFixed(2),data[39]["name"]);
+					callProgressbar("4210",parseFloat(data[40]["value"]).toFixed(2),data[41]["name"]);
+					/*
 					var serie1 = data[0]["series1"];
 					var category1 = data[1]["category1"];
 					barChart42(serie1,category1);
 
 					var serie2 = data[2]["series2"];
 					var category2 = data[3]["category2"];
-					barChart43(serie2,category2);
+					barChart43(serie2,category2);*/
 				}
 			});
 }
@@ -1263,8 +1566,8 @@ var barChart51 = function(categoryParam,seriesParam){
 				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val(),"center":center},
 
 				success:function(data){
-					var value = data[0]["value"];
-					var sum = data[1]["sumVal"];
+					var sum = data[0]["totalPie"];
+					var value = data[1]["value_pie"];
 					pieChart52(value,sum);
 					}
 			});
@@ -1337,10 +1640,34 @@ var pieChart52 = function(valueParam,sumParam){
 	/*### Manage Table End###*/
 
 	/*### Set Manage  Progressbar###*/
-	var callProgressbar=function($nameProgressbar,$value){
-			$($nameProgressbar).progressbar({
-			value:$value
+
+	var callProgressbar=function($idChart,$value,$namePro){
+			//alert($nameProgressbar);
+			var bar = "#progressbar"+ $idChart;
+			var percent = ".percentage .progressPer" + $idChart;
+			var name = ".projectName .namePro" + $idChart;
+			var value = parseInt($value) ;
+				
+			$(percent).empty();
+			$(percent).append($value+"%");
+
+			$(name).empty();
+			$(name).append($namePro);
+
+			$(bar).progressbar({
+			value:value
 			});
+/*
+			var pGress = setInterval(function(){
+				var pVal = $(bar).progressbar('option', 'value');
+				var pCnt = !isNaN(pVal) ? (pVal + 1) : 1;
+				if (pCnt > 100) {
+					 clearInterval(pGress);
+				 } else {
+				$(bar).progressbar({value: $value});
+				 }		    
+			},10);*/
+		//var uiprogressbar = bar+" .ui-progressbar-value";
 		/*Set Color progressbar*/
 		$(".ui-corner-left").css({"background":"#008EC3 "});
 		$(".value > .ui-corner-all").css("border-radius","0px");
@@ -1421,7 +1748,7 @@ function templateFormat(value,summ) {
 			<li><a href="#content5">งบครุภัณฑ์-หน่วยงาน</a></li>
 		</ul>
 		<div id="content1">
-						<!--This is Content 1 html ==================================================-->
+						<!--This is Content 1 html =========================================================================-->
 <div id="content">
 	<div id="row1">
 		<div id="column11">
@@ -1434,8 +1761,7 @@ function templateFormat(value,summ) {
 									</td>
 									<td>
 									<select id="select1">
-										<option value="NSTDA" id="select11">สวทช</option>
-										<option value="BIOTEC" id="select12">ศช.</option>
+									<%=select1%>
 									</select>
 
 									</td>
@@ -1473,144 +1799,146 @@ function templateFormat(value,summ) {
 										</tr>
 										<tr>
 												<th  width="60%"><div class="projectHead">Project </div></th>
-												<th  width="40%"><div class="projectHead">Value %</div></th>
+												<th  width="40%"><div class="projectHead">% Remaining vs Plan</div></th>
 										</tr>
 									</thead>
 									</tbody>
 										<tr>
-											<td><div class="projectName">ProjectZ</div></td>
+											<td><div class="projectName"><div class="namePro111"></div></div></td>
 											<td>
 												<div class="projectValue">
 														<div class="percentage">
-														30%
+															<div class="progressPer111">
+																
+															</div>
 														</div>
 														<div class="value">
-															 <div id="progressbar11"></div>
+															 <div id="progressbar111"></div>
 														</div>
 											  </div>
 											</td>
 										</tr>
 										<tr>
-											<td><div class="projectName">ProjectY</td>
+											<td><div class="projectName"><div class="namePro112"></div></td>
 											<td>
 											<div class="projectValue">
 														<div class="percentage">
-														32%
+														<div class="progressPer112"></div>		
 														</div>
 														<div class="value">
-															 <div id="progressbar12"></div>
+															 <div id="progressbar112"></div>
 														</div>
 											  </div>
 
 											  </td>
 										</tr>
 										<tr>
-											<td><div class="projectName">ProjectX</td>
+											<td><div class="projectName"><div class="namePro113"></div></td>
 											<td>
 											<div class="projectValue">
 														<div class="percentage">
-														34%
+														<div class="progressPer113"></div>		
 														</div>
 														<div class="value">
-															 <div id="progressbar13"></div>
+															 <div id="progressbar113"></div>
 														</div>
 											  </div>
 
 											  </td>
 										</tr>
 										<tr>
-											<td><div class="projectName">ProjectW</div></td>
+											<td><div class="projectName"><div class="namePro114"></div></div></td>
 											<td>
 											<div class="projectValue">
 														<div class="percentage">
-														50%
+														<div class="progressPer114"></div>		
 														</div>
 														<div class="value">
-															 <div id="progressbar14"></div>
+															 <div id="progressbar114"></div>
 														</div>
 											  </div>
 
 											  </td>
 										</tr>
 										<tr>
-											<td><div class="projectName">ProjectV</div></td>
+											<td><div class="projectName"><div class="namePro115"></div></div></td>
 											<td>
 											<div class="projectValue">
 														<div class="percentage">
-														55%
+														<div class="progressPer115"></div>	
 														</div>
 														<div class="value">
-															 <div id="progressbar15"></div>
+															 <div id="progressbar115"></div>
 														</div>
 											  </div>
 
 											  </td>
 										</tr>
 										<tr>
-											<td><div class="projectName">ProjectU</div></td>
+											<td><div class="projectName"><div class="namePro116"></div></div></td>
 											<td>
 											<div class="projectValue">
 														<div class="percentage">
-														60%
+														<div class="progressPer116"></div>			
 														</div>
 														<div class="value">
-															 <div id="progressbar16"></div>
+															 <div id="progressbar116"></div>
 														</div>
 											  </div>
 
 											  </td>
 										</tr>
 										<tr>
-											<td><div class="projectName">ProjectT</div></td>
+											<td><div class="projectName"><div class="namePro117"></div></div></td>
 											<td>
 											<div class="projectValue">
 														<div class="percentage">
-														62%
+														<div class="progressPer117"></div>		
 														</div>
 														<div class="value">
-															 <div id="progressbar17"></div>
+															 <div id="progressbar117"></div>
 														</div>
 											  </div>
 
 											  </td>
 										</tr>
 										<tr>
-											<td><div class="projectName">ProjectS</div></td>
+											<td><div class="projectName"><div class="namePro118"></div></div></td>
 											<td>
 											<div class="projectValue">
 														<div class="percentage">
-														68%
+														<div class="progressPer118"></div>									
 														</div>
 														<div class="value">
-															 <div id="progressbar18"></div>
+															 <div id="progressbar118"></div>
 														</div>
 											  </div>
 
 											  </td>
 										</tr>
 										<tr>
-											<td><div class="projectName">ProjectR</div></td>
+											<td><div class="projectName"><div class="namePro119"></div></div></td>
 										<td>
 											<div class="projectValue">
 														<div class="percentage">
-														70%
+														<div class="progressPer119"></div>		
 														</div>
 														<div class="value">
-															 <div id="progressbar19"></div>
+															 <div id="progressbar119"></div>
 														</div>
 											  </div>
 
 											  </td>
 										</tr>
 										<tr>
-											<td><div class="projectName">ProjectQ</div></td>
+											<td><div class="projectName"><div class="namePro1110"></div></div></td>
 											<td>
 											<div class="projectValue">
 														<div class="percentage">
-														80%
+														<div class="progressPer1110"></div>	
 														</div>
 														<div class="value">
-															 <div id="progressbar110"></div>
+															 <div id="progressbar1110"></div>
 														</div>
 											  </div>
 
@@ -1632,145 +1960,146 @@ function templateFormat(value,summ) {
 										</tr>
 										<tr>
 												<th  width="60%"><div class="projectHead">Project </div></th>
-												<th  width="40%"><div class="projectHead">Value %</div></th>
+												<th  width="40%"><div class="projectHead">% Remaining vs Plan</div></th>
 										</tr>
 									</thead>
 									</tbody>
 										<tr>
-											<td><div class="projectName">ProjectA</div></td>
+											<td><div class="projectName"><div class="namePro121"></div></div></td>
 											<td>
 											<div class="projectValue">
 														<div class="percentage">
-														79%
+														<div class="progressPer121">
+														</div>
 														</div>
 														<div class="value">
-															 <div id="progressbar21"></div>
+															 <div id="progressbar121"></div>
 														</div>
 											  </div>
 
 											  </td>
 										</tr>
 										<tr>
-											<td><div class="projectName">ProjectB</td>
+											<td><div class="projectName"><div class="namePro122"></div></td>
 											<td>
 											<div class="projectValue">
 														<div class="percentage">
-														70%
+														<div class="progressPer122"></div>									
 														</div>
 														<div class="value">
-															 <div id="progressbar22"></div>
+															 <div id="progressbar122"></div>
 														</div>
 											  </div>
 
 											  </td>
 										</tr>
 										<tr>
-											<td><div class="projectName">ProjectC</td>
+											<td><div class="projectName"><div class="namePro123"></div></td>
 											<td>
 											<div class="projectValue">
 														<div class="percentage">
-														69%
+														<div class="progressPer123"></div>									
 														</div>
 														<div class="value">
-															 <div id="progressbar23"></div>
+															 <div id="progressbar123"></div>
 														</div>
 											  </div>
 
 											  </td>
 										</tr>
 										<tr>
-											<td><div class="projectName">ProjectD</div></td>
+											<td><div class="projectName"><div class="namePro124"></div></div></td>
 											<td>
 											<div class="projectValue">
 														<div class="percentage">
-														66%
+														<div class="progressPer124"></div>	
 														</div>
 														<div class="value">
-															 <div id="progressbar24"></div>
+															 <div id="progressbar124"></div>
 														</div>
 											  </div>
 
 											  </td>
 										</tr>
 										<tr>
-											<td><div class="projectName">ProjectE</div></td>
+											<td><div class="projectName"><div class="namePro125"></div></div></td>
 											<td>
 											<div class="projectValue">
 														<div class="percentage">
-														50%
+														<div class="progressPer125"></div>
 														</div>
 														<div class="value">
-															 <div id="progressbar25"></div>
+															 <div id="progressbar125"></div>
 														</div>
 											  </div>
 
 											  </td>
 										</tr>
 										<tr>
-											<td><div class="projectName">ProjectF</div></td>
+											<td><div class="projectName"><div class="namePro126"></div></div></td>
 										<td>
 											<div class="projectValue">
 														<div class="percentage">
-														45%
+														<div class="progressPer126"></div>
 														</div>
 														<div class="value">
-															 <div id="progressbar26"></div>
+															 <div id="progressbar126"></div>
 														</div>
 											  </div>
 
 											  </td>
 										</tr>
 										<tr>
-											<td><div class="projectName">ProjectG</div></td>
+											<td><div class="projectName"><div class="namePro127"></div></div></td>
 											<td>
 											<div class="projectValue">
 														<div class="percentage">
-														42%
+														<div class="progressPer127"></div>
 														</div>
 														<div class="value">
-															 <div id="progressbar27"></div>
+															 <div id="progressbar127"></div>
 														</div>
 											  </div>
 
 											  </td>
 										</tr>
 										<tr>
-											<td><div class="projectName">ProjectH</div></td>
+											<td><div class="projectName"><div class="namePro128"></div></div></td>
 										<td>
 											<div class="projectValue">
 														<div class="percentage">
-														39%
+														<div class="progressPer128"></div>
 														</div>
 														<div class="value">
-															 <div id="progressbar28"></div>
+															 <div id="progressbar128"></div>
 														</div>
 											  </div>
 
 											  </td>
 										</tr>
 										<tr>
-											<td><div class="projectName">ProjectI</div></td>
+											<td><div class="projectName"><div class="namePro129"></div></div></td>
 										<td>
 											<div class="projectValue">
 														<div class="percentage">
-														32%
+														<div class="progressPer129"></div>
 														</div>
 														<div class="value">
-															 <div id="progressbar29"></div>
+															 <div id="progressbar129"></div>
 														</div>
 											  </div>
 
 											  </td>
 										</tr>
 										<tr>
-											<td><div class="projectName">ProjectJ</div></td>
+											<td><div class="projectName"><div class="namePro1210"></div></div></td>
 									<td>
 											<div class="projectValue">
 														<div class="percentage">
-														30%
+														<div class="progressPer1210"></div>
 														</div>
 														<div class="value">
-															 <div id="progressbar210"></div>
+															 <div id="progressbar1210"></div>
 														</div>
 											  </div>
 
@@ -1784,10 +2113,10 @@ function templateFormat(value,summ) {
 		</div>
 	</div>
 </div>
-<!-- END -->
+<!-- END=============================================================================================== -->
 		</div>
 		<div id="content2">
-				<!--This is Content 2 html -->
+				<!--This is Content 2 html =========================================================================-->
 
 		<div id="content">
 	<div id="row1">
@@ -1801,8 +2130,7 @@ function templateFormat(value,summ) {
 									</td>
 									<td>
 									<select id="select2"  style="width:300px;">
-										<option value="Food" id="select21">คลัสเตอร์อาหารและการเกษตร</option>
-										<option value="Uranium" id="select22">ยูเรเนียม</option>
+									<%=select2%>
 									</select>
 									</td>
 								</tr>
@@ -1827,6 +2155,330 @@ function templateFormat(value,summ) {
 			</div>
 			<div id="row212">
 				<div class="content">
+									<div id="contentL">
+						
+								<!--<div id="barChart2"></div>
+								<div id="barChart12"></div>-->
+
+								<table width="100%" id="top10Tbl" >
+									<thead>
+										<tr id="h1">
+												<th colspan="2"><div class="projectHead1">Top 10 Project Most Spending </div></th>
+										</tr>
+										<tr>
+												<th  width="60%"><div class="projectHead">Project </div></th>
+												<th  width="40%"><div class="projectHead">% Remaining vs Plan</div></th>
+										</tr>
+									</thead>
+									</tbody>
+										<tr>
+											<td><div class="projectName"><div class="namePro211"></div></div></td>
+											<td>
+												<div class="projectValue">
+														<div class="percentage">
+															<div class="progressPer211">
+																
+															</div>
+														</div>
+														<div class="value">
+															 <div id="progressbar211"></div>
+														</div>
+											  </div>
+											</td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro212"></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer212"></div>		
+														</div>
+														<div class="value">
+															 <div id="progressbar212"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro213"></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer213"></div>		
+														</div>
+														<div class="value">
+															 <div id="progressbar213"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro214"></div></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer214"></div>		
+														</div>
+														<div class="value">
+															 <div id="progressbar214"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro215"></div></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer215"></div>	
+														</div>
+														<div class="value">
+															 <div id="progressbar215"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro216"></div></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer216"></div>			
+														</div>
+														<div class="value">
+															 <div id="progressbar216"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro217"></div></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer217"></div>		
+														</div>
+														<div class="value">
+															 <div id="progressbar217"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro218"></div></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer218"></div>									
+														</div>
+														<div class="value">
+															 <div id="progressbar218"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro219"></div></div></td>
+										<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer219"></div>		
+														</div>
+														<div class="value">
+															 <div id="progressbar219"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro2110"></div></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer2110"></div>	
+														</div>
+														<div class="value">
+															 <div id="progressbar2110"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+									</tbody>
+								</table>
+
+
+						</div>
+						<div id="contentR">
+						
+							<!--	<div id="barChart3"></div>
+								<div id="barChart13"></div>-->
+								<table width="100%" id="top10Tbl" >
+									<thead>
+									<tr id="h1">
+												<th colspan="2"><div class="projectHead1">Top 10 Project Least Spending</div></th>
+										</tr>
+										<tr>
+												<th  width="60%"><div class="projectHead">Project </div></th>
+												<th  width="40%"><div class="projectHead">% Remaining vs Plan</div></th>
+										</tr>
+									</thead>
+									</tbody>
+										<tr>
+											<td><div class="projectName"><div class="namePro221"></div></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer221">
+														</div>
+														</div>
+														<div class="value">
+															 <div id="progressbar221"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro222"></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer222"></div>									
+														</div>
+														<div class="value">
+															 <div id="progressbar222"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro223"></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer223"></div>									
+														</div>
+														<div class="value">
+															 <div id="progressbar223"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro224"></div></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer224"></div>	
+														</div>
+														<div class="value">
+															 <div id="progressbar224"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro225"></div></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer225"></div>
+														</div>
+														<div class="value">
+															 <div id="progressbar225"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro226"></div></div></td>
+										<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer226"></div>
+														</div>
+														<div class="value">
+															 <div id="progressbar226"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro227"></div></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer227"></div>
+														</div>
+														<div class="value">
+															 <div id="progressbar227"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro228"></div></div></td>
+										<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer228"></div>
+														</div>
+														<div class="value">
+															 <div id="progressbar228"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro229"></div></div></td>
+										<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer229"></div>
+														</div>
+														<div class="value">
+															 <div id="progressbar229"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro2210"></div></div></td>
+									<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer2210"></div>
+														</div>
+														<div class="value">
+															 <div id="progressbar2210"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+									</tbody>
+								</table>
+						</div>
+
+
+						<!--
 						<div id="contentL">
 						
 								<div id="barChart22"></div>
@@ -1835,15 +2487,16 @@ function templateFormat(value,summ) {
 						
 								<div id="barChart23"></div>
 						</div>
+						-->
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<!-- END -->
+<!-- END =======================================================================================-->
 		</div>
 		<div id="content3">
-				<!--This is Content 3 html -->
+				<!--This is Content 3 html ==================================================================-->
 		<div id="content">
 	<div id="row1"  style="height:295px;">
 		<div id="column11">
@@ -1866,14 +2519,335 @@ function templateFormat(value,summ) {
 			</div>
 			<div id="row212">
 				<div class="content">
-						<div id="contentL">
+							<div id="contentL">
+						
+								<!--<div id="barChart2"></div>
+								<div id="barChart12"></div>-->
+
+								<table width="100%" id="top10Tbl" >
+									<thead>
+										<tr id="h1">
+												<th colspan="2"><div class="projectHead1">Top 10 Project Most Spending </div></th>
+										</tr>
+										<tr>
+												<th  width="60%"><div class="projectHead">Project </div></th>
+												<th  width="40%"><div class="projectHead">% Remaining vs Plan</div></th>
+										</tr>
+									</thead>
+									</tbody>
+										<tr>
+											<td><div class="projectName"><div class="namePro311"></div></div></td>
+											<td>
+												<div class="projectValue">
+														<div class="percentage">
+															<div class="progressPer311">
+																
+															</div>
+														</div>
+														<div class="value">
+															 <div id="progressbar311"></div>
+														</div>
+											  </div>
+											</td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro312"></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer312"></div>		
+														</div>
+														<div class="value">
+															 <div id="progressbar312"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro313"></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer313"></div>		
+														</div>
+														<div class="value">
+															 <div id="progressbar313"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro314"></div></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer314"></div>		
+														</div>
+														<div class="value">
+															 <div id="progressbar314"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro315"></div></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer315"></div>	
+														</div>
+														<div class="value">
+															 <div id="progressbar315"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro316"></div></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer316"></div>			
+														</div>
+														<div class="value">
+															 <div id="progressbar316"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro317"></div></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer317"></div>		
+														</div>
+														<div class="value">
+															 <div id="progressbar317"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro318"></div></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer318"></div>									
+														</div>
+														<div class="value">
+															 <div id="progressbar318"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro319"></div></div></td>
+										<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer319"></div>		
+														</div>
+														<div class="value">
+															 <div id="progressbar319"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro3110"></div></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer3110"></div>	
+														</div>
+														<div class="value">
+															 <div id="progressbar3110"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+									</tbody>
+								</table>
+
+
+						</div>
+						<div id="contentR">
+						
+							<!--	<div id="barChart3"></div>
+								<div id="barChart13"></div>-->
+								<table width="100%" id="top10Tbl" >
+									<thead>
+									<tr id="h1">
+												<th colspan="2"><div class="projectHead1">Top 10 Project Least Spending</div></th>
+										</tr>
+										<tr>
+												<th  width="60%"><div class="projectHead">Project </div></th>
+												<th  width="40%"><div class="projectHead">% Remaining vs Plan</div></th>
+										</tr>
+									</thead>
+									</tbody>
+										<tr>
+											<td><div class="projectName"><div class="namePro321"></div></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer321">
+														</div>
+														</div>
+														<div class="value">
+															 <div id="progressbar321"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro322"></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer322"></div>									
+														</div>
+														<div class="value">
+															 <div id="progressbar322"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro323"></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer323"></div>									
+														</div>
+														<div class="value">
+															 <div id="progressbar323"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro324"></div></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer324"></div>	
+														</div>
+														<div class="value">
+															 <div id="progressbar324"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro325"></div></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer325"></div>
+														</div>
+														<div class="value">
+															 <div id="progressbar325"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro326"></div></div></td>
+										<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer326"></div>
+														</div>
+														<div class="value">
+															 <div id="progressbar326"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro327"></div></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer327"></div>
+														</div>
+														<div class="value">
+															 <div id="progressbar327"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro328"></div></div></td>
+										<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer328"></div>
+														</div>
+														<div class="value">
+															 <div id="progressbar328"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro329"></div></div></td>
+										<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer329"></div>
+														</div>
+														<div class="value">
+															 <div id="progressbar329"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro3210"></div></div></td>
+									<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer3210"></div>
+														</div>
+														<div class="value">
+															 <div id="progressbar3210"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+									</tbody>
+								</table>
+						</div>
+				<!--		<div id="contentL">
 						
 								<div id="barChart32"></div>
 						</div>
 						<div id="contentR">
 						
 								<div id="barChart33"></div>
-						</div>
+						</div>-->
 				</div>
 			</div>
 		</div>
@@ -1901,7 +2875,328 @@ function templateFormat(value,summ) {
 			</div>
 			<div id="row212">
 				<div class="content">
-						<div id="contentL">
+							<div id="contentL">
+						
+								<!--<div id="barChart2"></div>
+								<div id="barChart12"></div>-->
+
+								<table width="100%" id="top10Tbl" >
+									<thead>
+										<tr id="h1">
+												<th colspan="2"><div class="projectHead1">Top 10 Project Most Spending </div></th>
+										</tr>
+										<tr>
+												<th  width="60%"><div class="projectHead">Project </div></th>
+												<th  width="40%"><div class="projectHead">% Remaining vs Plan</div></th>
+										</tr>
+									</thead>
+									</tbody>
+										<tr>
+											<td><div class="projectName"><div class="namePro411"></div></div></td>
+											<td>
+												<div class="projectValue">
+														<div class="percentage">
+															<div class="progressPer411">
+																
+															</div>
+														</div>
+														<div class="value">
+															 <div id="progressbar411"></div>
+														</div>
+											  </div>
+											</td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro412"></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer412"></div>		
+														</div>
+														<div class="value">
+															 <div id="progressbar412"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro413"></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer413"></div>		
+														</div>
+														<div class="value">
+															 <div id="progressbar413"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro414"></div></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer414"></div>		
+														</div>
+														<div class="value">
+															 <div id="progressbar414"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro415"></div></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer415"></div>	
+														</div>
+														<div class="value">
+															 <div id="progressbar415"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro416"></div></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer416"></div>			
+														</div>
+														<div class="value">
+															 <div id="progressbar416"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro417"></div></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer417"></div>		
+														</div>
+														<div class="value">
+															 <div id="progressbar417"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro418"></div></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer418"></div>									
+														</div>
+														<div class="value">
+															 <div id="progressbar418"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro419"></div></div></td>
+										<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer419"></div>		
+														</div>
+														<div class="value">
+															 <div id="progressbar419"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro4110"></div></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer4110"></div>	
+														</div>
+														<div class="value">
+															 <div id="progressbar4110"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+									</tbody>
+								</table>
+
+
+						</div>
+						<div id="contentR">
+						
+							<!--	<div id="barChart3"></div>
+								<div id="barChart13"></div>-->
+								<table width="100%" id="top10Tbl" >
+									<thead>
+									<tr id="h1">
+												<th colspan="2"><div class="projectHead1">Top 10 Project Least Spending</div></th>
+										</tr>
+										<tr>
+												<th  width="60%"><div class="projectHead">Project </div></th>
+												<th  width="40%"><div class="projectHead">% Remaining vs Plan</div></th>
+										</tr>
+									</thead>
+									</tbody>
+										<tr>
+											<td><div class="projectName"><div class="namePro421"></div></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer421">
+														</div>
+														</div>
+														<div class="value">
+															 <div id="progressbar421"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro422"></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer422"></div>									
+														</div>
+														<div class="value">
+															 <div id="progressbar422"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro423"></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer423"></div>									
+														</div>
+														<div class="value">
+															 <div id="progressbar423"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro424"></div></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer424"></div>	
+														</div>
+														<div class="value">
+															 <div id="progressbar424"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro425"></div></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer425"></div>
+														</div>
+														<div class="value">
+															 <div id="progressbar425"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro426"></div></div></td>
+										<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer426"></div>
+														</div>
+														<div class="value">
+															 <div id="progressbar426"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro427"></div></div></td>
+											<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer427"></div>
+														</div>
+														<div class="value">
+															 <div id="progressbar427"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro428"></div></div></td>
+										<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer428"></div>
+														</div>
+														<div class="value">
+															 <div id="progressbar428"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro429"></div></div></td>
+										<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer429"></div>
+														</div>
+														<div class="value">
+															 <div id="progressbar429"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+										<tr>
+											<td><div class="projectName"><div class="namePro4210"></div></div></td>
+									<td>
+											<div class="projectValue">
+														<div class="percentage">
+														<div class="progressPer4210"></div>
+														</div>
+														<div class="value">
+															 <div id="progressbar4210"></div>
+														</div>
+											  </div>
+
+											  </td>
+										</tr>
+									</tbody>
+								</table>
+						</div>
+				<!--		<div id="contentL">
 						
 								<div id="barChart42"></div>
 						</div>
@@ -1909,7 +3204,7 @@ function templateFormat(value,summ) {
 						
 								<div id="barChart43"></div>
 
-						</div>
+						</div>-->
 				</div>
 			</div>
 		</div>

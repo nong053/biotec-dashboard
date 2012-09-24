@@ -19,63 +19,33 @@ String center=request.getParameter("center");
 //String month = "11";
 //String year = "2012";
 
-/*
-
-Query="CALL sp_emp_by_mission(";
-Query += year +"," + month +");";
+//===================================Start Pie Chart ===========================
+Query="CALL sp_count_io_by_business_area(";
+Query += year +"," + month +",\""+center+"\");";
 rs = st.executeQuery(Query);
-
-String seriesProject1Barchart ="{\"series_center\": [{ \"name\": \"Project\",\"data\": [";
-String categoryProject1Barchart = "{\"category_center\":[";
 int i = 0;
+int totalPie = 0;
+String valuePie ="{\"value_pie\":[";
 
 	while(rs.next()){
-		if(i>0){
-			seriesProject1Barchart += ",";
-			categoryProject1Barchart += ",";
-		}
-		double number = rs.getDouble("number");
-		String Type = rs.getString("type");
-
-		seriesProject1Barchart += Round(number,2);
-		categoryBarchart += "\""+Type+"\"";
-		i++;
-		//{"series_center": [{ "name": "แผน","data": [1881.4,0.0,67.46,0.0]}]},{"category_center":["???????","????????","????????????","???????"]}] 
+	if(i>0){
+			valuePie += ",";
 	}
-seriesProject1Barchart +="]}]}";
-categoryBarchart += "]}";
-
-
-//=========================================End Barchart 2==========================
-
-Query="CALL sp_emp_by_mission(";
-Query += year +"," + month +");";
-rs = st.executeQuery(Query);
-
-String seriesProject2Barchart ="{\"series_center\": [{ \"name\": \"Project\",\"data\": [";
-String categoryProject2Barchart = "{\"category_center\":[";
-i = 0;
-
-	while(rs.next()){
-		if(i>0){
-			seriesProject2Barchart += ",";
-			categoryProject2Barchart += ",";
-		}
-		double number = rs.getDouble("number");
-		String Type = rs.getString("type");
-
-		seriesProject2Barchart += Round(number,2);
-		categoryProject2Barchart += "\""+Type+"\"";
+		String category = rs.getString("name");
+		int count_io = rs.getInt("count_io");
+	
+		valuePie += "{\"category\": \"";
+		valuePie += category;
+		valuePie += "\",";
+		valuePie += "\"value\": ";
+		valuePie += count_io;
+		valuePie += "}";
+		totalPie = totalPie + count_io;
 		i++;
-		//{"series_center": [{ "name": "แผน","data": [1881.4,0.0,67.46,0.0]}]},{"category_center":["???????","????????","????????????","???????"]}] 
-	}
-seriesProject2Barchart +="]}]}";
-categoryProject2Barchart += "]}";
+}
+valuePie += "]}";
 
-out.print("["+seriesProject1Barchart+","+categoryProject1Barchart+","+seriesProject2Barchart+","+categoryProject2Barchart+"]");
+out.print("[{\"totalPie\":"+totalPie+"},"+valuePie+"]");
 
-//=========================================End Barchart 3==========================
-*/
-out.print("[{\"value\":[{\"category\": \"IO ที่ปิดแล้ว \",\"value\": 30 }, { \"category\": \"IO ที่เหลืออยู่\", \"value\": 70}]},{\"sumVal\":\"100\"}]");
 %>
 
