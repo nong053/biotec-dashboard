@@ -1,11 +1,21 @@
-<%@ page contentType="text/html; charset=TIS-620" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 <%@ page import="java.util.*" %>
 <%@ page import="java.util.ArrayList" language="java" %>
 <%@ page language="java" import="net.sf.json.JSONArray" %>
 <%@ page language="java" import="org.json.JSONObject" %>
 <%@ page language="java" import="com.google.gson.Gson" %>
-<% 
+<%@ include file="../config.jsp"%>
+<%
+
+
+if( request.getParameter("year") != null && request.getParameter("month") != null ){
+
+try { 
+//int year = 2012; int month = 12;
+int year = Integer.parseInt(request.getParameter("year"));
+int month = Integer.parseInt(request.getParameter("month"));
+
 java.sql.Connection con;
 java.sql.Statement s;
 java.sql.ResultSet rs;
@@ -16,16 +26,16 @@ s=null;
 pst=null;
 rs=null;
 
-int year = 2012;
-int month = 2;
-
 // Remember to change the next line with your own environment 
 String url="jdbc:mysql://localhost/biotec_dwh";
 String id= "root";
-String pass = "gj1";
+String pass = "password";
+
 try{
-Class.forName("com.mysql.jdbc.Driver").newInstance(); 
-con = java.sql.DriverManager.getConnection(url, id, pass);
+Class.forName(Driver).newInstance();
+con=DriverManager.getConnection(connectionURL,User,Pass);
+//Class.forName("com.mysql.jdbc.Driver").newInstance(); 
+//con = java.sql.DriverManager.getConnection(url, id, pass);
 
 
 }catch(ClassNotFoundException cnfex){
@@ -38,19 +48,6 @@ cnfex.printStackTrace();
 ArrayList IC_Score = new ArrayList();
 ArrayList BSC_Score = new ArrayList();
 ArrayList Emp_Score = new ArrayList();
-
-// json
-JSONObject jsonObject = new JSONObject();
-JSONArray arrayObj=new JSONArray();
-
-///gson
-String[] types = {"street_number","2","1"};
-Hashtable address_components = new Hashtable();
-address_components.put("long_name", 1600);
-address_components.put("short_name", 1600);
-address_components.put("types", types);
-Hashtable results = new Hashtable();
-results.put("address_components", address_components);
 
 // use
 ArrayList category = new ArrayList();
@@ -91,7 +88,7 @@ rs = s.executeQuery(sql);
 	main.put("series",series);
 	ret.add(main);
 }
-catch(Exception e){out.println(e);
+catch(Exception e){out.print(e);
 }
 finally{
 /*if(!con.isClosed()){
@@ -107,7 +104,14 @@ if(con!=null) con.close();
 // (place it in the tomcat/classes directory)
 Gson gson = new Gson();
 String json = gson.toJson(ret);  
-out.print(json);
+out.println(json);
 
+}catch(Exception e){
+	out.print(e);
+}
+
+}else{
+	out.print("Get Parameters is invalid");
+}
 %>
 
