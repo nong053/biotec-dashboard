@@ -543,7 +543,9 @@ var barChartBudget = function(categoryParam,seriesParam){
                         },
                         tooltip: {
                             visible: true,
-                            format: "{0}"
+                            format: "{0}",
+							template: "#= value # ล้านบาท"
+
                         }
                     });
 }
@@ -980,7 +982,7 @@ var barChartFinancial= function(serieParam,categoryParam){
 						}
 					});
 				});
-
+/*
 		$("#form_1").submit(function(){
 					$.ajax({
 						url:'processHR.jsp',
@@ -1013,7 +1015,7 @@ var barChartFinancial= function(serieParam,categoryParam){
 						}
 					});
 				});
-
+*/
 			$("#form_1").submit(function(){
 					$.ajax({
 						url:'processHR.jsp',
@@ -1021,6 +1023,7 @@ var barChartFinancial= function(serieParam,categoryParam){
 						dataType:'json',
 						data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val()},
 						success:function(data2){
+							console.log(data2);
 							//console.log(data2[0]["totalPieHR1"]);
 							//console.log(data2[1]["value_piehr1"]);
 							//console.log(data2[2]["totalPieHR2"]);
@@ -1374,7 +1377,7 @@ return	$(idStr).text();
 																<div id="l"  style="width:40%;">
 																ผลการใช้จ่าย 
 																</div>
-																<div class="r" id="result2" style="width:55%;">
+																<div class="r" id="result2" >
 																
 																</div>
 													
@@ -1442,7 +1445,7 @@ return	$(idStr).text();
 															<table border="0" cellpadding="0" cellspacing="0">
 																<tr>
 																	<td>
-																	<input type="radio"  name="radio1" class="radio1" id ="checkRadio1"checked value=1>
+																	<input type="radio"  name="radio1" class="radio1" id ="checkRadio1"checked value=0>
 																	</td>
 																	<td>
 																	ไม่รวมค่าเสือม
@@ -1450,7 +1453,7 @@ return	$(idStr).text();
 																</tr>
 																<tr>
 																	<td>
-																	<input type="radio"  name="radio1" class="radio1" id ="checkRadio2" value=0>
+																	<input type="radio"  name="radio1" class="radio1" id ="checkRadio2" value=1>
 																	</td>
 																	<td>
 																	รวมค่าเสือม

@@ -41,7 +41,7 @@ String categoryBarRevenue2 = "{\"categorybarrevenue2\":[";
 //String mouseHoverBarRevenue2 = "{\"tooltip_barrevenue2\":";
 	while(rs.next()){
 		if(i==0){
-			String category = rs.getString("bsc_id");
+			String category = rs.getString("bsc_id_list");
 			categoryBarRevenue2 += category;
 		}
 		if(i>0){

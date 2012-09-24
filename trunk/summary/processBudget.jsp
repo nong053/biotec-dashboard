@@ -48,8 +48,8 @@ while(rs.next()){
 			seriesResultBarchart += ",";
 			categoryBarchart += ",";
 	}
-		double Plan = rs.getDouble("mplan");
-		double Result = rs.getDouble("mresult");
+		double Plan = rs.getDouble("plan");
+		double Result = rs.getDouble("result");
 
 		//DecimalFormat priceFormatter = new DecimalFormat("#0.00");
 		//String PlanFormat = priceFormatter.format(Plan);
