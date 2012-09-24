@@ -711,7 +711,7 @@ var barChart1 = function(seriesParam,categoryParam){
                         tooltip: {
                             visible: true,
                            // format: "{0} ล้านบาท",
-							template: "#= addCommas(value)# ล้านบาท"
+							template: "#= addCommas(parseFloat(value).toFixed(2))# ล้านบาท"
                         }, seriesClick:funContent1
 
 		});
@@ -989,7 +989,7 @@ var barChart21 = function(seriesParam,categoryParam){
                         tooltip: {
                             visible: true,
                            // format: "{0} ล้านบาท",
-							template: "#= addCommas(value)# ล้านบาท"
+							template: "#= addCommas(parseFloat(value).toFixed(2))# ล้านบาท"
                         },
 							seriesClick:funContent2
 		});
@@ -1192,7 +1192,7 @@ var barChart31 = function(seriesParam,categoryParam){
                         tooltip: {
                             visible: true,
                            // format: "{0} ล้านบาท",
-							template: "#= addCommas(value)# ล้านบาท"
+							template: "#= addCommas(parseFloat(value).toFixed(2))# ล้านบาท"
                         },
 						seriesClick:funContent3
 		});
@@ -1387,7 +1387,7 @@ var barChart41 = function(seriesParam,categoryParam){
                         tooltip: {
                             visible: true,
                            // format: "{0} ล้านบาท",
-							template: "#= addCommas(value)# ล้านบาท"
+							template: "#= addCommas(parseFloat(value).toFixed(2))# ล้านบาท"
                         },
 						seriesClick:funContent4
 		});
@@ -1550,7 +1550,7 @@ var barChart51 = function(categoryParam,seriesParam){
                         tooltip: {
                             visible: true,
                            // format: "{0} ล้านบาท",
-							template: "#= addCommas(value)# ล้านบาท"
+							template: "#= addCommas(parseFloat(value).toFixed(2))# ล้านบาท"
                         },
 						seriesClick:funContent5
 		});
