@@ -28,6 +28,7 @@ String seriesBarchart ="{\"series1\": [";
 String categoryBarchart = "{\"category1\":[";
 String[] categoryBarchartArr;
 String categoryGetProgressBar ="" ;
+String[] valueBarchartArr;
 String test = "";
 
 int i = 0;
@@ -42,6 +43,7 @@ int j=0;
 		}
 		if(i==0)
 		{
+			// Split Category
 				categoryBarchartArr = spa_list.split(",");
 				categoryGetProgressBar = categoryBarchartArr[0];
 		       for(j=0; j< categoryBarchartArr.length; j++){
