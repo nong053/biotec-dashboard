@@ -119,27 +119,36 @@
 
 		/*------------------- End Set Variable -------------------*/
 
+
 		/*------------------- Parameter Year -------------------*/
-		
+		String Query1 ="";
+		int i = 0;
 		Query="CALL sp_fiscal_year;";
 		rs = st.executeQuery(Query);
-		int i = 0;
+		ResultSet rs1;
+		Statement st1;
+
 		while(rs.next()){
-			if(i==0){
-				V_Year += "<option value=\""+rs.getString("fiscal_year")+"\"  selected='selected'>"+rs.getString("buddhist_era_year")+"</option>";
-				}else{
-				V_Year += "<option value=\""+rs.getString("fiscal_year")+"\">"+rs.getString("buddhist_era_year")+"</option>";
-				
+			Query1  = "SELECT Date_format(SYSDATE(),'%Y') as year_date;";
+			st1 = conn.createStatement();
+			rs1 = st1.executeQuery(Query1);
+			i = 0;
+			while(rs1.next()){
+				String present_year = rs1.getString("year_date");
+				String query_year = rs.getString("fiscal_year");
+				if(query_year.equals(present_year)){
+					V_Year += "<option value=\""+rs.getString("fiscal_year")+"\"  selected='selected'>"+rs.getString("buddhist_era_year")+"</option>";
 				}
-				i++;
+				else{
+					V_Year += "<option value=\""+rs.getString("fiscal_year")+"\">"+rs.getString("buddhist_era_year")+"</option>";
+				}
+			}
+			i++;
 		}
-/*
-		V_Year += "<option value=\"2012\"  selected='selected'>2555</option>";
-		V_Year += "<option value=\"2011\">2554</option>";
-		V_Year += "<option value=\"2010\">2553</option>";
-		V_Year += "<option value=\"2009\">2552</option>";
-		
-		------------------- End Parameter Year -------------------*/
+
+
+
+//		------------------- End Parameter Year -------------------*/
 
 		/*------------------- Parameter Month -------------------*/
 		
@@ -147,29 +156,27 @@
 		rs = st.executeQuery(Query);
 		i = 0;
 		while(rs.next()){
-			if(i==0){
-				V_Month += "<option value=\""+rs.getString("fiscal_month_no")+"\"  selected='selected'>"+rs.getString("calendar_th_month_name")+"</option>";
-			}else{
-				V_Month += "<option value=\""+rs.getString("fiscal_month_no")+"\">"+rs.getString("calendar_th_month_name")+"</option>";
-				
+			 Query1  = "SELECT Date_format(SYSDATE(),'%m') as month_date;";
+			st1 = conn.createStatement();
+			rs1 = st1.executeQuery(Query1);
+			while(rs1.next()){
+				int presentMonth = rs1.getInt("month_date");
+				presentMonth = presentMonth +3 ;
+				if(presentMonth>12){
+					presentMonth=presentMonth-12;
+				}
+				String query_month = rs.getString("fiscal_month_no");
+				String presentMonthStr = presentMonth+"";
+				if(query_month.equals(presentMonthStr)){
+					V_Month += "<option value=\""+rs.getString("fiscal_month_no")+"\"  selected='selected'>"+rs.getString("calendar_th_month_name")+"</option>";	
+				}else{
+					V_Month += "<option value=\""+rs.getString("fiscal_month_no")+"\">"+rs.getString("calendar_th_month_name")+"</option>";	
+				}
 			}
 			i++;
 		}
-		/*
-		V_Month += "<option value=\"10\" selected='selected' >ตุลาคม </option>";
-		V_Month += "<option value=\"11\">พฤศจิกายน </option>";
-		V_Month += "<option value=\"12\">ธันวาคม</option>";
-		V_Month += "<option value=\"1\">มกราคม </option>";
-		V_Month += "<option value=\"2\">กุมภาพันธ์ </option>";
-		V_Month += "<option value=\"3\">มีนาคม </option>";
-		V_Month += "<option value=\"4\">เมษายน </option>";
-		V_Month += "<option value=\"5\">พฤษภาคม </option>";
-		V_Month += "<option value=\"6\">มิถุนายน </option>";
-		V_Month += "<option value=\"7\">กรกฎาคม </option>";
-		V_Month += "<option value=\"8\">สิงหาคม </option>";
-		V_Month += "<option value=\"9\">กันยายน </option>";
 
-		------------------- End Parameter Month -------------------*/
+		//------------------- End Parameter Month -------------------*/
 
 
 		/*------------------- End Organization Parameter -------------------*/
@@ -406,8 +413,8 @@
 
 								  $(".ball").hover(function(ex){
 									  //alert("test");
-								     var $BX =  ex.pageX-60;
-									 var $BY = ex.pageY-60;
+								     var $BX =  ex.pageX;
+									 var $BY = ex.pageY;
 									 var Bpos = ex.target.id;
 									 var $classB = ".commentball#"+Bpos;
 					//				 									console.log($BX);
@@ -487,8 +494,8 @@
 
 							  $(".ball").hover(function(ex){
 									  //alert("test");
-								     var $BX =  ex.pageX-60;
-									 var $BY = ex.pageY-60;
+								     var $BX =  ex.pageX;
+									 var $BY = ex.pageY;
 									 var Bpos = ex.target.id;
 									 var $classB = ".commentball#"+Bpos;
 									$($classB).css({"left":$BX+"px","top":$BY+"px"}).fadeIn();
@@ -561,8 +568,8 @@
 								 });
 							  $(".ball").hover(function(ex){
 									  //alert("test");
-								     var $BX =  ex.pageX-60;
-									 var $BY = ex.pageY-60;
+								     var $BX =  ex.pageX;
+									 var $BY = ex.pageY;
 									 var Bpos = ex.target.id;
 									 var $classB = ".commentball#"+Bpos;
 									$($classB).css({"left":$BX+"px","top":$BY+"px"}).fadeIn();
@@ -627,8 +634,8 @@
 								 });
 							  $(".ball").hover(function(ex){
 									  //alert("test");
-								     var $BX =  ex.pageX-60;
-									 var $BY = ex.pageY-60;
+								     var $BX =  ex.page;
+									 var $BY = ex.pageY;
 									 var Bpos = ex.target.id;
 									 var $classB = ".commentball#"+Bpos;
 									$($classB).css({"left":$BX+"px","top":$BY+"px"}).fadeIn();
@@ -690,8 +697,8 @@
 								 });
 							  $(".ball").hover(function(ex){
 									  //alert("test");
-								     var $BX =  ex.pageX-60;
-									 var $BY = ex.pageY-60;
+								     var $BX =  ex.pageX;
+									 var $BY = ex.pageY;
 									 var Bpos = ex.target.id;
 									 var $classB = ".commentball#"+Bpos;
 									$($classB).css({"left":$BX+"px","top":$BY+"px"}).fadeIn();
@@ -755,8 +762,8 @@
 								 });
 							  $(".ball").hover(function(ex){
 									  //alert("test");
-								     var $BX =  ex.pageX-60;
-									 var $BY = ex.pageY-60;
+								     var $BX =  ex.pageX;
+									 var $BY = ex.pageY;
 									 var Bpos = ex.target.id;
 									 var $classB = ".commentball#"+Bpos;
 									$($classB).css({"left":$BX+"px","top":$BY+"px"}).fadeIn();
@@ -820,8 +827,8 @@
 								 });
 							  $(".ball").hover(function(ex){
 									  //alert("test");
-								     var $BX =  ex.pageX-60;
-									 var $BY = ex.pageY-60;
+								     var $BX =  ex.pageX;
+									 var $BY = ex.pageY;
 									 var Bpos = ex.target.id;
 									 var $classB = ".commentball#"+Bpos;
 									$($classB).css({"left":$BX+"px","top":$BY+"px"}).fadeIn();
@@ -885,8 +892,8 @@
 								 });
 							  $(".ball").hover(function(ex){
 									  //alert("test");
-								     var $BX =  ex.pageX-60;
-									 var $BY = ex.pageY-60;
+								     var $BX =  ex.pageX;
+									 var $BY = ex.pageY;
 									 var Bpos = ex.target.id;
 									 var $classB = ".commentball#"+Bpos;
 									$($classB).css({"left":$BX+"px","top":$BY+"px"}).fadeIn();
@@ -940,7 +947,7 @@
 							$("#tab6").append(data);
 							/*### Manage Tootip Start###*/
 							 $(".kpiN").hover(function(e){
-								     var $X =  e.pageX;
+								     var $X =  e.pageX-200;
 									 var $Y = e.pageY;
 									 var $pos = e.target.id;
 									 var classT = ".tootip#"+$pos;
@@ -951,8 +958,8 @@
 								 });
 							  $(".ball").hover(function(ex){
 									  //alert("test");
-								     var $BX =  ex.pageX-60;
-									 var $BY = ex.pageY-60;
+								     var $BX =  ex.pageX;
+									 var $BY = ex.pageY;
 									 var Bpos = ex.target.id;
 									 var $classB = ".commentball#"+Bpos;
 									$($classB).css({"left":$BX+"px","top":$BY+"px"}).fadeIn();
@@ -1019,7 +1026,7 @@
 	
 	</div>
 	<!--------------------------- Details Start--------------------------->
-<div id="tooltip"></div>
+
 
 	<div id="content">
 			
@@ -1055,31 +1062,22 @@
 				
 				</ul>
 				<div id="tab1">
-				content01 ...
 				</div>
 				<div id="tab1_1">
-				content011 ...
 				</div>
 				<div id="tab1_2">
-				content012 ...
 				</div>
 				<div id="tab1_3">
-				content013 ...
 				</div>
 				<div id="tab2">
-				content02 ...
 				</div>
 				<div id="tab3">
-				content03 ...
 				</div>
 				<div id="tab4">
-				content04 ...
 				</div>
 				<div id="tab5">
-				content05 ...
 				</div>
 				<div id="tab6">
-				content06...
 				</div>
 			</div>
 

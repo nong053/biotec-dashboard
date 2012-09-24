@@ -6,17 +6,17 @@
     {
 		String ballScoll = "";
                if(position==1){
-                       ballScoll+="<div id="+id+"  class=ball style=background-color:"+color+"></div>";
+                       ballScoll+="<div id=visualball style='margin-left:13px;margin-top:10px'><div id="+id+"  class=ball style=background-color:"+color+"></div>";
                        ballScoll+="<div id="+id+"  class=ball style=background-color:#cccccc></div>";
-                       ballScoll+="<div id="+id+"  class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id="+id+"  class=ball style=background-color:#cccccc></div></div>";
                }else if(position==2){
-                       ballScoll+="<div id="+id+"  class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id=visualball style='margin-left:13px;margin-top:10px'><div id="+id+"  class=ball style=background-color:#cccccc></div>";
                        ballScoll+="<div id="+id+"  class=ball style=background-color:"+color+"></div>";
-                       ballScoll+="<div id="+id+"  class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id="+id+"  class=ball style=background-color:#cccccc></div></div>";
                }else if(position==3){
-                       ballScoll+="<div id="+id+"  class=ball style=background-color:#cccccc></div>";
+                       ballScoll+="<div id=visualball style='margin-left:13px;margin-top:10px'><div id="+id+"  class=ball style=background-color:#cccccc></div>";
                        ballScoll+="<div id="+id+"   class=ball style=background-color:#cccccc></div>";
-                       ballScoll+="<div id="+id+"   class=ball style=background-color:"+color+"></div>";
+                       ballScoll+="<div id="+id+"   class=ball style=background-color:"+color+"></div></div>";
                }
       return ballScoll;
     }
@@ -41,6 +41,7 @@ Query="CALL sp_parent_kpi_list(";
 Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
 rs = st.executeQuery(Query);
 String tableFun = "[";
+String tootipBody = "";
 int i=0;
 
 while(rs.next()){
@@ -52,6 +53,7 @@ while(rs.next()){
 	tableFun += "{Field2: \"";
 	tableFun += "<div class =kpiN id="+i+">"+kpi_code+"</div>"+kpi;
 	out.print("<div class=tootip id="+i+"><b>"+rs.getString("kpi_comment")+"</b></div>");
+	//tootipBody+="<div class=tootip id="+i+"><b>"+rs.getString("kpi_comment")+"</b></div>";
 
 	//=============Get Url with Details Button Start============
 	String urlpage = rs.getString("url");
@@ -253,7 +255,7 @@ tableFun += "]";
 			width:200px;
 			height:auto;
 			position:absolute;
-			z-index:10;
+			z-index:1000;
 			background:white;
 			display:none;
 			border-radius:5px;
@@ -366,6 +368,8 @@ tableFun += "]";
 				  width: 80
 			 }];
 
+	//var $tootipbody = "<%=tootipBody%>";
+	//$(".commentKPI").append($tootipbody);
 
 	var $dataJ = <%=tableFun%>;
 
@@ -715,7 +719,7 @@ $(".ball").corner();
 			out.print(rs.getString("comment")); 
 	}
 %>
-
+<!--<div class="commentKPI"></div>
 <br style="clear:both">
 
 
