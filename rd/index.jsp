@@ -415,10 +415,7 @@ function checkBarTypeDivision(e){
 				console.log(data[12]["category_by_department"]);
 				console.log(data[13]["series_by_department"]);
 */
-				
 
-				
-				
 				baChart_sp_ic_score_by_department(data[12]["category_by_department"],data[13]["series_by_department"]);
 				pieChart_sp_ic_score_by_job_family(data[4]["pie_sp_ic_score"],data[5]["sum_pie_sp_ic_score"]);
 				stackChart_sp_ic_score_by_output_type(data[6]["category_by_output_type"],data[7]["series_by_output_type"]);
