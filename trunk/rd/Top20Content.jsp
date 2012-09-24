@@ -27,9 +27,9 @@ pst=null;
 rs=null;
 
 // Remember to change the next line with your own environment 
-String url="jdbc:mysql://localhost/biotec_dwh";
-String id= "root";
-String pass = "password";
+//String url="jdbc:mysql://localhost/biotec_dwh";
+//String id= "root";
+//String pass = "password";
 
 try{
 Class.forName(Driver).newInstance();
