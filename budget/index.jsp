@@ -294,8 +294,12 @@ function addCommas(nStr)
 					for(var i=0;i<lengthProgressBar1;i++){
 						callProgressbar(progressbarID2[i],parseFloat(data[dataValueID2[i]]["value"]).toFixed(2),data[dataNameID2[i]]["name"]);
 					}
-*/
-				
+*/								
+				$("#contentL .projectHead1").empty();
+				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
+				$("#contentR .projectHead1").empty();
+				$("#contentR .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
+
 					callProgressbar("111",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
 					callProgressbar("112",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
 					callProgressbar("113",parseFloat(data[6]["value"]).toFixed(2),data[7]["name"]);
@@ -340,6 +344,11 @@ function addCommas(nStr)
 					barChart21(serie1,category1);
 
 					colorSufferRow();
+									$("#contentL .projectHead1").empty();
+				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
+				$("#contentR .projectHead1").empty();
+				$("#contentR .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
+
 					callProgressbar("211",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
 					callProgressbar("212",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
 					callProgressbar("213",parseFloat(data[6]["value"]).toFixed(2),data[7]["name"]);
@@ -420,7 +429,11 @@ function addCommas(nStr)
 					callProgressbar(progressbarID2[i],parseFloat(data[dataValueID2[i]]["value"]).toFixed(2),data[dataNameID2[i]]["name"]);
 				}
 				*/
-				
+				$("#contentL .projectHead1").empty();
+				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
+				$("#contentR .projectHead1").empty();
+				$("#contentR .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
+
 				callProgressbar("111",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
 				callProgressbar("112",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
 				callProgressbar("113",parseFloat(data[6]["value"]).toFixed(2),data[7]["name"]);
@@ -477,6 +490,11 @@ function addCommas(nStr)
 					barChart21(serie1,category1);		
 					colorSufferRow();
 					console.log(data);
+				$("#contentL .projectHead1").empty();
+				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
+				$("#contentR .projectHead1").empty();
+				$("#contentR .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
+
 					callProgressbar("211",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
 					callProgressbar("212",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
 					callProgressbar("213",parseFloat(data[6]["value"]).toFixed(2),data[7]["name"]);
@@ -529,6 +547,11 @@ function addCommas(nStr)
 					barChart31(serie1,category1);
 					colorSufferRow();
 					console.log(data);
+									$("#contentL .projectHead1").empty();
+				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
+				$("#contentR .projectHead1").empty();
+				$("#contentR .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
+
 					callProgressbar("311",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
 					callProgressbar("312",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
 					callProgressbar("313",parseFloat(data[6]["value"]).toFixed(2),data[7]["name"]);
@@ -582,6 +605,11 @@ function addCommas(nStr)
 					barChart41(serie1,category1);
 					colorSufferRow();
 					console.log(data);
+									$("#contentL .projectHead1").empty();
+				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
+				$("#contentR .projectHead1").empty();
+				$("#contentR .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
+
 					callProgressbar("411",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
 					callProgressbar("412",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
 					callProgressbar("413",parseFloat(data[6]["value"]).toFixed(2),data[7]["name"]);
@@ -635,7 +663,9 @@ function addCommas(nStr)
 
 				var value = data[3]["value_pie"];
 				var sum = data[2]["totalPie"];
-				pieChart52(value,sum);
+			    var value_center = data[4]["active_category"];
+				//console.log(data[4]["active_category"]);
+				pieChart52(value,sum,value_center);
 				
 				});
 			
@@ -753,7 +783,12 @@ var barChart1 = function(seriesParam,categoryParam){
 					callProgressbar(progressbarID2[i],parseFloat(data[dataValueID2[i]]["value"]).toFixed(2),data[dataNameID2[i]]["name"]);
 				}
 */
-				
+				console.log(data);
+				$("#contentL .projectHead1").empty();
+				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+category);
+				$("#contentR .projectHead1").empty();
+				$("#contentR .projectHead1").append("Top 10 Project Most Spending of "+category);
+
 				callProgressbar("111",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
 				callProgressbar("112",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
 				callProgressbar("113",parseFloat(data[6]["value"]).toFixed(2),data[7]["name"]);
@@ -1012,6 +1047,11 @@ var barChart21 = function(seriesParam,categoryParam){
 
 				success:function(data){
 					colorSufferRow();
+									$("#contentL .projectHead1").empty();
+				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+category);
+				$("#contentR .projectHead1").empty();
+				$("#contentR .projectHead1").append("Top 10 Project Most Spending of "+category);
+
 					try{
 					callProgressbar("211",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
 					callProgressbar("212",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
@@ -1217,6 +1257,11 @@ function funContent3(e){
 
 				colorSufferRow();
 					console.log(data);
+				$("#contentL .projectHead1").empty();
+				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+center);
+				$("#contentR .projectHead1").empty();
+				$("#contentR .projectHead1").append("Top 10 Project Most Spending of "+center);
+
 					callProgressbar("311",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
 					callProgressbar("312",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
 					callProgressbar("313",parseFloat(data[6]["value"]).toFixed(2),data[7]["name"]);
@@ -1409,6 +1454,11 @@ function funContent4(e){
 
 				success:function(data){
 					colorSufferRow();
+									$("#contentL .projectHead1").empty();
+				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+center);
+				$("#contentR .projectHead1").empty();
+				$("#contentR .projectHead1").append("Top 10 Project Most Spending of "+center);
+
 					callProgressbar("411",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
 					callProgressbar("412",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
 					callProgressbar("413",parseFloat(data[6]["value"]).toFixed(2),data[7]["name"]);
@@ -1574,18 +1624,20 @@ var barChart51 = function(categoryParam,seriesParam){
 				success:function(data){
 					var sum = data[0]["totalPie"];
 					var value = data[1]["value_pie"];
-					pieChart52(value,sum);
+					//console.log(center);
+					pieChart52(value,sum,center);
 					}
 			});
 }
 
 	  /*### barChart52Start###*/
 
-var pieChart52 = function(valueParam,sumParam){
+var pieChart52 = function(valueParam,sumParam,center){
+	var textIO = "สัดส่วนจำนวน IO ของ "+center;
 			$("#pieChart52").kendoChart({
 					theme:$(document).data("kendoSkin") || "metro",
 					title: {
-                            text: "สัดส่วนจำนวน IO",font:"14px Tahoma"
+                            text: textIO,font:"14px Tahoma"
                         },
 					
                         legend: {
@@ -1807,7 +1859,7 @@ function templateFormat(value,summ) {
 								<table width="100%" id="top10Tbl" >
 									<thead>
 										<tr id="h1">
-												<th colspan="2"><div class="projectHead1">Top 10 Project Most Spending </div></th>
+												<th colspan="2"><div class="projectHead1">Top 10 Project Most Spending of </div></th>
 										</tr>
 										<tr>
 												<th  width="60%"><div class="projectHead">Project </div></th>
@@ -1963,7 +2015,9 @@ function templateFormat(value,summ) {
 						</div>
 						<div id="contentR">
 						
-							<!--	<div id="barChart3"></div>
+							<!-- #contentL .projectHead1
+							#contentR .projectHead1
+							<div id="barChart3"></div>
 								<div id="barChart13"></div>-->
 								<table width="100%" id="top10Tbl" >
 									<thead>
@@ -2175,7 +2229,7 @@ function templateFormat(value,summ) {
 								<table width="100%" id="top10Tbl" >
 									<thead>
 										<tr id="h1">
-												<th colspan="2"><div class="projectHead1">Top 10 Project Most Spending </div></th>
+												<th colspan="2"><div class="projectHead1">Top 10 Project Most Spending of </div></th>
 										</tr>
 										<tr>
 												<th  width="60%"><div class="projectHead">Project </div></th>
@@ -2539,7 +2593,7 @@ function templateFormat(value,summ) {
 								<table width="100%" id="top10Tbl" >
 									<thead>
 										<tr id="h1">
-												<th colspan="2"><div class="projectHead1">Top 10 Project Most Spending </div></th>
+												<th colspan="2"><div class="projectHead1">Top 10 Project Most Spending of </div></th>
 										</tr>
 										<tr>
 												<th  width="60%"><div class="projectHead">Project </div></th>
@@ -2895,7 +2949,7 @@ function templateFormat(value,summ) {
 								<table width="100%" id="top10Tbl" >
 									<thead>
 										<tr id="h1">
-												<th colspan="2"><div class="projectHead1">Top 10 Project Most Spending </div></th>
+												<th colspan="2"><div class="projectHead1">Top 10 Project Most Spending of </div></th>
 										</tr>
 										<tr>
 												<th  width="60%"><div class="projectHead">Project </div></th>

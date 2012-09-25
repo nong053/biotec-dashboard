@@ -18,7 +18,7 @@ String pg_code = request.getParameter("pg_code");
 
 //String month = "11";
 //String year = "2012";
-//String pg_code ="ALL";
+//String pg_code ="1";
 
 Query="CALL sp_budget_project_program_group(";
 Query += year +"," + month +",\""+pg_code+"\");";
@@ -69,8 +69,10 @@ int j=0;
 /////////====================================END Barchart1======================
 
 //===================== Get Progress Bar 1===========================================
-
-
+//if(pg_code.equals("ALL")){
+	categoryGetProgressBar ="ALL";
+//	out.print(categoryGetProgressBar);
+//}
 Query="CALL sp_budget_project_program_group_most_spending(";
 Query += year +"," + month +",\""+pg_code+"\",\""+categoryGetProgressBar+"\");";
 rs = st.executeQuery(Query);
@@ -93,7 +95,11 @@ while(rs.next()){
 if(i<10)
 {
 	for(;i<10;i++){
+		if(i==0){
+			progressBar1 += "{\"value\": 0},{\"name\":\"No data\"}";
+		}else{
 		progressBar1 += ",{\"value\": 0},{\"name\":\"No data\"}";
+		}	
 	}
 }
 //out.print(progressBar1+"<br>");
@@ -102,7 +108,7 @@ if(i<10)
 
 //===================== Get Progress Bar 2===========================================
 
-Query="CALL sp_budget_project_cluster_least_spending(";
+Query="CALL sp_budget_project_program_group_least_spending(";
 Query += year +"," + month +",\""+pg_code+"\",\""+categoryGetProgressBar+"\");";
 rs = st.executeQuery(Query);
 String progressBar2 = "";
@@ -123,14 +129,18 @@ while(rs.next()){
 if(i<10)
 {
 	for(;i<10;i++){
+		if(i==0){
+			progressBar2 += "{\"value\": 0},{\"name\":\"No data\"}";
+		}else{
 		progressBar2 += ",{\"value\": 0},{\"name\":\"No data\"}";
+		}	
 	}
 }
 
 //out.println(lengthProgressBar1);
 //out.println(lengthProgressBar2);
 //out.print("["+seriesBarchart+","+categoryBarchart+",{\"lengthProgressBar1\":"+lengthProgressBar1+"}"+",{\"lengthProgressBar2\":"+lengthProgressBar2+"},"+progressBar1+","+progressBar2+"]");
-out.print("["+seriesBarchart+","+categoryBarchart+","+progressBar1+","+progressBar2+"]");
+out.print("["+seriesBarchart+","+categoryBarchart+","+progressBar1+","+progressBar2+",{\"active_category\":\""+categoryGetProgressBar+"\"}]");
 
 // ========================End Get Progress Bar 2================================
 %>

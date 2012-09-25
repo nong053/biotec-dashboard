@@ -67,7 +67,7 @@ Query="CALL sp_count_io_by_business_area(";
 Query += year +"," + month +",\""+categoryGetPieBar+"\");";
 rs = st.executeQuery(Query);
 i = 0;
-int totalPie = 0;
+float totalPie = 0;
 String valuePie ="{\"value_pie\":[";
 
 	while(rs.next()){
@@ -75,7 +75,7 @@ String valuePie ="{\"value_pie\":[";
 			valuePie += ",";
 	}
 		String category = rs.getString("name");
-		int count_io = rs.getInt("count_io");
+		float count_io = rs.getInt("count_io");
 	
 		valuePie += "{\"category\": \"";
 		valuePie += category;
@@ -88,7 +88,7 @@ String valuePie ="{\"value_pie\":[";
 }
 valuePie += "]}";
 
-out.print("["+seriesBarchart+","+categoryBarchart+",{\"totalPie\":"+totalPie+"},"+valuePie+"]");
+out.print("["+seriesBarchart+","+categoryBarchart+",{\"totalPie\":"+totalPie+"},"+valuePie+",{\"active_category\":\""+categoryGetPieBar+"\"}]");
 /*
 //[{"series_center": [{ "name": "แผน","data": [1881.4,0.0,67.46,0.0]},{ "name": "ผล","data": [1341.58,0.0,184.98,0.0]}]},{"category_center":["???????","????????","????????????","???????"]}]
 out.print("[ {\"serieChart\":[{ \"name\": \"แผน\",	\"data\": [270,90,100,80,110,30] } , { \"name\": \"ผูกพัน\",\"data\": [90,30,30,40,30,10] } , {\"name\": \"เบิกจ่าย\",       \"data\": [70,40,30,40,30,10]}]},{\"category\":[ \"สก.\",\"ศช.\",\"ศว.\",\"ศอ.\",\"ศจ.\",\"ศน.\"]},{\"value\":[{\"category\": \"IO ที่ปิดแล้ว \",\"value\": 30 }, { \"category\": \"IO ที่เหลืออยู่\", \"value\": 70}]},{\"sumVal\":\"100\"}]");*/

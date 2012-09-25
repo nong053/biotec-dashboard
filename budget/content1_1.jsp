@@ -45,8 +45,12 @@ while(rs.next()){
 }
 if(i<10)
 {
-	for(;i<10;i++){
+	for(;i<10;i++){	
+		if(i==0){
+			progressBar1 += "{\"value\": 0},{\"name\":\"No data\"}";
+		}else{
 		progressBar1 += ",{\"value\": 0},{\"name\":\"No data\"}";
+		}	
 	}
 }
 //if(i<10){
@@ -58,7 +62,7 @@ if(i<10)
 
 //===================== Get Progress Bar 2===========================================
 
-Query="CALL sp_budget_project_cluster_least_spending(";
+Query="CALL sp_budget_project_program_group_least_spending(";
 Query += year +"," + month +",\""+pg_code+"\",\""+spa+"\");";
 rs = st.executeQuery(Query);
 String progressBar2 = "";
@@ -79,7 +83,11 @@ while(rs.next()){
 if(i<10)
 {
 	for(;i<10;i++){
+		if(i==0){
+			progressBar2 += "{\"value\": 0},{\"name\":\"No data\"}";
+		}else{
 		progressBar2 += ",{\"value\": 0},{\"name\":\"No data\"}";
+		}
 	}
 }
 //out.print("[{\"temp\":3},{\"temp\":3}"+",{\"lengthProgressBar1\":"+lengthProgressBar1+"}"+",{\"lengthProgressBar2\":"+lengthProgressBar2+"},"+progressBar1+","+progressBar2+"]");

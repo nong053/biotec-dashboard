@@ -125,7 +125,7 @@ if(i<10)
 	}
 }
 
-out.print("["+seriesBarchart+","+categoryBarchart+","+progressBar1+","+progressBar2+"]");
+out.print("["+seriesBarchart+","+categoryBarchart+","+progressBar1+","+progressBar2+",{\"active_category\":\""+categoryGetProgressBar+"\"}]");
 
 // ========================End Get Progress Bar 2================================
 %>
