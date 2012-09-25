@@ -63,6 +63,7 @@ int j=0;
 	//out.print(seriesBarchart+categoryBarchart);
 //=======================================End BarChart ============
 //===================================Start Pie Chart ===========================
+categoryGetPieBar = "ALL";
 Query="CALL sp_count_io_by_business_area(";
 Query += year +"," + month +",\""+categoryGetPieBar+"\");";
 rs = st.executeQuery(Query);

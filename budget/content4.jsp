@@ -67,7 +67,7 @@ int j=0;
 
 //===================== Get Progress Bar 1===========================================
 
-
+categoryGetProgressBar = "ALL";
 Query="CALL sp_budget_cost_center_business_area_most_spending(";
 Query += year +"," + month +",\""+categoryGetProgressBar+"\");";
 rs = st.executeQuery(Query);
