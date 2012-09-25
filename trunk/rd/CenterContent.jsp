@@ -221,9 +221,9 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 		series_sp_ic_score_by_output_type+="[";
 		while(rs.next()){
 			if(i==0){
-				categoryAxis_sp_ic_score_by_output_type=rs.getString("output_list");
+				categoryAxis_sp_ic_score_by_output_type=rs.getString("group_list");
 				categoryAxis_sp_ic_score_by_output_type_array=categoryAxis_sp_ic_score_by_output_type.split(",");
-				series_sp_ic_score_by_output_type+="{\"name\":"+"\""+rs.getString("status_group")+"\","+"\"data\":["+rs.getString("value_list")+"]}";
+				series_sp_ic_score_by_output_type+="{\"name\":"+"\""+rs.getString("output")+"\","+"\"data\":["+rs.getString("value_list")+"]}";
 				for(int j=0; j< categoryAxis_sp_ic_score_by_output_type_array.length; j++){
 					if(j==0){
 					categoryAxis_sp_ic_score_by_output_type_using+="\""+categoryAxis_sp_ic_score_by_output_type_array[j]+"\"";
@@ -232,7 +232,7 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 					}//if
 				}//for
 			}else{//if
-			series_sp_ic_score_by_output_type+=",{\"name\":"+"\""+rs.getString("status_group")+"\","+"\"data\":["+rs.getString("value_list")+"]}";
+			series_sp_ic_score_by_output_type+=",{\"name\":"+"\""+rs.getString("output")+"\","+"\"data\":["+rs.getString("value_list")+"]}";
 			}
 		i++;
 		}//while
