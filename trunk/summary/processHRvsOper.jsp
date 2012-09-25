@@ -13,7 +13,7 @@ Query="CALL sp_personnel_expense_vs_operating_expense(";
 Query += year +"," + month +","+flag+");";
 rs = st.executeQuery(Query);
 int i = 0;
-int totalPieHR3 = 0;
+float totalPieHR3 = 0;
 String valuePieHR3 ="{\"value_piehr3\":[";
 
 	while(rs.next()){
@@ -21,7 +21,7 @@ String valuePieHR3 ="{\"value_piehr3\":[";
 			valuePieHR3 += ",";
 	}
 		String typeName = rs.getString("typename");
-		int expense = rs.getInt("expense");
+		float expense = rs.getFloat("expense");
 	
 		valuePieHR3 += "{\"category\": \"";
 		valuePieHR3 += typeName;
