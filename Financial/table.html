@@ -168,8 +168,12 @@ font-size:16px;
 	//manage leve in table
 
 		$("table#finance_tb1 thead tr  th").css({"background":"#99ccff  ","padding-left":"5px","padding-right":"5px","color":"black","padding":"2px"});
-		$("table#finance_tb1 thead tr  th .level1").css({"text-align":"left"});
-		$("table#finance_tb1 thead tr  th .level1").parent().nextAll().css({"text-align":"right"});
+		
+		//Set level1
+		$("table#finance_tb1 tbody tr  td .level1").css({"text-align":"left"});
+		$("table#finance_tb1 tbody tr  td .level1").parent().nextAll().andSelf().css({"text-align":"right","background":"#99ccff ","font-weight":"bold"});
+		//Set level1
+
 		$("table#finance_tb1 thead tr:eq(0) th").css({"background":"#008EC3 ","padding-left":"5px","padding-right":"5px","color":"white","padding":"2px"});
 		$("table#finance_tb1 thead tr:eq(1) th").css({"background":"#008EC3 ","padding-left":"5px","padding-right":"5px","color":"white","padding":"2px"});
 		$(".level2").css({"font-weight":"bold","padding-left":"10px"});
@@ -199,6 +203,7 @@ font-size:16px;
 		}
 		});
 */
+
 	//#######################Graph Program Start#######################01
 	
 var lineChart1 = function(){
@@ -560,25 +565,19 @@ function onSeriesClick1(e) {
 		/*### jQuery Request Ghaph End ###*/
 	pieChart1();
 	});
-
 </script>
 <!--### jQuery Manage Table Start ###-->
-
-
 <div id="mainContent">
 	<div id="row1">
 			<div id="column1">
 			<div id="titleTop" style="text-align:right"> หน่วย : ล้านบาท</div>
-			<table id="finance_tb1"  width="700" cellpadding="1px" cellspacing="1px"  >
+
+<table id="finance_tb1"  width="700" cellpadding="1px" cellspacing="1px"  >
 	<thead>
 		<tr >
 			<th width="200">รายการ</th>
 			<th colspan="3">ปีนี้</th>
-			
-			
-			
 			<th>ปีที่แล้ว</th>
-	
 		</tr>
 		<tr>
 			<th width="200" ></th>
@@ -589,17 +588,16 @@ function onSeriesClick1(e) {
 			<th>ต.ค. 54</th>
 	
 		</tr>
-		<tr>
-			<th ><div class="level1" id="eventPie1">สินทรัพย์</div></th>
-			<th>9,760.12</th>
-			<th>9,952.78</th>
-			
-			<th>-1.94%</th>
-			<th>9,650.12</th>
-
-		</tr>
+		
 	</thead>
 	<tbody>
+		<tr>
+			<td ><div class="level1" id="eventPie1">สินทรัพย์</div></td>
+			<td>9,760.12</td>
+			<td>9,952.78</td>
+			<td>-1.94%</td>
+			<td>9,650.12</td>
+		</tr>
 		<tr>
 			<td><div class="level2">สินทรัพย์หมุนเวียน</div></td>
 			<td>	2694.79</td>
@@ -720,15 +718,14 @@ function onSeriesClick1(e) {
 		</tr>
 	</tbody>
 
-<thead>
+
 		
 		<tr>
-			<th ><div class="level1" id="eventPie2" >หนี้สินและส่วนของกองทุน</div></th>
-			<th>9,760.12</th>
-			<th>9,952.78</th>
-			
-			<th>-1.94%</th>
-			<th>9,650.12</th>
+			<td ><div class="level1" id="eventPie2" >หนี้สินและส่วนของกองทุน</div></td>
+			<td>9,760.12</td>
+			<td>9,952.78</td>
+			<td>-1.94%</td>
+			<td>9,650.12</td>
 		
 		</tr>
 	</thead>

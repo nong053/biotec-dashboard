@@ -3,6 +3,7 @@
 <%@page import="java.sql.*" %> 
 <%@page import="java.io.*" %> 
 <%@page import="java.lang.*"%> 
+<%@ include file="../config.jsp"%>
 <html>
     <head>
         <title>Finance Dashboard</title>
@@ -22,6 +23,8 @@
 		  <script src="../js/kendo.dataviz.min.js"></script>
 	<!--	<script type="text/javascript" src="../jqueryUI/js/jquery-ui-1.8.20.custom.min.js"></script>-->
 		<script type="text/javascript" src="../jqueryUI/js/jquery-ui-1.8.21.custom.min.js"></script>
+		
+
 	
 	
 	  
@@ -89,18 +92,7 @@
 
 
 	<%
-		/*------------------- Set Connection -------------------*/
-//Define Connection
-String connectionURL="jdbc:mysql://localhost/biotec_dwh";
-String Driver = "com.mysql.jdbc.Driver";
-String User="root";
-String Pass="root";
-String Query="";
-Connection conn = null; 
-Statement st;
-ResultSet rs;
-//Define Connection
-		/*------------------- End Set Connection -------------------*/
+
 
 		/*------------------- Set Variable --------------------*/
 
@@ -121,12 +113,12 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 	if(!conn.isClosed()){
 	//insert code allow function start
 	st = conn.createStatement();
-		Query="CALL sp_center();";
+		Query="CALL sp_business_area();";
 		rs = st.executeQuery(Query);
 		 
 		while(rs.next()){
 		//out.println(rs.getString("center_name"));
-		V_Org+="<option value="+rs.getString("center_name")+">"+rs.getString("center_name")+"</option>";
+		V_Org+="<option value="+rs.getString("business_area")+">"+rs.getString("business_area")+"</option>";
 		}
 	//insert code allow function end
 		conn.close();
@@ -169,7 +161,6 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 	st = conn.createStatement();
 		Query="CALL sp_fiscal_month();";
 		rs = st.executeQuery(Query);
-		
 		while(rs.next()){
 		//out.println(rs.getString("center_name"));
 		V_Month+="<option value="+rs.getString("fiscal_month_no")+">"+rs.getString("calendar_th_month_name")+"</option>";
@@ -185,8 +176,9 @@ out.println("Error"+ex);
 	%>
 
 	<script type="text/javascript">
-			   /*#### Tab search above top start ###*/
+	/*#### Tab search above top start ###*/
 	$(document).ready(function(){
+
 	/*Config table suffer table*/
 	var sufferTable = function(){
 //#######################Menagement Tab Start ######################
@@ -206,7 +198,6 @@ out.println("Error"+ex);
 		}
 var setFont = function(){
 		/*Config font*/
-		//alert("hello");
 		$(".k-draghandle").css({"font-size":"50%"}); 
 		//$(".k-grid td").css({"padding":"0px"});
 		$(".k-grid td").css({"padding-top":"0px","padding-bottom":"0px"});
@@ -335,8 +326,6 @@ var lineChart2 = function(){
 		});
 
 }//function line chart end
-
-
 function checkBarType(e){
 //control background opacity 
 $("a.ui-dialog-titlebar-close").click(function(){
@@ -431,7 +420,6 @@ return false;
 }//function pie chart end
 /*### Financial Pie Chart Start###*/
 	var pieChart33= function(){
-
 		$("#chart2").kendoChart({
 			theme:$(document).data("kendoSkin") || "metro",
 			chartArea:{
@@ -492,19 +480,22 @@ return false;
 	$("#content3").empty();
 	$("#content4").empty();
 	$.ajax({
-		'url':'table.html',
-		'type':'get',
-		'dataType':'html',
+		url:'sp_balance_sheet_list_by_center.jsp',
+		type:'get',
+		dataType:'html',
+		data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramOrg':$('#domParamOrg').val()},
 		success:function(data){
 		//alert(data);
-		$("#content1").append(data);
+		$("#content1").html(data);
 
+
+		//pieChart1();
 		}
 	});
-	
 	});
 		// ajax end 01
 		// ajax start 02
+
 	$("[href=#content2]").click(function(){
 	//alert("hello jquery");
 	$("#content1").empty();
@@ -533,14 +524,18 @@ return false;
 	$("#content3").empty();
 	$("#content4").empty();
 	$.ajax({
-		'url':'content3.html',
+		'url':'sp_profit_and_loss_list_by_center.jsp',
 		'type':'get',
 		'dataType':'html',
+		data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramOrg':$("#domParamOrg").val()},
 		success:function(data){
 		$("#content3").append(data);
 		//$(".k-plus").trigger("click");
+
+
+
+
 		$("#chart2").empty();
-		pieChart3();
 		sufferTable();
 		setFont();
 		setHeader();
@@ -560,7 +555,7 @@ return false;
 	$("#content3").empty();
 	$("#content4").empty();
 	$.ajax({
-		'url':'content4.html',
+		'url':'sp_profit_and_loss_list.jsp',
 		'type':'get',
 		'dataType':'html',
 		success:function(data){
@@ -577,6 +572,16 @@ return false;
 
 		$("form#form_1").live("submit",function(){
 			$(".contentMain").show();
+			//embeded dom id document for process start
+				$(".domParam").remove();
+				$("body").append("<input type='text' name='domParamYear' id='domParamYear' class='domParam' value='"+$("#ParamYear").val()+"'>");
+
+				$("body").append("<input type='text' name='domParamMonth' id='domParamMonth' class='domParam' value='"+$("#ParamMonth").val()+"'>");
+
+				$("body").append("<input type='text' name='domParamOrg' id='domParamOrg' class='domParam' value='"+$("#ParamOrg").val()+"'>");
+
+			//embeded dom id document for process end
+
 			$("[href=#content1]").trigger("click");
 			return false;
 		});
@@ -584,31 +589,21 @@ return false;
 	/*###  jQuery Config Start ###*/
 
 	$(".ui-tabs-panel").css("padding","2px");
-
 	/*###  jQuery Config End ###*/
-
-	
-	
 	/*#### jquery manage tab below end ###*/
 	});
-
 /*###  function for kendo tootip Start ###*/
 
 function tootipFormat(value,summ){
-
    var value1 = Math.floor(value);
    var value2 = Math.floor((value/summ)*100);
    return value1 + " , " + value2 + " %";
-
-
 }
 /*###  function for kendo tootip End ###*/
-	</script>
 
+	</script>
     </head>
     <body>
-
-
 
 	<!--------------------------- HEADER --------------------------->
 
@@ -621,19 +616,19 @@ function tootipFormat(value,summ){
 				<table width=100%>
 				<tr>
 					<td><label for="ParamYear">ปีงบประมาณ :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-					<select name="ParamYear" id="ParamYear" onChange="getParamYear(this.value);">
+					<select name="ParamYear" id="ParamYear" >
 						<%out.print(V_Year);%>
 					</select>
 					</td>
 
 					<td><label for="ParamMonth">เดือน :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-					<select name="ParamMonth" id="ParamMonth" onChange="getParamMonth(this.value);">
+					<select name="ParamMonth" id="ParamMonth">
 						<%out.print(V_Month);%>
 					</select>
 					</td>
 
 					<td><label for="ParamOrg">ศูนย์ :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-					<select name="ParamOrg" id="ParamOrg" onChange="getParamOrg(this.value);">
+					<select name="ParamOrg" id="ParamOrg" >
 						<%out.print(V_Org);%>
 					</select>
 					</td>
@@ -674,21 +669,11 @@ function tootipFormat(value,summ){
 			<div id="content2">content2</div>
 			<div id="content4">content4</div>
 <br style="clear:both" />
-		</div>
-		
-		
-		
-
-
+</div>
 <!-- TAB MANAGEMENT END -->
-
-
-
 
 	</div>
 	<div id="loading" ></div>
-
 	<!--------------------------- Details End--------------------------->
-
 	</body>
 </html>
