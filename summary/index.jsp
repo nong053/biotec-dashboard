@@ -945,9 +945,9 @@ var barChartFinancial= function(serieParam,categoryParam){
                     });
 }
 //barChartFinancial();
-/*###  barChart Financial  end ###*/
-/*###  Financial Stop ###*/
-
+/*###  barChart Financial  end ###
+###  Financial Stop ###*/
+/*// This is before Edit
 				$("#form_1").submit(function(){
 					$.ajax({
 						url:'processBudget.jsp',
@@ -1038,6 +1038,79 @@ var barChartFinancial= function(serieParam,categoryParam){
 					});
 				});
 */
+///////////////// Gague 1 Working
+			$("#form_1").submit(function(){
+					$.ajax({
+						url:'processBudget1.jsp',
+						type:'get',
+						dataType:'json',
+						data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val()},
+						success:function(data2){
+							var pecent = parseFloat(data2[0]["gauge1"]).toFixed(2);
+							gauge("#gauge1",pecent);
+							$("#container-gauge2 .gaugeValue").empty();
+							$("#container-gauge2 .gaugeValue").append(pecent);
+							$(".r#plan1").empty();
+							var plan = parseFloat(data2[0]["plang1"]).toFixed(2);
+							var planwC = addCommas(plan);
+							planwC += " ล้านบาท";
+							$(".r#plan1").append(planwC);
+							$(".r#result1").empty();
+							var result = parseFloat(data2[0]["resultg1"]).toFixed(2);
+							var resultwC = addCommas(result);
+							resultwC += " ล้านบาท";
+							$(".r#result1").append(resultwC);
+							//===================End Gauge1
+						}
+					});
+				});
+
+///////////////// Gague 2 Working
+			$("#form_1").submit(function(){
+					$.ajax({
+						url:'processBudget2.jsp',
+						type:'get',
+						dataType:'json',
+						data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val()},
+						success:function(data2){
+										var pecent = parseFloat(data2[0]["gauge2"]).toFixed(2);
+							gauge("#gauge2",pecent);
+							$("#container-gauge .gaugeValue").empty();
+							$("#container-gauge .gaugeValue").append(pecent);
+							$(".r#plan2").empty();
+							var plan = parseFloat(data2[0]["plang2"]).toFixed(2);
+							var planwC = addCommas(plan);
+							planwC += " ล้านบาท";
+							$(".r#plan2").append(planwC);
+							$(".r#result2").empty();
+							var result = parseFloat(data2[0]["resultg2"]).toFixed(2);
+							var resultwC = addCommas(result);
+							resultwC += " ล้านบาท";
+							$(".r#result2").append(resultwC);
+							//===================End Gauge2
+						}
+					});
+				});
+
+///////////////// Barchart Budget Working
+			$("#form_1").submit(function(){
+					$.ajax({
+						url:'processBudget3.jsp',
+						type:'get',
+						dataType:'json',
+						data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val()},
+						success:function(data2){
+							//========================Bar Chart ===============
+							var seriesBudget = data2[0]["series_center"];
+							var categoryBudget = data2[1]["category_center"];
+							//console.log(data2[1]["series_center"]);
+							//console.log(data2[2]["category_center"]);
+							barChartBudget(categoryBudget,seriesBudget);
+							//====================End Bar Chart ================						
+							}
+					});
+				});
+/*
 			$("#form_1").submit(function(){
 					$.ajax({
 						url:'processHR.jsp',
@@ -1072,6 +1145,65 @@ var barChartFinancial= function(serieParam,categoryParam){
 					});
 				});
 
+*/
+//////////============================== Pie Hr Chart 1
+	$("#form_1").submit(function(){
+					$.ajax({
+						url:'processHR1.jsp',
+						type:'get',
+						dataType:'json',
+						data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val()},
+						success:function(data2){
+						//	console.log(data2);
+							//============= HR Pie 1================
+							var totalPieHR1 = data2[0]["totalPieHR1"];
+							var valuePieHR1 = data2[1]["value_piehr1"];
+							pieChartHR("#piehr",valuePieHR1,totalPieHR1);
+							// ========End HR Pie 1===============
+						}
+					});
+				});
+//////////============================== Pie Hr Chart 2
+	$("#form_1").submit(function(){
+					$.ajax({
+						url:'processHR2.jsp',
+						type:'get',
+						dataType:'json',
+						data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val()},
+						success:function(data2){
+						//	console.log(data2);
+							//============= HR Pie 2================
+					var totalPieHR2 = data2[0]["totalPieHR2"];
+							var valuePieHR2 = data2[1]["value_piehr2"];
+							pieChartHR("#piehr3",valuePieHR2,totalPieHR2);
+								// ========End HR Pie 2===============
+						}
+					});
+				});
+
+
+//////////============================== Line Hr Chart 1
+	$("#form_1").submit(function(){
+					$.ajax({
+						url:'processHR3.jsp',
+						type:'get',
+						dataType:'json',
+						data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val()},
+						success:function(data2){
+							//console.log(data2);
+						// ======= HR Line 3=================
+							var categoryLineHR2 = data2[0]["categorylinehr3"];
+							var  valueLineHR3 = data2[1]["value_linehr3"];
+							lineChartHr(valueLineHR3,categoryLineHR2);
+							// ========End HR Line 3 ===============
+						}
+					});
+				});
+
+
+
+
+
 		$("#form_1").submit(function(){
 		$.ajax({
 		url:'revTooltip.jsp',
@@ -1097,7 +1229,7 @@ var barChartFinancial= function(serieParam,categoryParam){
 
 
 
-		$("#form_1").submit(function(){
+	/*	$("#form_1").submit(function(){
 					$.ajax({
 						url:'processRevenue.jsp',
 						type:'get',
@@ -1126,14 +1258,56 @@ var barChartFinancial= function(serieParam,categoryParam){
 
 						}
 					});
+				});*/
+//==========================Revenue Gauge =====================
+						$("#form_1").submit(function(){
+					$.ajax({
+						url:'processRevenue1.jsp',
+						type:'get',
+						dataType:'json',
+						data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val()},
+						success:function(data2){
+							//console.log(data2)
+							var pecent = parseFloat(data2[0]["gauge3"]).toFixed(2);
+							gauge("#gauge3",pecent);
+							$("#container-gauge3 .gaugeValue").empty();
+							$("#container-gauge3 .gaugeValue").append(pecent);
+							$("#plan3").empty();
+							var plan = parseFloat(data2[0]["plang3"]).toFixed(2);
+							var planwC = addCommas(plan);
+							planwC += " ล้านบาท";
+							$("#plan3").append(planwC);
+							$("#revenue3").empty();
+							var result = parseFloat(data2[0]["revenueg3"]).toFixed(2);
+							var resultwC = addCommas(result);
+							resultwC += " ล้านบาท";
+							$("#revenue3").append(resultwC);
+							//===================End Gauge3
+						}
+					});
+				});
+				//====================Revenue Chart ==================
+		$("#form_1").submit(function(){
+					$.ajax({
+						url:'processRevenue2.jsp',
+						type:'get',
+						dataType:'json',
+						data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val()},
+						success:function(data2){
+							//console.log(data2)
+						    var serieBar = data2[0]["value_barrevenue2"];
+							var categoryBar = data2[1]["categorybarrevenue2"];
+							barChartFinancial(serieBar,categoryBar);
+						}
+					});
 				});
 //====================== Radio Button Click
 		$(".radio1").click(function(){
-			$("#loading").ajaxStart(function(){
-				$("#piehr2").css("opacity","0.2");
-			}).ajaxStop(function(){
-				$("#piehr2").css("opacity","1");
-			});
+			//$("#loading").ajaxStart(function(){
+			//	$("#piehr2").css("opacity","0.2");
+		///	}).ajaxStop(function(){
+		//		$("#piehr2").css("opacity","1");
+		//	});
 			//alert("yes");
 			//alert($("input:radio[id=notsum]:checked").val());
 					$.ajax({
@@ -1454,7 +1628,7 @@ return	$(idStr).text();
 									<div id="contentR">
 											<div id="head">
 												<div id="title">
-									ค่าใช้จ่ายบุคลากรเทียบกับค่าใช้จ่ายดำเนินการสะสม
+									ค่าใช้จ่ายบุคลากรเทียบกับค่าใช้จ่ายดำเนินการสะสม(ล้านบาท)
 												</div>
 											</div>
 											<div id="content">
@@ -1545,7 +1719,7 @@ return	$(idStr).text();
 									
 										<div id="contentBottom">
 											<div id="titleBottom">
-								รายได้แบ่งตามประเภท
+								รายได้แบ่งตามประเภท (ล้านบาท)
 											</div>
 											<div id="#contentBottom">
 												<div id="barChartFinancial"></div>
