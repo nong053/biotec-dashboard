@@ -100,7 +100,7 @@ if(i<10)
 // ========================End Get Progress Bar 1================================
 
 //===================== Get Progress Bar 2===========================================
-
+categoryGetProgressBar = "ALL";
 Query="CALL sp_budget_project_cluster_least_spending(";
 Query += year +"," + month +",\""+cluster+"\",\""+categoryGetProgressBar+"\");";
 rs = st.executeQuery(Query);

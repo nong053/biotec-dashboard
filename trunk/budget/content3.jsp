@@ -97,7 +97,7 @@ while(rs.next()){
 // ========================End Get Progress Bar 1================================
 
 //===================== Get Progress Bar 2===========================================
-
+categoryGetProgressBar = "ALL";
 Query="CALL sp_budget_project_business_area_least_spending(";
 Query += year +"," + month +",\""+categoryGetProgressBar+"\");";
 rs = st.executeQuery(Query);
