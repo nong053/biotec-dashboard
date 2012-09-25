@@ -24,7 +24,7 @@ Query="CALL sp_count_io_by_business_area(";
 Query += year +"," + month +",\""+center+"\");";
 rs = st.executeQuery(Query);
 int i = 0;
-int totalPie = 0;
+float totalPie = 0;
 String valuePie ="{\"value_pie\":[";
 
 	while(rs.next()){
@@ -32,7 +32,7 @@ String valuePie ="{\"value_pie\":[";
 			valuePie += ",";
 	}
 		String category = rs.getString("name");
-		int count_io = rs.getInt("count_io");
+		float count_io = rs.getInt("count_io");
 	
 		valuePie += "{\"category\": \"";
 		valuePie += category;
