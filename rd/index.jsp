@@ -268,7 +268,11 @@ out.println("Error"+ex);
 				console.log(data[10]["category_emp_by_job_grade"]);
 				console.log(data[11]["series_emp_by_job_grade"]);
 */
-				
+				$("#divisionName").text($("#domParamCenter").val());
+				var Year = parseInt($("#domParamYear").val());
+				Year=Year+543;
+				$("#ic_score_open").attr({"href":"https://app2.biotec.or.th/dw/icscore_02_open.asp?t=out&emp_out="+$("#domParamCenter").val()+",,&bgy="+Year+""});
+
 				baChart_sp_ic_score_by_department('','');
 				baChart_sp_ic_score_by_center(data[1]["series_center"],data[0]["category_center"]);
 				baChart_sp_ic_score_by_division(data[2]["category_division"],data[3]["series_division"]);
@@ -319,6 +323,11 @@ function  checkBarTypeCenter(e){
 				console.log(data[10]["category_emp_by_job_grade"]);
 				console.log(data[11]["series_emp_by_job_grade"]);
 */
+				$("#divisionName").text($("#domParamCenter").val());
+				var Year = parseInt($("#domParamYear").val());
+				Year=Year+543;
+				$("#ic_score_open").attr({"href":"https://app2.biotec.or.th/dw/icscore_02_open.asp?t=out&emp_out="+$("#domParamCenter").val()+",,&bgy="+Year+""});
+
 				baChart_sp_ic_score_by_department('','');
 				baChart_sp_ic_score_by_division(data[2]["category_division"],data[3]["series_division"]);
 				pieChart_sp_ic_score_by_job_family(data[4]["pie_sp_ic_score"],data[5]["sum_pie_sp_ic_score"]);
@@ -355,8 +364,12 @@ var baChart_sp_ic_score_by_center= function(seriesParam, categoryParam){
                         series:seriesParam,
                       valueAxis: [{
                             title: { text: "" },
-                            min: 0,
-                            max: 2000
+                           // min: 0,
+                           // max: 2000,
+						   labels: {
+                                template: "#= kendo.format('{0:N0}', value ) # "
+                            }
+						   
                         }, {
                             name: "Varaince",
                             title: { text: "" },
@@ -366,11 +379,11 @@ var baChart_sp_ic_score_by_center= function(seriesParam, categoryParam){
                         categoryAxis: {
                             categories:categoryParam,
 							axisCrossingValue: [0,100]
-							
                         },
                         tooltip: {
                             visible: true,
-                            format: "{0}"
+                            format: "{0:N0}"
+
                         },
 						seriesClick:checkBarTypeCenter
 				
@@ -415,6 +428,10 @@ function checkBarTypeDivision(e){
 				console.log(data[12]["category_by_department"]);
 				console.log(data[13]["series_by_department"]);
 */
+				$("#departmentName").text($("#domParamDivision").val());
+				var Year = parseInt($("#domParamYear").val());
+				Year=Year+543;
+				$("#ic_score_open").attr({"href":"https://app2.biotec.or.th/dw/icscore_02_open.asp?t=out&emp_out="+$("#domParamCenter").val()+","+$("#domParamDivision").val()+",&bgy="+Year+""});
 
 				baChart_sp_ic_score_by_department(data[12]["category_by_department"],data[13]["series_by_department"]);
 				pieChart_sp_ic_score_by_job_family(data[4]["pie_sp_ic_score"],data[5]["sum_pie_sp_ic_score"]);
@@ -448,8 +465,11 @@ var baChart_sp_ic_score_by_division= function(categoryParam,seriesParam){
                         series:seriesParam,
                       valueAxis: [{
                             title: { text: "" },
-                            min: 0,
-                            max: 600
+                            labels: {
+                                template: "#= kendo.format('{0:N0}', value ) # "
+                            }
+							//min: 0,
+                            //max: 600
                         }, {
                             name: "Varaince",
                             title: { text: "" },
@@ -463,7 +483,7 @@ var baChart_sp_ic_score_by_division= function(categoryParam,seriesParam){
                         },
                         tooltip: {
                             visible: true,
-                            format: "{0}"
+                            format: "{0:N0}"
                         },
 						seriesClick:checkBarTypeDivision
                     });
@@ -506,6 +526,10 @@ function checkBarTypeDepartment(e){
 				console.log(data[12]["category_by_department"]);
 				console.log(data[13]["series_by_department"]);
 */
+				var Year = parseInt($("#domParamYear").val());
+				Year=Year+543;
+				$("#ic_score_open").attr({"href":"https://app2.biotec.or.th/dw/icscore_02_open.asp?t=out&emp_out="+$("#domParamCenter").val()+","+$("#domParamDivision").val()+","+$("#domParamDepartment").val()+"&bgy="+Year+""});
+
 				pieChart_sp_ic_score_by_job_family(data[4]["pie_sp_ic_score"],data[5]["sum_pie_sp_ic_score"]);
 				stackChart_sp_ic_score_by_output_type(data[6]["category_by_output_type"],data[7]["series_by_output_type"]);
 				stackChart_sp_count_emp_all_vs_jf2000(data[8]["category_emp_all_vs_jf2000"],data[9]["series_emp_all_vs_jf2000"]);
@@ -536,6 +560,9 @@ var baChart_sp_ic_score_by_department= function(categoryParam,seriesParam){
                         series:seriesParam,
                        valueAxis: [{
                             title: { text: "" },
+							 labels: {
+                                template: "#= kendo.format('{0:N0}', value ) # "
+                            }
                          /*   min: 0,
                             max: 6*/
                         }, {
@@ -550,7 +577,7 @@ var baChart_sp_ic_score_by_department= function(categoryParam,seriesParam){
                         },
                         tooltip: {
                             visible: true,
-                            format: "{0}"
+                             format: "{0:N0}"
                         },
 						seriesClick:checkBarTypeDepartment
 						
@@ -583,8 +610,11 @@ var baChart_sp_top20_ic_score= function(categoryParam,seriesParam){
                         series: seriesParam,
                        valueAxis: [{
                             title: { text: "" },
-                            min: 0,
-                            max: 1400
+							 labels: {
+                                template: "#= kendo.format('{0:N0}', value ) # "
+                            }
+                           // min: 0,
+                           // max: 1400
                         }, {
                             name: "Varaince",
                             title: { text: "" },
@@ -602,7 +632,7 @@ var baChart_sp_top20_ic_score= function(categoryParam,seriesParam){
 						
                         tooltip: {
                             visible: true,
-                            format: "{0}"
+                             format: "{0:N0}"
                         }
                     });
 	
@@ -642,8 +672,8 @@ var pieChart_sp_ic_score_by_job_family= function(categoryParam,sum_pie_sp_ic_sco
                         tooltip: {
                             visible: true,
                          //  format: "{0}"
-						 //  template: "${ category } ,${ value }%"
-						 template: "#= templateFormat(value,"+sum_pie_sp_ic_score+") #"
+						   template: "${ value }, #= kendo.format('{0:P}', percentage)#"
+						 //template: "#= templateFormat(value,"+sum_pie_sp_ic_score+") #"
 
                         },
 			
@@ -700,7 +730,7 @@ var stackChart_sp_ic_score_by_output_type= function(categoryParam,seriesParam){
                         },
                         tooltip: {
                             visible: true,
-                            format: "{0}"
+                             format: "{0:N0}"
                         }
 			//seriesHover:onSeriesHover,
 			
@@ -746,7 +776,7 @@ var stackChart_sp_count_emp_all_vs_jf2000= function(categoryParam,seriesParam){
                         },
                         tooltip: {
                             visible: true,
-                            format: "{0}"
+                             format: "{0:N0}"
                         }
 			//seriesHover:onSeriesHover,
 			
@@ -792,7 +822,7 @@ var stackChart_sp_count_emp_by_job_grade= function(categoryParam,seriesParam){
                         },
                         tooltip: {
                             visible: true,
-                            format: "{0}"
+                             format: "{0:N0}"
                         }
 			//seriesHover:onSeriesHover,
 			
@@ -886,7 +916,7 @@ function templateFormat(value,summ) {
 				<div id="column2">
 						<div id="head2">
 								<div id="title2">
-							BIOTEC(RU)
+									<div id="divisionName">BIOTEC(RU)</div>
 							</div>
 						</div>
 						<div id="content2">
@@ -896,7 +926,8 @@ function templateFormat(value,summ) {
 				<div id="column3">
 						<div id="head3">
 							<div id="title3">
-							(Lab)
+							
+							<div id="departmentName">(Lab)</div>
 							</div>
 						</div>
 						<div id="content3">
@@ -919,7 +950,7 @@ function templateFormat(value,summ) {
 				<div id="column22">
 						<div class="head">
 								<div class="title">
-								 IC Score by OutpuType<button>Open</button>
+								 IC Score by OutpuType<a id="ic_score_open" href="#" target="_blank"><button>Open</button></a>
 								</div>
 						</div>
 						<div class="content">
