@@ -18,7 +18,7 @@ int month = Integer.parseInt(request.getParameter("month"));
 
 java.sql.Connection con;
 java.sql.Statement s;
-java.sql.ResultSet rs;
+//java.sql.ResultSet rs;
 java.sql.PreparedStatement pst;
 
 con=null;
@@ -45,6 +45,7 @@ cnfex.printStackTrace();
 
 
 //ArrayList
+ArrayList en_name = new ArrayList();
 ArrayList IC_Score = new ArrayList();
 ArrayList BSC_Score = new ArrayList();
 ArrayList Emp_Score = new ArrayList();
@@ -71,20 +72,21 @@ try{
 s = con.createStatement();
 rs = s.executeQuery(sql);
 	while( rs.next() ){
+		en_name.add('"'+rs.getString("en_name")+'"');	
 		IC_Score.add(rs.getString("IC_Score"));	
 		BSC_Score.add(rs.getString("BSC_Score"));	
 		Emp_Score.add(rs.getString("Emp_Score"));
 	}	
-	serie1.put("Name","IC_Score");
-	serie1.put("Data",IC_Score.toString());
+	serie1.put("name","IC_Score");
+	serie1.put("data",IC_Score.toString());
 	series.add(serie1);
-	serie2.put("Name","BSC_Score");
-	serie2.put("Data",BSC_Score.toString());
+	serie2.put("name","BSC_Score");
+	serie2.put("data",BSC_Score.toString());
 	series.add(serie2);
-	serie3.put("Name","Emp_Score");
-	serie3.put("Data",Emp_Score.toString());
+	serie3.put("name","Emp_Score");
+	serie3.put("data",Emp_Score.toString());
 	series.add(serie3);
-	main.put("category",category.toString());
+	main.put("category",en_name.toString());
 	main.put("series",series);
 	ret.add(main);
 }
@@ -95,7 +97,7 @@ finally{
 con.close();
 }
 */
-if(rs!=null) rs.close();
+//if(rs!=null) rs.close();
 if(s!=null) s.close();
 if(con!=null) con.close();
 }
