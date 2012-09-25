@@ -7,8 +7,10 @@
 <%
 String ParamMonth = request.getParameter("ParamMonth");
 String ParamYear = request.getParameter("ParamYear");
-String ParamOrg = request.getParameter("ParamOrg");
+String ParamOrg = "สวทช.";
+//String ParamOrg = request.getParameter("ParamOrg");
 String Param_sp_center = "";
+String sub_ParamOrg = "";
 
 //out.print("ParamMonth"+ParamMonth);
 //out.print("ParamYear"+ParamYear);
@@ -84,7 +86,7 @@ Class.forName(Driver).newInstance();
 conn=DriverManager.getConnection(connectionURL,User,Pass);
 	if(!conn.isClosed()){
 		st = conn.createStatement();
-		Query="CALL sp_npr_by_center_drilldown("+ParamYear+","+ParamMonth+",'ALL')";
+		Query="CALL sp_npr_by_center_drilldown("+ParamYear+","+ParamMonth+",'"+ParamOrg+"')";
 		rs = st.executeQuery(Query);
 		Integer i=0;
 		categoryAxis_npr_center_using+="[";
@@ -638,7 +640,7 @@ var barChart= function(id_param,categoryAxis_param,series_param,title_param){
                         },
                         tooltip: {
                             visible: true,
-                            format: "{0}%"
+                            format: "{0}"
                         }
                     });
 }
@@ -700,8 +702,8 @@ pieChartByType("#pie_sp_npr_by_type",<%=sp_npr_by_type%>,<%=sum_npr_by_type%>);
 pieChartByCountryGroup("#pie_sp_npr_by_country_group",<%=sp_npr_by_country_group%>,<%=sum_npr_by_country_group%>);
 /* Using PieChart*/
 barChart("#bar_sp_npr_by_center_drilldown", <%=categoryAxis_npr_center_using%>, <%=series_job_center%>,'สวทช.' )	;
-barChart("#bar_sp_npr_by_type_drilldown", <%=categoryAxis_npr_type_using%>, <%=series_job_type%>,'สวทช.');
-barChart("#bar_sp_npr_by_country_group_drilldown", <%=categoryAxis_npr_country_group_using%>, <%=series_job_country_group%>,'สวทช.');
+barChart("#bar_sp_npr_by_type_drilldown", <%=categoryAxis_npr_type_using%>, <%=series_job_type%>,'ทุกประเภท');
+barChart("#bar_sp_npr_by_country_group_drilldown", <%=categoryAxis_npr_country_group_using%>, <%=series_job_country_group%>,'ทุกสัญชาติ');
 /* Using BarChart*/
 
 /* Using BarChart*/
@@ -810,12 +812,14 @@ function templateFormat(value,summ) {
 									<table>
 											<tr>
 												<td>
+												<font color="gray" size=3></font>
+												<br>
 												<div id="pie_sp_npr_by_center"></div>
 												</td>
 												
 											</tr>
 											<tr>
-												<td>
+												<td><hr size=1 noshade color="gray">
 												<div id="bar_sp_npr_by_center_drilldown"></div>
 												</td>
 											</tr>
@@ -831,12 +835,14 @@ function templateFormat(value,summ) {
 						<div id="body">
 								<table>
 											<tr>
-												<td>
+												<td align="center">
+												<font color="gray" size=3><%out.print(ParamOrg);%></font>
+												<br>
 												<div id="pie_sp_npr_by_type"></div>
 												</td>
 												
 											</tr>
-												<td>
+												<td><hr size=1 noshade color="gray">
 												<div id="bar_sp_npr_by_type_drilldown"></div>
 												</td>
 											<tr>
@@ -857,13 +863,15 @@ function templateFormat(value,summ) {
 						<div id="body">
 								<table>
 											<tr>
-												<td>
-												<div id="pie_sp_npr_by_country_group"></div>
+												<td align="center">
+													<font color="gray" size=3><%out.print(ParamOrg);%></font>
+													<br>
+													<div id="pie_sp_npr_by_country_group"></div>
 												</td>
 												
 											</tr>
 											<tr>
-												<td>
+												<td><hr size=1 noshade color="gray">
 												<div id="bar_sp_npr_by_country_group_drilldown"></div>
 												</td>
 											</tr>
