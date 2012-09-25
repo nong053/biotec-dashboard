@@ -471,7 +471,7 @@ background:#ffffff;
 </style>
 <script type="text/javascript">
 $(document).ready(function(){
-
+var ParamOrg = "";
 /*###  pie center start ###*/
 
 var pieChartCenter= function(id_param,data_param,summ_param){
@@ -523,7 +523,7 @@ var pieChartByType= function(id_param,data_param,summ_param){
 		$(id_param).kendoChart({
 		 theme: $(document).data("kendoSkin") || "metro",
 			title: {
-				 text:""
+				 text: ""
 			},
 			legend: {
                             position: "bottom"
@@ -629,7 +629,8 @@ var barChart= function(id_param,categoryAxis_param,series_param,title_param){
                         valueAxis: {
                             labels: {
                                // format: "{0}%"
-							   format: "{0}"
+							   format: "{0}",
+							   font:"10px Tahoma"
                             }
                         },
                         categoryAxis: {
@@ -644,33 +645,142 @@ var barChart= function(id_param,categoryAxis_param,series_param,title_param){
                         }
                     });
 }
+
+var barChartCenter= function(id_param,categoryAxis_param,series_param,title_param){
+//var categoryAxis_param = ["นักวิจัยร่วมวิจัย","นักวิจัยหลังปริญญาเอก","นักศึกษาร่วมวิจัย (โท/เอก)"];
+	$(id_param).kendoChart({
+                        theme: $(document).data("kendoSkin") || "metro",
+                        title: {
+                            text:title_param
+                        },
+						chartArea:{
+						width:290,
+						height:210,
+						background: ""
+						},
+
+						
+                        legend: {
+                            position: "bottom"
+                        },
+                        seriesDefaults: {
+                            type: "bar",
+							stack: true
+                        },
+                        series:series_param,
+                        valueAxis: {
+                            labels: {
+                               // format: "{0}%"
+							   format: "{0}",
+							   font:"10px Tahoma"
+                            }
+                        },
+                        categoryAxis: {
+                            categories:categoryAxis_param,
+							labels:{
+								font:"11px Tahoma"
+								}
+                        },
+                        tooltip: {
+                            visible: true,
+                            format: "{0}"
+                        }
+                    });
+}
+
 /*###  bar end ###*/
 /*
 String ParamMonth = request.getParameter("ParamMonth");
 String ParamYear = request.getParameter("ParamYear");
 String ParamOrg = request.getParameter("ParamOrg");
+pieChartByType("#pie_sp_npr_by_type",<%=sp_npr_by_type%>,<%=sum_npr_by_type%>);
+
 */
 function checkBarTypeCenter(e){
+		ParamOrg = e.category;
+		//console.log(ParamOrg);
+	// ==============================Pie 2 Change====================================
+		$.ajax({
+		url:'sp_npr_by_type.jsp',
+		type:'get',
+		dataType:'json',
+		data:{'ParamMonth':<%=ParamMonth%>,'ParamYear':<%=ParamYear%>,'ParamOrg':ParamOrg},
+		success:function(data){
+			//console.log(data);
+		//console.log(data[0]["category"]);
+		//console.log(data[1]["series"]);
+		//console.log(data);
+		$("#string_type_pie").empty();
+		$("#string_type_pie").append(ParamOrg);
+		pieChartByType("#pie_sp_npr_by_type",data[0]["category_pie"],data[1]["sum_pie"]);
+		}
+	});
+	// ==============================Pie 3 Change====================================
+		$.ajax({
+		url:'sp_npr_by_country_group.jsp',
+		type:'get',
+		dataType:'json',
+		data:{'ParamMonth':<%=ParamMonth%>,'ParamYear':<%=ParamYear%>,'ParamOrg':ParamOrg},
+		success:function(data){
+		//	console.log(data);
+		//console.log(data[0]["category"]);
+		//console.log(data[1]["series"]);
+		//console.log(data);
+		$("#string_country_pie").empty();
+		$("#string_country_pie").append(ParamOrg);
+		pieChartByCountryGroup("#pie_sp_npr_by_country_group",data[0]["category_pie"],data[1]["sum_pie"]);
+		}
+	});
+
+	// ============================= Bar  1  Change ==================== 
 	$.ajax({
 		url:'sp_npr_by_center_drilldown.jsp',
 		type:'get',
 		dataType:'json',
-		data:{'ParamMonth':<%=ParamMonth%>,'ParamYear':<%=ParamYear%>,'ParamOrg':e.category},
+		data:{'ParamMonth':<%=ParamMonth%>,'ParamYear':<%=ParamYear%>,'ParamOrg':ParamOrg},
 		success:function(data){
 		//console.log(data[0]["category"]);
 		//console.log(data[1]["series"]);
 		//console.log(data);
-		barChart("#bar_sp_npr_by_center_drilldown",data[0]["category"],data[1]["series"],e.category);
+		barChartCenter("#bar_sp_npr_by_center_drilldown",data[0]["category"],data[1]["series"],ParamOrg);
 		}
 	});
-}
+//======================== Change Bar 2 ===================
+$.ajax({
+		url:'sp_npr_by_type_drilldown.jsp',
+		type:'get',
+		dataType:'json',
+		data:{'ParamMonth':<%=ParamMonth%>,'ParamYear':<%=ParamYear%>,'ParamOrg':ParamOrg,'ParamNprlist':"ALL"},
+		success:function(data){
+		//console.log(data[0]["category"]);
+		//console.log(data[1]["series"]);
+		//console.log(data);
+		barChart("#bar_sp_npr_by_type_drilldown",data[0]["category"],data[1]["series"],"ทุกประเภท");
+		}
+	});
+// =================================== Change Bar 3 ========================
+	$.ajax({
+		url:'sp_npr_by_country_group_drilldown.jsp',
+		type:'get',
+		dataType:'json',
+		data:{'ParamMonth':<%=ParamMonth%>,'ParamYear':<%=ParamYear%>,'ParamOrg':ParamOrg,'ParamWorkingRangelist':"ALL"},
+		success:function(data){
+		//console.log(data[0]["category"]);
+		//console.log(data[1]["series"]);
+		//console.log(data);
+		barChart("#bar_sp_npr_by_country_group_drilldown",data[0]["category"],data[1]["series"],"ทุกสัญชาติ");
+		}
+	});
+
+
+}//function
 
 function checkBarTypeByType(e){
 	$.ajax({
 		url:'sp_npr_by_type_drilldown.jsp',
 		type:'get',
 		dataType:'json',
-		data:{'ParamMonth':<%=ParamMonth%>,'ParamYear':<%=ParamYear%>,'ParamOrg':'<%=ParamOrg%>','ParamNprlist':e.category},
+		data:{'ParamMonth':<%=ParamMonth%>,'ParamYear':<%=ParamYear%>,'ParamOrg':ParamOrg,'ParamNprlist':e.category},
 		success:function(data){
 		//console.log(data[0]["category"]);
 		//console.log(data[1]["series"]);
@@ -684,7 +794,7 @@ function checkBarTypeByCountryGroup(e){
 		url:'sp_npr_by_country_group_drilldown.jsp',
 		type:'get',
 		dataType:'json',
-		data:{'ParamMonth':<%=ParamMonth%>,'ParamYear':<%=ParamYear%>,'ParamOrg':'<%=ParamOrg%>','ParamWorkingRangelist':e.category},
+		data:{'ParamMonth':<%=ParamMonth%>,'ParamYear':<%=ParamYear%>,'ParamOrg':ParamOrg,'ParamWorkingRangelist':e.category},
 		success:function(data){
 		//console.log(data[0]["category"]);
 		//console.log(data[1]["series"]);
@@ -701,7 +811,7 @@ pieChartCenter("#pie_sp_npr_by_center",<%=sp_npr_by_center%>,<%=sum_npr_by_cente
 pieChartByType("#pie_sp_npr_by_type",<%=sp_npr_by_type%>,<%=sum_npr_by_type%>);
 pieChartByCountryGroup("#pie_sp_npr_by_country_group",<%=sp_npr_by_country_group%>,<%=sum_npr_by_country_group%>);
 /* Using PieChart*/
-barChart("#bar_sp_npr_by_center_drilldown", <%=categoryAxis_npr_center_using%>, <%=series_job_center%>,'สวทช.' )	;
+barChartCenter("#bar_sp_npr_by_center_drilldown", <%=categoryAxis_npr_center_using%>, <%=series_job_center%>,'สวทช.' )	;
 barChart("#bar_sp_npr_by_type_drilldown", <%=categoryAxis_npr_type_using%>, <%=series_job_type%>,'ทุกประเภท');
 barChart("#bar_sp_npr_by_country_group_drilldown", <%=categoryAxis_npr_country_group_using%>, <%=series_job_country_group%>,'ทุกสัญชาติ');
 /* Using BarChart*/
@@ -812,7 +922,7 @@ function templateFormat(value,summ) {
 									<table>
 											<tr>
 												<td>
-												<font color="gray" size=3></font>
+												<font color="gray" size=3><center><%=ParamOrg%></center></font>
 												<br>
 												<div id="pie_sp_npr_by_center"></div>
 												</td>
@@ -836,7 +946,7 @@ function templateFormat(value,summ) {
 								<table>
 											<tr>
 												<td align="center">
-												<font color="gray" size=3><%out.print(ParamOrg);%></font>
+												<font color="gray" size=3><div id=string_type_pie><%out.print(ParamOrg);%></div></font>
 												<br>
 												<div id="pie_sp_npr_by_type"></div>
 												</td>
@@ -864,7 +974,7 @@ function templateFormat(value,summ) {
 								<table>
 											<tr>
 												<td align="center">
-													<font color="gray" size=3><%out.print(ParamOrg);%></font>
+													<font color="gray" size=3><div id=string_country_pie><%out.print(ParamOrg);%></div></font>
 													<br>
 													<div id="pie_sp_npr_by_country_group"></div>
 												</td>
