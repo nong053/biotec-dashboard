@@ -129,14 +129,24 @@
 		Statement st1;
 
 		while(rs.next()){
-			Query1  = "SELECT Date_format(SYSDATE(),'%Y') as year_date;";
+			Query1  = "SELECT Date_format(SYSDATE(),'%Y') as year_date,Date_format(SYSDATE(),'%m') as month_date;";
 			st1 = conn.createStatement();
 			rs1 = st1.executeQuery(Query1);
 			i = 0;
 			while(rs1.next()){
-				String present_year = rs1.getString("year_date");
+				int presentMonth = rs1.getInt("month_date"); 
+				int present_year = rs1.getInt("year_date");
+		//		int presentMonth = 10; 
+				//int present_year = 2012;
+
+				presentMonth = presentMonth +2 ; 
+				if(presentMonth>12){
+					present_year = present_year+1; 
+				}
+
+				String present_yearStr = present_year+"";
 				String query_year = rs.getString("fiscal_year");
-				if(query_year.equals(present_year)){
+				if(query_year.equals(present_yearStr)){
 					V_Year += "<option value=\""+rs.getString("fiscal_year")+"\"  selected='selected'>"+rs.getString("buddhist_era_year")+"</option>";
 				}
 				else{
@@ -161,7 +171,8 @@
 			rs1 = st1.executeQuery(Query1);
 			while(rs1.next()){
 				int presentMonth = rs1.getInt("month_date");
-				presentMonth = presentMonth +3 ;
+				//int presentMonth = 10;
+				presentMonth = presentMonth +2 ;
 				if(presentMonth>12){
 					presentMonth=presentMonth-12;
 				}
@@ -346,30 +357,99 @@
 		<!-- Start jQuery 0001-->
 			<script type="text/javascript">
 			$(document).ready(function(){
-		/*jQuery Taps Start Here*/
+
 			$("#form_1").submit(function(){
-					 $("#tabBsc").show("fast",function(){
-					$("a[href=#tab1]").trigger("click");
-					 });
-					
+							$("#tab1").empty();
+							$("#tab1_1").empty();
+							$("#tab1_2").empty();
+							$("#tab1_3").empty();
+							$("#tab2").empty();
+							$("#tab3").empty();
+							$("#tab4").empty();
+							$("#tab5").empty();
+							$("#tab6").empty();
+							 $("#tabBsc").show();
+
+						$(".paramSubmit").remove();
+						$("body").append("<input type='hidden' value='"+$("#ParamMonth").val()+"' name='ParamMonthSubmit' id='ParamMonthSubmit' class='paramSubmit'> ");
+						$("body").append("<input type='hidden' value='"+$("#ParamYear").val()+"' name='ParamYearSubmit' id='ParamYearSubmit' class='paramSubmit'>");
+						//$("body").append("<input type='hidden' value='"+$("#ParamOrg").val()+"' name='ParamOrgSubmit' id='ParamOrgSubmit' class='paramSubmit'>");
+						if($("#pageNSTDA").val()){
+								$("a[href=#tab1]").trigger("click");
+						}else if($("#pageNS").val()){
+								$("a[href=#tab1_1]").trigger("click");
+						}else if($("#pageCT").val()){
+								$("a[href=#tab1_2]").trigger("click");
+						}else if($("#pageCPMOHRD").val()){
+								$("a[href=#tab1_3]").trigger("click");
+						}else if($("#pageBIOTEC").val()){
+								$("a[href=#tab2]").trigger("click");
+						}else if($("#pageMTEC").val()){
+								$("a[href=#tab3]").trigger("click");
+						}else if($("#pageNECTEC").val()){
+								$("a[href=#tab4]").trigger("click");
+						}else if($("#pageNANOTEC").val()){
+								$("a[href=#tab5]").trigger("click");
+						}else if($("#pageTMC").val()){
+								$("a[href=#tab6]").trigger("click");
+						}else{
+								$("a[href=#tab1]").trigger("click");
+						}
+					// $("#tabBsc").show("fast",function(){
+				//	$("a[href=#tab1]").trigger("click");
+					// });
+			//		
 				return false;
 				});
 
+	$("a[href=#tab1]").click(function(){
+			includeNSTDA();
+	});
 
-	
-			 
+	$("a[href=#tab1_1]").click(function(){
+			includeNS();
+	});
+
+		$("a[href=#tab1_2]").click(function(){
+			includeCT();
+	});
+
+	$("a[href=#tab1_3]").click(function(){
+			includeCPMOHRD();
+	});
+
+	$("a[href=#tab2]").click(function(){
+			includeBIOTEC();
+	});
+
+	$("a[href=#tab3]").click(function(){
+			includeMTEC();
+	});
+
+	$("a[href=#tab4]").click(function(){
+			includeNECTEC();
+	});
+
+$("a[href=#tab5]").click(function(){
+			includeNANOTEC();
+	});
+
+$("a[href=#tab6]").click(function(){
+			includeTMC();
+	});
+
 	
 	
 	 /*Management Range mounse over*/
-
-			$("a[href=#tab1]").click(function(){
-				
+	var includeNSTDA = function(){
+		//	$("a[href=#tab1]").click(function(){
 					$.ajax({
 						url:'nstda.jsp',
 						type:'GET',
 						dataType:'html',
 					//	data:$(this).serialize(),
-						data:{"ParamYear":$("#ParamYear").val(),"ParamMonth":$("#ParamMonth").val(),"ParamOrg":"NSTDA"},
+						data:{"ParamYear":$("#ParamYearSubmit").val(),"ParamMonth":$("#ParamMonthSubmit").val(),"ParamOrg":"NSTDA"},
+						//data:{"ParamMonth":$("#ParamMonthSubmit").val(),"ParamYear":$("#ParamYearSubmit").val(),"ParamOrg":$("#ParamOrgSubmit").val()},
 						success:function(data){
 						
 							$("#tab1").empty();
@@ -381,6 +461,8 @@
 							$("#tab4").empty();
 							$("#tab5").empty();
 							$("#tab6").empty();
+							$(".pageRemember").remove();
+							$("body").append("<input type='hidden' id='pageNSTDA' class='pageRemember' name='pageNSTDA' value='pageNSTDA'>");
 							$("#tab1").append(data);
 
 						
@@ -391,47 +473,20 @@
 									 var $pos = e.target.id;
 									 var classT = ".tootip#"+$pos;
 									$(classT).css({"left":$AX+"px","top":$AY+"px"}).fadeIn();
-							//		console.log($AX);
-							//		console.log($AY);
 
 								 },function(){
 									 $(".tootip").hide();
 								 });
-
-						/*
-						$(".ball").hover(function(e){
-								     var $X =  e.pageX-60;
-									 var $Y = e.pageY-60;
-									 var $pos = e.target.id;
-									 var classT = ".commentBall#20000";
-									$(classT).css({"left":$X+"px","top":$Y+"px"}).fadeIn();
-								
-								 },function(){
-									 $(".tootip").hide();
-								 });
-*/
 
 								  $(".ball").hover(function(ex){
 									  //alert("test");
 								     var $BX =  ex.pageX;
 									 var $BY = ex.pageY;
 									 var Bpos = ex.target.id;
-									 var $classB = ".commentball#"+Bpos;
-					//				 									console.log($BX);
-					//				console.log($BY);
-
-								//	console.log($classB);
-									//console.log($(".commentball#20000").text());
-									//alert($(".commentBall#1000").text());
-									//alert(Bpos);
-							//		alert($(".commentball#20000").text());
-										$($classB).css({"left":$BX+"px","top":$BY+"px"}).fadeIn();
+									 var $classB = ".commentball#"+Bpos;										$($classB).css({"left":$BX+"px","top":$BY+"px"}).fadeIn();
 							},function(){
 									 $(".commentball").hide();
 								 });
-
-
-
 
 					/*### Manage Tootip Range Start ###*/
 					  
@@ -458,17 +513,17 @@
 
 						}
 					});
-			});
-				$("a[href=#tab1_1]").click(function(){
-			
+	};
+
+
+				//$("a[href=#tab1_1]").click(function(){
+					var includeNS = function(){
 					$.ajax({
 						url:'ns.jsp',
 						type:'GET',
 						dataType:'html',
-					//	data:$(this).serialize(),
-						data:{"ParamYear":$("#ParamYear").val(),"ParamMonth":$("#ParamMonth").val(),"ParamOrg":"NS"},
+						data:{"ParamYear":$("#ParamYearSubmit").val(),"ParamMonth":$("#ParamMonthSubmit").val(),"ParamOrg":"NS"},
 						success:function(data){
-							//alert("data ok");
 							$("#tab1").empty();
 							$("#tab1_1").empty();
 							$("#tab1_2").empty();
@@ -478,6 +533,8 @@
 							$("#tab4").empty();
 							$("#tab5").empty();
 							$("#tab6").empty();
+							$(".pageRemember").remove();
+							$("body").append("<input type='hidden' id='pageNS' class='pageRemember' name='pageNS' value='pageNS'>");
 							$("#tab1_1").append(data);
 							/*### Manage Tootip Start###*/
 
@@ -527,16 +584,17 @@
 
 						}
 					});
-			});
-			$("a[href=#tab1_2]").click(function(){
+			};
+
+			var includeCT = function(){
+			//$("a[href=#tab1_2]").click(function(){
 					$.ajax({
 						url:'ct.jsp',
 						type:'GET',
 						dataType:'html',
 					//	data:$(this).serialize(),
-						data:{"ParamYear":$("#ParamYear").val(),"ParamMonth":$("#ParamMonth").val(),"ParamOrg":"CT"},
+						data:{"ParamYear":$("#ParamYearSubmit").val(),"ParamMonth":$("#ParamMonthSubmit").val(),"ParamOrg":"CT"},
 						success:function(data){
-							//alert("data ok");
 							$("#tab1").empty();
 							$("#tab1_1").empty();
 							$("#tab1_2").empty();
@@ -546,6 +604,8 @@
 							$("#tab4").empty();
 							$("#tab5").empty();
 							$("#tab6").empty();
+							$(".pageRemember").remove();
+							$("body").append("<input type='hidden' id='pageCT' class='pageRemember' name='pageCT' value='pageCT'>");
 							$("#tab1_2").append(data);
 
 
@@ -601,16 +661,18 @@
 					/*### Manage Tootip Range Stop ###*/
 						}
 					});
-			});
-			$("a[href=#tab1_3]").click(function(){
+			};
+
+			var includeCPMOHRD = function(){
+
+		//	$("a[href=#tab1_3]").click(function(){
 					$.ajax({
 						url:'cpmo-hrd.jsp',
 						type:'GET',
 						dataType:'html',
 					//	data:$(this).serialize(),
-						data:{"ParamYear":$("#ParamYear").val(),"ParamMonth":$("#ParamMonth").val(),"ParamOrg":"CPMO-HRD"},
+						data:{"ParamYear":$("#ParamYearSubmit").val(),"ParamMonth":$("#ParamMonthSubmit").val(),"ParamOrg":"CPMO-HRD"},
 						success:function(data){
-							//alert("data ok");
 							$("#tab1").empty();
 							$("#tab1_1").empty();
 							$("#tab1_2").empty();
@@ -620,6 +682,8 @@
 							$("#tab4").empty();
 							$("#tab5").empty();
 							$("#tab6").empty();
+							$(".pageRemember").remove();
+							$("body").append("<input type='hidden' id='pageCPMOHRD' class='pageRemember' name='pageCPMOHRD' value='pageCPMOHRD'>");
 							$("#tab1_3").append(data);
 							/*### Manage Tootip Start###*/
 								 $(".kpiN").hover(function(e){
@@ -664,16 +728,16 @@
 					/*### Manage Tootip Range Stop ###*/
 						}
 					});
-			});
-			$("a[href=#tab2]").click(function(){
+			};
+				var includeBIOTEC = function(){
+		////	$("a[href=#tab2]").click(function(){
 						$.ajax({
 						url:'biotec.jsp',
 						type:'GET',
 						dataType:'html',
 					//	data:$(this).serialize(),
-						data:{"ParamYear":$("#ParamYear").val(),"ParamMonth":$("#ParamMonth").val(),"ParamOrg":"BIOTEC"},
+						data:{"ParamYear":$("#ParamYearSubmit").val(),"ParamMonth":$("#ParamMonthSubmit").val(),"ParamOrg":"BIOTEC"},
 						success:function(data){
-							//alert("data ok");
 							$("#tab1").empty();
 							$("#tab1_1").empty();
 							$("#tab1_2").empty();
@@ -683,6 +747,8 @@
 							$("#tab4").empty();
 							$("#tab5").empty();
 							$("#tab6").empty();
+							$(".pageRemember").remove();
+							$("body").append("<input type='hidden' id='pageBIOTEC' class='pageRemember' name='pageBIOTEC' value='pageBIOTEC'>");
 							$("#tab2").append(data);
 							/*### Manage Tootip Start###*/
 					 $(".kpiN").hover(function(e){
@@ -728,17 +794,17 @@
 					/*### Manage Tootip Range Stop ###*/
 						}
 					});
-			});
-			$("a[href=#tab3]").click(function(){
+			};
 
+	//		$("a[href=#tab3]").click(function(){
+				var includeMTEC = function(){
 						$.ajax({
 						url:'mtec.jsp',
 						type:'GET',
 						dataType:'html',
 					//	data:$(this).serialize(),
-						data:{"ParamYear":$("#ParamYear").val(),"ParamMonth":$("#ParamMonth").val(),"ParamOrg":"MTEC"},
+						data:{"ParamYear":$("#ParamYearSubmit").val(),"ParamMonth":$("#ParamMonthSubmit").val(),"ParamOrg":"MTEC"},
 						success:function(data){
-							//alert("data ok");
 							$("#tab1").empty();
 							$("#tab1_1").empty();
 							$("#tab1_2").empty();
@@ -748,6 +814,8 @@
 							$("#tab4").empty();
 							$("#tab5").empty();
 							$("#tab6").empty();
+							$(".pageRemember").remove();
+							$("body").append("<input type='hidden' id='pageMTEC' class='pageRemember' name='pageMTEC' value='pageMTEC'>");
 							$("#tab3").append(data);
 							/*### Manage Tootip Start###*/
 								 $(".kpiN").hover(function(e){
@@ -793,17 +861,16 @@
 						}
 					});
 			
-			});
-			$("a[href=#tab4]").click(function(){
+			};
 
+			var includeNECTEC = function(){
+			//$("a[href=#tab4]").click(function(){
 				$.ajax({
 						url:'nectec.jsp',
 						type:'GET',
 						dataType:'html',
-					//	data:$(this).serialize(),
-						data:{"ParamYear":$("#ParamYear").val(),"ParamMonth":$("#ParamMonth").val(),"ParamOrg":"NECTEC"},
+						data:{"ParamYear":$("#ParamYearSubmit").val(),"ParamMonth":$("#ParamMonthSubmit").val(),"ParamOrg":"NECTEC"},
 						success:function(data){
-							//alert("data ok");
 							$("#tab1").empty();
 							$("#tab1_1").empty();
 							$("#tab1_2").empty();
@@ -813,6 +880,8 @@
 							$("#tab4").empty();
 							$("#tab5").empty();
 							$("#tab6").empty();
+							$(".pageRemember").remove();
+							$("body").append("<input type='hidden' id='pageNECTEC' class='pageRemember' name='pageNECTEC' value='pageNECTEC'>");
 							$("#tab4").append(data);
 							/*### Manage Tootip Start###*/
 							 $(".kpiN").hover(function(e){
@@ -858,17 +927,17 @@
 						}
 					});
 			
-			});
-			$("a[href=#tab5]").click(function(){
-//alert("hello tab5");
+			};
+				//		$("a[href=#tab5]").click(function(){
+
+			var includeNANOTEC = function(){
 				$.ajax({
 						url:'nanotec.jsp',
 						type:'GET',
 						dataType:'html',
 					//	data:$(this).serialize(),
-						data:{"ParamYear":$("#ParamYear").val(),"ParamMonth":$("#ParamMonth").val(),"ParamOrg":"NANOTEC"},
+						data:{"ParamYear":$("#ParamYearSubmit").val(),"ParamMonth":$("#ParamMonthSubmit").val(),"ParamOrg":"NANOTEC"},
 						success:function(data){
-							//alert("data ok");
 							$("#tab1").empty();
 							$("#tab1_1").empty();
 							$("#tab1_2").empty();
@@ -878,6 +947,8 @@
 							$("#tab4").empty();
 							$("#tab5").empty();
 							$("#tab6").empty();
+							$(".pageRemember").remove();
+							$("body").append("<input type='hidden' id='pageNANOTEC' class='pageRemember' name='pageNANOTEC' value='pageNANOTEC'>");
 							$("#tab5").append(data);
 							/*### Manage Tootip Start###*/
 							 $(".kpiN").hover(function(e){
@@ -923,18 +994,17 @@
 						}
 					});
 			
-			});
+			};
 
-				$("a[href=#tab6]").click(function(){
-
+				//$("a[href=#tab6]").click(function(){
+				var includeTMC = function(){
 				$.ajax({
 						url:'tmc.jsp',
 						type:'GET',
 						dataType:'html',
 					//	data:$(this).serialize(),
-						data:{"ParamYear":$("#ParamYear").val(),"ParamMonth":$("#ParamMonth").val(),"ParamOrg":"TMC"},
+						data:{"ParamYear":$("#ParamYearSubmit").val(),"ParamMonth":$("#ParamMonthSubmit").val(),"ParamOrg":"TMC"},
 						success:function(data){
-							//alert("data ok");
 							$("#tab1").empty();
 							$("#tab1_1").empty();
 							$("#tab1_2").empty();
@@ -944,6 +1014,8 @@
 							$("#tab4").empty();
 							$("#tab5").empty();
 							$("#tab6").empty();
+							$(".pageRemember").remove();
+							$("body").append("<input type='hidden' id='pageTMC' class='pageRemember' name='pageTMC' value='pageTMC'>");
 							$("#tab6").append(data);
 							/*### Manage Tootip Start###*/
 							 $(".kpiN").hover(function(e){
@@ -990,7 +1062,7 @@
 						}
 					});
 			
-			});
+			};
 				
 
 
