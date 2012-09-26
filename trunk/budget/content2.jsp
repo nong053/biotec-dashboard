@@ -67,6 +67,7 @@ int j=0;
 /////////====================================END Barchart1======================
 
 //===================== Get Progress Bar 1===========================================
+categoryGetProgressBar = "ALL";
 
 
 Query="CALL sp_budget_project_cluster_most_spending(";
@@ -91,7 +92,11 @@ while(rs.next()){
 if(i<10)
 {
 	for(;i<10;i++){
+		if(i==0){
+			progressBar1 += "{\"value\": 0},{\"name\":\"No data\"}";
+		}else{
 		progressBar1 += ",{\"value\": 0},{\"name\":\"No data\"}";
+		}	
 	}
 }
 
@@ -100,7 +105,6 @@ if(i<10)
 // ========================End Get Progress Bar 1================================
 
 //===================== Get Progress Bar 2===========================================
-categoryGetProgressBar = "ALL";
 Query="CALL sp_budget_project_cluster_least_spending(";
 Query += year +"," + month +",\""+cluster+"\",\""+categoryGetProgressBar+"\");";
 rs = st.executeQuery(Query);
@@ -124,7 +128,11 @@ while(rs.next()){
 if(i<10)
 {
 	for(;i<10;i++){
+		if(i==0){
+			progressBar2 += "{\"value\": 0},{\"name\":\"No data\"}";
+		}else{
 		progressBar2 += ",{\"value\": 0},{\"name\":\"No data\"}";
+		}	
 	}
 }
 

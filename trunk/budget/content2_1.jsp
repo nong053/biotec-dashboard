@@ -41,11 +41,12 @@ while(rs.next()){
 	progressBar1 += "{\"value\":"+spending_percent+"},{\"name\":\""+wbs_name+"\"}";
 	i++;	
 	
-}
+	}
 if(i<10)
 {
 	for(;i<10;i++){
 		progressBar1 += ",{\"value\": 0},{\"name\":\"No data\"}";
+	//	out.print(i+"<br>");
 	}
 }
 
@@ -66,19 +67,20 @@ while(rs.next()){
 	String spending_percent = rs.getString("spending_percent");
 	String wbs_name = rs.getString("wbs_name"); 
 
-	if(i>0){
+	if(i>0)
+	{
 		progressBar2 += ",";
 	}
 	progressBar2 += "{\"value\":"+spending_percent+"},{\"name\":\""+wbs_name+"\"}";
 	i++;	
-	
 }
-if(i<10)
-{
-	for(;i<10;i++){
-		progressBar2 += ",{\"value\": 0},{\"name\":\"No data\"}";
+	//out.print(progressBar2+"<br>");
+	if(i<10)
+	{
+		for(;i<10;i++){
+			progressBar2 += ",{\"value\": 0},{\"name\":\"No data\"}";
+		}
 	}
-}
 
 out.print("[{\"temp\":3},{\"temp\":3},"+progressBar1+","+progressBar2+"]");
 
