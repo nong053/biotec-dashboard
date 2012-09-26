@@ -39,6 +39,10 @@ catch(Exception ex){
 out.println("Error"+ex);
 }
 //Query Handler Organization end
+		String Query1 ="";
+		ResultSet rs1;
+		Statement st1;
+		int i = 0;
 
 //Query Handler Year start
 try{
@@ -46,14 +50,36 @@ Class.forName(Driver).newInstance();
 conn=DriverManager.getConnection(connectionURL,User,Pass);
 	if(!conn.isClosed()){
 	//insert code allow function start
-	st = conn.createStatement();
+		st = conn.createStatement();
 		Query="CALL sp_fiscal_year();";
 		rs = st.executeQuery(Query);
 		
 		while(rs.next()){
-		//out.println(rs.getString("center_name"));
-		V_Year+="<option value="+rs.getString("fiscal_year")+">"+rs.getString("buddhist_era_year")+"</option>";
+			Query1  = "SELECT Date_format(SYSDATE(),'%Y') as year_date,Date_format(SYSDATE(),'%m') as month_date;";
+			st1 = conn.createStatement();
+			rs1 = st1.executeQuery(Query1);
+			i = 0;
+			while(rs1.next()){
+				int presentMonth = rs1.getInt("month_date"); 
+				int present_year = rs1.getInt("year_date");
+
+				presentMonth = presentMonth +2 ; 
+				if(presentMonth>12){
+					present_year = present_year+1; 
+				}
+
+				String present_yearStr = present_year+"";
+				String query_year = rs.getString("fiscal_year");
+				if(query_year.equals(present_yearStr)){
+					V_Year += "<option value=\""+rs.getString("fiscal_year")+"\"  selected='selected'>"+rs.getString("buddhist_era_year")+"</option>";
+				}
+				else{
+					V_Year += "<option value=\""+rs.getString("fiscal_year")+"\">"+rs.getString("buddhist_era_year")+"</option>";
+				}
+			}
+			i++;
 		}
+
 	//insert code allow function end
 		conn.close();
 	}
@@ -73,11 +99,29 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 	st = conn.createStatement();
 		Query="CALL sp_fiscal_month();";
 		rs = st.executeQuery(Query);
-		
-		while(rs.next()){
-		//out.println(rs.getString("center_name"));
-		V_Month+="<option value="+rs.getString("fiscal_month_no")+">"+rs.getString("calendar_th_month_name")+"</option>";
+
+				while(rs.next()){
+			 Query1  = "SELECT Date_format(SYSDATE(),'%m') as month_date;";
+			st1 = conn.createStatement();
+			rs1 = st1.executeQuery(Query1);
+			while(rs1.next()){
+				int presentMonth = rs1.getInt("month_date");
+				//int presentMonth = 10;
+				presentMonth = presentMonth +2 ;
+				if(presentMonth>12){
+					presentMonth=presentMonth-12;
+				}
+				String query_month = rs.getString("fiscal_month_no");
+				String presentMonthStr = presentMonth+"";
+				if(query_month.equals(presentMonthStr)){
+					V_Month += "<option value=\""+rs.getString("fiscal_month_no")+"\"  selected='selected'>"+rs.getString("calendar_th_month_name")+"</option>";	
+				}else{
+					V_Month += "<option value=\""+rs.getString("fiscal_month_no")+"\">"+rs.getString("calendar_th_month_name")+"</option>";	
+				}
+			}
+			i++;
 		}
+
 	//insert code allow function end
 		conn.close();
 	}
@@ -316,7 +360,6 @@ out.println("Error"+ex);
 	
 	</div>
 	<!--------------------------- Details Start--------------------------->
-
 
 	<div id="contentMain">
 
