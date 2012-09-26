@@ -619,12 +619,8 @@ dataLevel1+="[";
 	pieChart(obj,obj2);
 //Step1 Call Default
 
-
-
 //#################### Manment Pie Chart #######################
 			
-
-	
 	 function detailInit2(e) {
 								
 							//alert(e.data.account_name);
@@ -684,11 +680,6 @@ dataLevel1+="[";
 								}//ajax
 							});
 								
-								//pieChart();
-								
-						
-						 
-
 				setFont();
 			// REMOVE COLUMN START
 				//$("tr.k-detail-row td.k-hierarchy-cell").remove();
