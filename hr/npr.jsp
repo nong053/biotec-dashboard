@@ -471,7 +471,7 @@ background:#ffffff;
 </style>
 <script type="text/javascript">
 $(document).ready(function(){
-var ParamOrg = "";
+var ParamOrg = "สวทช.";
 /*###  pie center start ###*/
 
 var pieChartCenter= function(id_param,data_param,summ_param){
