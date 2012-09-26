@@ -255,14 +255,58 @@ function addCommas(nStr)
 
 	/*### Main Content Start ###*/
 	
-	$("form#form_1").submit(function(){
-	//alert("hello submit");
-	$("#tabs").slideDown(500,function(){
-		$("a[href=#content1]").trigger("click");
-	//	 $("#select1").kendoDropDownList();
-	});
+		$("form#form_1").submit(function(){
+				$("#content1").hide();
+				$("#content2").hide();
+				$("#content3").hide();
+				$("#content4").hide();
+				$("#content5").hide();
+				$("#tabs").show();
+				$(".paramSubmit").remove();
+				$("body").append("<input type='hidden' value='"+$("#ParamMonth").val()+"' name='ParamMonthSubmit' id='ParamMonthSubmit' class='paramSubmit'> ");
+				$("body").append("<input type='hidden' value='"+$("#ParamYear").val()+"' name='ParamYearSubmit' id='ParamYearSubmit' class='paramSubmit'>");
+
+				if($("#pageCon1").val()){
+						$("a[href=#content1]").trigger("click");
+				}else if($("#pageCon2").val()){
+						$("a[href=#content2]").trigger("click");
+				}else if($("#pageCon3").val()){
+						$("a[href=#content3]").trigger("click");
+				}else if($("#pageCon4").val()){
+						$("a[href=#content4]").trigger("click");
+				}else if($("#pageCon5").val()){
+						$("a[href=#content5]").trigger("click");
+				}else{
+						$("a[href=#content1]").trigger("click");
+				}
+
+				//$("#tabs").slideDown(500,function(){
+					//$("a[href=#content1]").trigger("click");
+
+		//	});
+
 	return false;
 	});
+	$("a[href=#content1]").click(function(){
+			includeCon1();
+	});
+
+	$("a[href=#content2]").click(function(){
+			includeCon2();
+	});
+
+		$("a[href=#content3]").click(function(){
+			includeCon3();
+	});
+
+	$("a[href=#content4]").click(function(){
+			includeCon4();
+	});
+
+	$("a[href=#content5]").click(function(){
+			includeCon5();
+	});
+
 	/*### Main Content Start ###*/
 	
 
@@ -385,17 +429,16 @@ function addCommas(nStr)
 			});
 		});
 
-
-
-
-	$("a[href=#content1]").click(function(){
+	var includeCon1 = function(){
+//	$("a[href=#content1]").click(function(){
 		var dropDown = $("#select1").data("kendoDropDownList");
 		dropDown.select(0);				
 			$.ajax({
 				url:"content1.jsp",
 				type:"get",
 				dataType:"json",
-				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val(),"pg_code":$("#select1").val()},
+				data:{"month":$("#ParamMonthSubmit").val(),"year":$("#ParamYearSubmit").val(),"pg_code":$("#select1").val()},
+				//data:{"ParamYear":$("#ParamYearSubmit").val(),"ParamMonth":$("#ParamMonthSubmit").val(),"ParamOrg":"NS"},
 				success:function(data){
 
 				$("#content1").hide();
@@ -403,6 +446,9 @@ function addCommas(nStr)
 				$("#content3").hide();
 				$("#content4").hide();
 				$("#content5").hide();
+				$(".pageRemember").remove();
+				$("body").append("<input type='hidden' id='pageCon1' class='pageRemember' name='pageCon1' value='pageCon1'>");
+
 				$("#content1").slideDown("slow",function(){
 					console.log(data);
 					var serie1 = data[0]["series1"];
@@ -412,23 +458,6 @@ function addCommas(nStr)
 				
 				/*### call function sufferRow  Start ###*/
 				colorSufferRow();
-				/*var progressbarID1 =["111","112","113","114","115","116","117","118","119","1110"];
-				var progressbarID2 =["121","122","123","124","125","126","127","128","129","1210"];
-				var dataValueID1 = [4,6,8,10,12,14,16,18,20,22];
-				var dataNameID1 = [5,7,9,11,13,15,17,19,21,23];
-				var dataValueID2 = [24,26,28,30,32,34,36,38,40,42];
-				var dataNameID2 = [25,27,29,31,33,35,37,39,41,43];
-				var lengthProgressBar1 = data[2]["lengthProgressBar1"];
-				var lengthProgressBar2 = data[3]["lengthProgressBar2"];
-				for(var i=0;i<lengthProgressBar1;i++){
-					//console.log(progressbarID1[i]);
-					callProgressbar(progressbarID1[i],parseFloat(data[dataValueID1[i]]["value"]).toFixed(2),data[dataNameID1[i]]["name"]);
-				}
-				for(var i=0;i<lengthProgressBar1;i++){
-					//console.log(progressbarID1[i]);
-					callProgressbar(progressbarID2[i],parseFloat(data[dataValueID2[i]]["value"]).toFixed(2),data[dataNameID2[i]]["name"]);
-				}
-				*/
 				$("#contentL .projectHead1").empty();
 				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
 				$("#contentR .projectHead1").empty();
@@ -463,26 +492,28 @@ function addCommas(nStr)
 				}
 			});
 			return false;
-	});
-
-	$("a[href=#content2]").click(function(){
+	};
+	var includeCon2 = function(){
+	//$("a[href=#content2]").click(function(){
 			var dropDown = $("#select2").data("kendoDropDownList");
 			dropDown.select(0);
 			//alert($("#select2").val());
-
 			$.ajax({
 				url:"content2.jsp",
 				type:"get",
 				dataType:"json",
 				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val(),"cluster":$("#select2").val()},
 				success:function(data){
-									console.log(data);
+					//console.log(data);
 
 				$("#content1").hide();
 				$("#content2").hide();
 				$("#content3").hide();
 				$("#content4").hide();
 				$("#content5").hide();
+				$(".pageRemember").remove();
+				$("body").append("<input type='hidden' id='pageCon2' class='pageRemember' name='pageCon2' value='pageCon2'>");
+
 				//$("#content2").append(data).hide();
 				$("#content2").slideDown("slow",function(){
 					var serie1 = data[0]["series1"];
@@ -525,10 +556,9 @@ function addCommas(nStr)
 				}
 			});
 			return false;
-	});
-
-		$("a[href=#content3]").click(function(){
-
+	};
+	var includeCon3 = function(){
+		//$("a[href=#content3]").click(function(){
 			$.ajax({
 				url:"content3.jsp",
 				type:"get",
@@ -540,6 +570,9 @@ function addCommas(nStr)
 				$("#content3").hide();
 				$("#content4").hide();
 				$("#content5").hide();
+				$(".pageRemember").remove();
+				$("body").append("<input type='hidden' id='pageCon3' class='pageRemember' name='pageCon3' value='pageCon3'>");
+
 				$("#content3").slideDown(function(){
 
 					var serie1 = data[0]["series1"];
@@ -547,7 +580,8 @@ function addCommas(nStr)
 					barChart31(serie1,category1);
 					colorSufferRow();
 					console.log(data);
-									$("#contentL .projectHead1").empty();
+
+				$("#contentL .projectHead1").empty();
 				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
 				$("#contentR .projectHead1").empty();
 				$("#contentR .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
@@ -582,9 +616,9 @@ function addCommas(nStr)
 				}
 			});
 			return false;
-	});
-
-	$("a[href=#content4]").click(function(){
+	};
+	var includeCon4 = function(){
+//	$("a[href=#content4]").click(function(){
 
 			$.ajax({
 				url:"content4.jsp",
@@ -598,6 +632,9 @@ function addCommas(nStr)
 				$("#content3").hide();
 				$("#content4").hide();
 				$("#content5").hide();
+				$(".pageRemember").remove();
+				$("body").append("<input type='hidden' id='pageCon4' class='pageRemember' name='pageCon4' value='pageCon4'>");
+
 				$("#content4").slideDown("slow",function(){
 
 					var serie1 = data[0]["series1"];
@@ -640,9 +677,10 @@ function addCommas(nStr)
 				}
 			});
 			return false;
-	});
+	};
 
-	$("a[href=#content5]").click(function(){
+//	$("a[href=#content5]").click(function(){
+	var includeCon5 = function(){
 
 			$.ajax({
 				url:"content5.jsp",
@@ -656,6 +694,8 @@ function addCommas(nStr)
 				$("#content3").hide();
 				$("#content4").hide();
 				$("#content5").hide();
+				$(".pageRemember").remove();
+				$("body").append("<input type='hidden' id='pageCon5' class='pageRemember' name='pageCon5' value='pageCon5'>");
 				$("#content5").slideDown("slow",function(){
 				var serie1 = data[0]["series1"];
 				var category1 = data[1]["category1"];
@@ -673,7 +713,7 @@ function addCommas(nStr)
 				}
 			});
 			return false;
-	});
+	};
 
 	
 		$("#tabs").tabs();

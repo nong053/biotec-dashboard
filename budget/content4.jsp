@@ -88,7 +88,11 @@ while(rs.next()){
 }if(i<10)
 {
 	for(;i<10;i++){
+		if(i==0){
+			progressBar1 += "{\"value\": 0},{\"name\":\"No data\"}";
+		}else{
 		progressBar1 += ",{\"value\": 0},{\"name\":\"No data\"}";
+		}	
 	}
 }
 
@@ -120,7 +124,11 @@ while(rs.next()){
 }if(i<10)
 {
 	for(;i<10;i++){
+		if(i==0){
+			progressBar2 += "{\"value\": 0},{\"name\":\"No data\"}";
+		}else{
 		progressBar2 += ",{\"value\": 0},{\"name\":\"No data\"}";
+		}		
 	}
 }
 
