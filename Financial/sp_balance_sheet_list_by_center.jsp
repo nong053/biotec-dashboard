@@ -241,7 +241,7 @@ $(document).ready(function(){
 var pieChart= function(paramValue,titleText,paramSum){
 		
 		$("#pie").show();
-		var data=paramValue;
+		//var data=paramValue;
 		/*
 		var data = [
                     {

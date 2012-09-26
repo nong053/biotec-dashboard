@@ -494,30 +494,9 @@ return false;
 	});
 	});
 		// ajax end 01
-		// ajax start 02
-
-	$("[href=#content2]").click(function(){
-	//alert("hello jquery");
-	$("#content1").empty();
-	$("#content2").empty();
-	$("#content3").empty();
-	$("#content4").empty();
-	$.ajax({
-		'url':'table2.html',
-		'type':'get',
-		'dataType':'html',
-		success:function(data){
-		//alert(data);
-		$("#content2").append(data);
-		//sufferTable();
 		
-		}
-	});
-	
-	});
-		// ajax end 02
-		// ajax start 03
-	$("[href=#content3]").click(function(){
+		// ajax start 02
+	$("[href=#content2]").click(function(){
 	//alert("hello jquery");
 	$("#content1").empty();
 	$("#content2").empty();
@@ -529,7 +508,7 @@ return false;
 		'dataType':'html',
 		data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramOrg':$("#domParamOrg").val()},
 		success:function(data){
-		$("#content3").append(data);
+		$("#content2").append(data);
 		//$(".k-plus").trigger("click");
 
 
@@ -546,6 +525,29 @@ return false;
 	});
 	
 	});
+		// ajax end 02
+		// ajax start 03
+
+	$("[href=#content3]").click(function(){
+	//alert("hello jquery");
+	$("#content1").empty();
+	$("#content2").empty();
+	$("#content3").empty();
+	$("#content4").empty();
+	$.ajax({
+		'url':'sp_balance_sheet_list.jsp',
+		'type':'get',
+		'dataType':'html',
+		data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramOrg':$("#domParamOrg").val()},
+		success:function(data){
+		//alert(data);
+		$("#content3").append(data);
+		//sufferTable();
+		
+		}
+	});
+	
+	});
 		// ajax end 03
 		// ajax start 04
 	$("[href=#content4]").click(function(){
@@ -558,6 +560,7 @@ return false;
 		'url':'sp_profit_and_loss_list.jsp',
 		'type':'get',
 		'dataType':'html',
+		data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramOrg':$("#domParamOrg").val()},
 		success:function(data){
 		//alert(data);
 		$("#content4").append(data);
@@ -659,14 +662,14 @@ function tootipFormat(value,summ){
 		<div id="tabs">
 			<ul>
 				<li ><a href="#content1">งบแสดงฐานะการเงิน</a></li>
-				<li ><a href="#content3">งบรายได้ค่าใช้จ่าย</a></li>
-				<li ><a href="#content2">งบแสดงฐานะการเงินแยกศูนย์</a></li>
+				<li ><a href="#content2">งบรายได้ค่าใช้จ่าย</a></li>
+				<li ><a href="#content3">งบแสดงฐานะการเงินแยกศูนย์</a></li>
 				<li ><a href="#content4">งบรายได้ค่าใช้จ่ายแยกศูนย์</a></li>
 			
 			</ul>
 			<div id="content1">content1</div>
-			<div id="content3">content3</div>
 			<div id="content2">content2</div>
+			<div id="content3">content3</div>
 			<div id="content4">content4</div>
 <br style="clear:both" />
 </div>
