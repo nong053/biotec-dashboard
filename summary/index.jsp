@@ -189,30 +189,39 @@
 		String ParamYear = "";
 		String ParamMonth = "";
 		String ParamOrg = "";
-
 		String V_Year = ""; // Values of Parameter Organization
 		String V_Month = ""; // Values of Parameter Sales Region
 		String V_Org = ""; // Values of Parameter Branch
-
+		String textMonth="[\"0\",";
 		/*------------------- End Set Variable -------------------*/
 
 		/*------------------- Parameter Year -------------------*/
 
-			int i = 0;
+		int i = 0;
 		Query="CALL sp_fiscal_year;";
 		String Query1 ="";
 		ResultSet rs1;
 		Statement st1;
 		rs = st.executeQuery(Query);
 		while(rs.next()){
-		 Query1  = "SELECT Date_format(SYSDATE(),'%Y') as year_date;";
+			Query1  = "SELECT Date_format(SYSDATE(),'%Y') as year_date,Date_format(SYSDATE(),'%m') as month_date;";
 			st1 = conn.createStatement();
 			rs1 = st1.executeQuery(Query1);
 			i = 0;
 			while(rs1.next()){
-				String present_year = rs1.getString("year_date");
+				int presentMonth = rs1.getInt("month_date"); 
+				int present_year = rs1.getInt("year_date");
+		//		int presentMonth = 10; 
+				//int present_year = 2012;
+
+				presentMonth = presentMonth +2 ; 
+				if(presentMonth>12){
+					present_year = present_year+1; 
+				}
+
+				String present_yearStr = present_year+"";
 				String query_year = rs.getString("fiscal_year");
-				if(query_year.equals(present_year)){
+				if(query_year.equals(present_yearStr)){
 					V_Year += "<option value=\""+rs.getString("fiscal_year")+"\"  selected='selected'>"+rs.getString("buddhist_era_year")+"</option>";
 				}
 				else{
@@ -221,7 +230,6 @@
 			}
 			i++;
 		}
-
 /*
 		V_Year += "<option value=\"2012\"  selected='selected'>2555</option>";
 		V_Year += "<option value=\"2011\">2554</option>";
@@ -235,13 +243,14 @@
 		Query="CALL sp_fiscal_month;";
 		rs = st.executeQuery(Query);
 		i = 0;
-		while(rs.next()){
-		 Query1  = "SELECT Date_format(SYSDATE(),'%m') as month_date;";
+			while(rs.next()){
+			 Query1  = "SELECT Date_format(SYSDATE(),'%m') as month_date;";
 			st1 = conn.createStatement();
 			rs1 = st1.executeQuery(Query1);
 			while(rs1.next()){
 				int presentMonth = rs1.getInt("month_date");
-				presentMonth = presentMonth +3 ;
+				//int presentMonth = 10;
+				presentMonth = presentMonth +2 ;
 				if(presentMonth>12){
 					presentMonth=presentMonth-12;
 				}
@@ -249,12 +258,19 @@
 				String presentMonthStr = presentMonth+"";
 				if(query_month.equals(presentMonthStr)){
 					V_Month += "<option value=\""+rs.getString("fiscal_month_no")+"\"  selected='selected'>"+rs.getString("calendar_th_month_name")+"</option>";	
+					
+					if(i>0)	textMonth +=",";
+					textMonth +="\""+rs.getString("calendar_th_month_name")+"\"";
 				}else{
 					V_Month += "<option value=\""+rs.getString("fiscal_month_no")+"\">"+rs.getString("calendar_th_month_name")+"</option>";	
+			
+					if(i>0)	textMonth +=",";
+					textMonth +="\""+rs.getString("calendar_th_month_name")+"\"";
 				}
 			}
 			i++;
 		}
+		textMonth+="]";
 		/*
 		V_Month += "<option value=\"10\" selected='selected' >ตุลาคม </option>";
 		V_Month += "<option value=\"11\">พฤศจิกายน </option>";
@@ -550,11 +566,11 @@ var barChartBudget = function(categoryParam,seriesParam){
                             data: [2,3, 4, 6]
                         }]*/
                         valueAxis: {
-                            labels: {
                                // format: "{0}%"
 							  // format: "{0}",
-							  font: "11px Tahoma"
-                            }
+							        //      rotation: 10,
+							  font: "10px Tahoma",
+								min : 0
                         },
                         categoryAxis: {
                          //   categories: [ "โครงการ" ," หน่วยงาน", "ครุภัณฑ์ ", "บุคลากร"]
@@ -613,8 +629,8 @@ var pieChartHR= function(selectorParam,valueParam,sumParam){
 			},
 			series: [{
                             type: "pie",
+                            data: valueParam//[{totalPieHR3:312.14},{value_piehr3:[{category:"คชจ. ดำเนินการ",value: 234.14},{category: "คชจ. บุคลากร",value: 122.0}]}]
 
-                            data: valueParam
 							/*	 [ {
 	
                                 category: "RDDE",
@@ -657,8 +673,6 @@ var pieChartHR= function(selectorParam,valueParam,sumParam){
 			},
 			//seriesHover:onSeriesHover,
 			seriesClick:onSeriesClick
-	
-			
 		});
 }
 //pieCharhr();
@@ -1039,13 +1053,32 @@ var barChartFinancial= function(serieParam,categoryParam){
 				});
 */
 ///////////////// Gague 1 Working
+var ParamYearArr = <%=textMonth%>;
+
 			$("#form_1").submit(function(){
+
+				var ParamYearPlus = parseInt($("#ParamYear").val());
+				var ParamMonthPlus = (parseInt($("#ParamMonth").val()))+1;
+				var ParamYearPlusText = "";
+				var ParamMonthPlusText = "";
+				if(ParamMonthPlus>12){
+					ParamYearPlus=ParamYearPlus +1;
+					ParamMonthPlus=ParamMonthPlus-12;
+				}
+				ParamYearPlusText = (ParamYearPlus +543)+"" ;
+				ParamMonthPlusText = ParamYearArr[ParamMonthPlus];
+
 					$.ajax({
 						url:'processBudget1.jsp',
 						type:'get',
 						dataType:'json',
-						data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val()},
+						//data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val()},
+					    data:{"month":ParamMonthPlus,"year":ParamYearPlus},
+
 						success:function(data2){
+						//	alert("Year="+ParamYearPlusText+" Month="+ParamMonthPlusText);
+							$(".budget#title").empty();
+							$(".budget#title").append("งบประมาณ ณ "+ParamMonthPlusText+" "+ParamYearPlusText);
 							var pecent = parseFloat(data2[0]["gauge1"]).toFixed(2);
 							gauge("#gauge1",pecent);
 							$("#container-gauge2 .gaugeValue").empty();
@@ -1067,13 +1100,23 @@ var barChartFinancial= function(serieParam,categoryParam){
 
 ///////////////// Gague 2 Working
 			$("#form_1").submit(function(){
+				
+				var ParamYearPlus = parseInt($("#ParamYear").val());
+				var ParamMonthPlus = (parseInt($("#ParamMonth").val()))+1;
+				var ParamYearPlusText = "";
+				var ParamMonthPlusText = "";
+				if(ParamMonthPlus>12){
+					ParamYearPlus=ParamYearPlus +1;
+					ParamMonthPlus=ParamMonthPlus-12;
+				}
+
 					$.ajax({
 						url:'processBudget2.jsp',
 						type:'get',
 						dataType:'json',
-						data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val()},
+					    data:{"month":ParamMonthPlus,"year":ParamYearPlus},
 						success:function(data2){
-										var pecent = parseFloat(data2[0]["gauge2"]).toFixed(2);
+							var pecent = parseFloat(data2[0]["gauge2"]).toFixed(2);
 							gauge("#gauge2",pecent);
 							$("#container-gauge .gaugeValue").empty();
 							$("#container-gauge .gaugeValue").append(pecent);
@@ -1094,11 +1137,20 @@ var barChartFinancial= function(serieParam,categoryParam){
 
 ///////////////// Barchart Budget Working
 			$("#form_1").submit(function(){
+				var ParamYearPlus = parseInt($("#ParamYear").val());
+				var ParamMonthPlus = (parseInt($("#ParamMonth").val()))+1;
+				var ParamYearPlusText = "";
+				var ParamMonthPlusText = "";
+				if(ParamMonthPlus>12){
+					ParamYearPlus=ParamYearPlus +1;
+					ParamMonthPlus=ParamMonthPlus-12;
+				}
+
 					$.ajax({
 						url:'processBudget3.jsp',
 						type:'get',
 						dataType:'json',
-						data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val()},
+					    data:{"month":ParamMonthPlus,"year":ParamYearPlus},
 						success:function(data2){
 							//========================Bar Chart ===============
 							var seriesBudget = data2[0]["series_center"];
@@ -1205,12 +1257,26 @@ var barChartFinancial= function(serieParam,categoryParam){
 
 
 		$("#form_1").submit(function(){
+				var ParamYearPlus = parseInt($("#ParamYear").val());
+				var ParamMonthPlus = (parseInt($("#ParamMonth").val()))+1;
+				var ParamYearPlusText = "";
+				var ParamMonthPlusText = "";
+				if(ParamMonthPlus>12){
+					ParamYearPlus=ParamYearPlus +1;
+					ParamMonthPlus=ParamMonthPlus-12;
+				}
+				ParamYearPlusText = (ParamYearPlus +543)+"" ;
+				ParamMonthPlusText = ParamYearArr[ParamMonthPlus];
+
 		$.ajax({
 		url:'revTooltip.jsp',
 		type:'get',
 		dataType:'html',
-		data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val()},
+		data:{"month":ParamMonthPlus,"year":ParamYearPlus},
 		success:function(data){
+				$(".revenue#title").empty();
+				$(".revenue#title").append("รายได้ ณ "+ParamMonthPlusText+" "+ParamYearPlusText);
+
 				 var dataSplit= data.split(",");
 				 var htmlInput="";
 					for(var i=0; i<dataSplit.length; i++){
@@ -1261,11 +1327,20 @@ var barChartFinancial= function(serieParam,categoryParam){
 				});*/
 //==========================Revenue Gauge =====================
 						$("#form_1").submit(function(){
+							var ParamYearPlus = parseInt($("#ParamYear").val());
+							var ParamMonthPlus = (parseInt($("#ParamMonth").val()))+1;
+							var ParamYearPlusText = "";
+							var ParamMonthPlusText = "";
+							if(ParamMonthPlus>12){
+								ParamYearPlus=ParamYearPlus +1;
+								ParamMonthPlus=ParamMonthPlus-12;
+							}
+
 					$.ajax({
 						url:'processRevenue1.jsp',
 						type:'get',
 						dataType:'json',
-						data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val()},
+						data:{"month":ParamMonthPlus,"year":ParamYearPlus},
 						success:function(data2){
 							//console.log(data2)
 							var pecent = parseFloat(data2[0]["gauge3"]).toFixed(2);
@@ -1288,11 +1363,20 @@ var barChartFinancial= function(serieParam,categoryParam){
 				});
 				//====================Revenue Chart ==================
 		$("#form_1").submit(function(){
+										var ParamYearPlus = parseInt($("#ParamYear").val());
+							var ParamMonthPlus = (parseInt($("#ParamMonth").val()))+1;
+							var ParamYearPlusText = "";
+							var ParamMonthPlusText = "";
+							if(ParamMonthPlus>12){
+								ParamYearPlus=ParamYearPlus +1;
+								ParamMonthPlus=ParamMonthPlus-12;
+							}
+
 					$.ajax({
 						url:'processRevenue2.jsp',
 						type:'get',
 						dataType:'json',
-						data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val()},
+						data:{"month":ParamMonthPlus,"year":ParamYearPlus},
 						success:function(data2){
 							//console.log(data2)
 						    var serieBar = data2[0]["value_barrevenue2"];
@@ -1524,7 +1608,7 @@ return	$(idStr).text();
 							<!-- ### Budget Dashboard End ###-->
 							<div id="mainContent">
 											<div id="head" style="background-color:#008EC3;">
-												<div id="title" style="color:white;">
+												<div id="title" class="budget" style="color:white;">
 												งบประมาณ
 												</div>
 											</div>
@@ -1675,7 +1759,7 @@ return	$(idStr).text();
 					</div>
 					<div id="boxR">
 								<div id="head">
-										<div id="title">
+										<div id="title" class="revenue">
 										รายได้
 										</div>
 								</div>
