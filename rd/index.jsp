@@ -231,6 +231,39 @@ out.println("Error"+ex);
 
 	/*### jQuery Funtions Start ###*/
 	$("#form_1").submit(function(){
+		// Format
+		/*
+			series: [{
+							name:"IC Score",
+							data:[1261,488,484,445,442,372,355,314,309,269,262,244,242,231,228,216,211,176,170,161]
+							},{
+							name:"BSC",
+							data:[1261,488,1261,445,442,1261,355,314,1309,269,262,1261,242,231,228,1261,211,176,1261,161]
+							},{
+							name:"EMPLOYEE(JF2000)",
+							data:[1261,488,1484,1445,1442,1372,1355,314,1309,169,262,1244,1242,231,1228,1216,1211,1176,170,1161]
+							}],
+
+			 categories: ["NANOTEC-NLAB","BIOTEC-BTU","MTEC-PRU","NECTEC-IDSRU","NECTEC-INIRU","NECTEC-TMEC","MTEC-MCRU","NECTEC-WISRU","BIOTEC-AGU","BIOTEC-GEI","MTEC-CARU","MTC-MRRU","NECTEC-ICCRU","MTTEC-CERRU","BIOTEC-JRU","MTEC-ENVRU","NECTEC-AAERU","BIOTEC-MMU","MTEC-BMERU","MTEC-DERU"],
+						
+			*/
+			$.ajax({
+				url:'Top20Content.jsp',
+				type:'get',
+				dataType:'json',
+				data:{'year':$("#ParamYear").val(), 'month':$("#ParamMonth").val()},
+				success:function(data){
+					
+				//var objson=	eval("("+data+")");
+				//console.log(objson);
+				//baChart_sp_top20_ic_score(data[4]["category_top20_ic_score"],data[5]["series_top20_ic_score"]);
+		
+					$category =eval("("+data[0]['category']+")");
+
+					baChart_sp_top20_ic_score($category,data[0]['series']);
+				
+				}
+			});
 	
 			$.ajax({
 			url:'DefaultContent.jsp',
@@ -239,14 +272,14 @@ out.println("Error"+ex);
 			data:{"ParamMonth":$("#ParamMonth").val(),"ParamYear":$("#ParamYear").val()},
 			success:function(data){
 				$(".domParam").remove();
-				$("body").append("<input type='text' name='domParamCenter' class='domParam' id='domParamCenter' value='BIOTEC'>");
-				$("body").append("<input type='text' name='domParamMonth' class='domParam' id='domParamMonth' value='"+$("#ParamMonth").val()+"'>");
-				$("body").append("<input type='text' name='domParamYear' class='domParam' id='domParamYear' value='"+$("#ParamYear").val()+"'>");
+				$("body").append("<input type='hidden' name='domParamCenter' class='domParam' id='domParamCenter' value='BIOTEC'>");
+				$("body").append("<input type='hidden' name='domParamMonth' class='domParam' id='domParamMonth' value='"+$("#ParamMonth").val()+"'>");
+				$("body").append("<input type='hidden' name='domParamYear' class='domParam' id='domParamYear' value='"+$("#ParamYear").val()+"'>");
 
 
 				//console.log(data);
 				//$("#contentMain").empty();
-				/*
+/*				
 				console.log(data[0]["category_center"]);
 				console.log(data[1]["series_center"]);
 
@@ -293,7 +326,7 @@ out.println("Error"+ex);
 	/*###  baChart_sp_ic_score_by_center  start ###*/
 function  checkBarTypeCenter(e){
 	$("#domParamCenter").remove();
-	$("body").append("<input type='text' name='domParamCenter' class='domParam' id='domParamCenter' value='"+e.category+"'>");
+	$("body").append("<input type='hidden' name='domParamCenter' class='domParam' id='domParamCenter' value='"+e.category+"'>");
 	
 	$.ajax({
 			url:'CenterContent.jsp',
@@ -402,7 +435,7 @@ function checkBarTypeDivision(e){
 			success:function(data){
 
 			$("#domParamDivision").remove();
-			$("body").append("<input type='text' name='domParamDivision' class='domParam' id='domParamDivision' value='"+e.category+"'>");
+			$("body").append("<input type='hidden' name='domParamDivision' class='domParam' id='domParamDivision' value='"+e.category+"'>");
 /*
 				console.log(data[0]["category_center"]);
 				console.log(data[1]["series_center"]);
@@ -500,7 +533,7 @@ function checkBarTypeDepartment(e){
 			success:function(data){
 
 			$("#domParamDepartment").remove();
-			$("body").append("<input type='text' name='domParamDepartment' class='domParam' id='domParamDepartment' value='"+e.category+"'>");
+			$("body").append("<input type='hidden' name='domParamDepartment' class='domParam' id='domParamDepartment' value='"+e.category+"'>");
 /*
 				console.log(data[0]["category_center"]);
 				console.log(data[1]["series_center"]);

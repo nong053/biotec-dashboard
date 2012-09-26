@@ -73,18 +73,18 @@ s = con.createStatement();
 rs = s.executeQuery(sql);
 	while( rs.next() ){
 		en_name.add('"'+rs.getString("en_name")+'"');	
-		IC_Score.add(rs.getString("IC_Score"));	
-		BSC_Score.add(rs.getString("BSC_Score"));	
-		Emp_Score.add(rs.getString("Emp_Score"));
+		IC_Score.add(rs.getInt("IC_Score"));	
+		BSC_Score.add(rs.getInt("BSC_Score"));	
+		Emp_Score.add(rs.getInt("Emp_Score"));
 	}	
 	serie1.put("name","IC_Score");
-	serie1.put("data",IC_Score.toString());
+	serie1.put("data",IC_Score);
 	series.add(serie1);
 	serie2.put("name","BSC_Score");
-	serie2.put("data",BSC_Score.toString());
+	serie2.put("data",BSC_Score);
 	series.add(serie2);
 	serie3.put("name","Emp_Score");
-	serie3.put("data",Emp_Score.toString());
+	serie3.put("data",Emp_Score);
 	series.add(serie3);
 	main.put("category",en_name.toString());
 	main.put("series",series);
