@@ -319,6 +319,8 @@ out.println("Error"+ex);
 				return false;
 		});
 	/*### jQuery Funtions End ###*/
+			 	$("form.#form_1 #submit1").trigger("click");
+				$("a[href=#content1]").trigger("click");
 	});
 	</script>
     </head>

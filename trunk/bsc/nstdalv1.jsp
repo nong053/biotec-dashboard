@@ -1,4 +1,5 @@
-<%@page contentType="text/html" pageEncoding="utf-8"%><%@page import="java.sql.*"%><%@page import="java.io.*"%><%@page import="java.lang.*"%>
+<%@page contentType="text/html" pageEncoding="utf-8"%>
+<%@ include file="../config.jsp"%>
 <%! 
     String getColorBall(int position,String color,int id)
     {
@@ -30,21 +31,8 @@ String ParamYear  = request.getParameter("year");
 String ParamMonth  = request.getParameter("month");
 String ParamOrg  = request.getParameter("name");
 
-String connectionURL="jdbc:mysql://localhost:3306/biotec_dwh";
-String Driver = "com.mysql.jdbc.Driver";
-String User="root";
-String Pass="root";
-String Query="";
-String center_name="";
-Connection conn= null;
-Statement st;
-ResultSet  rs;
-Class.forName(Driver).newInstance();
-conn = DriverManager.getConnection(connectionURL,User,Pass);
-
-st = conn.createStatement();
 Query="CALL sp_child_kpi_list(";
-Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\","+  kpi_id + "," +  owner_id +")";
+Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\","+ owner_id  + "," +   kpi_id+")";
 rs = st.executeQuery(Query);
 String tableFun2 = "[";
 int i=0;
@@ -73,15 +61,15 @@ while(rs.next()){
 	tableFun2 += "\", ";
 
 	//=============Get Url with Details Button End============
-	String target_value = rs.getString("krs.target_value");
+	String target_value = rs.getString("target_value");
 	tableFun2 += "\"Field3\": \"";
 	tableFun2 += "<div id=textR>"+ target_value +"</div> \",";
 
-	String kpi_uom = rs.getString("krs.kpi_uom");
+	String kpi_uom = rs.getString("kpi_uom");
 	tableFun2 += "\"Field4\": \"";
 	tableFun2 += kpi_uom + "\",";
 
-	String kpi_weighting = rs.getString("krs.kpi_weighting");
+	String kpi_weighting = rs.getString("kpi_weighting");
 	tableFun2 += "\"Field5\": \"";
 	tableFun2 +=  "<div id=textR>"+kpi_weighting +"</div> \",";
 
@@ -132,34 +120,33 @@ while(rs.next()){
 	tableFun2 += "<div id=textR>"+ kpi_wavg_score +"</div> \",";
 
 	//===============GraphLine Start=====================
-	tableFun2 += "\"Field9\": \"";
+	tableFun2 += "\"Field9\": \"<span class=inlinesparkline_sub>";
 	
 	//Statement st2;
 	//ResultSet  rs2;
 	String QueryGraph = "";
 	String ChildKpiID = rs.getString("child_kpi_id");
+	//out.print(ChildKpiID+"<br>");
 	//st2 = conn.createStatement();
 	QueryGraph = "CALL sp_child_kpi_trend(";
 	QueryGraph += ParamYear+"," + ParamMonth +","+owner_id+","+ChildKpiID+")";
 	rs1 = st1.executeQuery(QueryGraph);
 	while(rs1.next())
 	{
-		//	if(KpiID.equals(rs1.getString("kpi_id") ))
-		//	{
-				Integer Oct = rs1.getInt("Oct");
-				Integer Nov = rs1.getInt("Nov");
-				Integer Dec = rs1.getInt("Dec");
-				Integer Jan = rs1.getInt("Jan");
-				Integer Feb = rs1.getInt("Feb");
-				Integer Mar = rs1.getInt("Mar");
-				Integer Apr = rs1.getInt("Apr");
-				Integer May = rs1.getInt("May");
-				Integer Jun = rs1.getInt("Jun");
-				Integer Jul = rs1.getInt("Jul");
-				Integer Aug = rs1.getInt("Aug");
-				Integer Sep = rs1.getInt("Sep");
+				int Oct = rs1.getInt("Oct");
+				int Nov = rs1.getInt("Nov");
+				int Dec = rs1.getInt("Dec");
+				int Jan = rs1.getInt("Jan");
+				int Feb = rs1.getInt("Feb");
+				int Mar = rs1.getInt("Mar");
+				int Apr = rs1.getInt("Apr");
+				int May = rs1.getInt("May");
+				int Jun = rs1.getInt("Jun");
+				int Jul = rs1.getInt("Jul");
+				int Aug = rs1.getInt("Aug");
+				int Sep = rs1.getInt("Sep");
 
-				tableFun2 += "<span class=inlinesparkline_sub>"
+				tableFun2 += ""
 								+Oct+","
 								+Nov+","
 								+Dec+","
@@ -172,10 +159,9 @@ while(rs.next()){
 								+Jul+","
 								+Aug+","
 								+Sep
-								+"</span>\"";
-				tableFun2 += "}";
-		//	}
+								+"";
 	}
+	tableFun2 += "</span>\"}";
 	//===============GraphLine End=====================
 	i++;
 }

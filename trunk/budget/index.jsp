@@ -154,7 +154,8 @@ String center_name="";
 				}
 			}
 			i++;
-		}//		------------------- End Parameter Month -------------------*/
+		}
+		//		------------------- End Parameter Month -------------------*/
 		/*------------------- Organization Parameter -------------------*/
 
 
@@ -342,7 +343,7 @@ function addCommas(nStr)
 				$("#contentL .projectHead1").empty();
 				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
 				$("#contentR .projectHead1").empty();
-				$("#contentR .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
+				$("#contentR .projectHead1").append("Top 10 Project Least Spending of "+data[42]["active_category"]);
 
 					callProgressbar("111",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
 					callProgressbar("112",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
@@ -391,7 +392,7 @@ function addCommas(nStr)
 									$("#contentL .projectHead1").empty();
 				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
 				$("#contentR .projectHead1").empty();
-				$("#contentR .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
+				$("#contentR .projectHead1").append("Top 10 Project Least Spending of "+data[42]["active_category"]);
 
 					callProgressbar("211",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
 					callProgressbar("212",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
@@ -461,7 +462,7 @@ function addCommas(nStr)
 				$("#contentL .projectHead1").empty();
 				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
 				$("#contentR .projectHead1").empty();
-				$("#contentR .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
+				$("#contentR .projectHead1").append("Top 10 Project Least Spending of "+data[42]["active_category"]);
 
 				callProgressbar("111",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
 				callProgressbar("112",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
@@ -524,7 +525,7 @@ function addCommas(nStr)
 				$("#contentL .projectHead1").empty();
 				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
 				$("#contentR .projectHead1").empty();
-				$("#contentR .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
+				$("#contentR .projectHead1").append("Top 10 Project Least Spending of "+data[42]["active_category"]);
 
 					callProgressbar("211",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
 					callProgressbar("212",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
@@ -584,7 +585,7 @@ function addCommas(nStr)
 				$("#contentL .projectHead1").empty();
 				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
 				$("#contentR .projectHead1").empty();
-				$("#contentR .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
+				$("#contentR .projectHead1").append("Top 10 Project Least Spending of "+data[42]["active_category"]);
 
 					callProgressbar("311",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
 					callProgressbar("312",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
@@ -642,10 +643,10 @@ function addCommas(nStr)
 					barChart41(serie1,category1);
 					colorSufferRow();
 					console.log(data);
-									$("#contentL .projectHead1").empty();
-				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
+				$("#contentL .projectHead1").empty();
+				$("#contentL .projectHead1").append("Top 10 Cost Center Most Spending of "+data[42]["active_category"]);
 				$("#contentR .projectHead1").empty();
-				$("#contentR .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
+				$("#contentR .projectHead1").append("Top 10 Cost Center Least Spending of "+data[42]["active_category"]);
 
 					callProgressbar("411",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
 					callProgressbar("412",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
@@ -827,7 +828,7 @@ var barChart1 = function(seriesParam,categoryParam){
 				$("#contentL .projectHead1").empty();
 				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+category);
 				$("#contentR .projectHead1").empty();
-				$("#contentR .projectHead1").append("Top 10 Project Most Spending of "+category);
+				$("#contentR .projectHead1").append("Top 10 Project Least Spending of "+category);
 
 				callProgressbar("111",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
 				callProgressbar("112",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
@@ -1090,7 +1091,7 @@ var barChart21 = function(seriesParam,categoryParam){
 									$("#contentL .projectHead1").empty();
 				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+category);
 				$("#contentR .projectHead1").empty();
-				$("#contentR .projectHead1").append("Top 10 Project Most Spending of "+category);
+				$("#contentR .projectHead1").append("Top 10 Project Least Spending of "+category);
 
 					try{
 					callProgressbar("211",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
@@ -1300,7 +1301,7 @@ function funContent3(e){
 				$("#contentL .projectHead1").empty();
 				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+center);
 				$("#contentR .projectHead1").empty();
-				$("#contentR .projectHead1").append("Top 10 Project Most Spending of "+center);
+				$("#contentR .projectHead1").append("Top 10 Project Least Spending of "+center);
 
 					callProgressbar("311",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
 					callProgressbar("312",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
@@ -1494,10 +1495,10 @@ function funContent4(e){
 
 				success:function(data){
 					colorSufferRow();
-									$("#contentL .projectHead1").empty();
-				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+center);
+				$("#contentL .projectHead1").empty();
+				$("#contentL .projectHead1").append("Top 10 Cost Center Most Spending of "+center);
 				$("#contentR .projectHead1").empty();
-				$("#contentR .projectHead1").append("Top 10 Project Most Spending of "+center);
+				$("#contentR .projectHead1").append("Top 10 Cost Center Least Spending of "+center);
 
 					callProgressbar("411",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
 					callProgressbar("412",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
