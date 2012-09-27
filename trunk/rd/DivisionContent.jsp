@@ -406,7 +406,7 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 			if(i==0){
 				categoryAxis_sp_ic_score_by_department=rs.getString("department_list");
 				categoryAxis_sp_ic_score_by_department_array=categoryAxis_sp_ic_score_by_department.split(",");
-				series_sp_ic_score_by_department+="{\"name\":"+"\""+rs.getString("view_name")+"\","+"\"data\":["+rs.getString("val_list")+"]}";
+				series_sp_ic_score_by_department+="{\"name\":"+"\""+rs.getString("view_name")+"\",\"axis\":\""+rs.getString("axis")+"\","+"\"data\":["+rs.getString("val_list")+"]}";
 				for(int j=0; j< categoryAxis_sp_ic_score_by_department_array.length; j++){
 					if(j==0){
 					categoryAxis_sp_ic_score_by_department_using+="\""+categoryAxis_sp_ic_score_by_department_array[j]+"\"";
@@ -415,7 +415,7 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 					}//if
 				}//for
 			}else{//if
-			series_sp_ic_score_by_department+=",{\"name\":"+"\""+rs.getString("view_name")+"\","+"\"data\":["+rs.getString("val_list")+"]}";
+			series_sp_ic_score_by_department+=",{\"name\":"+"\""+rs.getString("view_name")+"\",\"axis\":\""+rs.getString("axis")+"\","+"\"data\":["+rs.getString("val_list")+"]}";
 			}
 		i++;
 		}//while

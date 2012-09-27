@@ -410,6 +410,7 @@ function  checkBarTypeCenter(e){
 	});
 
 }
+//bar1
 var baChart_sp_ic_score_by_center= function(seriesParam, categoryParam){
 	$("#baChart_sp_ic_score_by_center").kendoChart({
                         theme: $(document).data("kendoSkin") || "metro",
@@ -431,6 +432,7 @@ var baChart_sp_ic_score_by_center= function(seriesParam, categoryParam){
                         },
                         series:seriesParam,
                       valueAxis: [{
+								name: "one",
                             title: { text: "" },
                            // min: 0,
                            // max: 2000,
@@ -439,10 +441,10 @@ var baChart_sp_ic_score_by_center= function(seriesParam, categoryParam){
                             }
 						   
                         }, {
-                            name: "Varaince",
+                            name: "two",
                             title: { text: "" },
-                            min: 0,
-                            max: 450
+                           // min: 0,
+                            //max: 450
                         }],
                         categoryAxis: {
                             categories:categoryParam,
@@ -511,6 +513,7 @@ function checkBarTypeDivision(e){
 	});
 
 }
+//bar 2
 var baChart_sp_ic_score_by_division= function(categoryParam,seriesParam){
 
 	$("#baChart_sp_ic_score_by_division").kendoChart({
@@ -533,6 +536,7 @@ var baChart_sp_ic_score_by_division= function(categoryParam,seriesParam){
                         },
                         series:seriesParam,
                       valueAxis: [{
+								name:"one",
                             title: { text: "" },
                             labels: {
                                 template: "#= kendo.format('{0:N0}', value ) # "
@@ -540,10 +544,10 @@ var baChart_sp_ic_score_by_division= function(categoryParam,seriesParam){
 							//min: 0,
                             //max: 600
                         }, {
-                            name: "Varaince",
+                            name: "two",
                             title: { text: "" },
-                            min: 0,
-                            max: 140
+                           // min: 0,
+                          //  max: 140
                         }],
                         categoryAxis: {
                             categories:categoryParam ,
@@ -629,6 +633,7 @@ var baChart_sp_ic_score_by_department= function(categoryParam,seriesParam){
                         },
                         series:seriesParam,
                        valueAxis: [{
+								name: "one",
                             title: { text: "" },
 							 labels: {
                                 template: "#= kendo.format('{0:N0}', value ) # "
@@ -636,7 +641,7 @@ var baChart_sp_ic_score_by_department= function(categoryParam,seriesParam){
                          /*   min: 0,
                             max: 6*/
                         }, {
-                            name: "Varaince",
+                            name: "two",
                             title: { text: "" },
                         /*    min: 0,
                             max: 6*/
