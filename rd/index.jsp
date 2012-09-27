@@ -117,6 +117,10 @@ catch(Exception ex){
 out.println("Error"+ex);
 }
 //############### Query Handler Organization end ###############
+		ResultSet rs1;
+		Statement st1;
+		int i=0;
+		String Query1 ="";
 
 //############### Query Handler Year start ###############
 try{
@@ -129,8 +133,21 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 		rs = st.executeQuery(Query);
 		
 		while(rs.next()){
-		//out.println(rs.getString("center_name"));
-		V_Year+="<option value="+rs.getString("fiscal_year")+">"+rs.getString("buddhist_era_year")+"</option>";
+			Query1  = "SELECT Date_format(SYSDATE(),'%Y') as year_date;";
+			st1 = conn.createStatement();
+			rs1 = st1.executeQuery(Query1);
+			i = 0;
+			while(rs1.next()){
+				String present_year = rs1.getString("year_date");
+				String query_year = rs.getString("fiscal_year");
+				if(query_year.equals(present_year)){
+					V_Year += "<option value=\""+rs.getString("fiscal_year")+"\"  selected='selected'>"+rs.getString("buddhist_era_year")+"</option>";
+				}
+				else{
+					V_Year += "<option value=\""+rs.getString("fiscal_year")+"\">"+rs.getString("buddhist_era_year")+"</option>";
+				}
+			}
+			i++;
 		}
 	//insert code allow function end
 		conn.close();
@@ -153,10 +170,26 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 		rs = st.executeQuery(Query);
 		
 		while(rs.next()){
-		//out.println(rs.getString("center_name"));
-		V_Month+="<option value="+rs.getString("fiscal_month_no")+">"+rs.getString("calendar_th_month_name")+"</option>";
+			 Query1  = "SELECT Date_format(SYSDATE(),'%m') as month_date;";
+			st1 = conn.createStatement();
+			rs1 = st1.executeQuery(Query1);
+			while(rs1.next()){
+				int presentMonth = rs1.getInt("month_date");
+				presentMonth = presentMonth +3 ;
+				if(presentMonth>12){
+					presentMonth=presentMonth-12;
+				}
+				String query_month = rs.getString("fiscal_month_no");
+				String presentMonthStr = presentMonth+"";
+				if(query_month.equals(presentMonthStr)){
+					V_Month += "<option value=\""+rs.getString("fiscal_month_no")+"\"  selected='selected'>"+rs.getString("calendar_th_month_name")+"</option>";	
+				}else{
+					V_Month += "<option value=\""+rs.getString("fiscal_month_no")+"\">"+rs.getString("calendar_th_month_name")+"</option>";	
+				}
+			}
+			i++;
 		}
-	//insert code allow function end
+		//insert code allow function end
 		conn.close();
 	}
 }
@@ -326,6 +359,8 @@ out.println("Error"+ex);
 	/*###  baChart_sp_ic_score_by_center  start ###*/
 function  checkBarTypeCenter(e){
 	$("#domParamCenter").remove();
+	$("#departmentName").empty();
+	$("#departmentName").append("(Lab)");
 	$("body").append("<input type='hidden' name='domParamCenter' class='domParam' id='domParamCenter' value='"+e.category+"'>");
 	
 	$.ajax({
@@ -411,7 +446,8 @@ var baChart_sp_ic_score_by_center= function(seriesParam, categoryParam){
                         }],
                         categoryAxis: {
                             categories:categoryParam,
-							axisCrossingValue: [0,100]
+							axisCrossingValue: [0,100],
+
                         },
                         tooltip: {
                             visible: true,
@@ -512,6 +548,7 @@ var baChart_sp_ic_score_by_division= function(categoryParam,seriesParam){
                         categoryAxis: {
                             categories:categoryParam ,
 							axisCrossingValue: [0,100],
+							labels: {rotation : -90}
 							
                         },
                         tooltip: {
@@ -606,7 +643,8 @@ var baChart_sp_ic_score_by_department= function(categoryParam,seriesParam){
                         }],
                         categoryAxis: {
                             categories:categoryParam,
-							axisCrossingValue:[0,100]
+							axisCrossingValue:[0,100],
+							labels: {rotation : -90}
                         },
                         tooltip: {
                             visible: true,
@@ -833,7 +871,8 @@ var stackChart_sp_count_emp_by_job_grade= function(categoryParam,seriesParam){
                             text: ""
                         },
                         legend: {
-                            position: "top"
+                            position: "top",
+							visible:false
                         },
 						chartArea:{
 						width:300,
@@ -855,7 +894,8 @@ var stackChart_sp_count_emp_by_job_grade= function(categoryParam,seriesParam){
                         },
                         tooltip: {
                             visible: true,
-                             format: "{0:N0}"
+                             format: "{0:N0}",
+							template: "#= series.name # ,  #= value #"
                         }
 			//seriesHover:onSeriesHover,
 			
@@ -869,6 +909,7 @@ var stackChart_sp_count_emp_by_job_grade= function(categoryParam,seriesParam){
 }
 
 /*###  stackChart_sp_count_emp_by_job_grade End ###*/
+	$("form.#form_1 #submit1").trigger("click");
 
 });
 

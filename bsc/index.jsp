@@ -146,11 +146,14 @@
 
 				String present_yearStr = present_year+"";
 				String query_year = rs.getString("fiscal_year");
-				if(query_year.equals(present_yearStr)){
-					V_Year += "<option value=\""+rs.getString("fiscal_year")+"\"  selected='selected'>"+rs.getString("buddhist_era_year")+"</option>";
-				}
-				else{
-					V_Year += "<option value=\""+rs.getString("fiscal_year")+"\">"+rs.getString("buddhist_era_year")+"</option>";
+				int query_yearInt = rs.getInt("fiscal_year");
+				if(query_yearInt>=2012){
+					if(query_year.equals(present_yearStr)){
+						V_Year += "<option value=\""+rs.getString("fiscal_year")+"\"  selected='selected'>"+rs.getString("buddhist_era_year")+"</option>";
+					}
+					else{
+						V_Year += "<option value=\""+rs.getString("fiscal_year")+"\">"+rs.getString("buddhist_era_year")+"</option>";
+					}
 				}
 			}
 			i++;
@@ -292,7 +295,7 @@
 		//#######################Graph Program End#######################
 		
 		
-		
+
 		//alert(g);
 		
 		//$("g").css("color","#cccccc").hide();
@@ -355,10 +358,21 @@
 				</form>
 		<!--------------------------- End Parameter --------------------------->
 		<!-- Start jQuery 0001-->
-			<script type="text/javascript">
-			$(document).ready(function(){
+		<script type="text/javascript">
+		$(document).ready(function(){
+				  $("#ParamYear").kendoDropDownList();
+			
+				  $("#ParamMonth").kendoDropDownList();
+	
+				  $("#ParamOrg").kendoDropDownList();
+
+				  /*jQuery Start Here ### File Config ###*/
+				  $("#tabBsc").tabs();
+				  $("#tabBsc").hide();
+				  $(".ui-tabs-panel").css("padding","0px");
 
 			$("#form_1").submit(function(){
+				console.log("test");
 							$("#tab1").empty();
 							$("#tab1_1").empty();
 							$("#tab1_2").empty();
@@ -401,7 +415,7 @@
 			//		
 				return false;
 				});
-
+		//$("a[href=#tab1]").trigger("click");
 	$("a[href=#tab1]").click(function(){
 			includeNSTDA();
 	});
@@ -438,7 +452,7 @@ $("a[href=#tab6]").click(function(){
 			includeTMC();
 	});
 
-	
+
 	
 	 /*Management Range mounse over*/
 	var includeNSTDA = function(){
@@ -1071,6 +1085,8 @@ $("a[href=#tab6]").click(function(){
 
 
 
+		 	$("form.#form_1 #submit1").trigger("click");
+			$("a[href=#tab1]").trigger("click");
 			});
 
 			</script>
@@ -1079,20 +1095,16 @@ $("a[href=#tab6]").click(function(){
 
 			<script type="text/javascript">
 			   $(document).ready(function(){
-				  $("#ParamYear").kendoDropDownList();
-			
-				  $("#ParamMonth").kendoDropDownList();
-	
-				  $("#ParamOrg").kendoDropDownList();
-
-				  /*jQuery Start Here ### File Config ###*/
-				  $("#tabBsc").tabs();
-				  $("#tabBsc").hide();
-				  $(".ui-tabs-panel").css("padding","0px");
 
 				  /*jQuery End Here  ### File Config ###*/
+
 			   });
 			</script>
+			<script type="text/javascript">
+			   $(document).ready(function(){
+			   });
+			</script>
+
 		<!--------------------------- End Configuration --------------------------->
 		</div>
 	
