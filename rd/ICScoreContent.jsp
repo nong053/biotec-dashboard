@@ -15,7 +15,7 @@ try {
 //int year = 2012; int month = 12;
 int year = Integer.parseInt(request.getParameter("year"));
 int month = Integer.parseInt(request.getParameter("month"));
-string center = request.getParameter("center");
+string center = request.getParameter("center").toString();
 
 //java.sql.Connection con;
 //java.sql.Statement s;
