@@ -74,6 +74,7 @@
 			width:100px;
 			height:100px;
 			}
+
 		</style>
 				<!--------------------------- Configuration --------------------------->
 			<style scoped>
@@ -93,6 +94,7 @@
 					color:white;
 					font-weight:bold;
 				}
+
 			</style>
 
 	<%
@@ -372,7 +374,7 @@
 				  $(".ui-tabs-panel").css("padding","0px");
 
 			$("#form_1").submit(function(){
-				console.log("test");
+			
 							$("#tab1").empty();
 							$("#tab1_1").empty();
 							$("#tab1_2").empty();
@@ -452,7 +454,40 @@ $("a[href=#tab6]").click(function(){
 			includeTMC();
 	});
 
+var tooltip = function(){
+	  $(".kpiN").hover(function(e){
+								  var $AX =  e.pageX+10;
+								  var $AY = e.pageY+10;
+								   var $pos = e.target.id;
+								   var classT = ".tootip#"+$pos;
+								   var classT_text = $(classT).text();
+								   //alert("["+classT_text+"]");
+								   if($.trim(classT_text)!=""){
+								  $("#tooltip").append(classT_text).css({"left":$AX+"px","top":$AY+"px"}).fadeIn();
+								   }
+							  },function(){
+								  $("#tooltip").hide().empty();
+								 
+		  });
 
+}
+var ballScore = function(){
+
+	  $(".ball").hover(function(e){
+								  var $AX =  e.pageX+10;
+								  var $AY = e.pageY+10;
+								   var $pos = e.target.id;
+								   var $classB = ".commentball#"+$pos;
+								   var classB_html = $($classB).html();
+								   if($.trim(classB_html)!=""){
+								  $("#tooltip").append(classB_html).css({"left":$AX+"px","top":$AY+"px"}).fadeIn();
+								   }
+							  },function(){
+								  $("#tooltip").hide().empty();
+								 
+		  });
+
+}
 	
 	 /*Management Range mounse over*/
 	var includeNSTDA = function(){
@@ -481,48 +516,10 @@ $("a[href=#tab6]").click(function(){
 
 						
 					 /*### Manage Tootip Start###*/
-					 $(".kpiN").hover(function(e){
-								     var $AX =  e.pageX;
-									 var $AY = e.pageY;
-									 var $pos = e.target.id;
-									 var classT = ".tootip#"+$pos;
-									$(classT).css({"left":$AX+"px","top":$AY+"px"}).fadeIn();
+							tooltip();
+							ballScore();
+					/*### Manage Tootip Stop###*/
 
-								 },function(){
-									 $(".tootip").hide();
-								 });
-
-								  $(".ball").hover(function(ex){
-									  //alert("test");
-								     var $BX =  ex.pageX;
-									 var $BY = ex.pageY;
-									 var Bpos = ex.target.id;
-									 var $classB = ".commentball#"+Bpos;										$($classB).css({"left":$BX+"px","top":$BY+"px"}).fadeIn();
-							},function(){
-									 $(".commentball").hide();
-								 });
-
-					/*### Manage Tootip Range Start ###*/
-					  
-				$(".ball#ballRed").tooltip({
-							
-							color:"black"
-							});
-				$(".ball#ballYellow").tooltip({
-							
-							color:"black"
-							});
-				$(".ball#ballGreen").tooltip({
-							
-							color:"black"
-							});
-				$(".ball#ballGray").tooltip({
-							
-							color:"black"
-							});
-					/*### Manage Tootip Range Stop ###*/
-
-					/*### Manage Tootip Stop ###*/
 
 
 						}
@@ -550,51 +547,10 @@ $("a[href=#tab6]").click(function(){
 							$(".pageRemember").remove();
 							$("body").append("<input type='hidden' id='pageNS' class='pageRemember' name='pageNS' value='pageNS'>");
 							$("#tab1_1").append(data);
-							/*### Manage Tootip Start###*/
-
-
-							 $(".kpiN").hover(function(e){
-								     var $X =  e.pageX;
-									 var $Y = e.pageY;
-									 var $pos = e.target.id;
-									 var classT = ".tootip#"+$pos;
-									$(classT).css({"left":$X+"px","top":$Y+"px"}).fadeIn();
-								 },function(){
-									 $(".tootip").hide();
-								 });
-
-							  $(".ball").hover(function(ex){
-									  //alert("test");
-								     var $BX =  ex.pageX;
-									 var $BY = ex.pageY;
-									 var Bpos = ex.target.id;
-									 var $classB = ".commentball#"+Bpos;
-									$($classB).css({"left":$BX+"px","top":$BY+"px"}).fadeIn();
-							},function(){
-									 $(".commentball").hide();
-								 });
-
-
-					/*### Manage Tootip Stop ###*/
-					/*### Manage Tootip Range Start ###*/
-					  
-				$(".ball#ballRed").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-				$(".ball#ballYellow").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-				$(".ball#ballGreen").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-				$(".ball#ballGray").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-					/*### Manage Tootip Range Stop ###*/
+					/*### Manage Tootip Start###*/
+							tooltip();
+							ballScore();
+					/*### Manage Tootip Stop###*/
 
 						}
 					});
@@ -621,58 +577,10 @@ $("a[href=#tab6]").click(function(){
 							$(".pageRemember").remove();
 							$("body").append("<input type='hidden' id='pageCT' class='pageRemember' name='pageCT' value='pageCT'>");
 							$("#tab1_2").append(data);
-
-
-				//	$('.inlinesparkline_sub').live("click",function(){
-					//alert("hello");
-			//		$('#dialog').dialog('open');
-
-			//		return false;
-		//		});
-							/*### Manage Tootip Start###*/
-								 $(".kpiN").hover(function(e){
-								     var $X =  e.pageX;
-									 var $Y = e.pageY;
-									 var $pos = e.target.id;
-									 var classT = ".tootip#"+$pos;
-									$(classT).css({"left":$X+"px","top":$Y+"px"}).fadeIn();
-								
-								 },function(){
-									 $(".tootip").hide();
-								 });
-							  $(".ball").hover(function(ex){
-									  //alert("test");
-								     var $BX =  ex.pageX;
-									 var $BY = ex.pageY;
-									 var Bpos = ex.target.id;
-									 var $classB = ".commentball#"+Bpos;
-									$($classB).css({"left":$BX+"px","top":$BY+"px"}).fadeIn();
-							},function(){
-									 $(".commentball").hide();
-								 });
-
-
-
-					/*### Manage Tootip Stop ###*/
-					/*### Manage Tootip Range Start ###*/
-					  
-				$(".ball#ballRed").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-				$(".ball#ballYellow").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-				$(".ball#ballGreen").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-				$(".ball#ballGray").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-					/*### Manage Tootip Range Stop ###*/
+				/*### Manage Tootip Start###*/
+							tooltip();
+							ballScore();
+					/*### Manage Tootip Stop###*/
 						}
 					});
 			};
@@ -700,46 +608,9 @@ $("a[href=#tab6]").click(function(){
 							$("body").append("<input type='hidden' id='pageCPMOHRD' class='pageRemember' name='pageCPMOHRD' value='pageCPMOHRD'>");
 							$("#tab1_3").append(data);
 							/*### Manage Tootip Start###*/
-								 $(".kpiN").hover(function(e){
-								     var $X =  e.pageX;
-									 var $Y = e.pageY;
-									 var $pos = e.target.id;
-									 var classT = ".tootip#"+$pos;
-									$(classT).css({"left":$X+"px","top":$Y+"px"}).fadeIn();
-						
-								 },function(){
-									 $(".tootip").hide();
-								 });
-							  $(".ball").hover(function(ex){
-									  //alert("test");
-								     var $BX =  ex.page;
-									 var $BY = ex.pageY;
-									 var Bpos = ex.target.id;
-									 var $classB = ".commentball#"+Bpos;
-									$($classB).css({"left":$BX+"px","top":$BY+"px"}).fadeIn();
-							},function(){
-									 $(".commentball").hide();
-								 });
-					/*### Manage Tootip Stop ###*/
-					/*### Manage Tootip Range Start ###*/
-					  
-				$(".ball#ballRed").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-				$(".ball#ballYellow").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-				$(".ball#ballGreen").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-				$(".ball#ballGray").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-					/*### Manage Tootip Range Stop ###*/
+							tooltip();
+							ballScore();
+							/*### Manage Tootip Stop###*/
 						}
 					});
 			};
@@ -765,47 +636,9 @@ $("a[href=#tab6]").click(function(){
 							$("body").append("<input type='hidden' id='pageBIOTEC' class='pageRemember' name='pageBIOTEC' value='pageBIOTEC'>");
 							$("#tab2").append(data);
 							/*### Manage Tootip Start###*/
-					 $(".kpiN").hover(function(e){
-								     var $X =  e.pageX;
-									 var $Y = e.pageY;
-									 var $pos = e.target.id;
-									 var classT = ".tootip#"+$pos;
-									$(classT).css({"left":$X+"px","top":$Y+"px"}).fadeIn();
-								
-								 },function(){
-									 $(".tootip").hide();
-								 });
-							  $(".ball").hover(function(ex){
-									  //alert("test");
-								     var $BX =  ex.pageX;
-									 var $BY = ex.pageY;
-									 var Bpos = ex.target.id;
-									 var $classB = ".commentball#"+Bpos;
-									$($classB).css({"left":$BX+"px","top":$BY+"px"}).fadeIn();
-							},function(){
-									 $(".commentball").hide();
-								 });
-
-					/*### Manage Tootip Stop ###*/
-					/*### Manage Tootip Range Start ###*/
-					  
-				$(".ball#ballRed").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-				$(".ball#ballYellow").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-				$(".ball#ballGreen").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-				$(".ball#ballGray").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-					/*### Manage Tootip Range Stop ###*/
+							tooltip();
+							ballScore();
+							/*### Manage Tootip Stop###*/
 						}
 					});
 			};
@@ -832,46 +665,9 @@ $("a[href=#tab6]").click(function(){
 							$("body").append("<input type='hidden' id='pageMTEC' class='pageRemember' name='pageMTEC' value='pageMTEC'>");
 							$("#tab3").append(data);
 							/*### Manage Tootip Start###*/
-								 $(".kpiN").hover(function(e){
-								     var $X =  e.pageX;
-									 var $Y = e.pageY;
-									 var $pos = e.target.id;
-									 var classT = ".tootip#"+$pos;
-									$(classT).css({"left":$X+"px","top":$Y+"px"}).fadeIn();
-								
-								 },function(){
-									 $(".tootip").hide();
-								 });
-							  $(".ball").hover(function(ex){
-									  //alert("test");
-								     var $BX =  ex.pageX;
-									 var $BY = ex.pageY;
-									 var Bpos = ex.target.id;
-									 var $classB = ".commentball#"+Bpos;
-									$($classB).css({"left":$BX+"px","top":$BY+"px"}).fadeIn();
-							},function(){
-									 $(".commentball").hide();
-								 });
-					/*### Manage Tootip Stop ###*/
-					/*### Manage Tootip Range Start ###*/
-					  
-				$(".ball#ballRed").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-				$(".ball#ballYellow").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-				$(".ball#ballGreen").tooltip({
-							txt:"แดง < 50 เหลือง 50-80 เขียว > 80",
-							color:"black"
-							});
-				$(".ball#ballGray").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-					/*### Manage Tootip Range Stop ###*/
+							tooltip();
+							ballScore();
+							/*### Manage Tootip Stop###*/
 						}
 					});
 			
@@ -898,46 +694,9 @@ $("a[href=#tab6]").click(function(){
 							$("body").append("<input type='hidden' id='pageNECTEC' class='pageRemember' name='pageNECTEC' value='pageNECTEC'>");
 							$("#tab4").append(data);
 							/*### Manage Tootip Start###*/
-							 $(".kpiN").hover(function(e){
-								     var $X =  e.pageX;
-									 var $Y = e.pageY;
-									 var $pos = e.target.id;
-									 var classT = ".tootip#"+$pos;
-									$(classT).css({"left":$X+"px","top":$Y+"px"}).fadeIn();
-								
-								 },function(){
-									 $(".tootip").hide();
-								 });
-							  $(".ball").hover(function(ex){
-									  //alert("test");
-								     var $BX =  ex.pageX;
-									 var $BY = ex.pageY;
-									 var Bpos = ex.target.id;
-									 var $classB = ".commentball#"+Bpos;
-									$($classB).css({"left":$BX+"px","top":$BY+"px"}).fadeIn();
-							},function(){
-									 $(".commentball").hide();
-								 });
-					/*### Manage Tootip Stop ###*/
-					/*### Manage Tootip Range Start ###*/
-					  
-				$(".ball#ballRed").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-				$(".ball#ballYellow").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-				$(".ball#ballGreen").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-				$(".ball#ballGray").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-					/*### Manage Tootip Range Stop ###*/
+							tooltip();
+							ballScore();
+							/*### Manage Tootip Stop###*/
 						}
 					});
 			
@@ -964,47 +723,10 @@ $("a[href=#tab6]").click(function(){
 							$(".pageRemember").remove();
 							$("body").append("<input type='hidden' id='pageNANOTEC' class='pageRemember' name='pageNANOTEC' value='pageNANOTEC'>");
 							$("#tab5").append(data);
-							/*### Manage Tootip Start###*/
-							 $(".kpiN").hover(function(e){
-								     var $X =  e.pageX;
-									 var $Y = e.pageY;
-									 var $pos = e.target.id;
-									 var classT = ".tootip#"+$pos;
-									$(classT).css({"left":$X+"px","top":$Y+"px"}).fadeIn();
-								
-								 },function(){
-									 $(".tootip").hide();
-								 });
-							  $(".ball").hover(function(ex){
-									  //alert("test");
-								     var $BX =  ex.pageX;
-									 var $BY = ex.pageY;
-									 var Bpos = ex.target.id;
-									 var $classB = ".commentball#"+Bpos;
-									$($classB).css({"left":$BX+"px","top":$BY+"px"}).fadeIn();
-							},function(){
-									 $(".commentball").hide();
-								 });
-					/*### Manage Tootip Stop ###*/
-					/*### Manage Tootip Range Start ###*/
-					  
-				$(".ball#ballRed").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-				$(".ball#ballYellow").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-				$(".ball#ballGreen").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-				$(".ball#ballGray").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-					/*### Manage Tootip Range Stop ###*/
+						/*### Manage Tootip Start###*/
+							tooltip();
+							ballScore();
+							/*### Manage Tootip Stop###*/
 						}
 					});
 			
@@ -1032,47 +754,9 @@ $("a[href=#tab6]").click(function(){
 							$("body").append("<input type='hidden' id='pageTMC' class='pageRemember' name='pageTMC' value='pageTMC'>");
 							$("#tab6").append(data);
 							/*### Manage Tootip Start###*/
-							 $(".kpiN").hover(function(e){
-								     var $X =  e.pageX-200;
-									 var $Y = e.pageY;
-									 var $pos = e.target.id;
-									 var classT = ".tootip#"+$pos;
-									$(classT).css({"left":$X+"px","top":$Y+"px"}).fadeIn();
-								
-								 },function(){
-									 $(".tootip").hide();
-								 });
-							  $(".ball").hover(function(ex){
-									  //alert("test");
-								     var $BX =  ex.pageX;
-									 var $BY = ex.pageY;
-									 var Bpos = ex.target.id;
-									 var $classB = ".commentball#"+Bpos;
-									$($classB).css({"left":$BX+"px","top":$BY+"px"}).fadeIn();
-							},function(){
-									 $(".commentball").hide();
-								 });
-						/*### Manage Tootip Stop ###*/
-						/*### Manage Tootip Range Start ###*/
-					  
-				$(".ball#ballRed").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-				$(".ball#ballYellow").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-				$(".ball#ballGreen").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-				$(".ball#ballGray").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-							
-					/*### Manage Tootip Range Stop ###*/
+							tooltip();
+							ballScore();
+							/*### Manage Tootip Stop###*/
 						}
 					});
 			
@@ -1113,7 +797,8 @@ $("a[href=#tab6]").click(function(){
 
 
 	<div id="content">
-			
+			<div class="tootip" ><b>การลงทุนด้าน ว และ ท ในภาคการผลิต ภาคบริการและภาคการผลิต ภาคบริการและภาคเกษตรกรรม</b></div>
+			<div id="tooltip"></div>
 			<div id="tabBsc">
 				<ul>
 					<li>
