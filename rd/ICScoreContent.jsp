@@ -9,7 +9,7 @@
 <%
 
 
-if( request.getParameter("year") != null && request.getParameter("month") != null && request.getParameter("center") ){
+if( request.getParameter("year") != null && request.getParameter("month") != null && request.getParameter("center") != null ){
 
 try { 
 //int year = 2012; int month = 12;
