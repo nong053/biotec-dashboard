@@ -55,7 +55,7 @@ ArrayList ret = new ArrayList();
 
 
 // Make sure you have the Gson JAR in your classpath
-String sql = "call sp_ic_score_by_division("+year+","+month+","+center+")";
+String sql = "call sp_ic_score_by_division_2("+year+","+month+","+center+")";
 //String sql = "select 1 as IC_Score,2 as BSC_Score,3 as Emp_Score union select 2 as IC_Score,5 as BSC_Score,6 as Emp_Score";
 
 
