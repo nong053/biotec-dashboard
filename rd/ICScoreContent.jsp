@@ -15,7 +15,7 @@ try {
 //int year = 2012; int month = 12;
 int year = Integer.parseInt(request.getParameter("year"));
 int month = Integer.parseInt(request.getParameter("month"));
-string center = request.getParameter("center").toString();
+String center = request.getParameter("center");
 
 //java.sql.Connection con;
 //java.sql.Statement s;
@@ -60,7 +60,7 @@ String sql = "call sp_sp_ic_score_by_division("+year+","+month+","+center+")";
 
 
 try{
-st = con.createStatement();
+st = conn.createStatement();
 rs = st.executeQuery(sql);
 	while( rs.next() ){
 		division.add('"'+rs.getString("division")+'"');	
