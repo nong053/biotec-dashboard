@@ -51,7 +51,7 @@ while(rs.next()){
 	String kpi_code = rs.getString("kpi_code");
 	String kpi = rs.getString("kpi") ;
 	tableFun += "{Field2: \"";
-	tableFun += "<div class =kpiN id="+i+">"+kpi_code+"</div>"+kpi;
+	tableFun += "<div class =kpiN id="+i+" title="+rs.getString("kpi_comment")+">"+kpi_code+"</div>"+kpi;
 	out.print("<div class=tootip id="+i+"><b>"+rs.getString("kpi_comment")+"</b></div>");
 	//tootipBody+="<div class=tootip id="+i+"><b>"+rs.getString("kpi_comment")+"</b></div>";
 
@@ -244,12 +244,14 @@ tableFun += "]";
 	text-align:right;
 	padding-right:5px;
 	}
+
 	.kpiN{
 	background:#CCCCCC;
 	padding:5px;
 	display:inline;
 	border-radius:5px;
 	margin:2px;
+
 	}
 			.tootip{
 			width:200px;
@@ -263,6 +265,7 @@ tableFun += "]";
 			cursor:pointer;
 			padding:5px;
 			}
+
 			.commentball{
 			width:200px;
 			height:auto;
@@ -663,6 +666,8 @@ tableFun += "]";
 </style>
 <script type="text/javascript">
 $(document).ready(function(){
+
+
 	//alert("hello wold");
 	//console.log($("table#grid2 tbody tr:odd").get());
 $("table#grid2 tbody tr td").css("padding","5px");
@@ -715,8 +720,12 @@ $(".ball").corner();
 	Query="CALL sp_owner_comment(";
 	Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
 	rs = st.executeQuery(Query);
+
+
 	while(rs.next()){
 			out.print(rs.getString("comment")); 
+
+	
 	}
 %>
 <!--<div class="commentKPI"></div>
