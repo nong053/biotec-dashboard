@@ -452,26 +452,7 @@ function addCommas(nStr)
 			}
 		});
 		//#######################Graph Program End#######################
-		/*### Manage Tootip Range Start ###*/
-					  
-				$(".ball#ballRed").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-				$(".ball#ballYellow").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-				$(".ball#ballGreen").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-				$(".ball#ballGray").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-							
-					/*### Manage Tootip Range Stop ###*/
+		
 
 	});
 
@@ -546,7 +527,7 @@ var barChartBudget = function(categoryParam,seriesParam){
                         },
 						chartArea:{
 						width:315,
-						height:110
+						height:140
 						},
 
 						
@@ -1057,7 +1038,8 @@ var ParamYearArr = <%=textMonth%>;
 
 			$("#form_1").submit(function(){
 
-				var ParamYearPlus = parseInt($("#ParamYear").val());
+				//var ParamYearPlus = parseInt($("#ParamYear").val());
+				var ParamYearPlus =2012;
 				var ParamMonthPlus = (parseInt($("#ParamMonth").val()))+1;
 				var ParamYearPlusText = "";
 				var ParamMonthPlusText = "";
@@ -1101,7 +1083,9 @@ var ParamYearArr = <%=textMonth%>;
 ///////////////// Gague 2 Working
 			$("#form_1").submit(function(){
 				
-				var ParamYearPlus = parseInt($("#ParamYear").val());
+			
+				//var ParamYearPlus = parseInt($("#ParamYear").val());
+				var ParamYearPlus =2012;
 				var ParamMonthPlus = (parseInt($("#ParamMonth").val()))+1;
 				var ParamYearPlusText = "";
 				var ParamMonthPlusText = "";
@@ -1137,7 +1121,8 @@ var ParamYearArr = <%=textMonth%>;
 
 ///////////////// Barchart Budget Working
 			$("#form_1").submit(function(){
-				var ParamYearPlus = parseInt($("#ParamYear").val());
+				//var ParamYearPlus = parseInt($("#ParamYear").val());
+				var ParamYearPlus =2012;
 				var ParamMonthPlus = (parseInt($("#ParamMonth").val()))+1;
 				var ParamYearPlusText = "";
 				var ParamMonthPlusText = "";
@@ -1327,7 +1312,8 @@ var ParamYearArr = <%=textMonth%>;
 				});*/
 //==========================Revenue Gauge =====================
 						$("#form_1").submit(function(){
-							var ParamYearPlus = parseInt($("#ParamYear").val());
+							//var ParamYearPlus = parseInt($("#ParamYear").val());
+							var ParamYearPlus = 2012;
 							var ParamMonthPlus = (parseInt($("#ParamMonth").val()))+1;
 							var ParamYearPlusText = "";
 							var ParamMonthPlusText = "";
@@ -1363,7 +1349,8 @@ var ParamYearArr = <%=textMonth%>;
 				});
 				//====================Revenue Chart ==================
 		$("#form_1").submit(function(){
-										var ParamYearPlus = parseInt($("#ParamYear").val());
+							//var ParamYearPlus = parseInt($("#ParamYear").val());
+							var ParamYearPlus =2012;
 							var ParamMonthPlus = (parseInt($("#ParamMonth").val()))+1;
 							var ParamYearPlusText = "";
 							var ParamMonthPlusText = "";
@@ -1459,25 +1446,7 @@ var ParamYearArr = <%=textMonth%>;
 							color:"black"
 							});
 
-							/*### Manage Tootip Range Start ###*/
-					  
-				$(".ball#ballRed").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-				$(".ball#ballYellow").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-				$(".ball#ballGreen").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-				$(".ball#ballGray").tooltip({
-							txt:" แดง < 50 <br> เหลือง 50-80 <br> เขียว > 80",
-							color:"black"
-							});
-					/*### Manage Tootip Range Stop ###*/
+							
 						}						
 						});
 				return false;
@@ -1544,15 +1513,11 @@ return	$(idStr).text();
 		<!-- End jQuery 0001-->
 			<script>
 			   $(document).ready(function(){
-
-				
-
 				  $("#ParamYear").kendoDropDownList({
 				  theme:$(document).data("kendoSkin") || "metro",
 					  height:400,
 					  //width:50
 				  });
-			
 				  $("#ParamMonth").kendoDropDownList({
 				   height: 400
 				  });
@@ -1560,13 +1525,10 @@ return	$(idStr).text();
 				  $("#ParamOrg").kendoDropDownList();
 			   });
 			</script>
-
-
 		<div id="tooltip"></div>
 		<div class="content" style="width:970px; margin:auto;">
 			<div id="row1">
 						<div id="boxL">
-
 							<!-- ### BSC Dashboard Start ###-->
 							<div id="Main-Panel" class="k-content">
 									<form method="GET" id="form_1">
@@ -1583,7 +1545,6 @@ return	$(idStr).text();
 											<%out.print(V_Month);%>
 										</select>
 										</td>
-
 										<!--
 										<td><label for="ParamOrg">หน่วยงาน :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
 										<select name="ParamOrg" id="ParamOrg" onChange="getParamOrg(this.value);">
@@ -1617,7 +1578,7 @@ return	$(idStr).text();
 													<div id="contentL">
 														<div id="container-gauge2">
 															<div id="gauge1">
-															gauge1
+															
 															</div>
 															<div class="gaugeValue"></div>
 														</div>
@@ -1643,7 +1604,7 @@ return	$(idStr).text();
 													<div id="contentR">
 														<div id="container-gauge">
 																<div id="gauge2">
-																gauge2
+																
 																</div>
 																<div class="gaugeValue"></div>
 														</div>
@@ -1808,7 +1769,6 @@ return	$(idStr).text();
 											<div id="#contentBottom">
 												<div id="barChartFinancial"></div>
 											</div>
-										
 										</div>
 								</div>
 					</div>
