@@ -454,6 +454,7 @@ $("a[href=#tab6]").click(function(){
 			includeTMC();
 	});
 
+ /*Management Range mounse over Start*/
 var tooltip = function(){
 	  $(".kpiN").hover(function(e){
 								  var $AX =  e.pageX+10;
@@ -463,6 +464,7 @@ var tooltip = function(){
 								   var classT_text = $(classT).text();
 								   //alert("["+classT_text+"]");
 								   if($.trim(classT_text)!=""){
+								$("#tooltip").hide().empty();
 								  $("#tooltip").append(classT_text).css({"left":$AX+"px","top":$AY+"px"}).fadeIn();
 								   }
 							  },function(){
@@ -480,6 +482,7 @@ var ballScore = function(){
 								   var $classB = ".commentball#"+$pos;
 								   var classB_html = $($classB).html();
 								   if($.trim(classB_html)!=""){
+									$("#tooltip").hide().empty();
 								  $("#tooltip").append(classB_html).css({"left":$AX+"px","top":$AY+"px"}).fadeIn();
 								   }
 							  },function(){
@@ -488,8 +491,8 @@ var ballScore = function(){
 		  });
 
 }
-	
-	 /*Management Range mounse over*/
+ /*Management Range mounse over*/
+
 	var includeNSTDA = function(){
 		//	$("a[href=#tab1]").click(function(){
 					$.ajax({
