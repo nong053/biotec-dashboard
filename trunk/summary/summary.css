@@ -5,18 +5,18 @@ margin:auto;
 }
 .content #row1{
 width:inherit;
-height:315px;
+height:365px;
 
 }
 .content #row1 #boxL{
 width:645px;
 float:left;
-height:315px;
+height:316px;
 }
 .content #row1 #boxR{
 width:321px;
 float:left;
-height:329px;
+height:360px;
 border-radius:5px;
 border: 1px solid #cccccc;
 margin:1px;

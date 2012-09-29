@@ -73,7 +73,7 @@ while(rs.next()){
 	}
 	else
 	{
-		tableFun +=" <a href="+urlpage+" target=_blank><button class=k-button>รายละเอียด</button></a> ";
+		tableFun +=" <a href="+urlpage+" target=_blank><button class='buttonKpi' >Detail</button></a> ";
 	}
 	tableFun += "\", ";
 
@@ -219,7 +219,7 @@ font-size:14px;
 	margin:2px;
 	}
 			.tootip{
-			width:200px;
+			width:auto;
 			height:auto;
 			position:absolute;
 			z-index:10;
@@ -242,7 +242,15 @@ font-size:14px;
 			cursor:pointer;
 			padding:5px;
 			}
-
+			.buttonKpi{
+				width:40px;
+				height:18px;
+				font-size:6px;
+				display:inline;
+			}
+			a{
+			text-decoration:none
+			}
 	</style>
 	<script type="text/javascript">
 	$(document).ready(function(){
