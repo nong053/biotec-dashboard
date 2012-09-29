@@ -1502,7 +1502,7 @@ function templateFormat(value,summ) {
 */
    	function getTooltip(category) {
 	var tooltipStr = "";
-	var id = parseInt(category)+100;
+	var id = (parseInt(category)+100).toFixed(2);
 	var idStr = ".revTooltip#"+id;
 	//console.log(category);
 	//console.log(idStr);
