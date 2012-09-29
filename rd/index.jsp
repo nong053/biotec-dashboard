@@ -332,7 +332,7 @@ out.println("Error"+ex);
 				stackChart_sp_ic_score_by_output_type(data[4]["category_by_output_type"],data[5]["series_by_output_type"]);//3
 				AjaxTop20Content($("#ParamYear").val(),$("#ParamMonth").val());
 				AjaxScoreByDivisionContent($("#ParamYear").val(),$("#ParamMonth").val(),'BIOTEC');
-				AjaxScoreByDepartmentContent($("#ParamYear").val(),$("#ParamMonth").val(),'BIOTEC','JRU');
+				//AjaxScoreByDepartmentContent($("#ParamYear").val(),$("#ParamMonth").val(),'BIOTEC','JRU');
 				$("#contentMain").show();
 			}
 			
@@ -595,7 +595,6 @@ function checkBarTypeDepartment(e){
 			dataType:'json',
 			data:{"ParamMonth":$("#domParamMonth").val(),"ParamYear":$("#domParamYear").val(),"ParamCenter":$("#domParamCenter").val(),"ParamDivision":$("#domParamDivision").val(),"ParamDepartment":e.category},
 			success:function(data){
-
 			$("#domParamDepartment").remove();
 			$("body").append("<input type='hidden' name='domParamDepartment' class='domParam' id='domParamDepartment' value='"+e.category+"'>");
 /*
@@ -626,10 +625,10 @@ function checkBarTypeDepartment(e){
 				var Year = parseInt($("#domParamYear").val());
 				Year=Year+543;
 				$("#ic_score_open").attr({"href":"https://app2.biotec.or.th/dw/icscore_02_open.asp?t=out&emp_out="+$("#domParamCenter").val()+","+$("#domParamDivision").val()+","+$("#domParamDepartment").val()+"&bgy="+Year+""});
-				pieChart_sp_ic_score_by_job_family(data[4]["pie_sp_ic_score"],data[5]["sum_pie_sp_ic_score"]);
-				stackChart_sp_ic_score_by_output_type(data[6]["category_by_output_type"],data[7]["series_by_output_type"]);
-				stackChart_sp_count_emp_all_vs_jf2000(data[8]["category_emp_all_vs_jf2000"],data[9]["series_emp_all_vs_jf2000"]);
-				stackChart_sp_count_emp_by_job_grade(data[10]["category_emp_by_job_grade"],data[11]["series_emp_by_job_grade"]);
+				pieChart_sp_ic_score_by_job_family(data[2]["pie_sp_ic_score"],data[3]["sum_pie_sp_ic_score"]);
+				stackChart_sp_ic_score_by_output_type(data[4]["category_by_output_type"],data[5]["series_by_output_type"]);
+				stackChart_sp_count_emp_all_vs_jf2000(data[6]["category_emp_all_vs_jf2000"],data[7]["series_emp_all_vs_jf2000"]);
+				stackChart_sp_count_emp_by_job_grade(data[8]["category_emp_by_job_grade"],data[9]["series_emp_by_job_grade"]);
 			}
 			});
 }

@@ -60,7 +60,7 @@ out.println("<font color='red'>Error sp_ic_score_by_center</font>"+ex);
 
 
 //############################bar  sp_ic_score_by_division  Start ############################ /
-
+/**
 String categoryAxis_sp_ic_score_by_division = "";
 String[] categoryAxis_sp_ic_score_by_division_array;
 String categoryAxis_sp_ic_score_by_division_using="";
@@ -104,7 +104,7 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 catch(Exception ex){
 out.println("<font color='red'>Error sp_ic_score_by_division</font>"+ex);
 }
-
+**/
 //############################bar  sp_ic_score_by_division  End ############################ //
 
 //############################bar  sp_top20_ic_score  Start ############################ /
@@ -385,7 +385,7 @@ out.println("<font color='red'>Error sp_count_emp_by_job_grade</font>"+ex);
 //############################bar  sp_count_emp_by_job_grade  End ############################ //
 
 //############################bar  sp_ic_score_by_department  Start ############################ /
-
+/**
 String categoryAxis_sp_ic_score_by_department = "";
 String[] categoryAxis_sp_ic_score_by_department_array;
 String categoryAxis_sp_ic_score_by_department_using="";
@@ -429,14 +429,14 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 catch(Exception ex){
 out.println("<font color='red'>Error sp_ic_score_by_department</font>"+ex);
 }
-
+**/
 //############################bar  sp_ic_score_by_department  End ############################ //
 
 
 
 //Success fully Start
 		//out.print("[{\"category_center\":"+categoryAxis_sp_ic_score_by_center_using+"},{\"series_center\":"+series_sp_ic_score_by_center+"},{\"category_division\":"+categoryAxis_sp_ic_score_by_division_using+"},{\"series_division\":"+series_sp_ic_score_by_division+"},{\"pie_sp_ic_score\":"+sp_ic_score_by_job_family+"},{\"sum_pie_sp_ic_score\":"+sum_sp_ic_score_by_job_family+"},{\"category_by_output_type\":"+categoryAxis_sp_ic_score_by_output_type_using+"},{\"series_by_output_type\":"+series_sp_ic_score_by_output_type+"},{\"category_emp_all_vs_jf2000\":"+categoryAxis_sp_count_emp_all_vs_jf2000_using+"},{\"series_emp_all_vs_jf2000\":"+series_sp_count_emp_all_vs_jf2000+"},{\"category_emp_by_job_grade\":"+categoryAxis_sp_count_emp_by_job_grade_using+"},{\"series_emp_by_job_grade\":"+series_sp_count_emp_by_job_grade+"},{\"category_by_department\":"+categoryAxis_sp_ic_score_by_department_using+"},{\"series_by_department\":"+series_sp_ic_score_by_department+"}]");//1
-		out.print("[{\"category_center\":"+categoryAxis_sp_ic_score_by_center_using+"},{\"series_center\":"+series_sp_ic_score_by_center+"},{\"category_division\":"+categoryAxis_sp_ic_score_by_division_using+"},{\"series_division\":"+series_sp_ic_score_by_division+"},{\"pie_sp_ic_score\":"+sp_ic_score_by_job_family+"},{\"sum_pie_sp_ic_score\":"+sum_sp_ic_score_by_job_family+"},{\"category_by_output_type\":"+categoryAxis_sp_ic_score_by_output_type_using+"},{\"series_by_output_type\":"+series_sp_ic_score_by_output_type+"},{\"category_emp_all_vs_jf2000\":"+categoryAxis_sp_count_emp_all_vs_jf2000_using+"},{\"series_emp_all_vs_jf2000\":"+series_sp_count_emp_all_vs_jf2000+"},{\"category_emp_by_job_grade\":"+categoryAxis_sp_count_emp_by_job_grade_using+"},{\"series_emp_by_job_grade\":"+series_sp_count_emp_by_job_grade+"}]");//1
+		out.print("[{\"category_center\":"+categoryAxis_sp_ic_score_by_center_using+"},{\"series_center\":"+series_sp_ic_score_by_center+"},{\"pie_sp_ic_score\":"+sp_ic_score_by_job_family+"},{\"sum_pie_sp_ic_score\":"+sum_sp_ic_score_by_job_family+"},{\"category_by_output_type\":"+categoryAxis_sp_ic_score_by_output_type_using+"},{\"series_by_output_type\":"+series_sp_ic_score_by_output_type+"},{\"category_emp_all_vs_jf2000\":"+categoryAxis_sp_count_emp_all_vs_jf2000_using+"},{\"series_emp_all_vs_jf2000\":"+series_sp_count_emp_all_vs_jf2000+"},{\"category_emp_by_job_grade\":"+categoryAxis_sp_count_emp_by_job_grade_using+"},{\"series_emp_by_job_grade\":"+series_sp_count_emp_by_job_grade+"}]");//1
 		
 		//out.print("[{\"category\":"+categoryAxis_sp_ic_score_by_center_using+"},{\"series\":"+series_sp_ic_score_by_center+"}]");//1
 		//out.print("[{\"category_division\":"+categoryAxis_sp_ic_score_by_division_using+"},{\"series_division\":"+series_sp_ic_score_by_division+"}]");//2
@@ -450,5 +450,4 @@ out.println("<font color='red'>Error sp_ic_score_by_department</font>"+ex);
 		//out.print("[{\"category_by_department\":"+categoryAxis_sp_ic_score_by_department_using+"},{\"series_by_department\":"+series_sp_ic_score_by_department+"}]");
 //Success fully Stop
 //sp_ic_score_by_department
-
 %>
