@@ -84,7 +84,7 @@ while(rs.next()){
 	tableFun += "Field5_1: \"";
 	tableFun += baseline + "\",";
 
-	String performance_value = rs.getString("performance_value") ;
+	String performance_value = rs.getString("performance_value").replaceAll("\n","") ;
 	tableFun += "Field6: \"";
 	tableFun += "<div id=textR>"+ performance_value +"</div> \",";
 
@@ -597,7 +597,7 @@ $(".ball").corner();
 	Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
 	rs = st.executeQuery(Query);
 	while(rs.next()){
-			out.print(rs.getString("comment")); 
+			out.print(rs.getString("comment").replaceAll("\n","<br>")); 
 	}
 /*
 	for(i=0;i<kpiComment.size();i++)
@@ -606,8 +606,6 @@ $(".ball").corner();
      }*/
 	
 %>
-
-
 <br style="clear:both">
 
 

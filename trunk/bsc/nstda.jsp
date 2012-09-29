@@ -136,6 +136,8 @@ while(rs.next()){
 				}
 					out.print("</div>");
 	}
+
+
 	tableFun += "\",";
 
 	String kpi_wavg_score = rs.getString("kpi_wavg_score");
@@ -189,7 +191,9 @@ while(rs.next()){
 	}
 	//===============GraphLine End=====================
 	i++;
+	
 }
+
 tableFun += "]";
 
 //=================================== DataJ  END ===============================================
@@ -754,6 +758,46 @@ var $dataJ2 =[
 //$dataJ2[0]["Field3"];
 
 
+ /*Management Range mounse over Start*/
+var tooltip = function(){
+	  $(".kpiN").hover(function(e){
+								  var $AX =  e.pageX+10;
+								  var $AY = e.pageY+10;
+								   var $pos = e.target.id;
+								   var classT = ".tootip#"+$pos;
+								   var classT_text = $(classT).text();
+								   //alert("["+classT_text+"]");
+								   if($.trim(classT_text)!=""){
+									$("#tooltip").hide().empty();
+								  $("#tooltip").append(classT_text).css({"left":$AX+"px","top":$AY+"px"}).fadeIn();
+								   }
+							  },function(){
+								  $("#tooltip").hide().empty();
+								 
+		  });
+
+}
+var ballScore = function(){
+
+	  $(".ball").hover(function(e){
+								  var $AX =  e.pageX+10;
+								  var $AY = e.pageY+10;
+								   var $pos = e.target.id;
+								   var $classB = ".commentball#"+$pos;
+								   var classB_html = $($classB).html();
+								   if($.trim(classB_html)!=""){
+								$("#tooltip").hide().empty();
+								  $("#tooltip").append(classB_html).css({"left":$AX+"px","top":$AY+"px"}).fadeIn();
+								   }
+							  },function(){
+								  $("#tooltip").hide().empty();
+								 
+		  });
+
+}
+	 /*Management Range mounse over End*/
+
+
 
 	$("#grid").kendoGrid({
 		
@@ -802,7 +846,8 @@ var $dataJ2 =[
 		dataType:'html',
 		data:{'year':<%=ParamYear%>,'month':<%=ParamMonth%>,'name':"<%=ParamOrg%>",'owner_id':e.data.Field0,'kpi_id':e.data.Field0_1},
 		success:function(data){
-			// console.log(data);
+			 //console.log(data);
+			
 							var tableFun2 = eval("(" + data + ")");
 
 							$("<table bgcolor='#f5f5f5'><th></th></table>").kendoGrid({
@@ -810,45 +855,15 @@ var $dataJ2 =[
 								dataSource: {
 								data: tableFun2,
 								pageSize: 100,
-						//		filter: { field: "Field0", operator: "eq", value: e.data.Field0 }
-
 							}
 							}).appendTo(e.detailCell);
 							$('.inlinesparkline_sub').sparkline(); 
-				//			alert("test");
-									 $(".kpiN").hover(function(e){
-								     var $XX =  e.pageX;
-									 var $XY = e.pageY-300;
-									 var $pos = e.target.id;
-									 var $classT = ".tootip#"+$pos;
-									// 									console.log($XX);
-								//	console.log($XY);
-
-										// alert(classT);
-									//alert($($classT).text());
-									//$(classT).fadeIn("slow");
-									//alert($(".tootip#1000").text());
-								//$($classT).fadeIn();
-								$($classT).css({"left":$XX+"px","top":$XY+"px"}).fadeIn();
-								 },function(){
-									 $(".tootip").hide();
-								 });
-
-								   $(".ball").hover(function(ex){
-									  //alert("test");
-								     var $CX =  ex.pageX-180;
-									 var $CY = ex.pageY-330;
-									 var Bpos = ex.target.id;
-									 var $classB = ".commentball#"+Bpos;
-							//		console.log($CX);
-							//		console.log($CY);
-									//alert($(".commentBall#3000").text());
-									//alert(Bpos);
-							//		alert($(".commentball#20000").text());
-										$($classB).css({"left":$CX+"px","top":$CY+"px"}).fadeIn("fast");
-							},function(){
-									 $(".commentball").hide();
-								 });
+							/*### Manage Tootip Start###*/
+							tooltip();
+							ballScore();
+							
+							/*### Manage Tootip Stop###*/
+							
 			 }
 	 });
 						 
@@ -1049,8 +1064,7 @@ $(".ball").corner();
 	Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
 	rs = st.executeQuery(Query);
 	while(rs.next()){
-		String str = rs.getString("comment");
-		out.print(str.replaceAll("\\n", "<br/>")); 
+			out.print(rs.getString("comment").replaceAll("\n","<br>")); 
 	}
 %>
 

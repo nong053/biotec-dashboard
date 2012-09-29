@@ -126,14 +126,17 @@ while(rs.next()){
 	//ResultSet  rs2;
 	String QueryGraph = "";
 	String ChildKpiID = rs.getString("child_kpi_id");
-	//out.print(ChildKpiID+"<br>");
+	String Childowner_id = rs.getString("prk.child_owner_id");
+	//out.print(Childowner_id+"<br>");
 	//st2 = conn.createStatement();
+	
 	QueryGraph = "CALL sp_child_kpi_trend(";
-	QueryGraph += ParamYear+"," + ParamMonth +","+owner_id+","+ChildKpiID+")";
+	QueryGraph += ParamYear+"," + ParamMonth +","+Childowner_id+","+ChildKpiID+")";
 	rs1 = st1.executeQuery(QueryGraph);
 	while(rs1.next())
 	{
 				int Oct = rs1.getInt("Oct");
+			
 				int Nov = rs1.getInt("Nov");
 				int Dec = rs1.getInt("Dec");
 				int Jan = rs1.getInt("Jan");
