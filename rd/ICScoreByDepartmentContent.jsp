@@ -46,7 +46,7 @@ Hashtable main = new Hashtable();
 ArrayList ret = new ArrayList();
 
 // Make sure you have the Gson JAR in your classpath
-String sql = "call sp_ic_score_by_department_2("+year+","+month+",'"+center+"','"+division+"')";
+String sql = "call sp_ic_score_by_department("+year+","+month+",'"+center+"','"+division+"')";
 
 try{
 st = conn.createStatement();
