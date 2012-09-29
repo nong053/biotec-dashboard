@@ -244,9 +244,10 @@ font-size:14px;
 			}
 			.buttonKpi{
 				width:40px;
-				height:18px;
+				height:20px;
 				font-size:10px;
 				display:inline;
+				padding:0px;
 			}
 			a{
 			text-decoration:none

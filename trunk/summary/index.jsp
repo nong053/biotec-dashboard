@@ -919,8 +919,7 @@ var barChartFinancial= function(serieParam,categoryParam){
                                // format: "{0}%"
 							    visible: true,
 							   format: "{0}",
-								font: "11px Tahoma"
-							  
+								font: "10px Tahoma"
                             }
                         },
                         categoryAxis: {
