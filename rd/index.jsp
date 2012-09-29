@@ -332,7 +332,7 @@ out.println("Error"+ex);
 				stackChart_sp_ic_score_by_output_type(data[4]["category_by_output_type"],data[5]["series_by_output_type"]);//3
 				AjaxTop20Content($("#ParamYear").val(),$("#ParamMonth").val());
 				AjaxScoreByDivisionContent($("#ParamYear").val(),$("#ParamMonth").val(),'BIOTEC');
-				//AjaxScoreByDepartmentContent($("#ParamYear").val(),$("#ParamMonth").val(),'BIOTEC','JRU');
+				AjaxScoreByDepartmentContent($("#ParamYear").val(),$("#ParamMonth").val(),'BIOTEC','JRU');
 				$("#contentMain").show();
 			}
 			
