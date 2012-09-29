@@ -319,7 +319,7 @@ function addCommas(nStr)
 				dataType:"json",
 				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val(),"pg_code":$(this).val()},
 				success:function(data){
-					console.log(data);
+					//console.log(data);
 					var serie1 = data[0]["series1"];
 					var category1 = data[1]["category1"];
 					barChart1(serie1,category1);
@@ -451,7 +451,7 @@ function addCommas(nStr)
 				$("body").append("<input type='hidden' id='pageCon1' class='pageRemember' name='pageCon1' value='pageCon1'>");
 
 				$("#content1").slideDown("slow",function(){
-					console.log(data);
+					//console.log(data);
 					var serie1 = data[0]["series1"];
 					var category1 = data[1]["category1"];
 					barChart1(serie1,category1);
@@ -521,7 +521,7 @@ function addCommas(nStr)
 					var category1 = data[1]["category1"];
 					barChart21(serie1,category1);		
 					colorSufferRow();
-					console.log(data);
+					//console.log(data);
 				$("#contentL .projectHead1").empty();
 				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
 				$("#contentR .projectHead1").empty();
@@ -580,7 +580,7 @@ function addCommas(nStr)
 					var category1 = data[1]["category1"];
 					barChart31(serie1,category1);
 					colorSufferRow();
-					console.log(data);
+					//console.log(data);
 
 				$("#contentL .projectHead1").empty();
 				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
@@ -642,7 +642,7 @@ function addCommas(nStr)
 					var category1 = data[1]["category1"];
 					barChart41(serie1,category1);
 					colorSufferRow();
-					console.log(data);
+					//console.log(data);
 				$("#contentL .projectHead1").empty();
 				$("#contentL .projectHead1").append("Top 10 Cost Center Most Spending of "+data[42]["active_category"]);
 				$("#contentR .projectHead1").empty();
@@ -689,7 +689,7 @@ function addCommas(nStr)
 				dataType:"json",
 				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val()},
 				success:function(data){
-					console.log(data);
+					//console.log(data);
 				$("#content1").hide();
 				$("#content2").hide();
 				$("#content3").hide();
@@ -824,7 +824,7 @@ var barChart1 = function(seriesParam,categoryParam){
 					callProgressbar(progressbarID2[i],parseFloat(data[dataValueID2[i]]["value"]).toFixed(2),data[dataNameID2[i]]["name"]);
 				}
 */
-				console.log(data);
+				//console.log(data);
 				$("#contentL .projectHead1").empty();
 				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+category);
 				$("#contentR .projectHead1").empty();
@@ -1119,7 +1119,7 @@ var barChart21 = function(seriesParam,categoryParam){
 					}
 					catch(err)
 						{
-						console.log(err);
+						//console.log(err);
 					}
 					/*
 					var serie1 = data[0]["series1"];
@@ -1297,7 +1297,7 @@ function funContent3(e){
 				success:function(data){
 
 				colorSufferRow();
-					console.log(data);
+					//console.log(data);
 				$("#contentL .projectHead1").empty();
 				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+center);
 				$("#contentR .projectHead1").empty();
