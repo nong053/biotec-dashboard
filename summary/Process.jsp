@@ -73,7 +73,7 @@ while(rs.next()){
 	}
 	else
 	{
-		tableFun +=" <a href="+urlpage+" target=_blank><button class='buttonKpi' >Detail</button></a> ";
+		tableFun +=" <a href="+urlpage+" target=_blank><button  style='width:40px; height:20px; font-size:10px; display:inline; padding:0px;'>Detail</button></a> ";
 	}
 	tableFun += "\", ";
 
