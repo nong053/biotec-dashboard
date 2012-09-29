@@ -245,7 +245,7 @@ font-size:14px;
 			.buttonKpi{
 				width:40px;
 				height:18px;
-				font-size:6px;
+				font-size:10px;
 				display:inline;
 			}
 			a{
