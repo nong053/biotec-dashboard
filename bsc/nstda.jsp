@@ -79,7 +79,7 @@ while(rs.next()){
 	}
 	else
 	{
-		tableFun +=" <a href="+urlpage+" target=_blank><button class=k-button>รายละเอียด</button></a> ";
+		tableFun +=" <a href="+urlpage+"?ks="+kpi_code+"&yy="+ParamYear+"&mm="+ParamMonth+" target=_blank><button class=k-button>รายละเอียด</button></a> ";
 	}
 	tableFun += "\", ";
 
