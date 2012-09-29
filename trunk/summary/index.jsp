@@ -894,7 +894,7 @@ var barChartFinancial= function(serieParam,categoryParam){
                         },
 						chartArea:{
 						width:310,
-						height:140
+						height:160
 						},
                         legend: {
                             visible: false
@@ -920,7 +920,8 @@ var barChartFinancial= function(serieParam,categoryParam){
 							    visible: true,
 							   format: "{0}",
 								font: "10px Tahoma"
-                            }
+                            },
+							majorUnit: 100
                         },
                         categoryAxis: {
                             categories: categoryParam,//["1","2", "3", "4", "5","6"],
@@ -1472,7 +1473,7 @@ function templateFormat(value,summ) {
    return value1 + " , " + value2 + " %";
 }*/
 function templateFormat(value,summ) {
-   var value1 = addCommas(value);
+   var value1 = addCommas(value.toFixed(2));
    var value2 = ((value/summ)*100).toFixed(2);
    return value1 + " , " + value2 + " %";
 }
@@ -1501,7 +1502,7 @@ function templateFormat(value,summ) {
 */
    	function getTooltip(category) {
 	var tooltipStr = "";
-	var id = (parseInt(category)+100).toFixed(2);
+	var id = parseInt(category)+100;
 	var idStr = ".revTooltip#"+id;
 	//console.log(category);
 	//console.log(idStr);
