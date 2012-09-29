@@ -1049,7 +1049,8 @@ $(".ball").corner();
 	Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
 	rs = st.executeQuery(Query);
 	while(rs.next()){
-			out.print(rs.getString("comment")); 
+		String str = rs.getString("comment");
+		out.print(str.replaceAll("\\n", "<br/>")); 
 	}
 %>
 
