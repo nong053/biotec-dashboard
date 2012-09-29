@@ -280,6 +280,23 @@ out.println("Error"+ex);
 			 categories: ["NANOTEC-NLAB","BIOTEC-BTU","MTEC-PRU","NECTEC-IDSRU","NECTEC-INIRU","NECTEC-TMEC","MTEC-MCRU","NECTEC-WISRU","BIOTEC-AGU","BIOTEC-GEI","MTEC-CARU","MTC-MRRU","NECTEC-ICCRU","MTTEC-CERRU","BIOTEC-JRU","MTEC-ENVRU","NECTEC-AAERU","BIOTEC-MMU","MTEC-BMERU","MTEC-DERU"],
 						
 			*/
+			$.ajax({
+				url:'Top20Content.jsp',
+				type:'get',
+				dataType:'json',
+				data:{'year':$("#ParamYear").val(), 'month':$("#ParamMonth").val()},
+				success:function(data){
+					
+				//var objson=	eval("("+data+")");
+				//console.log(objson);
+				//baChart_sp_top20_ic_score(data[4]["category_top20_ic_score"],data[5]["series_top20_ic_score"]);
+		
+					$category =eval("("+data[0]['category']+")");
+
+					baChart_sp_top20_ic_score($category,data[0]['series']);
+				
+				}
+			});
 	
 			$.ajax({
 			url:'DefaultContent.jsp',
@@ -321,65 +338,23 @@ out.println("Error"+ex);
 				var Year = parseInt($("#domParamYear").val());
 				Year=Year+543;
 				$("#ic_score_open").attr({"href":"https://app2.biotec.or.th/dw/icscore_02_open.asp?t=out&emp_out="+$("#domParamCenter").val()+",,&bgy="+Year+""});
-				//$.each(data[8]["category_emp_by_job_grade"],function(index,data){ alert(data)});
 				baChart_sp_ic_score_by_department('','');
 				baChart_sp_ic_score_by_center(data[1]["series_center"],data[0]["category_center"]);
-				//baChart_sp_ic_score_by_division(data[2]["category_division"],data[3]["series_division"]);
+				baChart_sp_ic_score_by_division(data[2]["category_division"],data[3]["series_division"]);
 				//baChart_sp_top20_ic_score(data[4]["category_top20_ic_score"],data[5]["series_top20_ic_score"]);
-				pieChart_sp_ic_score_by_job_family(data[2]["pie_sp_ic_score"],data[3]["sum_pie_sp_ic_score"]);
-				stackChart_sp_count_emp_all_vs_jf2000(data[6]["category_emp_all_vs_jf2000"],data[7]["series_emp_all_vs_jf2000"]);//1
-				stackChart_sp_count_emp_by_job_grade(data[8]["category_emp_by_job_grade"],data[9]["series_emp_by_job_grade"]);//2
-				stackChart_sp_ic_score_by_output_type(data[4]["category_by_output_type"],data[5]["series_by_output_type"]);//3
-				AjaxTop20Content($("#ParamYear").val(),$("#ParamMonth").val());
-				AjaxScoreByDivisionContent($("#ParamYear").val(),$("#ParamMonth").val(),'BIOTEC');
-				//AjaxScoreByDepartmentContent($("#ParamYear").val(),$("#ParamMonth").val(),'BIOTEC','JRU');
+				pieChart_sp_ic_score_by_job_family(data[4]["pie_sp_ic_score"],data[5]["sum_pie_sp_ic_score"]);
+				stackChart_sp_count_emp_all_vs_jf2000(data[8]["category_emp_all_vs_jf2000"],data[9]["series_emp_all_vs_jf2000"]);//1
+				stackChart_sp_count_emp_by_job_grade(data[10]["category_emp_by_job_grade"],data[11]["series_emp_by_job_grade"]);//2
+				stackChart_sp_ic_score_by_output_type(data[6]["category_by_output_type"],data[7]["series_by_output_type"]);//3
 				$("#contentMain").show();
 			}
 			
-			}); 
+			});
 			return false;
 	});
 	//$("#submit1").trigger("click");
 	/*### jQuery Funtions End ###*/
 
-	/* ### Ajax to server Function ### */
-	
-function AjaxTop20Content(vYear,vMonth){
-		$.ajax({
-				url:'Top20Content.jsp',
-				type:'get',
-				dataType:'json',
-				data:{'year': vYear, 'month': vMonth},
-				success:function(data){
-					baChart_sp_top20_ic_score(eval("("+data[0]['category']+")"),data[0]['series']);			
-				}
-			});
-}	
-function AjaxScoreByDivisionContent(vYear,vMonth,vCenter){
-$.ajax({
-				url:'ICScoreByDivisionContent.jsp',
-				type:'get',
-				dataType:'json',
-				data:{'year': vYear, 'month': vMonth,'center': vCenter},
-				success:function(data){
-					baChart_sp_ic_score_by_division(data[0]['category'],data[0]['series']);	
-				}
-			});
-}
-function AjaxScoreByDepartmentContent(vYear,vMonth,vCenter,vDiv,vDept){
-$.ajax({
-				url:'ICScoreByDepartmentContent.jsp',
-				type:'get',
-				dataType:'json',
-				data:{'year': $("#ParamYear").val(), 'month':$("#ParamMonth").val(),'center':vCenter,'division':vDiv,'department':vDept},
-				success:function(data){
-					baChart_sp_ic_score_by_department(data[0]['category'],data[0]['series']);	
-				}
-			});
-}
-	
-	/* ### Ajax to server END ### */
-	
 	/*###  baChart_sp_ic_score_by_center  start ###*/
 function  checkBarTypeCenter(e){
 	$("#domParamCenter").remove();
@@ -421,14 +396,15 @@ function  checkBarTypeCenter(e){
 				$("#ic_score_open").attr({"href":"https://app2.biotec.or.th/dw/icscore_02_open.asp?t=out&emp_out="+$("#domParamCenter").val()+",,&bgy="+Year+""});
 
 				baChart_sp_ic_score_by_department('','');
-				//baChart_sp_ic_score_by_division(data[2]["category_division"],data[3]["series_division"]);
-				pieChart_sp_ic_score_by_job_family(data[2]["pie_sp_ic_score"],data[3]["sum_pie_sp_ic_score"]);
-				stackChart_sp_ic_score_by_output_type(data[4]["category_by_output_type"],data[5]["series_by_output_type"]);
-				stackChart_sp_count_emp_all_vs_jf2000(data[6]["category_emp_all_vs_jf2000"],data[7]["series_emp_all_vs_jf2000"]);
-				stackChart_sp_count_emp_by_job_grade(data[8]["category_emp_by_job_grade"],data[9]["series_emp_by_job_grade"]);
-				AjaxScoreByDivisionContent($("#ParamYear").val(),$("#ParamMonth").val(),e.category);
-				$("#contentMain").show();
+				baChart_sp_ic_score_by_division(data[2]["category_division"],data[3]["series_division"]);
+				pieChart_sp_ic_score_by_job_family(data[4]["pie_sp_ic_score"],data[5]["sum_pie_sp_ic_score"]);
+				stackChart_sp_ic_score_by_output_type(data[6]["category_by_output_type"],data[7]["series_by_output_type"]);
+				stackChart_sp_count_emp_all_vs_jf2000(data[8]["category_emp_all_vs_jf2000"],data[9]["series_emp_all_vs_jf2000"]);
+				stackChart_sp_count_emp_by_job_grade(data[10]["category_emp_by_job_grade"],data[11]["series_emp_by_job_grade"]);
+					
 				
+
+				$("#contentMain").show();
 			}
 	});
 
@@ -527,18 +503,18 @@ function checkBarTypeDivision(e){
 				Year=Year+543;
 				$("#ic_score_open").attr({"href":"https://app2.biotec.or.th/dw/icscore_02_open.asp?t=out&emp_out="+$("#domParamCenter").val()+","+$("#domParamDivision").val()+",&bgy="+Year+""});
 
-				//baChart_sp_ic_score_by_department(data[12]["category_by_department"],data[13]["series_by_department"]);
+				baChart_sp_ic_score_by_department(data[12]["category_by_department"],data[13]["series_by_department"]);
 				pieChart_sp_ic_score_by_job_family(data[4]["pie_sp_ic_score"],data[5]["sum_pie_sp_ic_score"]);
 				stackChart_sp_ic_score_by_output_type(data[6]["category_by_output_type"],data[7]["series_by_output_type"]);
 				stackChart_sp_count_emp_all_vs_jf2000(data[8]["category_emp_all_vs_jf2000"],data[9]["series_emp_all_vs_jf2000"]);
 				stackChart_sp_count_emp_by_job_grade(data[10]["category_emp_by_job_grade"],data[11]["series_emp_by_job_grade"]);
-				AjaxScoreByDepartmentContent($("#ParamYear").val(),$("#ParamMonth").val(),$("#domParamCenter").val(),e.category);
 			}
 	});
 
 }
 //bar 2
 var baChart_sp_ic_score_by_division= function(categoryParam,seriesParam){
+//alert(categoryParam);
 	$("#baChart_sp_ic_score_by_division").kendoChart({
                         theme: $(document).data("kendoSkin") || "metro",
                         title: {
@@ -904,7 +880,7 @@ var stackChart_sp_count_emp_by_job_grade= function(categoryParam,seriesParam){
                         },
 						chartArea:{
 						width:300,
-						height:50
+						height:85
 						},
                         seriesDefaults: {
                             type: "bar",
@@ -1045,9 +1021,7 @@ function templateFormat(value,summ) {
 								</div>
 						</div>
 						<div class="content">
-								<br/>
 								<div id="stackChart_sp_count_emp_all_vs_jf2000"></div>
-								<br/>
 								<div id="stackChart_sp_count_emp_by_job_grade"></div>
 						</div>
 				</div>
