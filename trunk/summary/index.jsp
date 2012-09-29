@@ -613,39 +613,59 @@ var pieChartHR= function(selectorParam,valueParam,sumParam){
 			},
 			series: [{
                             type: "pie",
-                            data: valueParam//[{totalPieHR3:312.14},{value_piehr3:[{category:"คชจ. ดำเนินการ",value: 234.14},{category: "คชจ. บุคลากร",value: 122.0}]}]
-
-							/*	 [ {
-	
-                                category: "RDDE",
-                                value: 220
-								 
-                            }, {
-	
-                                category: "HRD",
-                                value: 240
-                            }, {
-		
-                                category: "Infra ",
-                                value: 220
-                            }, {
-			
-                                category: "Int Mat ",
-                                value: 220
-								
-                            }, {
-			
-                                category: "TT ",
-                                value: 220
-								
-                            }]
-*/
+                            data: valueParam
                         }],
                         tooltip: {
                             visible: true,
                          //  format: "{0}"
 						 //  template: "${ category } ,${ value }%"
 						 template: "#= templateFormat(value,"+sumParam+") #"
+
+                        },
+			
+			seriesDefaults: {
+				labels: {
+					visible: false,
+					format: "{0}%"
+				}
+			},
+			//seriesHover:onSeriesHover,
+			seriesClick:onSeriesClick
+		});
+}
+var pieChartHR2= function(selectorParam,valueParam,sumParam){
+	    $(selectorParam).kendoChart({
+			theme:$(document).data("kendoSkin") || "metro",
+			title: {
+				 text: ""
+			},
+			name:"9",
+			plotArea:{
+						background:"",
+						
+						
+
+			},
+			legend: {
+                            position: "right",
+							labels:{
+							font: "11px Tahoma"
+							}
+            },
+			chartArea: {
+			width: 300,
+			height: 130,
+			opacity:0
+				
+			},
+			series: [{
+                            type: "pie",
+                            data: valueParam
+
+                        }],
+                        tooltip: {
+                            visible: true,
+						 template: "#= templateFormat2(value,"+sumParam+") #"
 
                         },
 			
@@ -1204,7 +1224,7 @@ var ParamYearArr = <%=textMonth%>;
 							//============= HR Pie 1================
 							var totalPieHR1 = data2[0]["totalPieHR1"];
 							var valuePieHR1 = data2[1]["value_piehr1"];
-							pieChartHR("#piehr",valuePieHR1,totalPieHR1);
+							pieChartHR2("#piehr",valuePieHR1,totalPieHR1);
 							// ========End HR Pie 1===============
 						}
 					});
@@ -1221,7 +1241,7 @@ var ParamYearArr = <%=textMonth%>;
 							//============= HR Pie 2================
 					var totalPieHR2 = data2[0]["totalPieHR2"];
 							var valuePieHR2 = data2[1]["value_piehr2"];
-							pieChartHR("#piehr3",valuePieHR2,totalPieHR2);
+							pieChartHR2("#piehr3",valuePieHR2,totalPieHR2);
 								// ========End HR Pie 2===============
 						}
 					});
@@ -1251,8 +1271,10 @@ var ParamYearArr = <%=textMonth%>;
 
 
 		$("#form_1").submit(function(){
-				var ParamYearPlus = parseInt($("#ParamYear").val());
-				var ParamMonthPlus = (parseInt($("#ParamMonth").val()))+1;
+				//var ParamYearPlus = parseInt($("#ParamYear").val());
+				//var ParamMonthPlus = (parseInt($("#ParamMonth").val()))+1;
+				var ParamYearPlus =2012;
+				var ParamMonthPlus = 12;
 				var ParamYearPlusText = "";
 				var ParamMonthPlusText = "";
 				if(ParamMonthPlus>12){
@@ -1268,16 +1290,17 @@ var ParamYearArr = <%=textMonth%>;
 		dataType:'html',
 		data:{"month":ParamMonthPlus,"year":ParamYearPlus},
 		success:function(data){
+				$(".revTooltip").remove();
 				$(".revenue#title").empty();
 				$(".revenue#title").append("รายได้ ณ "+ParamMonthPlusText+" "+ParamYearPlusText);
 
 				 var dataSplit= data.split(",");
 				 var htmlInput="";
 					for(var i=0; i<dataSplit.length; i++){
-					htmlInput+="<div id='"+(i+101)+"' class='revTooltip' style='display:none'>"+dataSplit[i]+"</div>";
+					htmlInput+="<div id='"+(i+101)+"' class='revTooltip'  style='display:none'>"+dataSplit[i]+"</div>";
 					//console.log(dataSplit[i]);
 					}
-					$(".revTooltip").remove();
+					
 					$("body").append(htmlInput);
 					//console.log($(".revTooltip#1").length);
 		}
@@ -1477,6 +1500,11 @@ function templateFormat(value,summ) {
 }*/
 function templateFormat(value,summ) {
    var value1 = addCommas(value.toFixed(2));
+   var value2 = ((value/summ)*100).toFixed(2);
+   return value1 + " , " + value2 + " %";
+}
+function templateFormat2(value,summ) {
+   var value1 = addCommas(value);
    var value2 = ((value/summ)*100).toFixed(2);
    return value1 + " , " + value2 + " %";
 }
