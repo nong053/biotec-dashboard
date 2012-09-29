@@ -57,6 +57,55 @@ out.println("<font color='red'>Error sp_ic_score_by_center</font>"+ex);
 
 //############################bar  sp_ic_score_by_center  End ############################ //
 
+
+//############################bar  sp_ic_score_by_division  Start ############################ /
+/**
+String categoryAxis_sp_ic_score_by_division = "";
+String[] categoryAxis_sp_ic_score_by_division_array;
+String categoryAxis_sp_ic_score_by_division_using="";
+String series_sp_ic_score_by_division = "";
+
+try{
+	//out.println("---------------------------------------------"+i);
+Class.forName(Driver).newInstance();
+conn=DriverManager.getConnection(connectionURL,User,Pass);
+	if(!conn.isClosed()){
+		st = conn.createStatement();
+		Query="CALL sp_ic_score_by_division("+ParamYear+","+ParamMonth+",'"+ParamCenter+"')";
+		rs = st.executeQuery(Query);
+		Integer i=0;
+		categoryAxis_sp_ic_score_by_division_using+="[";
+		series_sp_ic_score_by_division+="[";
+		while(rs.next()){
+			if(i==0){
+				categoryAxis_sp_ic_score_by_division=rs.getString("division_list");
+				categoryAxis_sp_ic_score_by_division_array=categoryAxis_sp_ic_score_by_division.split(",");
+				series_sp_ic_score_by_division+="{\"name\":"+"\""+rs.getString("view_name")+"\","+"\"data\":["+rs.getString("val_list")+"]}";
+				for(int j=0; j< categoryAxis_sp_ic_score_by_division_array.length; j++){
+					if(j==0){
+					categoryAxis_sp_ic_score_by_division_using+="\""+categoryAxis_sp_ic_score_by_division_array[j]+"\"";
+					}else{
+					categoryAxis_sp_ic_score_by_division_using+=",\""+categoryAxis_sp_ic_score_by_division_array[j]+"\"";
+					}//if
+				}//for
+			}else{//if
+			series_sp_ic_score_by_division+=",{\"name\":"+"\""+rs.getString("view_name")+"\","+"\"data\":["+rs.getString("val_list")+"]}";
+			}
+		i++;
+		}//while
+	categoryAxis_sp_ic_score_by_division_using+="]";
+	series_sp_ic_score_by_division+="]";
+	
+	
+		conn.close();
+	}
+}
+catch(Exception ex){
+out.println("<font color='red'>Error sp_ic_score_by_division</font>"+ex);
+}
+**/
+//############################bar  sp_ic_score_by_division  End ############################ //
+
 //############################bar  sp_top20_ic_score  Start ############################ /
 /*
 String categoryAxis_sp_top20_ic_score = "";
@@ -121,7 +170,7 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 		Integer i =1;
 
 		while(rs.next()){
-		//Format  [{category: "ศจ.",value: 10,color:"#6C2E9B" }]
+		//Format  [{category: "??????.",value: 10,color:"#6C2E9B" }]
 		if(i==1){
 		sp_ic_score_by_job_family+="{\"category\":";
 		sp_ic_score_by_job_family+= "\""+rs.getString("job_family") +"\"";
@@ -165,7 +214,7 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 		Integer i =1;
 
 		while(rs.next()){
-		//Format  [{category: "ศจ.",value: 10,color:"#6C2E9B" }]
+		//Format  [{category: "??????.",value: 10,color:"#6C2E9B" }]
 		if(i==1){
 		sp_npr_by_center+="{\"category\":";
 		sp_npr_by_center+= "\""+rs.getString("npr_center") +"\"";
@@ -333,6 +382,8 @@ out.println("<font color='red'>Error sp_count_emp_by_job_grade</font>"+ex);
 }
 
 //############################bar  sp_count_emp_by_job_grade  End ############################ //
+
+
 
 
 //Success fully Start
