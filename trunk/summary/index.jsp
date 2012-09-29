@@ -1472,7 +1472,7 @@ function templateFormat(value,summ) {
    return value1 + " , " + value2 + " %";
 }*/
 function templateFormat(value,summ) {
-   var value1 = addCommas(value.toFixed(2));
+   var value1 = addCommas(value);
    var value2 = ((value/summ)*100).toFixed(2);
    return value1 + " , " + value2 + " %";
 }
