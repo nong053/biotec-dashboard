@@ -1039,8 +1039,10 @@ var ParamYearArr = <%=textMonth%>;
 			$("#form_1").submit(function(){
 
 				//var ParamYearPlus = parseInt($("#ParamYear").val());
+				//var ParamMonthPlus = (parseInt($("#ParamMonth").val()))+1;
 				var ParamYearPlus =2012;
-				var ParamMonthPlus = (parseInt($("#ParamMonth").val()))+1;
+				var ParamMonthPlus = 12;
+				
 				var ParamYearPlusText = "";
 				var ParamMonthPlusText = "";
 				if(ParamMonthPlus>12){
@@ -1085,8 +1087,10 @@ var ParamYearArr = <%=textMonth%>;
 				
 			
 				//var ParamYearPlus = parseInt($("#ParamYear").val());
+				//var ParamMonthPlus = (parseInt($("#ParamMonth").val()))+1;
 				var ParamYearPlus =2012;
-				var ParamMonthPlus = (parseInt($("#ParamMonth").val()))+1;
+				var ParamMonthPlus = 12;
+
 				var ParamYearPlusText = "";
 				var ParamMonthPlusText = "";
 				if(ParamMonthPlus>12){
@@ -1122,8 +1126,10 @@ var ParamYearArr = <%=textMonth%>;
 ///////////////// Barchart Budget Working
 			$("#form_1").submit(function(){
 				//var ParamYearPlus = parseInt($("#ParamYear").val());
+				//var ParamMonthPlus = (parseInt($("#ParamMonth").val()))+1;
 				var ParamYearPlus =2012;
-				var ParamMonthPlus = (parseInt($("#ParamMonth").val()))+1;
+				var ParamMonthPlus = 12;
+
 				var ParamYearPlusText = "";
 				var ParamMonthPlusText = "";
 				if(ParamMonthPlus>12){
@@ -1312,9 +1318,10 @@ var ParamYearArr = <%=textMonth%>;
 				});*/
 //==========================Revenue Gauge =====================
 						$("#form_1").submit(function(){
-							//var ParamYearPlus = parseInt($("#ParamYear").val());
-							var ParamYearPlus = 2012;
-							var ParamMonthPlus = (parseInt($("#ParamMonth").val()))+1;
+				//var ParamYearPlus = parseInt($("#ParamYear").val());
+				//var ParamMonthPlus = (parseInt($("#ParamMonth").val()))+1;
+				var ParamYearPlus =2012;
+				var ParamMonthPlus = 12;
 							var ParamYearPlusText = "";
 							var ParamMonthPlusText = "";
 							if(ParamMonthPlus>12){
@@ -1349,9 +1356,10 @@ var ParamYearArr = <%=textMonth%>;
 				});
 				//====================Revenue Chart ==================
 		$("#form_1").submit(function(){
-							//var ParamYearPlus = parseInt($("#ParamYear").val());
-							var ParamYearPlus =2012;
-							var ParamMonthPlus = (parseInt($("#ParamMonth").val()))+1;
+				//var ParamYearPlus = parseInt($("#ParamYear").val());
+				//var ParamMonthPlus = (parseInt($("#ParamMonth").val()))+1;
+				var ParamYearPlus =2012;
+				var ParamMonthPlus = 12;
 							var ParamYearPlusText = "";
 							var ParamMonthPlusText = "";
 							if(ParamMonthPlus>12){
