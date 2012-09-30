@@ -43,7 +43,6 @@ out.println("Error"+ex);
 		ResultSet rs1;
 		Statement st1;
 		int i = 0;
-
 //Query Handler Year start
 try{
 Class.forName(Driver).newInstance();
@@ -79,7 +78,6 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 			}
 			i++;
 		}
-
 	//insert code allow function end
 		conn.close();
 	}
@@ -288,7 +286,6 @@ out.println("Error"+ex);
 		$("#content1").empty();
 		$("#content2").empty();
 		includeNpr_2();
-
 	});
 
 	/*### Function Ajax Management End###*/
@@ -320,8 +317,8 @@ out.println("Error"+ex);
 		});
 $("form#form_1").trigger("submit");
 	/*### jQuery Funtions End ###*/
-			 	$("form.#form_1 #submit1").trigger("click");
-				//$("a[href=#content1]").trigger("click");
+			 	
+
 	});
 	</script>
     </head>
