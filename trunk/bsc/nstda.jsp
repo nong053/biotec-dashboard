@@ -79,9 +79,7 @@ while(rs.next()){
 	}
 	else
 	{
-		int CalendarMonth = (Integer.parseInt(ParamMonth)+9)%12;
-		if (CalendarMonth==0){ CalendarMonth=12; } 
-		tableFun +=" <a href="+urlpage+"?ks="+kpi_code+"&yy="+ParamYear+"&mm="+CalendarMonth+" target=_blank><button class=k-button>Detail</button></a> ";
+		tableFun +=" <a href="+urlpage+"?ks="+kpi_code+"&yy="+ParamYear+"&mm="+ParamMonth+" target=_blank><button class=k-button>Detail</button></a> ";
 	}
 	tableFun += "\", ";
 
@@ -1059,7 +1057,10 @@ $(".ball").corner();
 <%}%>
 	</tbody>
 </table>
-
+<div style="padding:5px;">
+<b>ผมการดำเนินงานที่มอบหมาย(สะสม)</b>
+</div>
+<div style="padding:10px;">
 <%
 	
 	Query="CALL sp_owner_comment(";
@@ -1069,7 +1070,7 @@ $(".ball").corner();
 			out.print(rs.getString("comment").replaceAll("\n","<br>")); 
 	}
 %>
-
+</span>
 <br style="clear:both">
 
 

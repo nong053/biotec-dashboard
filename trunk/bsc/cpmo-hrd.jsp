@@ -660,7 +660,10 @@ $(".ball").corner();
 <%}%>
 	</tbody>
 </table>
-
+<div style="padding:5px;">
+<b>ผมการดำเนินงานที่มอบหมาย(สะสม)</b>
+</div>
+<div style="padding:10px;">
 <%
 	
 	Query="CALL sp_owner_comment(";
@@ -671,7 +674,7 @@ $(".ball").corner();
 	}
 %>
 
-
+</span>
 <br style="clear:both">
 
 
