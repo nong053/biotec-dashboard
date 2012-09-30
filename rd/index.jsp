@@ -247,7 +247,7 @@ out.println("Error"+ex);
 		/*#### Loading Start ###*/
 		var $width=($('body').width()/2)-50;
 		//console.log($width);
-
+	
 		$("#loading").css({"top":"250px","left":$width+"px"}).ajaxStart(function(){
 		$(this).show();
 		}).ajaxStop(function(){
@@ -261,7 +261,6 @@ out.println("Error"+ex);
 
 	  $("#ParamOrg").kendoDropDownList();
 	
-
 	/*### jQuery Funtions Start ###*/
 	$("#form_1").submit(function(){
 		// Format
@@ -318,9 +317,7 @@ out.println("Error"+ex);
 				console.log(data[11]["series_emp_by_job_grade"]);
 */
 				$("#divisionName").text($("#domParamCenter").val());
-				var Year = parseInt($("#domParamYear").val());
-				Year=Year+543;
-				$("#ic_score_open").attr({"href":"https://app2.biotec.or.th/dw/icscore_02_open.asp?t=out&emp_out="+$("#domParamCenter").val()+",,&bgy="+Year+""});
+				OutputTypeOpenUrlHandle($("#domParamCenter").val(),'','',parseInt($("#domParamYear").val())+543);
 				//$.each(data[8]["category_emp_by_job_grade"],function(index,data){ alert(data)});
 				baChart_sp_ic_score_by_department('','');
 				baChart_sp_ic_score_by_center(data[1]["series_center"],data[0]["category_center"]);
@@ -344,6 +341,14 @@ out.println("Error"+ex);
 
 	/* ### Ajax to server Function ### */
 	
+function OutputTypeOpenUrlHandle(center,div,dept,year){
+//template $("#ic_score_open").attr({"href":"https://app2.biotec.or.th/dw/icscore_02_open.asp?t=out&emp_out="+$("#domParamCenter").val()+",,&bgy="+Year+""});
+	$("#ic_score_open").unbind('click');
+	$("#ic_score_open").click(function(){
+		var url = "https://app2.biotec.or.th/dw/icscore_02_open.asp?t=out&emp_out="+center+","+div+","+dept+",&bgy="+year+"";
+		window.open(url,"_blank");
+	});
+}	
 function AjaxTop20Content(vYear,vMonth){
 		$.ajax({
 				url:'Top20Content.jsp',
@@ -416,10 +421,7 @@ function  checkBarTypeCenter(e){
 				console.log(data[11]["series_emp_by_job_grade"]);
 */
 				$("#divisionName").text($("#domParamCenter").val());
-				var Year = parseInt($("#domParamYear").val());
-				Year=Year+543;
-				$("#ic_score_open").attr({"href":"https://app2.biotec.or.th/dw/icscore_02_open.asp?t=out&emp_out="+$("#domParamCenter").val()+",,&bgy="+Year+""});
-
+				OutputTypeOpenUrlHandle($("#domParamCenter").val(),'','',parseInt($("#domParamYear").val())+543);
 				baChart_sp_ic_score_by_department('','');
 				//baChart_sp_ic_score_by_division(data[2]["category_division"],data[3]["series_division"]);
 				pieChart_sp_ic_score_by_job_family(data[2]["pie_sp_ic_score"],data[3]["sum_pie_sp_ic_score"]);
@@ -522,10 +524,7 @@ function checkBarTypeDivision(e){
 				console.log(data[13]["series_by_department"]);
 */
 				$("#departmentName").text($("#domParamDivision").val());
-				var Year = parseInt($("#domParamYear").val());
-				Year=Year+543;
-				$("#ic_score_open").attr({"href":"https://app2.biotec.or.th/dw/icscore_02_open.asp?t=out&emp_out="+$("#domParamCenter").val()+","+$("#domParamDivision").val()+",&bgy="+Year+""});
-
+				OutputTypeOpenUrlHandle($("#domParamCenter").val(),$("#domParamDivision").val(),'',parseInt($("#domParamYear").val())+543);
 				//baChart_sp_ic_score_by_department(data[12]["category_by_department"],data[13]["series_by_department"]);
 				//$.each(data[3]["pie_sp_ic_score"][0][0],function(index,data){ alert(data); });
 				pieChart_sp_ic_score_by_job_family(data[2]["pie_sp_ic_score"],data[3]["sum_pie_sp_ic_score"]);
@@ -622,9 +621,7 @@ function checkBarTypeDepartment(e){
 				console.log(data[12]["category_by_department"]);
 				console.log(data[13]["series_by_department"]);
 */
-				var Year = parseInt($("#domParamYear").val());
-				Year=Year+543;
-				$("#ic_score_open").attr({"href":"https://app2.biotec.or.th/dw/icscore_02_open.asp?t=out&emp_out="+$("#domParamCenter").val()+","+$("#domParamDivision").val()+","+$("#domParamDepartment").val()+"&bgy="+Year+""});
+				OutputTypeOpenUrlHandle($("#domParamCenter").val(),$("#domParamDivision").val(),$("#domParamDepartment").val(),parseInt($("#domParamYear").val())+543);
 				pieChart_sp_ic_score_by_job_family(data[2]["pie_sp_ic_score"],data[3]["sum_pie_sp_ic_score"]);
 				stackChart_sp_ic_score_by_output_type(data[4]["category_by_output_type"],data[5]["series_by_output_type"]);
 				stackChart_sp_count_emp_all_vs_jf2000(data[6]["category_emp_all_vs_jf2000"],data[7]["series_emp_all_vs_jf2000"]);
@@ -1052,7 +1049,7 @@ function templateFormat(value,summ) {
 				<div id="column22">
 						<div class="head">
 								<div class="title">
-								 IC Score by OutpuType<a id="ic_score_open" href="#" target="_blank"><button>Open</button></a>
+								 IC Score by OutpuType<a id="ic_score_open"  target="_blank" onclick="return fales;" ><button>Open</button></a>
 								</div>
 						</div>
 						<div class="content">
