@@ -1070,7 +1070,7 @@ $(".ball").corner();
 			out.print(rs.getString("comment").replaceAll("\n","<br>")); 
 	}
 %>
-</span>
+</div>
 <br style="clear:both">
 
 

@@ -588,7 +588,7 @@ $(".ball").corner();
 <div style="padding:5px;">
 <b>ผมการดำเนินงานที่มอบหมาย(สะสม)</b>
 </div>
-<span style="padding:10px;">
+<div style="padding:10px;">
 <%
 	
 	Query="CALL sp_owner_comment(";
@@ -599,7 +599,7 @@ $(".ball").corner();
 	}
 %>
 
-</span>
+</div>
 
 <br style="clear:both">
 

@@ -731,7 +731,7 @@ $(".ball").corner();
 	
 	}
 %>
-</span>
+</div>
 <!--<div class="commentKPI"></div>
 <br style="clear:both">
 
