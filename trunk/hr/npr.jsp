@@ -196,7 +196,7 @@ Class.forName(Driver).newInstance();
 conn=DriverManager.getConnection(connectionURL,User,Pass);
 	if(!conn.isClosed()){
 		st = conn.createStatement();
-		Query="CALL sp_npr_by_type_drilldown("+ParamYear+","+ParamMonth+",'"+ParamOrg+"','ALL')";
+		Query="CALL sp_npr_by_type_drilldown("+ParamYear+","+ParamMonth+",'ALL')";
 		rs = st.executeQuery(Query);
 		Integer i=0;
 		categoryAxis_npr_type_using+="[";
@@ -763,7 +763,7 @@ $.ajax({
 		url:'sp_npr_by_type_drilldown.jsp',
 		type:'get',
 		dataType:'json',
-		data:{'ParamMonth':<%=ParamMonth%>,'ParamYear':<%=ParamYear%>,'ParamOrg':ParamOrg,'ParamNprlist':"ALL"},
+		data:{'ParamMonth':<%=ParamMonth%>,'ParamYear':<%=ParamYear%>,'ParamNprlist':"ALL"},
 		success:function(data){
 		//console.log(data[0]["category"]);
 		//console.log(data[1]["series"]);
@@ -793,7 +793,7 @@ function checkBarTypeByType(e){
 		url:'sp_npr_by_type_drilldown.jsp',
 		type:'get',
 		dataType:'json',
-		data:{'ParamMonth':<%=ParamMonth%>,'ParamYear':<%=ParamYear%>,'ParamOrg':ParamOrg,'ParamNprlist':e.category},
+		data:{'ParamMonth':<%=ParamMonth%>,'ParamYear':<%=ParamYear%>,'ParamNprlist':e.category},
 		success:function(data){
 		//console.log(data[0]["category"]);
 		//console.log(data[1]["series"]);
@@ -921,7 +921,8 @@ $("a[href=#hrContent22]").click(function(){
 //}
 
 function templateFormat(value,summ) {
-   var value1 = addCommas(value.toFixed(2));
+   //var value1 = addCommas(value.toFixed(2));
+   var value1 = value;
    var value2 = ((value/summ)*100).toFixed(2);
    return value1 + " , " + value2 + " %";
 }
