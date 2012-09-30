@@ -37,14 +37,31 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 		Query="CALL sp_emp_by_center("+ParamYear+","+ParamMonth+");";
 		rs = st.executeQuery(Query);
 		Integer i =1 ;
+		String color="";
 		sp_emp_by_center+="[";
 		while(rs.next()){
 		//Format  [{category: "ศจ.",value: 10,color:"#6C2E9B" }]
+		if(rs.getString("center_th_shortname").equals("สก.")){
+		color="#25a0da";
+		}else if(rs.getString("center_th_shortname").equals("ศช.")){
+		color="#309b46";
+		}else if(rs.getString("center_th_shortname").equals("ศว.")){
+		color="#dee92d";
+		}else if(rs.getString("center_th_shortname").equals("ศอ.")){
+		color="#e62d32";
+		}else if(rs.getString("center_th_shortname").equals("ศน.")){
+		color="#ff7110";
+		}else if(rs.getString("center_th_shortname").equals("ศจ.")){
+		color="#6C2E9B";
+		}
+
+
 		if(i==1){
 		sp_emp_by_center+="{category:";
 	
 		sp_emp_by_center+= "\""+rs.getString("center_th_shortname") +"\"";
 		sp_emp_by_center+= ",value:"+rs.getString("total_employee") ;
+		sp_emp_by_center+= ",color:\""+color+"\"";
 		sum_total_employee+=rs.getInt("total_employee");
 		sp_emp_by_center+="}";
 		}else{
@@ -52,6 +69,7 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 	
 		sp_emp_by_center+= "\""+rs.getString("center_th_shortname") +"\"";
 		sp_emp_by_center+= ",value:"+rs.getString("total_employee");
+		sp_emp_by_center+= ",color:\""+color+"\"";
 		sum_total_employee+=rs.getInt("total_employee");
 		sp_emp_by_center+="}";
 		}
@@ -466,11 +484,8 @@ function addCommas(nStr)
 
 $(document).ready(function(){
 /*###  pie start ###*/
-
 var pieChart= function(id_param,data_param,summ_param){
-		// checl hr_expense force decimal
-		var templateData =  id_param == "#pie_hr_expense" ? "#= templateFormat2(value,"+summ_param+")#" : "#= templateFormat(value,"+summ_param+")#";
-		
+
 		$(id_param).kendoChart({
 		 theme: $(document).data("kendoSkin") || "metro",
 			title: {
@@ -491,19 +506,15 @@ var pieChart= function(id_param,data_param,summ_param){
                         tooltip: {
                             visible: true,
                            // format: "{0}%"
-							template:templateData
+							template:"#= templateFormat(value,"+summ_param+")#"
 
                         },
-			
 			seriesDefaults: {
 				labels: {
 					visible: false,
 					format: "{0}%",
-					
 				}
 			}
-	
-			
 		});
 }
 
@@ -534,11 +545,9 @@ pieChart("#pie_hr_expense",<%=sp_hr_expense%>,<%=sum_sp_hr_expense%>);
 $("#tabHr1.ui-tabs-panel ").css({"padding":"0px"});
 $("#tabHr1.ui-widget-content").css({"border":"0px"});
 
-
 /*Tab2 End*/
 /*### Config Tab End ###*/
 });
-
 //define function extenal jquery
 //function templateFormat(value,summ) {
 //   var value1 = Math.floor(value);
@@ -550,15 +559,6 @@ function templateFormat(value,summ) {
    var value2 = ((value/summ)*100).toFixed(2);
    return value1 + " , " + value2 + " %";
 }
-
-// for force value  Int Tyle to decimal Type (.2f)
-function templateFormat2(value,summ) {
-   var value1 = addCommas(value.toFixed(2));
-   var value2 = ((value/summ)*100).toFixed(2);
-   return value1 + " , " + value2 + " %";
-}
-
-
 </script>
 <div class="content">
 	<div id="row1">
