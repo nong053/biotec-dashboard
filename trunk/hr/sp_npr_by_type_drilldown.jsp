@@ -7,7 +7,6 @@
 <%
 String ParamMonth = request.getParameter("ParamMonth");
 String ParamYear = request.getParameter("ParamYear");
-String ParamOrg = request.getParameter("ParamOrg");
 String ParamNprlist = request.getParameter("ParamNprlist");
 
 
@@ -29,7 +28,7 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 	if(!conn.isClosed()){
 		st = conn.createStatement();
 		//นักวิจัยหลังปริญญาเอก
-		Query="CALL sp_npr_by_type_drilldown("+ParamYear+","+ParamMonth+",'"+ParamOrg+"','"+ParamNprlist+"')";
+		Query="CALL sp_npr_by_type_drilldown("+ParamYear+","+ParamMonth+",'"+ParamNprlist+"')";
 		rs = st.executeQuery(Query);
 		Integer i=0;
 		categoryAxis_npr_type_using+="[";
