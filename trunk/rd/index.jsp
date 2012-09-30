@@ -345,7 +345,7 @@ function OutputTypeOpenUrlHandle(center,div,dept,year){
 //template $("#ic_score_open").attr({"href":"https://app2.biotec.or.th/dw/icscore_02_open.asp?t=out&emp_out="+$("#domParamCenter").val()+",,&bgy="+Year+""});
 	$("#ic_score_open").unbind('click');
 	$("#ic_score_open").click(function(){
-		var url = "https://app2.biotec.or.th/dw/icscore_02_open.asp?t=out&emp_out="+center+","+div+","+dept+",&bgy="+year+"";
+		var url = "https://app2.biotec.or.th/dw/icscore_02_open.asp?t=out&emp_out="+center+","+div+","+dept+"&bgy="+year+"";
 		window.open(url,"_blank");
 	});
 }	
