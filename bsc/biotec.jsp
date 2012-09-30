@@ -715,7 +715,10 @@ $(".ball").corner();
 <%}%>
 	</tbody>
 </table>
-
+<div style="padding:5px;">
+<b>ผมการดำเนินงานที่มอบหมาย(สะสม)</b>
+</div>
+<div style="padding:10px;">
 <%
 	Query="CALL sp_owner_comment(";
 	Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
@@ -728,6 +731,7 @@ $(".ball").corner();
 	
 	}
 %>
+</span>
 <!--<div class="commentKPI"></div>
 <br style="clear:both">
 
