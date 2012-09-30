@@ -74,7 +74,9 @@ while(rs.next()){
 	else
 	{
 		//https://app2.biotec.or.th/dw/bsc_csv.asp?ks=KS2&yy=2011&mm=10&
-		tableFun +=" <a href="+urlpage+"?ks="+kpi_code+"&yy="+ParamYear+"&mm="+ParamMonth+" target=_blank><button  style='width:40px; height:20px; font-size:10px; display:inline; padding:0px;'>Detail</button></a> ";
+		int CalendarMonth = (Integer.parseInt(ParamMonth)+9)%12;
+		if (CalendarMonth==0){ CalendarMonth=12; } 
+		tableFun +=" <a href="+urlpage+"?ks="+kpi_code+"&yy="+ParamYear+"&mm="+CalendarMonth+" target=_blank><button  style='width:40px; height:20px; font-size:10px; display:inline; padding:0px;'>Detail</button></a> ";
 	}
 	tableFun += "\", ";
 
