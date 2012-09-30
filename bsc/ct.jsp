@@ -609,7 +609,7 @@ $(".ball").corner();
      }*/
 	
 %>
-</span>
+</div>
 <br style="clear:both">
 
 
