@@ -469,6 +469,9 @@ $(document).ready(function(){
 
 var pieChart= function(id_param,data_param,summ_param){
 
+		var templateFormat;
+		if( id_param == "#pie_hr_expense"){ templateFormat = "#= templateFormat2(value,"+summ_param+")#"; }
+		else { templateFormat =  "#= templateFormat(value,"+summ_param+")#"; }
 		$(id_param).kendoChart({
 		 theme: $(document).data("kendoSkin") || "metro",
 			title: {
@@ -489,7 +492,7 @@ var pieChart= function(id_param,data_param,summ_param){
                         tooltip: {
                             visible: true,
                            // format: "{0}%"
-							template:"#= templateFormat(value,"+summ_param+")#"
+							template:templateFormat
 
                         },
 			
@@ -544,11 +547,16 @@ $("#tabHr1.ui-widget-content").css({"border":"0px"});
 //   return value1 + " , " + value2 + " %";
 //}
 function templateFormat(value,summ) {
+   var value1 = addCommas(value);
+   var value2 = ((value/summ)*100).toFixed(2);
+   return value1 + " , " + value2 + " %";
+}
+// for
+function templateFormat2(value,summ) {
    var value1 = addCommas(value.toFixed(2));
    var value2 = ((value/summ)*100).toFixed(2);
    return value1 + " , " + value2 + " %";
 }
-
 
 </script>
 <div class="content">
