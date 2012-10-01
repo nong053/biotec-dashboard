@@ -730,6 +730,7 @@ $(".ball").corner();
 
 	
 	}
+	conn.close();
 %>
 </div>
 <!--<div class="commentKPI"></div>

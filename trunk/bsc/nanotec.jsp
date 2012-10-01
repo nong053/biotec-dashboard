@@ -593,6 +593,7 @@ $(".ball").corner();
 	while(rs.next()){
 			out.print(rs.getString("comment").replaceAll("\n","<br>")); 
 	}
+conn.close();
 %>
 
 
