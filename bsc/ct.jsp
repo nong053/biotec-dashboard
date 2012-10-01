@@ -607,7 +607,7 @@ $(".ball").corner();
      {
       out.print("ArrayList Elements       :"+kpiComment.get(i)+"<br/>");
      }*/
-	
+	conn.close();
 %>
 </div>
 <br style="clear:both">

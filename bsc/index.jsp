@@ -159,6 +159,7 @@
 				}
 			}
 			i++;
+		
 		}
 
 
@@ -191,7 +192,7 @@
 			}
 			i++;
 		}
-
+	conn.close();
 		//------------------- End Parameter Month -------------------*/
 
 
@@ -293,34 +294,22 @@
 		});
 //#######################Graph Program Start#######################
 		$(document).ready(function(){
-
-		//#######################Graph Program End#######################
-		
-		
-
+//#######################Graph Program End#######################
 		//alert(g);
-		
-		//$("g").css("color","#cccccc").hide();
+//$("g").css("color","#cccccc").hide();
 	});
-
-		/*########## Function jQuery End#########*/
-
+/*########## Function jQuery End#########*/
 	</script>
-
     </head>
     <body>
 
 
 <!-- code for graphic-->
-
-
 	<!-- <input type="input" name="date"  id="date" > -->
 	<div id="dialog" title="Overall">
 			<div id="chart"><p></p></div>
 		</div>
 <!-- ui-dialog -->	
-
-
 <!-- code for graphic-->
 
 	<!--------------------------- HEADER --------------------------->
@@ -363,9 +352,7 @@
 		<script type="text/javascript">
 		$(document).ready(function(){
 				  $("#ParamYear").kendoDropDownList();
-			
 				  $("#ParamMonth").kendoDropDownList();
-	
 				  $("#ParamOrg").kendoDropDownList();
 
 				  /*jQuery Start Here ### File Config ###*/
