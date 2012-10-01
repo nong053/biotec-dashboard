@@ -306,16 +306,85 @@ out.println("Error"+ex);
 
 				console.log(data[4]["pie_sp_ic_score"]);
 				console.log(data[5]["sum_pie_sp_ic_score"]);
-				
-				console.log(data[6]["category_by_output_type"]);
-				console.log(data[7]["series_by_output_type"]);
+*/		
+//output_type1
+				var category_by_output_type1 = "{\"category1\":[\""+data[4]['category_by_output_type'][0]+"\"]}";
+				var category_by_output_type_obj1 =eval("("+category_by_output_type1+")");
+				//console.log(category_by_output_type_obj1['category1']);
 
+				var series_by_output_type1 = "{\"series1\":[{\"name\":\""+data[5]["series_by_output_type"][0]["name"]+"\",\"data\":["+data[5]["series_by_output_type"][0]["data"][0]+"]}]}";
+				var series_by_output_type_obj1 =eval("("+series_by_output_type1+")");
+				//console.log(series_by_output_type_obj1['series1']);
+//output_type1
+
+//output_type2
+				var category_by_output_type2 = "{\"category2\":[\""+data[4]['category_by_output_type'][1]+"\"]}";
+				var category_by_output_type_obj2 =eval("("+category_by_output_type2+")");
+				//console.log(category_by_output_type_obj2['category2']);
+
+				var series_by_output_type2 = "{\"series2\":[{\"data\":["+data[5]["series_by_output_type"][0]["data"][1]+"]}]}";
+				var series_by_output_type_obj2 =eval("("+series_by_output_type2+")");
+				//console.log(series_by_output_type_obj2['series2']);
+//output_type2
+
+//output_type3
+				var category_by_output_type3 = "{\"category3\":[\""+data[4]['category_by_output_type'][2]+"\"]}";
+				var category_by_output_type_obj3 =eval("("+category_by_output_type3+")");
+				//console.log(category_by_output_type_obj3['category3']);
+
+				var series_by_output_type3 = "{\"series3\":[{\"data\":["+data[5]["series_by_output_type"][0]["data"][2]+"]}]}";
+				var series_by_output_type_obj3=eval("("+series_by_output_type3+")");
+				//console.log(series_by_output_type_obj3['series3']);
+//output_type3
+			
+/*			
+				var series_by_output_type1= eval("("+data[5]["series_by_output_type"][0]["data"][0]+")");
+				var series_by_output_type1= eval("("+data[5]["series_by_output_type"][0]["data"][0]+")");
+
+				var category_by_output_type2 = eval("("+data[4]["category_by_output_type"][1]+")");
+				var series_by_output_type2= eval("("+data[5]["series_by_output_type"][0]["data"][1]+")");
+
+				var category_by_output_type3 = eval("("+data[4]["category_by_output_type"][2]+")");
+				var series_by_output_type3= eval("("+data[5]["series_by_output_type"][0]["data"][2]+")");
+*/
+/*
 				console.log(data[8]["category_emp_all_vs_jf2000"]);
 				console.log(data[9]["series_emp_all_vs_jf2000"]);
 				
 				console.log(data[10]["category_emp_by_job_grade"]);
 				console.log(data[11]["series_emp_by_job_grade"]);
 */
+//output_type1
+				var category_by_output_type1 = "{\"category1\":[\""+data[4]['category_by_output_type'][0]+"\"]}";
+				var category_by_output_type_obj1 =eval("("+category_by_output_type1+")");
+				//console.log(category_by_output_type_obj1['category1']);
+
+				var series_by_output_type1 = "{\"series1\":[{\"name\":\""+data[5]["series_by_output_type"][0]["name"]+"\",\"data\":["+data[5]["series_by_output_type"][0]["data"][0]+"]}]}";
+				var series_by_output_type_obj1 =eval("("+series_by_output_type1+")");
+				//console.log(series_by_output_type_obj1['series1']);
+//output_type1
+
+//output_type2
+				var category_by_output_type2 = "{\"category2\":[\""+data[4]['category_by_output_type'][1]+"\"]}";
+				var category_by_output_type_obj2 =eval("("+category_by_output_type2+")");
+				//console.log(category_by_output_type_obj2['category2']);
+
+				var series_by_output_type2 = "{\"series2\":[{\"data\":["+data[5]["series_by_output_type"][0]["data"][1]+"]}]}";
+				var series_by_output_type_obj2 =eval("("+series_by_output_type2+")");
+				//console.log(series_by_output_type_obj2['series2']);
+//output_type2
+
+//output_type3
+				var category_by_output_type3 = "{\"category3\":[\""+data[4]['category_by_output_type'][2]+"\"]}";
+				var category_by_output_type_obj3 =eval("("+category_by_output_type3+")");
+				//console.log(category_by_output_type_obj3['category3']);
+
+				var series_by_output_type3 = "{\"series3\":[{\"data\":["+data[5]["series_by_output_type"][0]["data"][2]+"]}]}";
+				var series_by_output_type_obj3=eval("("+series_by_output_type3+")");
+				//console.log(series_by_output_type_obj3['series3']);
+//output_type3
+
+
 				$("#divisionName").text($("#domParamCenter").val());
 				OutputTypeOpenUrlHandle($("#domParamCenter").val(),'','',parseInt($("#domParamYear").val())+543);
 				//$.each(data[8]["category_emp_by_job_grade"],function(index,data){ alert(data)});
@@ -326,7 +395,15 @@ out.println("Error"+ex);
 				pieChart_sp_ic_score_by_job_family(data[2]["pie_sp_ic_score"],data[3]["sum_pie_sp_ic_score"]);
 				stackChart_sp_count_emp_all_vs_jf2000(data[6]["category_emp_all_vs_jf2000"],data[7]["series_emp_all_vs_jf2000"]);//1
 				stackChart_sp_count_emp_by_job_grade(data[8]["category_emp_by_job_grade"],data[9]["series_emp_by_job_grade"]);//2
-				stackChart_sp_ic_score_by_output_type(data[4]["category_by_output_type"],data[5]["series_by_output_type"]);//3
+
+
+				stackChart_sp_ic_score_by_output_type("#stackChart_sp_ic_score_by_output_type1",category_by_output_type_obj1['category1'],series_by_output_type_obj1['series1']);//3
+
+				stackChart_sp_ic_score_by_output_type("#stackChart_sp_ic_score_by_output_type2",category_by_output_type_obj2['category2'],series_by_output_type_obj2['series2']);//3
+
+				stackChart_sp_ic_score_by_output_type("#stackChart_sp_ic_score_by_output_type3",category_by_output_type_obj3['category3'],series_by_output_type_obj3['series3']);//3
+
+
 				AjaxTop20Content($("#ParamYear").val(),$("#ParamMonth").val());
 				AjaxScoreByDivisionContent($("#ParamYear").val(),$("#ParamMonth").val(),'BIOTEC');
 				//AjaxScoreByDepartmentContent($("#ParamYear").val(),$("#ParamMonth").val(),'BIOTEC','JRU');
@@ -419,13 +496,51 @@ function  checkBarTypeCenter(e){
 				
 				console.log(data[10]["category_emp_by_job_grade"]);
 				console.log(data[11]["series_emp_by_job_grade"]);
+
 */
+//output_type1
+				var category_by_output_type1 = "{\"category1\":[\""+data[4]['category_by_output_type'][0]+"\"]}";
+				var category_by_output_type_obj1 =eval("("+category_by_output_type1+")");
+				//console.log(category_by_output_type_obj1['category1']);
+
+				var series_by_output_type1 = "{\"series1\":[{\"name\":\""+data[5]["series_by_output_type"][0]["name"]+"\",\"data\":["+data[5]["series_by_output_type"][0]["data"][0]+"]}]}";
+				var series_by_output_type_obj1 =eval("("+series_by_output_type1+")");
+				//console.log(series_by_output_type_obj1['series1']);
+//output_type1
+
+//output_type2
+				var category_by_output_type2 = "{\"category2\":[\""+data[4]['category_by_output_type'][1]+"\"]}";
+				var category_by_output_type_obj2 =eval("("+category_by_output_type2+")");
+				//console.log(category_by_output_type_obj2['category2']);
+
+				var series_by_output_type2 = "{\"series2\":[{\"data\":["+data[5]["series_by_output_type"][0]["data"][1]+"]}]}";
+				var series_by_output_type_obj2 =eval("("+series_by_output_type2+")");
+				//console.log(series_by_output_type_obj2['series2']);
+//output_type2
+
+//output_type3
+				var category_by_output_type3 = "{\"category3\":[\""+data[4]['category_by_output_type'][2]+"\"]}";
+				var category_by_output_type_obj3 =eval("("+category_by_output_type3+")");
+				console.log(category_by_output_type_obj3['category3']);
+
+				var series_by_output_type3 = "{\"series3\":[{\"data\":["+data[5]["series_by_output_type"][0]["data"][2]+"]}]}";
+				var series_by_output_type_obj3=eval("("+series_by_output_type3+")");
+				//console.log(series_by_output_type_obj3['series3']);
+//output_type3
+
+
 				$("#divisionName").text($("#domParamCenter").val());
 				OutputTypeOpenUrlHandle($("#domParamCenter").val(),'','',parseInt($("#domParamYear").val())+543);
 				baChart_sp_ic_score_by_department('','');
 				//baChart_sp_ic_score_by_division(data[2]["category_division"],data[3]["series_division"]);
 				pieChart_sp_ic_score_by_job_family(data[2]["pie_sp_ic_score"],data[3]["sum_pie_sp_ic_score"]);
-				stackChart_sp_ic_score_by_output_type(data[4]["category_by_output_type"],data[5]["series_by_output_type"]);
+
+				stackChart_sp_ic_score_by_output_type("#stackChart_sp_ic_score_by_output_type1",category_by_output_type_obj1['category1'],series_by_output_type_obj1['series1']);//3
+
+				stackChart_sp_ic_score_by_output_type("#stackChart_sp_ic_score_by_output_type2",category_by_output_type_obj2['category2'],series_by_output_type_obj2['series2']);//3
+
+				stackChart_sp_ic_score_by_output_type("#stackChart_sp_ic_score_by_output_type3",category_by_output_type_obj3['category3'],series_by_output_type_obj3['series3']);//3
+
 				stackChart_sp_count_emp_all_vs_jf2000(data[6]["category_emp_all_vs_jf2000"],data[7]["series_emp_all_vs_jf2000"]);
 				stackChart_sp_count_emp_by_job_grade(data[8]["category_emp_by_job_grade"],data[9]["series_emp_by_job_grade"]);
 				AjaxScoreByDivisionContent($("#ParamYear").val(),$("#ParamMonth").val(),e.category);
@@ -523,12 +638,50 @@ function checkBarTypeDivision(e){
 				console.log(data[12]["category_by_department"]);
 				console.log(data[13]["series_by_department"]);
 */
+
+//output_type1
+				var category_by_output_type1 = "{\"category1\":[\""+data[4]['category_by_output_type'][0]+"\"]}";
+				var category_by_output_type_obj1 =eval("("+category_by_output_type1+")");
+				//console.log(category_by_output_type_obj1['category1']);
+
+				var series_by_output_type1 = "{\"series1\":[{\"name\":\""+data[5]["series_by_output_type"][0]["name"]+"\",\"data\":["+data[5]["series_by_output_type"][0]["data"][0]+"]}]}";
+				var series_by_output_type_obj1 =eval("("+series_by_output_type1+")");
+				//console.log(series_by_output_type_obj1['series1']);
+//output_type1
+
+//output_type2
+				var category_by_output_type2 = "{\"category2\":[\""+data[4]['category_by_output_type'][1]+"\"]}";
+				var category_by_output_type_obj2 =eval("("+category_by_output_type2+")");
+				//console.log(category_by_output_type_obj2['category2']);
+
+				var series_by_output_type2 = "{\"series2\":[{\"data\":["+data[5]["series_by_output_type"][0]["data"][1]+"]}]}";
+				var series_by_output_type_obj2 =eval("("+series_by_output_type2+")");
+				//console.log(series_by_output_type_obj2['series2']);
+//output_type2
+
+//output_type3
+				var category_by_output_type3 = "{\"category3\":[\""+data[4]['category_by_output_type'][2]+"\"]}";
+				var category_by_output_type_obj3 =eval("("+category_by_output_type3+")");
+				console.log(category_by_output_type_obj3['category3']);
+
+				var series_by_output_type3 = "{\"series3\":[{\"data\":["+data[5]["series_by_output_type"][0]["data"][2]+"]}]}";
+				var series_by_output_type_obj3=eval("("+series_by_output_type3+")");
+				//console.log(series_by_output_type_obj3['series3']);
+//output_type3
+
+
 				$("#departmentName").text($("#domParamDivision").val());
 				OutputTypeOpenUrlHandle($("#domParamCenter").val(),$("#domParamDivision").val(),'',parseInt($("#domParamYear").val())+543);
 				//baChart_sp_ic_score_by_department(data[12]["category_by_department"],data[13]["series_by_department"]);
 				//$.each(data[3]["pie_sp_ic_score"][0][0],function(index,data){ alert(data); });
 				pieChart_sp_ic_score_by_job_family(data[2]["pie_sp_ic_score"],data[3]["sum_pie_sp_ic_score"]);
-				stackChart_sp_ic_score_by_output_type(data[4]["category_by_output_type"],data[5]["series_by_output_type"]);
+				
+				stackChart_sp_ic_score_by_output_type("#stackChart_sp_ic_score_by_output_type1",category_by_output_type_obj1['category1'],series_by_output_type_obj1['series1']);//3
+
+				stackChart_sp_ic_score_by_output_type("#stackChart_sp_ic_score_by_output_type2",category_by_output_type_obj2['category2'],series_by_output_type_obj2['series2']);//3
+
+				stackChart_sp_ic_score_by_output_type("#stackChart_sp_ic_score_by_output_type3",category_by_output_type_obj3['category3'],series_by_output_type_obj3['series3']);//3
+
 				stackChart_sp_count_emp_all_vs_jf2000(data[6]["category_emp_all_vs_jf2000"],data[7]["series_emp_all_vs_jf2000"]);
 				stackChart_sp_count_emp_by_job_grade(data[8]["category_emp_by_job_grade"],data[9]["series_emp_by_job_grade"]);
 				AjaxScoreByDepartmentContent($("#ParamYear").val(),$("#ParamMonth").val(),$("#domParamCenter").val(),e.category);
@@ -621,9 +774,46 @@ function checkBarTypeDepartment(e){
 				console.log(data[12]["category_by_department"]);
 				console.log(data[13]["series_by_department"]);
 */
+//output_type1
+				var category_by_output_type1 = "{\"category1\":[\""+data[4]['category_by_output_type'][0]+"\"]}";
+				var category_by_output_type_obj1 =eval("("+category_by_output_type1+")");
+				//console.log(category_by_output_type_obj1['category1']);
+
+				var series_by_output_type1 = "{\"series1\":[{\"name\":\""+data[5]["series_by_output_type"][0]["name"]+"\",\"data\":["+data[5]["series_by_output_type"][0]["data"][0]+"]}]}";
+				var series_by_output_type_obj1 =eval("("+series_by_output_type1+")");
+				//console.log(series_by_output_type_obj1['series1']);
+//output_type1
+
+//output_type2
+				var category_by_output_type2 = "{\"category2\":[\""+data[4]['category_by_output_type'][1]+"\"]}";
+				var category_by_output_type_obj2 =eval("("+category_by_output_type2+")");
+				//console.log(category_by_output_type_obj2['category2']);
+
+				var series_by_output_type2 = "{\"series2\":[{\"data\":["+data[5]["series_by_output_type"][0]["data"][1]+"]}]}";
+				var series_by_output_type_obj2 =eval("("+series_by_output_type2+")");
+				//console.log(series_by_output_type_obj2['series2']);
+//output_type2
+
+//output_type3
+				var category_by_output_type3 = "{\"category3\":[\""+data[4]['category_by_output_type'][2]+"\"]}";
+				var category_by_output_type_obj3 =eval("("+category_by_output_type3+")");
+				console.log(category_by_output_type_obj3['category3']);
+
+				var series_by_output_type3 = "{\"series3\":[{\"data\":["+data[5]["series_by_output_type"][0]["data"][2]+"]}]}";
+				var series_by_output_type_obj3=eval("("+series_by_output_type3+")");
+				//console.log(series_by_output_type_obj3['series3']);
+//output_type3
+
+
 				OutputTypeOpenUrlHandle($("#domParamCenter").val(),$("#domParamDivision").val(),$("#domParamDepartment").val(),parseInt($("#domParamYear").val())+543);
 				pieChart_sp_ic_score_by_job_family(data[2]["pie_sp_ic_score"],data[3]["sum_pie_sp_ic_score"]);
-				stackChart_sp_ic_score_by_output_type(data[4]["category_by_output_type"],data[5]["series_by_output_type"]);
+				
+				stackChart_sp_ic_score_by_output_type("#stackChart_sp_ic_score_by_output_type1",category_by_output_type_obj1['category1'],series_by_output_type_obj1['series1']);//3
+
+				stackChart_sp_ic_score_by_output_type("#stackChart_sp_ic_score_by_output_type2",category_by_output_type_obj2['category2'],series_by_output_type_obj2['series2']);//3
+
+				stackChart_sp_ic_score_by_output_type("#stackChart_sp_ic_score_by_output_type3",category_by_output_type_obj3['category3'],series_by_output_type_obj3['series3']);//3
+
 				stackChart_sp_count_emp_all_vs_jf2000(data[6]["category_emp_all_vs_jf2000"],data[7]["series_emp_all_vs_jf2000"]);
 				stackChart_sp_count_emp_by_job_grade(data[8]["category_emp_by_job_grade"],data[9]["series_emp_by_job_grade"]);
 			}
@@ -793,20 +983,21 @@ var pieChart_sp_ic_score_by_job_family= function(categoryParam,sum_pie_sp_ic_sco
 
 
 
-var stackChart_sp_ic_score_by_output_type= function(categoryParam,seriesParam){
+var stackChart_sp_ic_score_by_output_type= function(elementParam,categoryParam,seriesParam){
 
-		$("#stackChart_sp_ic_score_by_output_type").kendoChart({
+		$(elementParam).kendoChart({
 
 			theme: $(document).data("kendoSkin") || "metro",
                         title: {
                             text: ""
                         },
                         legend: {
-                            position: "top"
+                            position: "top",
+							visible:false
                         },
 						chartArea:{
 						width:300,
-						height:150
+						height:50
 						},
                         seriesDefaults: {
                             type: "bar",
@@ -1053,7 +1244,9 @@ function templateFormat(value,summ) {
 								</div>
 						</div>
 						<div class="content">
-								<div id="stackChart_sp_ic_score_by_output_type"></div>
+								<div id="stackChart_sp_ic_score_by_output_type1"></div>
+								<div id="stackChart_sp_ic_score_by_output_type2"></div>
+								<div id="stackChart_sp_ic_score_by_output_type3"></div>
 						</div>
 				</div>
 				<div id="column23">
