@@ -79,7 +79,9 @@ while(rs.next()){
 	}
 	else
 	{
-		tableFun +=" <a href="+urlpage+"?ks="+kpi_code+"&yy="+ParamYear+"&mm="+ParamMonth+" target=_blank><button class=k-button>Detail</button></a> ";
+		int CalendarMonth = (Integer.parseInt(ParamMonth)+9)%12;
+		if(CalendarMonth==0){CalendarMonth=12;}
+		tableFun +=" <a href="+urlpage+"?ks="+kpi_code+"&yy="+ParamYear+"&mm="+CalendarMonth+" target=_blank><button class=k-button>Detail</button></a> ";
 	}
 	tableFun += "\", ";
 
