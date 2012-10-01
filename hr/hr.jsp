@@ -28,6 +28,7 @@ pass: bioteccockpit
 String sp_emp_by_center="";
 Integer sum_total_employee=0;
 String shortname="";
+String color="";
 
 try{
 Class.forName(Driver).newInstance();
@@ -39,12 +40,26 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 		Integer i =1 ;
 		sp_emp_by_center+="[";
 		while(rs.next()){
+		if(rs.getString("center_th_shortname").equals("สก.")){
+		color="#25a0da";
+		}else if(rs.getString("center_th_shortname").equals("ศช.")){
+		color="#309b46";
+		}else if(rs.getString("center_th_shortname").equals("ศว.")){
+		color="#dee92d";
+		}else if(rs.getString("center_th_shortname").equals("ศอ.")){
+		color="#e62d32";
+		}else if(rs.getString("center_th_shortname").equals("ศน.")){
+		color="#ff7110";
+		}else if(rs.getString("center_th_shortname").equals("ศจ.")){
+		color="#6C2E9B";
+		}
 		//Format  [{category: "ศจ.",value: 10,color:"#6C2E9B" }]
 		if(i==1){
 		sp_emp_by_center+="{category:";
 	
 		sp_emp_by_center+= "\""+rs.getString("center_th_shortname") +"\"";
 		sp_emp_by_center+= ",value:"+rs.getString("total_employee") ;
+		sp_emp_by_center+= ",color:\""+color+"\"";
 		sum_total_employee+=rs.getInt("total_employee");
 		sp_emp_by_center+="}";
 		}else{
@@ -52,6 +67,7 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 	
 		sp_emp_by_center+= "\""+rs.getString("center_th_shortname") +"\"";
 		sp_emp_by_center+= ",value:"+rs.getString("total_employee");
+		sp_emp_by_center+= ",color:\""+color+"\"";
 		sum_total_employee+=rs.getInt("total_employee");
 		sp_emp_by_center+="}";
 		}

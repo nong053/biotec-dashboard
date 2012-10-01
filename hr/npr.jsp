@@ -39,19 +39,36 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 		rs = st.executeQuery(Query);
 		sp_npr_by_center+="[";
 		Integer i =1;
-
+		String color="";
 		while(rs.next()){
+		
 		//Format  [{category: "ศจ.",value: 10,color:"#6C2E9B" }]
+		if(rs.getString("npr_center").equals("สก.")){
+		color="#25a0da";
+		}else if(rs.getString("npr_center").equals("ศช.")){
+		color="#309b46";
+		}else if(rs.getString("npr_center").equals("ศว.")){
+		color="#dee92d";
+		}else if(rs.getString("npr_center").equals("ศอ.")){
+		color="#e62d32";
+		}else if(rs.getString("npr_center").equals("ศน.")){
+		color="#ff7110";
+		}else if(rs.getString("npr_center").equals("ศจ.")){
+		color="#6C2E9B";
+		}
+
 		if(i==1){
 		sp_npr_by_center+="{category:";
 		sp_npr_by_center+= "\""+rs.getString("npr_center") +"\"";
 		sp_npr_by_center+= ",value:"+rs.getString("total") ;
+		sp_npr_by_center+= ",color:\""+color+"\"";
 		sum_npr_by_center+=rs.getInt("total");
 		sp_npr_by_center+="}";
 		}else{
 		sp_npr_by_center+=",{category:";
 		sp_npr_by_center+= "\""+rs.getString("npr_center") +"\"";
 		sp_npr_by_center+= ",value:"+rs.getString("total");
+		sp_npr_by_center+= ",color:\""+color+"\"";
 		sp_npr_by_center+="}";
 		sum_npr_by_center+=rs.getInt("total");
 		}
