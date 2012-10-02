@@ -111,7 +111,7 @@ String center_name="";
 		if((cMonth+3) > 12) {
 			cYear = cYear+1 ;
 		}
-		if(cMonth+3%12!=0){
+		if((cMonth+3)%12!=0){
 			cMonth = (cMonth+3)%12;
 		}
 		else{
