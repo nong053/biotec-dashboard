@@ -378,7 +378,7 @@ function onSeriesClick(e) {
 //call Function PieChart 
 //call Function BarChart 
 var barChart = function(seriesParam,titleParam){
-	alert("hello");
+	//alert("hello");
 			$("#chart").kendoChart({
 			theme:$(document).data("kendoSkin") || "metro",
 			title: {
