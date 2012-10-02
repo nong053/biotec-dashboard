@@ -637,12 +637,15 @@ Double Result=0.00;
 
 			pMonthAmt = rs.getDouble("pMonthAmt");
 			currentAmt = rs.getDouble("currentAmt");
+			if(currentAmt==0.0){
+			GrowthPercentage=0.0;
+			}else{
 			Result = pMonthAmt-currentAmt;
 			GrowthPercentage =(Result / currentAmt)* 100;
-			
+			}
 			//GrowthPercentage= isNaN(GrowthPercentage)? 0.00: GrowthPercentage;
 
-			$htmlTable1+="<td>"+GrowthPercentage+"%</td>";
+			$htmlTable1+="<td>"+numberFormatter.format(GrowthPercentage)+"%</td>";
 			$htmlTable1+="<td>"+numberFormatter.format(rs.getDouble("pYearAmt"))+"</td>";
 		$htmlTable1+="</tr>";
 		
