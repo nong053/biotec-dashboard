@@ -1796,12 +1796,6 @@ function templateFormat(value,summ) {
     </head>
     <body>
 
-
-
-		
-
-
-
 	<!--------------------------- HEADER --------------------------->
 
 <!--<h2><center><font color="black">Budgeting Dashboard</font></center></h2>-->
@@ -1903,7 +1897,7 @@ function templateFormat(value,summ) {
 												<th colspan="2"><div class="projectHead1">Top 10 Project Most Spending of </div></th>
 										</tr>
 										<tr>
-												<th  width="60%"><div class="projectHead">Project </div></th>
+												<th  width="60%"><div class="projectHead">Cost Center </div></th>
 												<th  width="40%"><div class="projectHead">% Remaining vs Plan</div></th>
 										</tr>
 									</thead>
@@ -2066,7 +2060,7 @@ function templateFormat(value,summ) {
 												<th colspan="2"><div class="projectHead1">Top 10 Project Least Spending</div></th>
 										</tr>
 										<tr>
-												<th  width="60%"><div class="projectHead">Project </div></th>
+												<th  width="60%"><div class="projectHead">Cost Center </div></th>
 												<th  width="40%"><div class="projectHead">% Remaining vs Plan</div></th>
 										</tr>
 									</thead>
@@ -2273,7 +2267,7 @@ function templateFormat(value,summ) {
 												<th colspan="2"><div class="projectHead1">Top 10 Project Most Spending of </div></th>
 										</tr>
 										<tr>
-												<th  width="60%"><div class="projectHead">Project </div></th>
+												<th  width="60%"><div class="projectHead">Cost Center  </div></th>
 												<th  width="40%"><div class="projectHead">% Remaining vs Plan</div></th>
 										</tr>
 									</thead>
@@ -2434,7 +2428,7 @@ function templateFormat(value,summ) {
 												<th colspan="2"><div class="projectHead1">Top 10 Project Least Spending</div></th>
 										</tr>
 										<tr>
-												<th  width="60%"><div class="projectHead">Project </div></th>
+												<th  width="60%"><div class="projectHead">Cost Center  </div></th>
 												<th  width="40%"><div class="projectHead">% Remaining vs Plan</div></th>
 										</tr>
 									</thead>
@@ -2637,7 +2631,7 @@ function templateFormat(value,summ) {
 												<th colspan="2"><div class="projectHead1">Top 10 Project Most Spending of </div></th>
 										</tr>
 										<tr>
-												<th  width="60%"><div class="projectHead">Project </div></th>
+												<th  width="60%"><div class="projectHead">Cost Center  </div></th>
 												<th  width="40%"><div class="projectHead">% Remaining vs Plan</div></th>
 										</tr>
 									</thead>
@@ -2798,7 +2792,7 @@ function templateFormat(value,summ) {
 												<th colspan="2"><div class="projectHead1">Top 10 Project Least Spending</div></th>
 										</tr>
 										<tr>
-												<th  width="60%"><div class="projectHead">Project </div></th>
+												<th  width="60%"><div class="projectHead">Cost Center  </div></th>
 												<th  width="40%"><div class="projectHead">% Remaining vs Plan</div></th>
 										</tr>
 									</thead>
@@ -2993,7 +2987,7 @@ function templateFormat(value,summ) {
 												<th colspan="2"><div class="projectHead1">Top 10 Project Most Spending of </div></th>
 										</tr>
 										<tr>
-												<th  width="60%"><div class="projectHead">Project </div></th>
+												<th  width="60%"><div class="projectHead">Cost Center  </div></th>
 												<th  width="40%"><div class="projectHead">% Remaining vs Plan</div></th>
 										</tr>
 									</thead>
@@ -3154,7 +3148,7 @@ function templateFormat(value,summ) {
 												<th colspan="2"><div class="projectHead1">Top 10 Project Least Spending</div></th>
 										</tr>
 										<tr>
-												<th  width="60%"><div class="projectHead">Project </div></th>
+												<th  width="60%"><div class="projectHead">Cost Center </div></th>
 												<th  width="40%"><div class="projectHead">% Remaining vs Plan</div></th>
 										</tr>
 									</thead>
