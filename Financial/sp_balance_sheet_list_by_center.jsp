@@ -598,11 +598,15 @@ $htmlTable1+="<table  id='finance_tb1'  width='700' cellpadding='1px' cellspacin
 		$htmlTable1+="</th>";
 
 		$htmlTable1+="<th>";
-			$htmlTable1+=paramMonthPerv+" "+paramCurentYear;
+			String paramCurentYearStr1=String.valueOf(paramCurentYear);
+			String paramCurentYearSub1=paramCurentYearStr1.substring(2);
+			$htmlTable1+=paramMonthPerv+" "+paramCurentYearSub1;
 		$htmlTable1+="</th>";
 
 		$htmlTable1+="<th>";
-			$htmlTable1+=paramMonthCurent+"  "+paramCurentYear;
+			String paramCurentYearStr=String.valueOf(paramCurentYear);
+			String paramCurentYearSub=paramCurentYearStr.substring(2);
+			$htmlTable1+=paramMonthCurent+"  "+paramCurentYearSub;
 		$htmlTable1+="</th>";
 
 		$htmlTable1+="<th>";
@@ -610,7 +614,9 @@ $htmlTable1+="<table  id='finance_tb1'  width='700' cellpadding='1px' cellspacin
 		$htmlTable1+="</th>";
 
 		$htmlTable1+="<th>";
-			$htmlTable1+=paramMonthCurent+" "+paramLastYear;
+			String paramLastYearStr=String.valueOf(paramLastYear);
+			String paramLastYearSub=paramLastYearStr.substring(2);
+			$htmlTable1+=paramMonthCurent+" "+paramLastYearSub;
 		$htmlTable1+="</th>";
 
 	$htmlTable1+="</tr>";
