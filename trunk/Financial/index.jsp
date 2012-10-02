@@ -125,86 +125,51 @@ out.println("Error"+ex);
 }
 //############### Query Handler Organization end ###############
 
-	String Query1 ="";
-		ResultSet rs1;
-		Statement st1;
-		int i = 0;
-//Query Handler Year start
-try{
-Class.forName(Driver).newInstance();
-conn=DriverManager.getConnection(connectionURL,User,Pass);
-	if(!conn.isClosed()){
-	//insert code allow function start
-		st = conn.createStatement();
-		Query="CALL sp_fiscal_year();";
-		rs = st.executeQuery(Query);
-		
-		while(rs.next()){
-			Query1  = "SELECT Date_format(SYSDATE(),'%Y') as year_date,Date_format(SYSDATE(),'%m') as month_date;";
-			st1 = conn.createStatement();
-			rs1 = st1.executeQuery(Query1);
-			i = 0;
-			while(rs1.next()){
-				int presentMonth = rs1.getInt("month_date"); 
-				int present_year = rs1.getInt("year_date");
-
-				presentMonth = presentMonth +2 ; 
-				if(presentMonth>12){
-					present_year = present_year+1; 
-				}
-
-				String present_yearStr = present_year+"";
-				String query_year = rs.getString("fiscal_year");
-				if(query_year.equals(present_yearStr)){
-					V_Year += "<option value=\""+rs.getString("fiscal_year")+"\"  selected='selected'>"+rs.getString("buddhist_era_year")+"</option>";
-				}
-				else{
-					V_Year += "<option value=\""+rs.getString("fiscal_year")+"\">"+rs.getString("buddhist_era_year")+"</option>";
-				}
-			}
-			i++;
-		}
-	//insert code allow function end
-		conn.close();
-	}
-}
-catch(Exception ex){
-out.println("Error"+ex);
-}
-//Query Handler Year end
-
-
-//Query Handler Month start
+//############### Query Handler Year & Month start ###############
 try{
 Class.forName(Driver).newInstance();
 conn=DriverManager.getConnection(connectionURL,User,Pass);
 	if(!conn.isClosed()){
 	//insert code allow function start
 	st = conn.createStatement();
-		Query="CALL sp_fiscal_month();";
+		/*------------------- Parameter Year & Month  -------------------*/
+		
+		rs = null;
+		Query  = "SELECT Date_format(SYSDATE(),'%Y') as year_date,Date_format(SYSDATE(),'%m') as month_date;";
 		rs = st.executeQuery(Query);
-
-				while(rs.next()){
-			 Query1  = "SELECT Date_format(SYSDATE(),'%m') as month_date;";
-			st1 = conn.createStatement();
-			rs1 = st1.executeQuery(Query1);
-			while(rs1.next()){
-				int presentMonth = rs1.getInt("month_date");
-				//int presentMonth = 10;
-				presentMonth = presentMonth +2 ;
-				if(presentMonth>12){
-					presentMonth=presentMonth-12;
-				}
-				String query_month = rs.getString("fiscal_month_no");
-				String presentMonthStr = presentMonth+"";
-				if(query_month.equals(presentMonthStr)){
-					V_Month += "<option value=\""+rs.getString("fiscal_month_no")+"\"  selected='selected'>"+rs.getString("calendar_th_month_name")+"</option>";	
-				}else{
-					V_Month += "<option value=\""+rs.getString("fiscal_month_no")+"\">"+rs.getString("calendar_th_month_name")+"</option>";	
-				}
-			}
-			i++;
+		rs.next();
+		int	cYear =  Integer.parseInt(rs.getString("year_date"));
+		int	cMonth = Integer.parseInt(rs.getString("month_date"))-1;
+		if((cMonth+3) > 12) {
+			cYear = cYear+1 ;
 		}
+		if((cMonth+3)%12!=0){
+			cMonth = (cMonth+3)%12;
+		}
+		else{
+			cMonth = 12;
+		}
+		Query="CALL sp_fiscal_year;";
+		rs = st.executeQuery(Query);
+		while(rs.next()){
+			if( rs.getString("fiscal_year").equals(cYear+"")){
+				V_Year += "<option value=\""+rs.getString("fiscal_year")+"\"  selected='selected'>"+rs.getString("buddhist_era_year")+"</option>";
+			}
+			else{
+				V_Year += "<option value=\""+rs.getString("fiscal_year")+"\">"+rs.getString("buddhist_era_year")+"</option>";
+			}
+		}
+		rs = null;
+		Query="CALL sp_fiscal_month;";
+		rs = st.executeQuery(Query);
+		while(rs.next()){
+			if(rs.getString("fiscal_month_no").equals(cMonth+"")){
+				V_Month += "<option value=\""+rs.getString("fiscal_month_no")+"\"  selected='selected'>"+rs.getString("calendar_th_month_name")+"</option>";	
+			}else{
+				V_Month += "<option value=\""+rs.getString("fiscal_month_no")+"\">"+rs.getString("calendar_th_month_name")+"</option>";
+			}				
+		}
+		// set select
 
 	//insert code allow function end
 		conn.close();
@@ -213,7 +178,8 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 catch(Exception ex){
 out.println("Error"+ex);
 }
-//Query Handler Month end
+		
+//############### Query Handler Year & Month start ###############
 	%>
 
 	<script type="text/javascript">
