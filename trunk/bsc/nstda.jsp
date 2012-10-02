@@ -91,6 +91,9 @@ while(rs.next()){
 	tableFun += "<div id=textR>"+ target_value +"</div> \",";
 
 	String kpi_uom = rs.getString("kpi_uom");
+	if(kpi_uom == null  ){  
+		kpi_uom = ""; 
+	}
 	tableFun += "Field4: \"";
 	tableFun += kpi_uom + "\",";
 
@@ -471,6 +474,7 @@ var $titleJ2 =[
 	// TITLE BY JSON END
 	//CONTENT BY JSON START 
 	var $dataJ = <%=tableFun%>;
+	//$.each($dataJ,function(){ $.each(this,function(){   alert(this);  }); });
 /*
 	var $dataJ =[
                   {
@@ -934,8 +938,6 @@ var ballScore = function(){
 		</div>
 	</div>
 </div>
-
-
 
 
 
