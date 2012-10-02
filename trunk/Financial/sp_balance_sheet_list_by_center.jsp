@@ -1,7 +1,12 @@
 <%@page contentType="text/html" pageEncoding="utf-8"%>
 <%@ include file="../config.jsp"%>
+<%@page import="java.text.DecimalFormat" %>
 <!--- Tab1 -->
 <%
+//double price = 10.59;
+DecimalFormat numberFormatter = new DecimalFormat("#0.00");
+//out.print(numberFormatter.format(price));
+
 	String paramYear= request.getParameter("paramYear");
 	String paramMonth= request.getParameter("paramMonth");
 	String paramMonthPerv= "";
@@ -623,8 +628,12 @@ Double Result=0.00;
 	while(rs.next()){
 		$htmlTable1+="<tr>";
 			$htmlTable1+="<td><div class='level"+rs.getString("level") +" parent_key"+rs.getString("parent_key")+"'  id='account_key"+rs.getString("account_key")+" '>"+rs.getString("account_name")+"</div></td>";
-			$htmlTable1+="<td>"+rs.getDouble("pMonthAmt")+"</td>";
-			$htmlTable1+="<td>"+rs.getFloat("currentAmt")+"</td>";
+			$htmlTable1+="<td>";
+			//rs.getDouble("pMonthAmt")
+				$htmlTable1+=numberFormatter.format(rs.getDouble("pMonthAmt"));
+			$htmlTable1+="</td>";
+	
+			$htmlTable1+="<td>"+numberFormatter.format(rs.getDouble("currentAmt"))+"</td>";
 
 			pMonthAmt = rs.getDouble("pMonthAmt");
 			currentAmt = rs.getDouble("currentAmt");
@@ -634,7 +643,7 @@ Double Result=0.00;
 			//GrowthPercentage= isNaN(GrowthPercentage)? 0.00: GrowthPercentage;
 
 			$htmlTable1+="<td>"+GrowthPercentage+"%</td>";
-			$htmlTable1+="<td>"+rs.getDouble("pYearAmt")+"</td>";
+			$htmlTable1+="<td>"+numberFormatter.format(rs.getDouble("pYearAmt"))+"</td>";
 		$htmlTable1+="</tr>";
 		
 	}

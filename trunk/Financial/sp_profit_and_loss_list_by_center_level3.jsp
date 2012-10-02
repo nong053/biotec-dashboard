@@ -1,6 +1,8 @@
 <%@page contentType="text/html" pageEncoding="utf-8"%>
 <%@ include file="../config.jsp"%>
+<%@page import="java.text.DecimalFormat" %>
 <%
+	DecimalFormat numberFormatter = new DecimalFormat("#0.00");
 	String paramYear= request.getParameter("paramYear");
 	String paramMonth= request.getParameter("paramMonth");
 	String paramArea=(request.getParameter("paramArea").trim());
@@ -31,26 +33,43 @@ String dataLevel3="";
 		out.print("pYearAmt"+rs.getString("pYearAmt")+"<br>");
 		out.print("<br>-------------------------------------------------------------------<br>");
 		*/
+Double GrowthPercentage=0.00;
+Double pMonthAmt =0.0;
+Double currentAmt=0.0;
+Double Result=0.0;
 		if(i==0){
 		dataLevel3+="{" ;
 
 		dataLevel3+="\"account_name\":\""+rs.getString("account_name")+"\",";
 		dataLevel3+="\"account_key\":"+rs.getString("account_key")+",";
 		dataLevel3+="\"Field1\":\"<div class='textL level"+rs.getString("level") +" parent_key"+rs.getString("parent_key")+"'  id='account_key"+rs.getString("account_key")+" '>"+rs.getString("account_name")+" </div>\",";
-		dataLevel3+="\"Field2\":\"<div class='textR'>"+rs.getString("pMonthAmt")+"</div>\",";
-		dataLevel3+="\"Field3\":\"<div class='textR'>"+rs.getString("currentAmt")+"</div>\",";
-		dataLevel3+="\"Field5\":\"<div class='textR'>0%</div>\",";
-		dataLevel3+="\"Field6\":\"<div class='textR'>"+rs.getString("pYearAmt")+"</div>\"";
+		dataLevel3+="\"Field2\":\"<div class='textR'>"+numberFormatter.format(rs.getDouble("pMonthAmt"))+"</div>\",";
+		dataLevel3+="\"Field3\":\"<div class='textR'>"+numberFormatter.format(rs.getDouble("currentAmt"))+"</div>\",";
+
+			pMonthAmt = rs.getDouble("pMonthAmt");
+			currentAmt = rs.getDouble("currentAmt");
+			Result = pMonthAmt-currentAmt;
+			GrowthPercentage =(Result / currentAmt)* 100;
+
+
+		dataLevel3+="\"Field5\":\"<div class='textR'>"+GrowthPercentage+"%</div>\",";
+		dataLevel3+="\"Field6\":\"<div class='textR'>"+numberFormatter.format(rs.getDouble("pYearAmt"))+"</div>\"";
 		dataLevel3+="}" ;
 		}else{
 		dataLevel3+=",{" ;
 		dataLevel3+="\"account_name\":\""+rs.getString("account_name")+"\",";
 		dataLevel3+="\"account_key\":"+rs.getString("account_key")+",";
 		dataLevel3+="\"Field1\":\"<div class='textL level"+rs.getString("level") +" parent_key"+rs.getString("parent_key")+"'  id='account_key"+rs.getString("account_key")+" '>"+rs.getString("account_name")+" </div>\",";
-		dataLevel3+="\"Field2\":\"<div class='textR'>"+rs.getString("pMonthAmt")+"</div>\",";
-		dataLevel3+="\"Field3\":\"<div class='textR'>"+rs.getString("currentAmt")+"</div>\",";
-		dataLevel3+="\"Field5\":\"<div class='textR'>0%</div>\",";
-		dataLevel3+="\"Field6\":\"<div class='textR'>"+rs.getString("pYearAmt")+"</div>\"";
+		dataLevel3+="\"Field2\":\"<div class='textR'>"+numberFormatter.format(rs.getDouble("pMonthAmt"))+"</div>\",";
+		dataLevel3+="\"Field3\":\"<div class='textR'>"+numberFormatter.format(rs.getDouble("currentAmt"))+"</div>\",";
+
+			pMonthAmt = rs.getDouble("pMonthAmt");
+			currentAmt = rs.getDouble("currentAmt");
+			Result = pMonthAmt-currentAmt;
+			GrowthPercentage =(Result / currentAmt)* 100;
+
+		dataLevel3+="\"Field5\":\"<div class='textR'>"+GrowthPercentage+"%</div>\",";
+		dataLevel3+="\"Field6\":\"<div class='textR'>"+numberFormatter.format(rs.getDouble("pYearAmt"))+"</div>\"";
 		dataLevel3+="}" ;
 		}
 i++;
@@ -58,6 +77,7 @@ i++;
 
 	dataLevel3+="]";
 	out.print(dataLevel3);
+conn.close();
 /*
 var $dataJ21 =[
                   {

@@ -1,7 +1,8 @@
 <%@page contentType="text/html" pageEncoding="utf-8"%>
 <%@ include file="../config.jsp"%>
+<%@page import="java.text.DecimalFormat" %>
 <%
-
+DecimalFormat numberFormatter = new DecimalFormat("#0.00");
 
 	String paramYear= request.getParameter("paramYear");
 	String paramMonth= request.getParameter("paramMonth");
@@ -48,16 +49,18 @@ $htmlTable2+="<table  id='finance_tb1'  width='100%' cellpadding='1px' cellspaci
 	$htmlTable2+="<tbody>";
 // Loop while into tbody
 String[] amount_array;
-Integer amount_sum=0;
+Double amount_sum=0.0;
+Double amount_by_center=0.0;
 	while(rs.next()){
 		amount_array =rs.getString("amount_list").split(",");
 		$htmlTable2+="<tr>";
 			$htmlTable2+="<td><div class='level"+rs.getString("level") +" parent_key"+rs.getString("parent_key")+"'  id='account_key"+rs.getString("account_key")+" '>"+rs.getString("account_name")+"</div></td>";
 			for(int i=0; i < amount_array.length; i++){
-				$htmlTable2+="<td>"+amount_array[i]+"</td>";
-				amount_sum+=Integer.parseInt(amount_array[i]);
+				amount_by_center=Double.parseDouble(amount_array[i]);
+				$htmlTable2+="<td>"+numberFormatter.format(amount_by_center)+"</td>";
+				amount_sum+=Double.parseDouble(amount_array[i]);
 			}		
-			$htmlTable2+="<td>"+amount_sum+"</td>";
+			$htmlTable2+="<td>"+numberFormatter.format(amount_sum)+"</td>";
 			
 		$htmlTable2+="</tr>";
 		
