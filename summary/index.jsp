@@ -212,12 +212,12 @@
 			rs1 = st1.executeQuery(Query1);
 			i = 0;
 			while(rs1.next()){
-				int presentMonth = rs1.getInt("month_date"); 
+				int presentMonth = rs1.getInt("month_date")-1; 
 				int present_year = rs1.getInt("year_date");
 		//		int presentMonth = 10; 
 				//int present_year = 2012;
 
-				presentMonth = presentMonth +2 ; 
+				presentMonth = presentMonth +3 ; 
 				if(presentMonth>12){
 					present_year = present_year+1; 
 				}
@@ -251,9 +251,9 @@
 			st1 = conn.createStatement();
 			rs1 = st1.executeQuery(Query1);
 			while(rs1.next()){
-				int presentMonth = rs1.getInt("month_date");
+				int presentMonth = rs1.getInt("month_date")-1;
 				//int presentMonth = 10;
-				presentMonth = presentMonth +2 ;
+				presentMonth = presentMonth +3 ;
 				if(presentMonth>12){
 					presentMonth=presentMonth-12;
 				}
