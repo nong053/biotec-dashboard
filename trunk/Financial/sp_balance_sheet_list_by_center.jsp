@@ -102,7 +102,7 @@ Integer paramCurentYear=paramYearInt+543;
 	</style>
 
 	<style type="text/css">
-	##pie{
+	#pie{
 	padding:5px;
 	}
 
@@ -342,7 +342,7 @@ var pieChart= function(paramValue,titleText,paramSum){
 function onSeriesClick(e) { 
 	//console.log(e.dataItem['account_key']);
 	var $account_key=e.dataItem['account_key'];
-	console.log($account_key);
+	//console.log($account_key);
 	var $category = e.category;
 	$.ajax({
 		url:'sp_balance_sheet_trend.jsp',
@@ -350,7 +350,7 @@ function onSeriesClick(e) {
 		dataType:'json',
 		data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'business_area': $category,'account_key':$account_key},
 			success:function(data){
-			console.log(data[0]['series']);
+			//console.log(data[0]['series']);
 
 	//var $subCategory =$category.substring(0,2);
 	//alert($subCategory);
@@ -420,9 +420,9 @@ var Sum=0;
 dataLevel2+="[";
 	$(".level2").each(function(){
 	//Format  [{category: "ศจ.",value: 10,color:"#6C2E9B" }]
-	console.log("account_key"+$(this).attr("id"));
+	//console.log("account_key"+$(this).attr("id"));
 	account_key=$(this).attr("id").substring(11);
-	console.log("new"+account_key);
+	//console.log("new"+account_key);
 	if(j==0){
 	dataLevel2+="{";
 	
@@ -442,7 +442,7 @@ dataLevel2+="[";
 	//get is json same dataType in ajax
 	var obj = eval ("(" + dataLevel2 + ")"); 
 	var obj2=eval("("+titleText+")");
-	console.log("Sum"+Sum);
+	//console.log("Sum"+Sum);
 	pieChart(obj,obj2,Sum);
 //Step1 Call Default
 
@@ -481,10 +481,10 @@ $(".level2").click(function(e){
 		j++;
 	});
 	dataLevel2+="]";
-	console.log(dataLevel2);
+	//console.log(dataLevel2);
 	var obj=eval("("+dataLevel2+")");
 	var obj2=eval("("+titleText+")");
-	console.log(obj2);
+	//console.log(obj2);
 	pieChart(obj,obj2,Sum);
 });
 //Step Call Level2
