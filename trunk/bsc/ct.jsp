@@ -591,7 +591,7 @@ $(".ball").corner();
 	</tbody>
 </table>
 <div style="padding:5px;">
-<b>ผมการดำเนินงานที่มอบหมาย(สะสม)</b>
+<b>ผลการดำเนินงานที่มอบหมาย(สะสม)</b>
 </div>
 <div style="padding:10px;">
 <%

@@ -865,6 +865,8 @@ var ballScore = function(){
 							ballScore();
 							
 							/*### Manage Tootip Stop###*/
+							//set corner object
+						$(".ball").corner();
 							
 			 }
 	 });
@@ -873,8 +875,7 @@ var ballScore = function(){
 						// $("tr[data-uid]").css({"background-color":"#d7e4bd"});
 						$(".k-alt").css({"background-color":"#dbeef3"});
 						/*Content Suffer Suffer Color Row*/
-						//set corner object
-						$(".ball").corner();
+						
 
 				// REMOVE COLUMN START
 			//	$("tr.k-detail-row td.k-hierarchy-cell").remove();
@@ -1060,7 +1061,7 @@ $(".ball").corner();
 	</tbody>
 </table>
 <div style="padding:5px;">
-<b>ผมการดำเนินงานที่มอบหมาย(สะสม)</b>
+<b>ผลการดำเนินงานที่มอบหมาย(สะสม)</b>
 </div>
 <div style="padding:10px;">
 <%
