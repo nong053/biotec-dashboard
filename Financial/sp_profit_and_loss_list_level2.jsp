@@ -66,8 +66,8 @@ String amount_list="";
 i++;
 }//while
 dataLevel+="]";
-
 out.print(dataLevel);
+conn.close();
 /*
 	var $dataJ =[
                   {

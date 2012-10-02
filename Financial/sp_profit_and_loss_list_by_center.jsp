@@ -1,7 +1,9 @@
 <%@page contentType="text/html" pageEncoding="utf-8"%>
 <%@ include file="../config.jsp"%>
+<%@page import="java.text.DecimalFormat" %>
 <!--- Tab2 -->
 <%
+	DecimalFormat numberFormatter = new DecimalFormat("#0.00");
 	String paramYear= request.getParameter("paramYear");
 	String paramMonth= request.getParameter("paramMonth");
 //	String paramYear= "2012";
@@ -76,25 +78,42 @@
 		out.print("pYearAmt"+rs.getString("pYearAmt")+"<br>");
 		out.print("<br>-------------------------------------------------------------------<br>");
 		*/
+Double GrowthPercentage=0.00;
+Double pMonthAmt =0.0;
+Double currentAmt=0.0;
+Double Result=0.0;
+
 		if(i==0){
 		dataDefault+="{" ;
 		dataDefault+="account_name:\""+rs.getString("account_name")+"\",";
 		dataDefault+="account_key:"+rs.getString("account_key")+",";
 		dataDefault+="Field1:\"<div class='textL level"+rs.getString("level") +" parent_key"+rs.getString("parent_key")+"'  id='account_key"+rs.getString("account_key")+" '>"+rs.getString("account_name")+" </div>\",";
-		dataDefault+="Field2:\"<div class='textR'>"+rs.getString("pMonthAmt")+"</div>\",";
-		dataDefault+="Field3:\"<div class='textR'>"+rs.getString("currentAmt")+"</div>\",";
-		dataDefault+="Field5:\"<div class='textR'>0%</div>\",";
-		dataDefault+="Field6:\"<div class='textR'>"+rs.getString("pYearAmt")+"</div>\"";
+		dataDefault+="Field2:\"<div class='textR'>"+numberFormatter.format(rs.getDouble("pMonthAmt"))+"</div>\",";
+		dataDefault+="Field3:\"<div class='textR'>"+numberFormatter.format(rs.getDouble("currentAmt"))+"</div>\",";
+			
+			pMonthAmt = rs.getDouble("pMonthAmt");
+			currentAmt = rs.getDouble("currentAmt");
+			Result = pMonthAmt-currentAmt;
+			GrowthPercentage =(Result / currentAmt)* 100;
+
+		dataDefault+="Field5:\"<div class='textR'>"+GrowthPercentage+"%</div>\",";
+		dataDefault+="Field6:\"<div class='textR'>"+numberFormatter.format(rs.getDouble("pYearAmt"))+"</div>\"";
 		dataDefault+="}" ;
 		}else{
 		dataDefault+=",{" ;
 		dataDefault+="account_name:\""+rs.getString("account_name")+"\",";
 		dataDefault+="account_key:"+rs.getString("account_key")+",";
 		dataDefault+="Field1:\"<div class='textL level"+rs.getString("level") +" parent_key"+rs.getString("parent_key")+"'  id='account_key"+rs.getString("account_key")+" '>"+rs.getString("account_name")+" </div>\",";
-		dataDefault+="Field2:\"<div class='textR'>"+rs.getString("pMonthAmt")+"</div>\",";
-		dataDefault+="Field3:\"<div class='textR'>"+rs.getString("currentAmt")+"</div>\",";
-		dataDefault+="Field5:\"<div class='textR'>0%</div>\",";
-		dataDefault+="Field6:\"<div class='textR'>"+rs.getString("pYearAmt")+"</div>\"";
+		dataDefault+="Field2:\"<div class='textR'>"+numberFormatter.format(rs.getDouble("pMonthAmt"))+"</div>\",";
+		dataDefault+="Field3:\"<div class='textR'>"+numberFormatter.format(rs.getDouble("currentAmt"))+"</div>\",";
+			
+			pMonthAmt = rs.getDouble("pMonthAmt");
+			currentAmt = rs.getDouble("currentAmt");
+			Result = pMonthAmt-currentAmt;
+			GrowthPercentage =(Result / currentAmt)* 100;
+
+		dataDefault+="Field5:\"<div class='textR'>"+GrowthPercentage+"%</div>\",";
+		dataDefault+="Field6:\"<div class='textR'>"+numberFormatter.format(rs.getDouble("pYearAmt"))+"</div>\"";
 		dataDefault+="}" ;
 		}
 i++;
@@ -236,6 +255,10 @@ font-size:16px;
 	color:white;
 	font-weight:bold;
 	}
+	.level8{
+	padding-left:35px;
+
+	}
 
 	</style>
 	<!--<script src="http://code.jquery.com/jquery.js"></script>
@@ -247,7 +270,6 @@ font-size:16px;
 	<script type="text/javascript" src="jqueryUI/js/jquery-ui-1.8.20.custom.min.js"></script>--> 
 	<script type="text/javascript">
 	$(document).ready(function(){
-
 
 
 
@@ -422,28 +444,23 @@ var pieChart = function(paramValue,titleText){
 var $titleJ2 =[
               {
                   field: "Field1",
-				  title:"รายการ",
-				   width: 261
+				   width: 230
               },
               {
                   field: "Field2",
-				   title:"MAR-12",
 				    width: 104
 			 },
               {
                   field: "Field3",
-				   title:"Last Month",
 				    width: 119
 			 },
            
               {
                   field: "Field5",
-				   title:"%Variance",
 				    width: 104
 			 },
               {
                   field: "Field6",
-				   title:"YOY",
 					width: 100
 
 			
@@ -454,28 +471,23 @@ var $titleJ2 =[
 	var $titleJ3 =[
               {
                   field: "Field1",
-				  title:"รายการ",
-				   width: 261
+				   width: 223
               },
               {
                   field: "Field2",
-				   title:"MAR-12",
 				    width: 104
 			 },
               {
                   field: "Field3",
-				   title:"Last Month",
 				    width: 119
 			 },
            
               {
                   field: "Field5",
-				   title:"%Variance",
 				    width: 104
 			 },
               {
                   field: "Field6",
-				   title:"YOY",
 					width: 100
 
 			
@@ -483,6 +495,62 @@ var $titleJ2 =[
 
 
            ];
+var $titleJ4 =[
+              {
+                  field: "Field1",
+				   width: 217
+              },
+              {
+                  field: "Field2",
+				    width: 104
+			 },
+              {
+                  field: "Field3",
+				    width: 119
+			 },
+           
+              {
+                  field: "Field5",
+				    width: 104
+			 },
+              {
+                  field: "Field6",
+					width: 100
+
+			
+			 }
+
+
+           ];
+
+var $titleJ5 =[
+              {
+                  field: "Field1",
+				   width: 240
+              },
+              {
+                  field: "Field2",
+				    width: 104
+			 },
+              {
+                  field: "Field3",
+				    width: 119
+			 },
+           
+              {
+                  field: "Field5",
+				    width: 104
+			 },
+              {
+                  field: "Field6",
+					width: 100
+
+			
+			 }
+
+
+           ];
+
 
 
 	
@@ -682,14 +750,20 @@ dataLevel1+="[";
 								
 				setFont();
 			// REMOVE COLUMN START
-				//$("tr.k-detail-row td.k-hierarchy-cell").remove();
+
+				$(" tr.k-detail-row").each(function(){
+					if($("td.k-hierarchy-cell",this).html()==""){
+						$("td.k-hierarchy-cell",this).remove();
+					}
+				});
+
 			// REMOVE COLUMN END
                 } // End Function detailInit
 
 			//Start detailInit3
 				function detailInit3(e) {
-					alert(e.data.account_name);
-					alert(e.data.account_key);
+					//alert(e.data.account_name);
+					//alert(e.data.account_key);
 						$.ajax({
 								url:'sp_profit_and_loss_list_by_center_level3.jsp',
 								type:'get',
@@ -748,16 +822,22 @@ dataLevel1+="[";
 						 
 
 				setFont();
+
 			// REMOVE COLUMN START
-				//$("tr.k-detail-row td.k-hierarchy-cell").remove();
+				$(" tr.k-detail-row").each(function(){
+					if($("td.k-hierarchy-cell",this).html()==""){
+						$("td.k-hierarchy-cell",this).remove();
+					}
+				});
 			// REMOVE COLUMN END
+
 				}//end detailInit3
 
 
 				//Start detailInit4
 				function detailInit4(e) {
-					alert(e.data.account_name);
-					alert(e.data.account_key);
+					//alert(e.data.account_name);
+					//alert(e.data.account_key);
 						$.ajax({
 								url:'sp_profit_and_loss_list_by_center_level4.jsp',
 								type:'get',
@@ -769,7 +849,7 @@ dataLevel1+="[";
 //new level2 start
 										   $("<table><th></th></table>").kendoGrid({
 											detailInit: detailInit5,
-											columns: $titleJ3,
+											columns: $titleJ4,
 											dataSource: {
 											data: data,
 											pageSize: 8
@@ -817,14 +897,19 @@ dataLevel1+="[";
 
 				setFont();
 			// REMOVE COLUMN START
-				//$("tr.k-detail-row td.k-hierarchy-cell").remove();
+				$(" tr.k-detail-row").each(function(){
+					if($("td.k-hierarchy-cell",this).html()==""){
+						$("td.k-hierarchy-cell",this).remove();
+					}
+				});
 			// REMOVE COLUMN END
+
 				}//end detailInit4
 
 				//Start detailInit5
 				function detailInit5(e) {
-					alert(e.data.account_name);
-					alert(e.data.account_key);
+					//alert(e.data.account_name);
+					//alert(e.data.account_key);
 						$.ajax({
 								url:'sp_profit_and_loss_list_by_center_level5.jsp',
 								type:'get',
@@ -836,7 +921,7 @@ dataLevel1+="[";
 //new level2 start
 										   $("<table><th></th></table>").kendoGrid({
 											//detailInit: detailInit4,
-											columns: $titleJ3,
+											columns: $titleJ5,
 											dataSource: {
 											data: data,
 											pageSize: 8
@@ -890,8 +975,13 @@ dataLevel1+="[";
 
 				setFont();
 			// REMOVE COLUMN START
-				//$("tr.k-detail-row td.k-hierarchy-cell").remove();
+				$(" tr.k-detail-row").each(function(){
+					if($("td.k-hierarchy-cell",this).html()==""){
+						$("td.k-hierarchy-cell",this).remove();
+					}
+				});
 			// REMOVE COLUMN END
+
 				}//end detailInit5
 
 

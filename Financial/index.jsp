@@ -4,6 +4,10 @@
 <%@page import="java.io.*" %> 
 <%@page import="java.lang.*"%> 
 <%@ include file="../config.jsp"%>
+<%@page import="java.text.DecimalFormat" %>
+<%
+DecimalFormat numberFormatter = new DecimalFormat("#0.00");
+%>
 <html>
     <head>
         <title>Finance Dashboard</title>
@@ -15,20 +19,11 @@
 		<!--<link href="../jqueryUI/css/smoothness/jquery-ui-1.8.20.custom.css" rel="stylesheet">-->
 		<link href="../jqueryUI/css/cupertino/jquery-ui-1.8.21.custom.css" rel="stylesheet">
 		 <link href="../styles/kendo.dataviz.min.css" rel="stylesheet">
-		
-
-
         <script src="../js/jquery.min.js"></script>
 		<script src="../js/kendo.all.min.js"></script>
 		  <script src="../js/kendo.dataviz.min.js"></script>
 	<!--	<script type="text/javascript" src="../jqueryUI/js/jquery-ui-1.8.20.custom.min.js"></script>-->
 		<script type="text/javascript" src="../jqueryUI/js/jquery-ui-1.8.21.custom.min.js"></script>
-		
-
-	
-	
-	  
-		
 		<style type="text/css">
 			html,
 			body {
@@ -53,7 +48,7 @@
 			color:black;
 			width:50px;
 			height:50px;
-			background-image:url("images/loading.gif");
+			background-image:url("../images/loading.gif");
 			position:absolute ;
 			position:center;
 			z-index:5;
@@ -69,6 +64,7 @@
 			width:975px;
 			margin:auto;
 			}
+			
 		</style>
 		<style scoped>
 				#Main-Panel{
@@ -223,6 +219,18 @@ out.println("Error"+ex);
 	<script type="text/javascript">
 	/*#### Tab search above top start ###*/
 	$(document).ready(function(){
+
+
+	/*#### Loading Start ###*/
+		var $width=($('body').width()/2)-50;
+		//console.log($width);
+		$("#loading").css({"top":"250px","left":$width+"px"}).ajaxStart(function(){
+		$(this).show();
+		}).ajaxStop(function(){
+		$(this).hide();
+		});
+		/*#### Loading End ###*/
+
 
 	/*Config table suffer table*/
 	var sufferTable = function(){
@@ -517,13 +525,12 @@ return false;
 
 	/*#### jquery manage tab below start ###*/
 	$( "#tabs" ).tabs();
+
 	// ajax start 01
+
 	$("[href=#content1]").click(function(){
 	//alert("hello jquery");
-	$("#content1").empty();
-	$("#content2").empty();
-	$("#content3").empty();
-	$("#content4").empty();
+
 	$.ajax({
 		url:'sp_balance_sheet_list_by_center.jsp',
 		type:'get',
@@ -531,76 +538,92 @@ return false;
 		data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramOrg':$('#domParamOrg').val()},
 		success:function(data){
 		//alert(data);
-		$("#content1").html(data);
+	$("#content1").empty();
+	$("#content2").empty();
+	$("#content3").empty();
+	$("#content4").empty();
+
+		$(".pageRemember").remove();
+		$("body").append("<input type='hidden' id='pageContent1' class='pageRemember' name='pageContent1' value='pageContent1'>");
+		$("#content1").append(data);
 
 
 		//pieChart1();
 		}
 	});
 	});
+
 		// ajax end 01
 		
 		// ajax start 02
-	$("[href=#content2]").click(function(){
-	//alert("hello jquery");
-	$("#content1").empty();
-	$("#content2").empty();
-	$("#content3").empty();
-	$("#content4").empty();
-	$.ajax({
-		'url':'sp_profit_and_loss_list_by_center.jsp',
-		'type':'get',
-		'dataType':'html',
-		data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramOrg':$("#domParamOrg").val()},
-		success:function(data){
-		$("#content2").append(data);
-		//$(".k-plus").trigger("click");
+
+			$("[href=#content2]").click(function(){
+			//alert("hello jquery");
+
+			$.ajax({
+				'url':'sp_profit_and_loss_list_by_center.jsp',
+				'type':'get',
+				'dataType':'html',
+				data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramOrg':$("#domParamOrg").val()},
+				success:function(data){
+				$("#content1").empty();
+				$("#content2").empty();
+				$("#content3").empty();
+				$("#content4").empty();
+				$(".pageRemember").remove();
+				$("body").append("<input type='hidden' id='pageContent2' class='pageRemember' name='pageContent2' value='pageContent2'>");
+				$("#content2").append(data);
+				//$(".k-plus").trigger("click");
 
 
 
 
-		$("#chart2").empty();
-		sufferTable();
-		setFont();
-		setHeader();
+				$("#chart2").empty();
+				sufferTable();
+				setFont();
+				setHeader();
 
-	setHeaderDateYear();
+			setHeaderDateYear();
 
-		}
-	});
-	
-	});
+				}
+			});
+			
+			});
+
 		// ajax end 02
 		// ajax start 03
 
-	$("[href=#content3]").click(function(){
-	//alert("hello jquery");
-	$("#content1").empty();
-	$("#content2").empty();
-	$("#content3").empty();
-	$("#content4").empty();
-	$.ajax({
-		'url':'sp_balance_sheet_list.jsp',
-		'type':'get',
-		'dataType':'html',
-		data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramOrg':$("#domParamOrg").val()},
-		success:function(data){
-		//alert(data);
-		$("#content3").append(data);
-		//sufferTable();
-		
-		}
-	});
-	
-	});
+			$("[href=#content3]").click(function(){
+			//alert("hello jquery");
+
+			$.ajax({
+				'url':'sp_balance_sheet_list.jsp',
+				'type':'get',
+				'dataType':'html',
+				data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramOrg':$("#domParamOrg").val()},
+				success:function(data){
+				//alert(data);
+			$("#content1").empty();
+			$("#content2").empty();
+			$("#content3").empty();
+			$("#content4").empty();
+
+				$(".pageRemember").remove();
+				$("body").append("<input type='hidden' id='pageContent3' class='pageRemember' name='pageContent3' value='pageContent3'>");
+				$("#content3").append(data);
+				//sufferTable();
+				
+				}
+			});
+			
+			});
+
 		// ajax end 03
 		// ajax start 04
+
 	$("[href=#content4]").click(function(){
 	//alert("hello jquery");
-	$("#content2").empty();
-	$("#content1").empty();
-	$("#content3").empty();
-	$("#content4").empty();
+
 	$.ajax({
 		'url':'sp_profit_and_loss_list.jsp',
 		'type':'get',
@@ -608,7 +631,15 @@ return false;
 		data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramOrg':$("#domParamOrg").val()},
 		success:function(data){
 		//alert(data);
+	$("#content2").empty();
+	$("#content1").empty();
+	$("#content3").empty();
+	$("#content4").empty();
+
+		$(".pageRemember").remove();
+		$("body").append("<input type='hidden' id='pageContent4' class='pageRemember' name='pageContent4' value='pageContent4'>");
 		$("#content4").append(data);
+
 		//pieChart33();
 		sufferTable();
 		setFont();
@@ -616,22 +647,35 @@ return false;
 		}
 	});
 	});
+
 		// ajax end 04
 
 		$("form#form_1").live("submit",function(){
+			
 			$(".contentMain").show();
 			//embeded dom id document for process start
 				$(".domParam").remove();
-				$("body").append("<input type='text' name='domParamYear' id='domParamYear' class='domParam' value='"+$("#ParamYear").val()+"'>");
+				$("body").append("<input type='hidden' name='domParamYear' id='domParamYear' class='domParam' value='"+$("#ParamYear").val()+"'>");
 
-				$("body").append("<input type='text' name='domParamMonth' id='domParamMonth' class='domParam' value='"+$("#ParamMonth").val()+"'>");
+				$("body").append("<input type='hidden' name='domParamMonth' id='domParamMonth' class='domParam' value='"+$("#ParamMonth").val()+"'>");
 
-				$("body").append("<input type='text' name='domParamOrg' id='domParamOrg' class='domParam' value='"+$("#ParamOrg").val()+"'>");
+				$("body").append("<input type='hidden' name='domParamOrg' id='domParamOrg' class='domParam' value='"+$("#ParamOrg").val()+"'>");
 
-			//embeded dom id document for process end
+			    //embeded dom id document for process end
+			    //$("[href=#content1]").trigger("click");
+				if($("#pageContent1").val()){
+					 $("[href=#content1]").trigger("click");
+				}else if($("#pageContent2").val()){
+					$("[href=#content2]").trigger("click");
+				}else if($("#pageContent3").val()){
+					$("[href=#content3]").trigger("click");
+				}else if($("#pageContent4").val()){
+					$("[href=#content4]").trigger("click");
+				}else{
+					$("[href=#content1]").trigger("click");
+				}
 
-			$("[href=#content1]").trigger("click");
-			return false;
+			    return false;
 		});
 	
 	/*###  jQuery Config Start ###*/
@@ -648,15 +692,11 @@ function tootipFormat(value,summ){
    return value1 + " , " + value2 + " %";
 }
 /*###  function for kendo tootip End ###*/
-
 	</script>
     </head>
     <body>
-
 	<!--------------------------- HEADER --------------------------->
-
 <!--<h2><center><font color="black">Financial Dashboard</font></center></h2>-->
-
 	<div align="center">
 		<div id="Main-Panel" class="k-content">
 		<!--------------------------- Parameter --------------------------->
@@ -721,7 +761,15 @@ function tootipFormat(value,summ){
 <!-- TAB MANAGEMENT END -->
 
 	</div>
-	<div id="loading" ></div>
+	<div id="loading" >
+				<br>
+				<br>
+				<br>
+				<br>
+				<span id="loading_span" style="margin-top:100px;">
+					<b>Loading...</b>
+				</span>
+			</div>
 	<!--------------------------- Details End--------------------------->
 	</body>
 </html>

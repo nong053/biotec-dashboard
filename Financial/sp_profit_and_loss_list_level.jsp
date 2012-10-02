@@ -1,6 +1,8 @@
 <%@page contentType="text/html" pageEncoding="utf-8"%>
 <%@ include file="../config.jsp"%>
+<%@page import="java.text.DecimalFormat" %>
 <%
+DecimalFormat numberFormatter = new DecimalFormat("#0.00");
 	String paramYear= request.getParameter("paramYear");
 	String paramMonth= request.getParameter("paramMonth");
 	String paramLevel=request.getParameter("paramLevel");
@@ -32,16 +34,17 @@ String amount_list="";
 		amount_list=rs.getString("amount_list");
 		amount_list_array = amount_list.split(",");
 		int j=2;
-		Integer amount_sum=0;
+		Double amount_sum=0.0;
+		Double amount_by_center=0.0;
 		for(int l=0; l<amount_list_array.length; l++ ){
-				
-				dataLevel+="\"Field"+j+"\":\"<div class='textR'>"+amount_list_array[l]+"</div>\",";
-				amount_sum+=Integer.parseInt(amount_list_array[l]);
+				amount_by_center=Double.parseDouble(amount_list_array[l]);
+				dataLevel+="\"Field"+j+"\":\"<div class='textR'>"+numberFormatter.format(amount_by_center)+"</div>\",";
+				amount_sum+=Double.parseDouble(amount_list_array[l]);
 		j++;
 		}
 		//Loop for get value amount_list 
 		
-		dataLevel+="\"Field9\":\"<div class='textR'>"+amount_sum+"</div>\"";
+		dataLevel+="\"Field9\":\"<div class='textR'>"+numberFormatter.format(amount_sum)+"</div>\"";
 		dataLevel+="}" ;
 		}else{
 		dataLevel+=",{" ;
@@ -52,22 +55,24 @@ String amount_list="";
 		amount_list=rs.getString("amount_list");
 		amount_list_array = amount_list.split(",");
 		int k=2;
-		Integer amount_sum=0;
+		Double amount_sum=0.0;
+		Double amount_by_center=0.0;
 		for(int m=0; m<amount_list_array.length;m++ ){
-				dataLevel+="\"Field"+k+"\":\"<div class='textR'>"+amount_list_array[m]+"</div>\",";
-				amount_sum+=Integer.parseInt(amount_list_array[m]);
+				amount_by_center=Double.parseDouble(amount_list_array[m]);
+				dataLevel+="\"Field"+k+"\":\"<div class='textR'>"+numberFormatter.format(amount_by_center)+"</div>\",";
+				amount_sum+=Double.parseDouble(amount_list_array[m]);
 		k++;
 		}
 		//Loop for get value amount_list 
 
-		dataLevel+="\"Field9\":\"<div class='textR'>"+amount_sum+"</div>\"";
+		dataLevel+="\"Field9\":\"<div class='textR'>"+numberFormatter.format(amount_sum)+"</div>\"";
 		dataLevel+="}" ;
 		}//if
 i++;
 }//while
 dataLevel+="]";
-
 out.print(dataLevel);
+conn.close();
 /*
 	var $dataJ =[
                   {
