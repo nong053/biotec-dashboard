@@ -698,6 +698,7 @@ dataLevel1+="[";
 								url:'sp_profit_and_loss_list_by_center_level2.jsp',
 								type:'get',
 								dataType:'json',
+								cache:false,
 								data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramArea':$('#domParamOrg').val(),'paramParentKey':e.data.account_key},
 								success:function(data){
 									//console.log(data);
@@ -768,6 +769,7 @@ dataLevel1+="[";
 								url:'sp_profit_and_loss_list_by_center_level3.jsp',
 								type:'get',
 								dataType:'json',
+								cache:false,
 								data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramArea':$('#domParamOrg').val(),'paramParentKey':e.data.account_key},
 								success:function(data){
 									//console.log(data);
@@ -842,6 +844,7 @@ dataLevel1+="[";
 								url:'sp_profit_and_loss_list_by_center_level4.jsp',
 								type:'get',
 								dataType:'json',
+								cache:false,
 								data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramArea':$('#domParamOrg').val(),'paramParentKey':e.data.account_key},
 								success:function(data){
 									//console.log(data);
@@ -914,6 +917,7 @@ dataLevel1+="[";
 								url:'sp_profit_and_loss_list_by_center_level5.jsp',
 								type:'get',
 								dataType:'json',
+								cache:false,
 								data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramArea':$('#domParamOrg').val(),'paramParentKey':e.data.account_key},
 								success:function(data){
 									//console.log(data);

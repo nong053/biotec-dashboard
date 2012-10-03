@@ -406,6 +406,7 @@ var $titleJ5 =[
 					url:'sp_profit_and_loss_list_level.jsp',
 					type:'get',
 					dataType:'json',
+					cache:false,
 					data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramLevel':5,'paramParentKey':e.data.account_key},
 					success:function(data){
 						console.log(data);
@@ -440,6 +441,7 @@ var $titleJ5 =[
 					url:'sp_profit_and_loss_list_level.jsp',
 					type:'get',
 					dataType:'json',
+					cache:false,
 					data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramLevel':6,'paramParentKey':e.data.account_key},
 					success:function(data){
 								 $("<table><th></th></table>").kendoGrid({
@@ -470,6 +472,7 @@ var $titleJ5 =[
 					url:'sp_profit_and_loss_list_level.jsp',
 					type:'get',
 					dataType:'json',
+					cache:false,
 					data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramLevel':7,'paramParentKey':e.data.account_key},
 					success:function(data){
 								 $("<table><th></th></table>").kendoGrid({
@@ -499,6 +502,7 @@ var $titleJ5 =[
 					url:'sp_profit_and_loss_list_level.jsp',
 					type:'get',
 					dataType:'json',
+					cache:false,
 					data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramLevel':8,'paramParentKey':e.data.account_key},
 					success:function(data){
 								 $("<table><th></th></table>").kendoGrid({
