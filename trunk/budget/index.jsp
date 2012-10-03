@@ -66,6 +66,10 @@
 			margin:auto;
 			
 			}
+			/*tr.RowData{
+			display:none;
+			}*/
+			
 		</style>
 		<style scoped>
 				#Main-Panel{
@@ -229,6 +233,454 @@ function addCommas(nStr)
 
 			   /*#### Tab search above top start ###*/
 	$(document).ready(function(){
+		
+		/*#### Management by hidden value is no data ####*/
+		var HiddenValueIsNull = function(){
+			//alert("hello");
+			
+
+			if($(".namePro111").text()=="No data"){
+			$(".namePro111").parent().parent().parent().hide();
+			}else{
+			$(".namePro111").parent().parent().parent().show();
+			}
+			if($(".namePro112").text()=="No data"){
+			$(".namePro112").parent().parent().parent().hide();
+			}else{
+			$(".namePro112").parent().parent().parent().show();
+			}
+			if($(".namePro113").text()=="No data"){
+			$(".namePro113").parent().parent().parent().hide();
+			}else{
+			$(".namePro113").parent().parent().parent().show();
+			}
+			if($(".namePro114").text()=="No data"){
+			$(".namePro114").parent().parent().parent().hide();
+			}else{
+			$(".namePro114").parent().parent().parent().show();
+			}
+			if($(".namePro115").text()=="No data"){
+			$(".namePro115").parent().parent().parent().hide();
+			}else{
+			$(".namePro115").parent().parent().parent().show();
+			}
+			if($(".namePro116").text()=="No data"){
+			$(".namePro116").parent().parent().parent().hide();
+			}else{
+			$(".namePro116").parent().parent().parent().show();
+			}
+			if($(".namePro117").text()=="No data"){
+			$(".namePro117").parent().parent().parent().hide();
+			}else{
+			$(".namePro117").parent().parent().parent().show();
+			}
+			if($(".namePro118").text()=="No data"){
+			$(".namePro118").parent().parent().parent().hide();
+			}else{
+			$(".namePro118").parent().parent().parent().show();
+			}
+			if($(".namePro119").text()=="No data"){
+			$(".namePro119").parent().parent().parent().hide();
+			}else{
+			$(".namePro119").parent().parent().parent().show();
+			}
+			if($(".namePro1110").text()=="No data"){
+			$(".namePro1110").parent().parent().parent().hide();
+			}else{
+			$(".namePro1110").parent().parent().parent().show();
+			}
+			
+
+			//table2
+			if($(".namePro121").text()=="No data"){
+			$(".namePro121").parent().parent().parent().hide();
+			}else{
+			$(".namePro121").parent().parent().parent().show();
+			}
+			if($(".namePro122").text()=="No data"){
+			$(".namePro122").parent().parent().parent().hide();
+			}else{
+			$(".namePro122").parent().parent().parent().show();
+			}
+			if($(".namePro123").text()=="No data"){
+			$(".namePro123").parent().parent().parent().hide();
+			}else{
+			$(".namePro123").parent().parent().parent().show();
+			}
+			if($(".namePro124").text()=="No data"){
+			$(".namePro124").parent().parent().parent().hide();
+			}else{
+			$(".namePro124").parent().parent().parent().show();
+			}
+			if($(".namePro125").text()=="No data"){
+			$(".namePro125").parent().parent().parent().hide();
+			}else{
+			$(".namePro125").parent().parent().parent().show();
+			}
+			if($(".namePro126").text()=="No data"){
+			$(".namePro126").parent().parent().parent().hide();
+			}else{
+			$(".namePro126").parent().parent().parent().show();
+			}
+			if($(".namePro127").text()=="No data"){
+			$(".namePro127").parent().parent().parent().hide();
+			}else{
+			$(".namePro127").parent().parent().parent().show();
+			}
+			if($(".namePro128").text()=="No data"){
+			$(".namePro128").parent().parent().parent().hide();
+			}else{
+			$(".namePro128").parent().parent().parent().show();
+			}
+			if($(".namePro129").text()=="No data"){
+			$(".namePro129").parent().parent().parent().hide();
+			}else{
+			$(".namePro129").parent().parent().parent().show();
+			}
+			if($(".namePro1210").text()=="No data"){
+			$(".namePro1210").parent().parent().parent().hide();
+			}else{
+			$(".namePro1210").parent().parent().parent().show();
+			}
+		}
+
+		var HiddenValueIsNull2 = function(){
+			//alert("hello");
+			
+
+			if($(".namePro211").text()=="No data"){
+			$(".namePro211").parent().parent().parent().hide();
+			}else{
+			$(".namePro211").parent().parent().parent().show();
+			}
+			if($(".namePro212").text()=="No data"){
+			$(".namePro212").parent().parent().parent().hide();
+			}else{
+			$(".namePro212").parent().parent().parent().show();
+			}
+			if($(".namePro213").text()=="No data"){
+			$(".namePro213").parent().parent().parent().hide();
+			}else{
+			$(".namePro213").parent().parent().parent().show();
+			}
+			if($(".namePro214").text()=="No data"){
+			$(".namePro214").parent().parent().parent().hide();
+			}else{
+			$(".namePro214").parent().parent().parent().show();
+			}
+			if($(".namePro215").text()=="No data"){
+			$(".namePro215").parent().parent().parent().hide();
+			}else{
+			$(".namePro215").parent().parent().parent().show();
+			}
+			if($(".namePro216").text()=="No data"){
+			$(".namePro216").parent().parent().parent().hide();
+			}else{
+			$(".namePro216").parent().parent().parent().show();
+			}
+			if($(".namePro217").text()=="No data"){
+			$(".namePro217").parent().parent().parent().hide();
+			}else{
+			$(".namePro217").parent().parent().parent().show();
+			}
+			if($(".namePro218").text()=="No data"){
+			$(".namePro218").parent().parent().parent().hide();
+			}else{
+			$(".namePro218").parent().parent().parent().show();
+			}
+			if($(".namePro219").text()=="No data"){
+			$(".namePro219").parent().parent().parent().hide();
+			}else{
+			$(".namePro219").parent().parent().parent().show();
+			}
+			if($(".namePro2110").text()=="No data"){
+			$(".namePro2110").parent().parent().parent().hide();
+			}else{
+			$(".namePro2110").parent().parent().parent().show();
+			}
+			
+
+			//table2
+			if($(".namePro221").text()=="No data"){
+			$(".namePro221").parent().parent().parent().hide();
+			}else{
+			$(".namePro221").parent().parent().parent().show();
+			}
+			if($(".namePro222").text()=="No data"){
+			$(".namePro222").parent().parent().parent().hide();
+			}else{
+			$(".namePro222").parent().parent().parent().show();
+			}
+			if($(".namePro223").text()=="No data"){
+			$(".namePro223").parent().parent().parent().hide();
+			}else{
+			$(".namePro223").parent().parent().parent().show();
+			}
+			if($(".namePro224").text()=="No data"){
+			$(".namePro224").parent().parent().parent().hide();
+			}else{
+			$(".namePro224").parent().parent().parent().show();
+			}
+			if($(".namePro225").text()=="No data"){
+			$(".namePro225").parent().parent().parent().hide();
+			}else{
+			$(".namePro225").parent().parent().parent().show();
+			}
+			if($(".namePro226").text()=="No data"){
+			$(".namePro226").parent().parent().parent().hide();
+			}else{
+			$(".namePro226").parent().parent().parent().show();
+			}
+			if($(".namePro227").text()=="No data"){
+			$(".namePro227").parent().parent().parent().hide();
+			}else{
+			$(".namePro227").parent().parent().parent().show();
+			}
+			if($(".namePro228").text()=="No data"){
+			$(".namePro228").parent().parent().parent().hide();
+			}else{
+			$(".namePro228").parent().parent().parent().show();
+			}
+			if($(".namePro229").text()=="No data"){
+			$(".namePro229").parent().parent().parent().hide();
+			}else{
+			$(".namePro229").parent().parent().parent().show();
+			}
+			if($(".namePro2210").text()=="No data"){
+			$(".namePro2210").parent().parent().parent().hide();
+			}else{
+			$(".namePro2210").parent().parent().parent().show();
+			}
+		}
+
+		var HiddenValueIsNull3 = function(){
+			//alert("hello");
+			
+
+			if($(".namePro311").text()=="No data"){
+			$(".namePro311").parent().parent().parent().hide();
+			}else{
+			$(".namePro311").parent().parent().parent().show();
+			}
+			if($(".namePro312").text()=="No data"){
+			$(".namePro312").parent().parent().parent().hide();
+			}else{
+			$(".namePro312").parent().parent().parent().show();
+			}
+			if($(".namePro313").text()=="No data"){
+			$(".namePro313").parent().parent().parent().hide();
+			}else{
+			$(".namePro313").parent().parent().parent().show();
+			}
+			if($(".namePro314").text()=="No data"){
+			$(".namePro314").parent().parent().parent().hide();
+			}else{
+			$(".namePro314").parent().parent().parent().show();
+			}
+			if($(".namePro315").text()=="No data"){
+			$(".namePro315").parent().parent().parent().hide();
+			}else{
+			$(".namePro315").parent().parent().parent().show();
+			}
+			if($(".namePro316").text()=="No data"){
+			$(".namePro316").parent().parent().parent().hide();
+			}else{
+			$(".namePro316").parent().parent().parent().show();
+			}
+			if($(".namePro317").text()=="No data"){
+			$(".namePro317").parent().parent().parent().hide();
+			}else{
+			$(".namePro317").parent().parent().parent().show();
+			}
+			if($(".namePro318").text()=="No data"){
+			$(".namePro318").parent().parent().parent().hide();
+			}else{
+			$(".namePro318").parent().parent().parent().show();
+			}
+			if($(".namePro319").text()=="No data"){
+			$(".namePro319").parent().parent().parent().hide();
+			}else{
+			$(".namePro319").parent().parent().parent().show();
+			}
+			if($(".namePro3110").text()=="No data"){
+			$(".namePro3110").parent().parent().parent().hide();
+			}else{
+			$(".namePro3110").parent().parent().parent().show();
+			}
+			
+
+			//table2
+			if($(".namePro321").text()=="No data"){
+			$(".namePro321").parent().parent().parent().hide();
+			}else{
+			$(".namePro321").parent().parent().parent().show();
+			}
+			if($(".namePro322").text()=="No data"){
+			$(".namePro322").parent().parent().parent().hide();
+			}else{
+			$(".namePro322").parent().parent().parent().show();
+			}
+			if($(".namePro323").text()=="No data"){
+			$(".namePro323").parent().parent().parent().hide();
+			}else{
+			$(".namePro323").parent().parent().parent().show();
+			}
+			if($(".namePro324").text()=="No data"){
+			$(".namePro324").parent().parent().parent().hide();
+			}else{
+			$(".namePro324").parent().parent().parent().show();
+			}
+			if($(".namePro325").text()=="No data"){
+			$(".namePro325").parent().parent().parent().hide();
+			}else{
+			$(".namePro325").parent().parent().parent().show();
+			}
+			if($(".namePro326").text()=="No data"){
+			$(".namePro326").parent().parent().parent().hide();
+			}else{
+			$(".namePro326").parent().parent().parent().show();
+			}
+			if($(".namePro327").text()=="No data"){
+			$(".namePro327").parent().parent().parent().hide();
+			}else{
+			$(".namePro327").parent().parent().parent().show();
+			}
+			if($(".namePro328").text()=="No data"){
+			$(".namePro328").parent().parent().parent().hide();
+			}else{
+			$(".namePro328").parent().parent().parent().show();
+			}
+			if($(".namePro329").text()=="No data"){
+			$(".namePro329").parent().parent().parent().hide();
+			}else{
+			$(".namePro329").parent().parent().parent().show();
+			}
+			if($(".namePro3210").text()=="No data"){
+			$(".namePro3210").parent().parent().parent().hide();
+			}else{
+			$(".namePro3210").parent().parent().parent().show();
+			}
+		}
+		var HiddenValueIsNull4 = function(){
+			//alert("hello");
+			
+
+			if($(".namePro411").text()=="No data"){
+			$(".namePro411").parent().parent().parent().hide();
+			}else{
+			$(".namePro411").parent().parent().parent().show();
+			}
+			if($(".namePro412").text()=="No data"){
+			$(".namePro412").parent().parent().parent().hide();
+			}else{
+			$(".namePro412").parent().parent().parent().show();
+			}
+			if($(".namePro413").text()=="No data"){
+			$(".namePro413").parent().parent().parent().hide();
+			}else{
+			$(".namePro413").parent().parent().parent().show();
+			}
+			if($(".namePro414").text()=="No data"){
+			$(".namePro414").parent().parent().parent().hide();
+			}else{
+			$(".namePro414").parent().parent().parent().show();
+			}
+			if($(".namePro415").text()=="No data"){
+			$(".namePro415").parent().parent().parent().hide();
+			}else{
+			$(".namePro415").parent().parent().parent().show();
+			}
+			if($(".namePro416").text()=="No data"){
+			$(".namePro416").parent().parent().parent().hide();
+			}else{
+			$(".namePro416").parent().parent().parent().show();
+			}
+			if($(".namePro417").text()=="No data"){
+			$(".namePro417").parent().parent().parent().hide();
+			}else{
+			$(".namePro417").parent().parent().parent().show();
+			}
+			if($(".namePro418").text()=="No data"){
+			$(".namePro418").parent().parent().parent().hide();
+			}else{
+			$(".namePro418").parent().parent().parent().show();
+			}
+			if($(".namePro419").text()=="No data"){
+			$(".namePro419").parent().parent().parent().hide();
+			}else{
+			$(".namePro419").parent().parent().parent().show();
+			}
+			if($(".namePro4110").text()=="No data"){
+			$(".namePro4110").parent().parent().parent().hide();
+			}else{
+			$(".namePro4110").parent().parent().parent().show();
+			}
+			
+
+			//table2
+			if($(".namePro421").text()=="No data"){
+			$(".namePro421").parent().parent().parent().hide();
+			}else{
+			$(".namePro421").parent().parent().parent().show();
+			}
+			if($(".namePro422").text()=="No data"){
+			$(".namePro422").parent().parent().parent().hide();
+			}else{
+			$(".namePro422").parent().parent().parent().show();
+			}
+			if($(".namePro423").text()=="No data"){
+			$(".namePro423").parent().parent().parent().hide();
+			}else{
+			$(".namePro423").parent().parent().parent().show();
+			}
+			if($(".namePro424").text()=="No data"){
+			$(".namePro424").parent().parent().parent().hide();
+			}else{
+			$(".namePro124").parent().parent().parent().show();
+			}
+			if($(".namePro425").text()=="No data"){
+			$(".namePro425").parent().parent().parent().hide();
+			}else{
+			$(".namePro425").parent().parent().parent().show();
+			}
+			if($(".namePro426").text()=="No data"){
+			$(".namePro426").parent().parent().parent().hide();
+			}else{
+			$(".namePro426").parent().parent().parent().show();
+			}
+			if($(".namePro427").text()=="No data"){
+			$(".namePro427").parent().parent().parent().hide();
+			}else{
+			$(".namePro427").parent().parent().parent().show();
+			}
+			if($(".namePro428").text()=="No data"){
+			$(".namePro428").parent().parent().parent().hide();
+			}else{
+			$(".namePro428").parent().parent().parent().show();
+			}
+			if($(".namePro429").text()=="No data"){
+			$(".namePro429").parent().parent().parent().hide();
+			}else{
+			$(".namePro429").parent().parent().parent().show();
+			}
+			if($(".namePro4210").text()=="No data"){
+			$(".namePro4210").parent().parent().parent().hide();
+			}else{
+			$(".namePro4210").parent().parent().parent().show();
+			}
+		}
+		/*#### Management by hidden value is no data ####*/
+
+	  /*#### Loading Start ###*/
+		var $width=($('body').width()/2)-50;
+		//console.log($width);
+		$("#loading").css({"top":"250px","left":$width+"px"}).ajaxStart(function(){
+		$(this).show();
+		}).ajaxStop(function(){
+		$(this).hide();
+		});
+		/*#### Loading End ###*/
+
 	  $("#ParamYear").kendoDropDownList();
 
 	  $("#ParamMonth").kendoDropDownList();
@@ -416,6 +868,7 @@ function addCommas(nStr)
 		});
 
 	var includeCon1 = function(){
+		
 //	$("a[href=#content1]").click(function(){
 		var dropDown = $("#select1").data("kendoDropDownList");
 		dropDown.select(0);				
@@ -426,7 +879,7 @@ function addCommas(nStr)
 				data:{"month":$("#ParamMonthSubmit").val(),"year":$("#ParamYearSubmit").val(),"pg_code":$("#select1").val()},
 				//data:{"ParamYear":$("#ParamYearSubmit").val(),"ParamMonth":$("#ParamMonthSubmit").val(),"ParamOrg":"NS"},
 				success:function(data){
-
+				
 				$("#content1").hide();
 				$("#content2").hide();
 				$("#content3").hide();
@@ -435,7 +888,10 @@ function addCommas(nStr)
 				$(".pageRemember").remove();
 				$("body").append("<input type='hidden' id='pageCon1' class='pageRemember' name='pageCon1' value='pageCon1'>");
 
+				
+
 				$("#content1").slideDown("slow",function(){
+					
 					//console.log(data);
 					var serie1 = data[0]["series1"];
 					var category1 = data[1]["category1"];
@@ -448,6 +904,8 @@ function addCommas(nStr)
 				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
 				$("#contentR .projectHead1").empty();
 				$("#contentR .projectHead1").append("Top 10 Project Least Spending of "+data[42]["active_category"]);
+
+				HiddenValueIsNull();
 
 				callProgressbar("111",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
 				callProgressbar("112",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
@@ -474,7 +932,7 @@ function addCommas(nStr)
 
 				/*### call function sufferRow  End ###*/
 		
-				
+				HiddenValueIsNull();
 				}
 			});
 			return false;
@@ -490,6 +948,7 @@ function addCommas(nStr)
 				dataType:"json",
 				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val(),"cluster":$("#select2").val()},
 				success:function(data){
+					
 					//console.log(data);
 
 				$("#content1").hide();
@@ -502,6 +961,9 @@ function addCommas(nStr)
 
 				//$("#content2").append(data).hide();
 				$("#content2").slideDown("slow",function(){
+
+					
+
 					var serie1 = data[0]["series1"];
 					var category1 = data[1]["category1"];
 					barChart21(serie1,category1);		
@@ -511,6 +973,8 @@ function addCommas(nStr)
 				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
 				$("#contentR .projectHead1").empty();
 				$("#contentR .projectHead1").append("Top 10 Project Least Spending of "+data[42]["active_category"]);
+					
+					HiddenValueIsNull2();
 
 					callProgressbar("211",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
 					callProgressbar("212",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
@@ -535,6 +999,7 @@ function addCommas(nStr)
 					callProgressbar("229",parseFloat(data[38]["value"]).toFixed(2),data[39]["name"]);
 					callProgressbar("2210",parseFloat(data[40]["value"]).toFixed(2),data[41]["name"]);
 
+					HiddenValueIsNull2();
 				});
 				
 				//$("#select2").kendoDropDownList();
@@ -551,6 +1016,7 @@ function addCommas(nStr)
 				dataType:"json",
 				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val()},
 				success:function(data){
+				HiddenValueIsNull3();
 				$("#content1").hide();
 				$("#content2").hide();
 				$("#content3").hide();
@@ -571,6 +1037,8 @@ function addCommas(nStr)
 				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
 				$("#contentR .projectHead1").empty();
 				$("#contentR .projectHead1").append("Top 10 Project Least Spending of "+data[42]["active_category"]);
+					
+					HiddenValueIsNull3();
 
 					callProgressbar("311",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
 					callProgressbar("312",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
@@ -594,7 +1062,8 @@ function addCommas(nStr)
 					callProgressbar("328",parseFloat(data[36]["value"]).toFixed(2),data[37]["name"]);
 					callProgressbar("329",parseFloat(data[38]["value"]).toFixed(2),data[39]["name"]);
 					callProgressbar("3210",parseFloat(data[40]["value"]).toFixed(2),data[41]["name"]);
-
+					
+					HiddenValueIsNull3();
 
 				});
 			
@@ -612,7 +1081,7 @@ function addCommas(nStr)
 				dataType:"json",
 				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val()},
 				success:function(data){
-				
+				HiddenValueIsNull();
 				$("#content1").hide();
 				$("#content2").hide();
 				$("#content3").hide();
@@ -632,6 +1101,8 @@ function addCommas(nStr)
 				$("#contentL .projectHead1").append("Top 10 Cost Center Most Spending of "+data[42]["active_category"]);
 				$("#contentR .projectHead1").empty();
 				$("#contentR .projectHead1").append("Top 10 Cost Center Least Spending of "+data[42]["active_category"]);
+
+					HiddenValueIsNull4(); 
 
 					callProgressbar("411",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
 					callProgressbar("412",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
@@ -655,7 +1126,8 @@ function addCommas(nStr)
 					callProgressbar("428",parseFloat(data[36]["value"]).toFixed(2),data[37]["name"]);
 					callProgressbar("429",parseFloat(data[38]["value"]).toFixed(2),data[39]["name"]);
 					callProgressbar("4210",parseFloat(data[40]["value"]).toFixed(2),data[41]["name"]);
-
+					
+					HiddenValueIsNull4();
 
 				});
 			
@@ -767,6 +1239,10 @@ var barChart1 = function(seriesParam,categoryParam){
                         },
 
 			categoryAxis:{
+				labels: {
+                                rotation: -45,
+								font:"11px Tahoma"
+                            },
 			categories: categoryParam//[ "Cluster", "Platform", "Essential Program","Improvement Project","Director Initiative", "Investment", "Seed Money", "Others" ]
 					
 			},
@@ -2976,7 +3452,7 @@ function templateFormat(value,summ) {
 										</tr>
 									</thead>
 									</tbody>
-										<tr>
+										<tr class="RowData">
 											<td><div class="projectName"><div class="namePro411"></div></div></td>
 											<td>
 												<div class="projectValue">
@@ -2991,7 +3467,7 @@ function templateFormat(value,summ) {
 											  </div>
 											</td>
 										</tr>
-										<tr>
+										<tr class="RowData">
 											<td><div class="projectName"><div class="namePro412"></div></td>
 											<td>
 											<div class="projectValue">
@@ -3005,7 +3481,7 @@ function templateFormat(value,summ) {
 
 											  </td>
 										</tr>
-										<tr>
+										<tr class="RowData">
 											<td><div class="projectName"><div class="namePro413"></div></td>
 											<td>
 											<div class="projectValue">
@@ -3019,7 +3495,7 @@ function templateFormat(value,summ) {
 
 											  </td>
 										</tr>
-										<tr>
+										<tr class="RowData">
 											<td><div class="projectName"><div class="namePro414"></div></div></td>
 											<td>
 											<div class="projectValue">
@@ -3033,7 +3509,7 @@ function templateFormat(value,summ) {
 
 											  </td>
 										</tr>
-										<tr>
+										<tr class="RowData">
 											<td><div class="projectName"><div class="namePro415"></div></div></td>
 											<td>
 											<div class="projectValue">
@@ -3047,7 +3523,7 @@ function templateFormat(value,summ) {
 
 											  </td>
 										</tr>
-										<tr>
+										<tr class="RowData">
 											<td><div class="projectName"><div class="namePro416"></div></div></td>
 											<td>
 											<div class="projectValue">
@@ -3061,7 +3537,7 @@ function templateFormat(value,summ) {
 
 											  </td>
 										</tr>
-										<tr>
+										<tr >
 											<td><div class="projectName"><div class="namePro417"></div></div></td>
 											<td>
 											<div class="projectValue">
@@ -3075,7 +3551,7 @@ function templateFormat(value,summ) {
 
 											  </td>
 										</tr>
-										<tr>
+										<tr class="RowData">
 											<td><div class="projectName"><div class="namePro418"></div></div></td>
 											<td>
 											<div class="projectValue">
@@ -3089,7 +3565,7 @@ function templateFormat(value,summ) {
 
 											  </td>
 										</tr>
-										<tr>
+										<tr class="RowData">
 											<td><div class="projectName"><div class="namePro419"></div></div></td>
 										<td>
 											<div class="projectValue">
@@ -3103,7 +3579,7 @@ function templateFormat(value,summ) {
 
 											  </td>
 										</tr>
-										<tr>
+										<tr class="RowData">
 											<td><div class="projectName"><div class="namePro4110"></div></div></td>
 											<td>
 											<div class="projectValue">
@@ -3327,9 +3803,18 @@ function templateFormat(value,summ) {
 <!-- TAB MANAGEMENT END -->
 
 	</div>
-	<div id="loading" ></div>
+
 
 	<!--------------------------- Details End--------------------------->
+	<div id="loading" >
+				<br>
+				<br>
+				<br>
+				<br>
+				<span id="loading_span" style="margin-top:100px;">
+					<b>Loading...</b>
+				</span>
+			</div>
 
 	</body>
 </html>
