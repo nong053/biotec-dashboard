@@ -7,7 +7,6 @@
 <%@page import="java.text.DecimalFormat" %>
 <%
 DecimalFormat numberFormatter = new DecimalFormat("#0.00");
-
 %>
 <html>
     <head>
@@ -510,7 +509,6 @@ return false;
 
 	$("[href=#content1]").click(function(){
 	//alert("hello jquery");
-
 	$.ajax({
 		url:'sp_balance_sheet_list_by_center.jsp',
 		type:'get',
