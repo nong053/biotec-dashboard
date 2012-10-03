@@ -272,11 +272,11 @@ out.println("Error"+ex);
 						//console.log($("#ParamMonth").val());
 						//console.log($("#ParamYear").val());
 						//console.log($("#ParamOrg").val());
-
 						$(".paramSubmit").remove();
 						$("body").append("<input type='hidden' value='"+$("#ParamMonth").val()+"' name='ParamMonthSubmit' id='ParamMonthSubmit' class='paramSubmit'> ");
 						$("body").append("<input type='hidden' value='"+$("#ParamYear").val()+"' name='ParamYearSubmit' id='ParamYearSubmit' class='paramSubmit'>");
 						$("body").append("<input type='hidden' value='"+$("#ParamOrg").val()+"' name='ParamOrgSubmit' id='ParamOrgSubmit' class='paramSubmit'>");
+
 						if($("#pageHr").val()){
 								$("a[href=#content1]").trigger("click");
 						}else if($("#pageNpr").val()){
