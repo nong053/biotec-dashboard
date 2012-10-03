@@ -781,6 +781,8 @@ function addCommas(nStr)
 				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
 				$("#contentR .projectHead1").empty();
 				$("#contentR .projectHead1").append("Top 10 Project Least Spending of "+data[42]["active_category"]);
+					
+					HiddenValueIsNull();
 
 					callProgressbar("111",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
 					callProgressbar("112",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
@@ -804,7 +806,7 @@ function addCommas(nStr)
 					callProgressbar("128",parseFloat(data[36]["value"]).toFixed(2),data[37]["name"]);
 					callProgressbar("129",parseFloat(data[38]["value"]).toFixed(2),data[39]["name"]);
 					callProgressbar("1210",parseFloat(data[40]["value"]).toFixed(2),data[41]["name"]);
-
+					HiddenValueIsNull();
 				}
 			});
 		});
@@ -830,6 +832,8 @@ function addCommas(nStr)
 				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
 				$("#contentR .projectHead1").empty();
 				$("#contentR .projectHead1").append("Top 10 Project Least Spending of "+data[42]["active_category"]);
+					
+					HiddenValueIsNull2();
 
 					callProgressbar("211",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
 					callProgressbar("212",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
@@ -853,7 +857,8 @@ function addCommas(nStr)
 					callProgressbar("228",parseFloat(data[36]["value"]).toFixed(2),data[37]["name"]);
 					callProgressbar("229",parseFloat(data[38]["value"]).toFixed(2),data[39]["name"]);
 					callProgressbar("2210",parseFloat(data[40]["value"]).toFixed(2),data[41]["name"]);
-
+					
+					HiddenValueIsNull2();
 					/*
 					var serie2 = data[2]["series2"];
 					var category2 = data[3]["category2"];
