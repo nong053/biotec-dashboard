@@ -4,7 +4,7 @@
 <!--- Tab1 -->
 <%
 //double price = 10.59;
-DecimalFormat numberFormatter = new DecimalFormat("#0.00");
+DecimalFormat numberFormatter = new DecimalFormat("###,###,##0.00");
 //out.print(numberFormatter.format(price));
 
 	String paramYear= request.getParameter("paramYear");
@@ -426,14 +426,14 @@ dataLevel2+="[";
 	if(j==0){
 	dataLevel2+="{";
 	
-		dataLevel2+="account_key:"+account_key+",category:"+"\""+$(this).text()+"\",value:"+$(this).parent().parent().children('td').eq(2).text();
-		Sum+=parseInt($(this).parent().parent().children('td').eq(2).text());
+		dataLevel2+="account_key:"+account_key+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());
+		Sum+=parseFloat($(this).parent().parent().children('td').eq(2).text());
 		//$("body").append("<input type='text'> name='domAccount_key"+J+"' id='domAccount_key"+J+"' class='account_key' value='"+$(this).text()+"' ");
 	dataLevel2+="}";
 	}else{
 	dataLevel2+=",{";
-			dataLevel2+="account_key:"+account_key+",category:"+"\""+$(this).text()+"\",value:"+$(this).parent().parent().children('td').eq(2).text();
-			Sum+=parseInt($(this).parent().parent().children('td').eq(2).text());
+			dataLevel2+="account_key:"+account_key+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());
+			Sum+=parseFloat($(this).parent().parent().children('td').eq(2).text());
 	dataLevel2+="}";	
 	}
 	j++;
@@ -469,13 +469,13 @@ $(".level2").click(function(e){
 
 		if(j==0){
 			dataLevel2+="{";
-				dataLevel2+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+$(this).parent().parent().children('td').eq(2).text();
-				Sum+=parseInt($(this).parent().parent().children('td').eq(2).text());
+				dataLevel2+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());
+				Sum+=parseFloat($(this).parent().parent().children('td').eq(2).text());
 			dataLevel2+="}";
 		}else{
 			dataLevel2+=",{";
-				dataLevel2+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+$(this).parent().parent().children('td').eq(2).text();
-				Sum+=parseInt($(this).parent().parent().children('td').eq(2).text());
+				dataLevel2+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());
+				Sum+=parseFloat($(this).parent().parent().children('td').eq(2).text());
 			dataLevel2+="}";
 		}
 		j++;
@@ -507,13 +507,13 @@ $(".level3").click(function(e){
 		account_key_sub_loop=account_key_loop.substring(11);
 		if(j==0){
 			dataLevel3+="{";
-				dataLevel3+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+$(this).parent().parent().children('td').eq(2).text();
-				Sum+=parseInt($(this).parent().parent().children('td').eq(2).text());
+				dataLevel3+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());
+				Sum+=parseFloat($(this).parent().parent().children('td').eq(2).text());
 			dataLevel3+="}";
 		}else{
 			dataLevel3+=",{";
-				dataLevel3+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+$(this).parent().parent().children('td').eq(2).text();	
-				Sum+=parseInt($(this).parent().parent().children('td').eq(2).text());
+				dataLevel3+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());	
+				Sum+=parseFloat($(this).parent().parent().children('td').eq(2).text());
 			dataLevel3+="}";
 		}
 		j++;
@@ -543,13 +543,13 @@ $(".level4").click(function(e){
 		account_key_sub_loop=account_key_loop.substring(11);
 		if(j==0){
 			dataLevel4+="{";
-				dataLevel4+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+$(this).parent().parent().children('td').eq(2).text();
-				Sum+=parseInt($(this).parent().parent().children('td').eq(2).text());
+				dataLevel4+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());
+				Sum+=parseFloat($(this).parent().parent().children('td').eq(2).text());
 			dataLevel4+="}";
 		}else{
 			dataLevel4+=",{";
-				dataLevel4+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+$(this).parent().parent().children('td').eq(2).text();	
-				Sum+=parseInt($(this).parent().parent().children('td').eq(2).text());
+				dataLevel4+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());	
+				Sum+=parseFloat($(this).parent().parent().children('td').eq(2).text());
 			dataLevel4+="}";
 		}
 		j++;
@@ -563,9 +563,25 @@ $(".level4").click(function(e){
 //Step Call Level4
 //#######################Graph Program End#######################01
 /*### jQuery Request Ghaph End ###*/
+	// Add commas
+	function addCommas(nStr)
+{
+	nStr += '';
+	x = nStr.split('.');
+	x1 = x[0];
+	x2 = x.length > 1 ? '.' + x[1] : '';
+	var rgx = /(\d+)(\d{3})/;
+	while (rgx.test(x1)) {
+		x1 = x1.replace(rgx, '$1' + ',' + '$2');
+	}
+	return x1 + x2;
+}
 
-	
+//
+
+//alert("addCommas"+addCommas(12000.00));
 });
+
 </script>
 
 <%
