@@ -23,8 +23,6 @@ user: root
 pass: bioteccockpit
 */
 
-
-
 String sp_emp_by_center="";
 Integer sum_total_employee=0;
 String shortname="";
@@ -525,6 +523,7 @@ var pieChart= function(id_param,data_param,summ_param){
 }
 
 
+
 /*###  pie end ###*/
 
 /* Using PieChart*/
@@ -571,7 +570,7 @@ function templateFormat(value,summ) {
 function templateFormat2(value,summ) {
    var value1 = addCommas(value.toFixed(2));
    var value2 = ((value/summ)*100).toFixed(2);
-   return value1 + " , " + value2 + " %";
+   return value1 +"ล้านบาท  , " + value2 + " %";
 }
 
 </script>
