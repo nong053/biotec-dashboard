@@ -178,30 +178,13 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 catch(Exception ex){
 out.println("Error"+ex);
 }
-		
 //############### Query Handler Year & Month start ###############
 	%>
 
 	<script type="text/javascript">
-	// Add commas
-	function addCommas(nStr)
-{
-	nStr += '';
-	x = nStr.split('.');
-	x1 = x[0];
-	x2 = x.length > 1 ? '.' + x[1] : '';
-	var rgx = /(\d+)(\d{3})/;
-	while (rgx.test(x1)) {
-		x1 = x1.replace(rgx, '$1' + ',' + '$2');
-	}
-	return x1 + x2;
-}
+
 	/*#### Tab search above top start ###*/
 	$(document).ready(function(){
-$("body").live("click",function(){
-	//$("#boxB").dialog("close");
-	$(".ui-icon ui-icon-closethick").trigger("click");
-});
 
 	/*#### Loading Start ###*/
 		var $width=($('body').width()/2)-50;
@@ -249,214 +232,6 @@ var setHeaderDateYear = function(){
 }
 //#######################Menagement Tab End #######################
 
-var lineChart1 = function(){
-			
-			$("#chart").kendoChart({
-			theme:$(document).data("kendoSkin") || "metro",
-			chartArea:{
-			height:300,
-			width:550
-			},
-			title: {
-				 text: "รายได้"
-			},
-			legend: {
-                            position: "bottom"
-            },
-			series: [
-				 { 
-						 name: "Balance 2554", data: [6500, 6500, 6500, 6500,6500,6500,6500,6500,6500,6500,6500,6500],
-						color: "BLUE"
-						
-						
-				 } ,
-				 {
-                            name: "Balance 2555",
-                            data: [6100, 5200, 6300, 7200,4100,7800,6100,7000,5300,7300,6200,7100]
-						
-						
-
-                   }, 
-				
-				 {
-                            type: "line",
-                            data: [0.5, 0.5, 0.5, 0.5, 0.5,0.5, 0.5, 0.5, 0.5, 0.5,0.5,0.5],
-                            name: "% Variance",
-                            color: "GREEN",
-							axis:"Variance"
-							
-							
-                  }
-			],
-			valueAxis: [{
-                            title: { text: "Balance " },
-                            min: 0,
-                            max: 8000
-                        }, {
-                            name: "Variance",
-                            title: { text: "%Variance" },
-                            min: 0,
-                            max: 5
-                        }],
-
-			categoryAxis:{
-		 categories: [" ต.ค."," พ.ย."," ธ.ค."," ม.ค."," ก.พ."," มี.ค."," เม.ย."," พ.ค."," มิ.ย."," ก.ค."," ส.ค."," ก.ย."],
-			axisCrossingValue: [0,100]
-			}
-		});
-		
-}//function line chart end
-var lineChart2 = function(){
-			
-			$("#chart").kendoChart({
-			theme:$(document).data("kendoSkin") || "metro",
-			chartArea:{
-			height:300,
-			width:550
-			},
-			title: {
-				 text: "ค่าใช้จ่าย"
-			},
-			legend: {
-                            position: "bottom"
-            },
-			series: [
-				 { 
-						 name: "Balance 2554", data: [6500, 6500, 6500, 6500,6500,6500,6500,6500,6500,6500,6500,6500],
-						color: "BLUE"
-				 } ,
-				 {
-                            name: "Balance 2555",
-                            data: [7000, 7000, 7000, 7000,7000,7000,7000,7000,7000,7000,7000,7000]
-						
-						
-
-                   }, 
-				
-				 {
-                            type: "line",
-                            data: [0.5, 0.5, 0.5, 0.5, 0.5,0.5, 0.5, 0.5, 0.5, 0.5,0.5,0.5],
-                            name: "% Variance",
-                            color: "GREEN",
-							axis:"Variance"
-							
-							
-                  }
-			],
-			valueAxis: [{
-                            title: { text: "Balance " },
-                            min: 0,
-                            max: 8000
-                        }, {
-                            name: "Variance",
-                            title: { text: "%Variance" },
-                            min: 0,
-                            max: 5
-                        }],
-
-			categoryAxis:{
-			 categories: [" ต.ค."," พ.ย."," ธ.ค."," ม.ค."," ก.พ."," มี.ค."," เม.ย."," พ.ค."," มิ.ย."," ก.ค."," ส.ค."," ก.ย."],
-			axisCrossingValue: [0,100]
-			}
-		});
-
-}//function line chart end
-function checkBarType(e){
-//control background opacity 
-$("a.ui-dialog-titlebar-close").click(function(){
-$(".contentMain").css("opacity","1");
-return false;
-});
-
-
-}
-/*### Financial Pie Chart Start###*/
-	var pieChart3= function(){
-		$("#chart2").kendoChart({
-			theme:$(document).data("kendoSkin") || "metro",
-			chartArea:{
-			width:230,
-			height:300
-			},
-			title: {
-				 text: "สัดส่วนงบรายได้ค่าใช้จ่าย"
-			},
-			legend: {
-                            position: "bottom"
-            },
-			series: [{
-                            type: "pie",
-                            data: [ {
-								valueid:"01",
-                                category: "01-รายได้ ",
-                                value: 50.94
-                            }, {
-								valueid:"02",
-                                category: "02-ค่าใช้จ่าย",
-                                value: 49.06
-                            }]
-                        }],
-                        tooltip: {
-                            visible: true,
-                            //format: "{0}%"
-							template :"#= tootipFormat(value,900) #"
-
-                        },
-			
-			seriesDefaults: {
-				labels: {
-					visible: false,
-					format: "{0}%"
-				}
-			},
-			seriesClick:checkBarType
-			
-		});
-
-}//function pie chart end
-/*### Financial Pie Chart Start###*/
-	var pieChart33= function(){
-		$("#chart2").kendoChart({
-			theme:$(document).data("kendoSkin") || "metro",
-			chartArea:{
-			width:230,
-			height:300
-			},
-			title: {
-				 text: ""
-			},
-			legend: {
-                            position: "bottom"
-            },
-			series: [{
-                            type: "pie",
-                            data: [ {
-								valueid:"01",
-                                category: "01-รายได้ ",
-                                value: 50.94
-                            }, {
-								valueid:"02",
-                                category: "02-ค่าใช้จ่าย",
-                                value: 49.06
-                            }]
-                        }],
-                        tooltip: {
-                            visible: true,
-                           // format: "{0}%"
-							template :"#= tootipFormat(value,900) #"
-
-                        },
-			seriesDefaults: {
-				labels: {
-					visible: false,
-					format: "{0}%"
-				}
-			}
-			
-		});
-
-}//function pie chart end
-/*### Financial Pie Chart End###*/
 
 	  $("#ParamYear").kendoDropDownList();
 
@@ -472,7 +247,6 @@ return false;
 	// ajax start 01
 
 	$("[href=#content1]").click(function(){
-		$(".ui-icon ui-icon-closethick").trigger("click");
 		$(".pageRemember").remove();
 		$("body").append("<input type='hidden' id='pageContent1' class='pageRemember' name='pageContent1' value='pageContent1'>");
 
@@ -488,8 +262,7 @@ return false;
 	$("#content3").empty();
 	$("#content4").empty();
 
-		
-		$("#content1").append(data);
+    $("#content1").append(data);
 
 		
 
@@ -522,7 +295,6 @@ return false;
 				$("#content2").append(data);
 
 				
-
 				//if data content is null will content is hidden
 				if($(".textR").text()==""){
 					$("#content2").empty();
@@ -695,11 +467,7 @@ function tootipFormat(value,summ){
 	</div>
 	<!--------------------------- Details Start--------------------------->
 
-
 	<div class="contentMain">
-
-
-
 
 
 <!-- TAB MANAGEMENT START -->

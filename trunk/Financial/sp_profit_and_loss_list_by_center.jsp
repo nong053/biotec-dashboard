@@ -3,7 +3,8 @@
 <%@page import="java.text.DecimalFormat" %>
 <!--- Tab2 -->
 <%
-	DecimalFormat numberFormatter = new DecimalFormat("###,###,##0.00");
+	//DecimalFormat numberFormatter = new DecimalFormat("###,###,##0.00");
+	DecimalFormat numberFormatter = new DecimalFormat("0.00");
 	String paramYear= request.getParameter("paramYear");
 	String paramMonth= request.getParameter("paramMonth");
 //	String paramYear= "2012";
@@ -294,130 +295,183 @@ font-size:16px;
 }
 	//#######################Graph Program Start#######################01
 
-var barChart = function(title){
-			$("#chart").kendoChart({
+/*### Pie Start  ###*/		
+var pieChart= function(paramValue,titleText,paramSum){
+		
+		$("#pieChart").show();
+		//var data=paramValue;
+		/*
+		var data = [
+                    {
+						"account_key": 01,
+                        "category": "สวทช.",
+                        "value": 22,
+                        //"explode": true
+                    },
+                    {
+						"account_key": 02,
+                        "category": "สวทช.",
+                        "value": 2
+                    },
+                    {
+						"account_key": 03,
+                        "category": "สวทช.",
+                        "value": 49
+                    },
+                    {
+						"account_key": 04,
+                        "category": "ศจ.",
+                        "value": 27
+                    }
+                ];
+				*/
+
+		$("#pieChart").kendoChart({
 			theme:$(document).data("kendoSkin") || "metro",
 			chartArea:{
-			height:300,
-			width:550
+			width:240,
+			height:300
 			},
 			title: {
-				 text: title
+				 text: titleText['title']
 			},
 			legend: {
                             position: "bottom"
             },
-			series: [
-				 { 
-						 name: "Last Year", data: [6500, 6500, 6500, 6500,6500,6500,6500,6500,6500,6500,6500,6500],
-						color: "BLUE"
-						
-						
-				 } ,
-				 {
-                            name: "This Year",
-                            data: [6100, 5200, 6300, 7200,4100,7800,6100,7000,5300,7300,6200,7100]
-						
-						
 
-                   }, 
-				
-				 {
-                            type: "line",
-                            data: [0.5, 0.5, 0.5, 0.5, 0.5,0.5, 0.5, 0.5, 0.5, 0.5,0.5,0.5],
-                            name: "Target",
-                            color: "GREEN",
-							axis:"Variance"
+			dataSource: {
+                            data: paramValue
+                        },
+                        series: [{
+                            type: "pie",
+                            field: "value",
+                            categoryField: "category",
+                            //explodeField: "explode"
+                        }],
+
+				/*
+			series: [{
+                            type: "pie",
+							name:"01",
 							
+							//data:paramValue
+								
+                            data: [ {
+								id:01,
+                                category: "01-สินทรัพย์หมุนเวียน",
+                                value: 35
+                            }, {
+								id:02,
+                                category: "02-สินทรัพย์ไม่หมุนเวียน",
+                                value: 65
+                            }]
+
 							
-                  }
-			],
+                        }],
+						*/
+
+                        tooltip: {
+                            visible: true,
+							//template:"#= tootipFormat(value,"+paramSum+") #"
+							template: "${ value }, #= kendo.format('{0:P}', percentage)#"
+                          //  format: "{0}%"
+
+                        },
+			
+			seriesDefaults: {
+				/*labels: {
+					visible: true,
+					format: "{0}%"
+				}*/
+			},
+			seriesClick: onSeriesClick,
+
+
+		
+			//axisLabelClick: onAxisLabelClick
+			
+		});
+}//function pie chart end
+/*### Pie End  ###*/
+function onSeriesClick(e) { 
+	//console.log(e.dataItem['account_key']);
+	var $account_key=e.dataItem['account_key'];
+	//console.log($account_key);
+	var $category = e.category;
+	$.ajax({
+		url:'sp_balance_sheet_trend.jsp',
+		type:'get',
+		dataType:'json',
+		data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'business_area': $('#domParamOrg').val(),'account_key':$account_key},
+			success:function(data){
+			//console.log(data[0]['series']);
+
+	//var $subCategory =$category.substring(0,2);
+	//alert($subCategory);
+
+					barChart(data[0]['series'],$category);
+					var $width=$("body").width()-100;
+
+					$("#boxB").dialog({
+					width:650,
+					modal: true,
+					title:"งบรายได้ค่าใช้จ่าย",
+					buttons:{
+					"OK":function(){
+					$(this).dialog("close");
+						}
+					},
+					regend:{
+					position:"buttom"
+					}
+					
+					});
+		
+			}//susscess
+	});//ajax
+
+}//funciton
+//call Function PieChart 
+//call Function BarChart 
+var barChart = function(seriesParam,titleParam){
+	//alert("hello");
+			$("#chart").kendoChart({
+			theme:$(document).data("kendoSkin") || "metro",
+			title: {
+				 text:titleParam
+			},
+			chartArea: {
+			height: 300,
+			width:600
+			 },
+			legend: {
+                            position: "bottom"
+            },
+
+			series: seriesParam,
 			valueAxis: [{
-                            title: { text: "YOY" },
+                            title: { text: "" },
+							labels: {
+                                template: "#= kendo.format('{0:N0}', value ) # "
+                            },
                             min: 0,
                             max: 8000
                         }, {
                             name: "Variance",
                             title: { text: "%Variance" },
+							labels: {
+                                template: "#= kendo.format('{0:N0}', value ) # "
+                            },
                             min: 0,
                             max: 5
                         }],
 
 			categoryAxis:{
-			categories: [ "Oct", "Nov", "Dec","Jan", "Feb", "Mar", "Apr","May", "Jun", "Jul", "Aug","Sep" ],
+			 categories: [" ต.ค."," พ.ย."," ธ.ค."," ม.ค."," ก.พ."," มี.ค."," เม.ย."," พ.ค."," มิ.ย."," ก.ค."," ส.ค."," ก.ย."],
 			axisCrossingValue: [0,100]
 			}
 		});
-}//function line chart end
-
-
-
-function onSeriesClick(e) {
-    alert("Clicked value: " + e.value);
-}
-function checkBarType(e){
-
-	barChart("เงินอุดหนุนจากรัฐบาล");
-
-	$("#boxB").dialog({
-	title:"",
-	modal: true,
-	width:650,
-	buttons:{
-		"OK":function(){
-			$(this).dialog("close");
-			$(".contentMain").css("opacity","1");
-		}
-	},
-	regend:{
-	position:"botom"
-	}
-	});
-}
-
-/*### Pie Start  ###*/		
-//$("#pieChart").onSeriesClick();
-var pieChart = function(paramValue,titleText){
-		$("#pieChart").kendoChart({
-			theme:$(document).data("kendoSkin") || "metro",
-			chartArea:{
-			width:230,
-			height:300
-			},
-			title: {
-				 text:titleText['title']
-			},
-			legend: {
-                            position: "bottom"
-            },
-			series: [{
-                            type: "pie",
-                            data: paramValue
-                        }],
-                        tooltip: {
-                            visible: true,
-                           // format: "{0}%"
-						   template :"#= tootipFormat(value,900) #"
-
-                        },
-			
-			seriesDefaults: {
-				labels: {
-					visible: false,
-					format: "{0}%"
-				}
-			},
-			seriesClick:checkBarType
-			
-		});
-
-
-		
-		
-}
-//pieChart();
-/*### Pie End  ###*/
-
+}//function line BarChart end
 
 
 
@@ -581,7 +635,7 @@ var $titleJ5 =[
                   
                      
                   },{
-                      Field1: "เงินอะดหนุนอื่น",
+                      Field1: "เงินอุดหนุนอื่น",
 					  Field2: "<div id='textR'>2,391.88</div>",
                       Field3: " <div id='textR'>216.80 </div>",
 					
@@ -673,18 +727,21 @@ var $titleJ5 =[
 var j=0;
 var dataLevel1 ="";
 var titleText="{\"title\":\"สัดส่วนงบรายได้ค่าใช้จ่าย\"}";
+var account_key="";
 dataLevel1+="[";
 	$(".level4").each(function(){
 		
 	//Format  [{category: "ศจ.",value: 10,color:"#6C2E9B" }]
+	account_key=$(this).attr("id").substring(11);
+	
 	if(j==0){
 	dataLevel1+="{";
-		dataLevel1+="category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());
+		dataLevel1+="account_key:"+account_key+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(3).text());
 		//$("body").append("<input type='text'> name='domAccount_key"+J+"' id='domAccount_key"+J+"' class='account_key' value='"+$(this).text()+"' ");
 	dataLevel1+="}";
 	}else{
 	dataLevel1+=",{";
-		dataLevel1+="category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());
+		dataLevel1+="account_key:"+account_key+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(3).text());
 	dataLevel1+="}";	
 	}
 	j++;
@@ -693,7 +750,7 @@ dataLevel1+="[";
 	//get is json same dataType in ajax
 	var obj = eval ("(" + dataLevel1 + ")"); 
 	var obj2=eval("("+titleText+")");
-	//console.log("obj"+obj);
+	console.log("obj"+dataLevel1);
 	//console.log("obj2"+obj2);
 	pieChart(obj,obj2);
 //Step1 Call Default
@@ -728,21 +785,30 @@ dataLevel1+="[";
 //Step Call Level2
 
 	var account_key = e.data.account_key;
+	var account_key_loop="";
+	var account_key_sub_loop="";
 	var account_name = e.data.account_name;
 	var dataLevel2 ="";
 	var j=0;
+
+
 	var titleText="{\"title\":\""+account_name+"\"}";
 	//alert("titleText"+titleText);
 	//console.log($(this).get());
 	dataLevel2+="[";
 	$(".parent_key"+account_key).each(function(){
+		account_key_loop=this.id;
+		account_key_sub_loop=account_key_loop.substring(11);
+
+		//console.log("account_key_sub_loop"+account_key_sub_loop);
+
 		if(j==0){
 			dataLevel2+="{";
-				dataLevel2+="category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());
+				dataLevel2+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(3).text());
 			dataLevel2+="}";
 		}else{
 			dataLevel2+=",{";
-				dataLevel2+="category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());
+				dataLevel2+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(3).text());
 			dataLevel2+="}";		
 		}
 		j++;
@@ -798,6 +864,8 @@ dataLevel1+="[";
 //Step Call Level3
 
 	var account_key = e.data.account_key;
+	var account_key_loop="";
+	var account_key_sub_loop="";
 	var account_name = e.data.account_name;
 	var dataLevel3 ="";
 	var j=0;
@@ -806,13 +874,17 @@ dataLevel1+="[";
 	//console.log($(this).get());
 	dataLevel3+="[";
 	$(".parent_key"+account_key).each(function(){
+
+		account_key_loop=this.id;
+		account_key_sub_loop=account_key_loop.substring(11);
+
 		if(j==0){
 			dataLevel3+="{";
-				dataLevel3+="category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());
+				dataLevel3+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(3).text());
 			dataLevel3+="}";
 		}else{
 			dataLevel3+=",{";
-				dataLevel3+="category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());
+				dataLevel3+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(3).text());
 			dataLevel3+="}";		
 		}
 		j++;
@@ -873,6 +945,8 @@ dataLevel1+="[";
 //Step Call Level4
 
 	var account_key = e.data.account_key;
+	var account_key_loop="";
+	var account_key_sub_loop="";
 	var account_name = e.data.account_name;
 	var dataLevel4 ="";
 	var j=0;
@@ -881,13 +955,17 @@ dataLevel1+="[";
 	//console.log($(this).get());
 	dataLevel4+="[";
 	$(".parent_key"+account_key).each(function(){
+		
+		account_key_loop=this.id;
+		account_key_sub_loop=account_key_loop.substring(11);
+
 		if(j==0){
 			dataLevel4+="{";
-				dataLevel4+="category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());
+				dataLevel4+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(3).text());
 			dataLevel4+="}";
 		}else{
 			dataLevel4+=",{";
-				dataLevel4+="category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());
+				dataLevel4+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(3).text());
 			dataLevel4+="}";		
 		}
 		j++;
@@ -946,6 +1024,8 @@ dataLevel1+="[";
 //Step Call Level5
 
 	var account_key = e.data.account_key;
+	var account_key_loop="";
+	var account_key_sub_loop="";
 	var account_name = e.data.account_name;
 	var dataLevel5 ="";
 	var dataLevel5_Sum="";
@@ -955,15 +1035,19 @@ dataLevel1+="[";
 	//console.log($(this).get());
 	dataLevel5+="[";
 	$(".parent_key"+account_key).each(function(){
+		
+		account_key_loop=this.id;
+		account_key_sub_loop=account_key_loop.substring(11);
+
 		if(j==0){
 			dataLevel5+="{";
-				dataLevel5+="account_key:"+account_key+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());
-				dataLevel5_Sum+=parseInt($(this).parent().parent().children('td').eq(2).text());
+				dataLevel5+="account_key:"+account_key_sub_loop+",account_key:"+account_key+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(3).text());
+				dataLevel5_Sum+=parseInt($(this).parent().parent().children('td').eq(3).text());
 			dataLevel5+="}";
 		}else{
 			dataLevel5+=",{";
-				dataLevel5+="account_key:"+account_key+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());
-				dataLevel5_Sum+=parseInt($(this).parent().parent().children('td').eq(2).text());
+				dataLevel5+="account_key:"+account_key_sub_loop+",account_key:"+account_key+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(3).text());
+				dataLevel5_Sum+=parseInt($(this).parent().parent().children('td').eq(3).text());
 			dataLevel5+="}";		
 		}
 		j++;
@@ -1030,7 +1114,7 @@ dataLevel1+="[";
 	
 function tootipFormat(value,summ){
 		var value1 = Math.floor(value);
-		var value2 = Math.floor((value/summ)*100);
+		var value2 = (Math.floor((value/summ)*100)).toFixed(2);
 		return value1+" , " + value2+"%";
 	}
 
