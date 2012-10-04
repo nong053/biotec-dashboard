@@ -4,7 +4,7 @@
 <!--- Tab1 -->
 <%
 //double price = 10.59;
-DecimalFormat numberFormatter = new DecimalFormat("###,###,##0.00");
+DecimalFormat numberFormatter = new DecimalFormat("0.00");
 //out.print(numberFormatter.format(price));
 
 	String paramYear= request.getParameter("paramYear");
@@ -319,7 +319,8 @@ var pieChart= function(paramValue,titleText,paramSum){
 
                         tooltip: {
                             visible: true,
-							template:"#= tootipFormat(value,"+paramSum+") #"
+							//template:"#= tootipFormat(value,"+paramSum+") #"
+							template: "${ value }, #= kendo.format('{0:P}', percentage)#"
                           //  format: "{0}%"
 
                         },
@@ -348,7 +349,7 @@ function onSeriesClick(e) {
 		url:'sp_balance_sheet_trend.jsp',
 		type:'get',
 		dataType:'json',
-		data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'business_area': $category,'account_key':$account_key},
+		data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'business_area': $('#domParamOrg').val(),'account_key':$account_key},
 			success:function(data){
 			//console.log(data[0]['series']);
 
@@ -397,11 +398,17 @@ var barChart = function(seriesParam,titleParam){
 			series: seriesParam,
 			valueAxis: [{
                             title: { text: "" },
+							labels: {
+                                template: "#= kendo.format('{0:N0}', value ) # "
+                            },
                             min: 0,
                             max: 8000
                         }, {
                             name: "Variance",
                             title: { text: "%Variance" },
+							labels: {
+                                template: "#= kendo.format('{0:N0}', value ) # "
+                            },
                             min: 0,
                             max: 5
                         }],
@@ -444,7 +451,7 @@ dataLevel2+="[";
 	//get is json same dataType in ajax
 	var obj = eval ("(" + dataLevel2 + ")"); 
 	var obj2=eval("("+titleText+")");
-	//console.log("Sum"+Sum);
+	console.log("dataLevel2"+dataLevel2);
 	pieChart(obj,obj2,Sum);
 //Step1 Call Default
 
