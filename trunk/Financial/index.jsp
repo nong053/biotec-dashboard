@@ -508,7 +508,10 @@ return false;
 	// ajax start 01
 
 	$("[href=#content1]").click(function(){
-	//alert("hello jquery");
+
+		$(".pageRemember").remove();
+		$("body").append("<input type='hidden' id='pageContent1' class='pageRemember' name='pageContent1' value='pageContent1'>");
+
 	$.ajax({
 		url:'sp_balance_sheet_list_by_center.jsp',
 		type:'get',
@@ -521,10 +524,10 @@ return false;
 	$("#content3").empty();
 	$("#content4").empty();
 
-		$(".pageRemember").remove();
-		$("body").append("<input type='hidden' id='pageContent1' class='pageRemember' name='pageContent1' value='pageContent1'>");
+		
 		$("#content1").append(data);
 
+		
 
 		//pieChart1();
 		}
@@ -536,7 +539,8 @@ return false;
 		// ajax start 02
 
 			$("[href=#content2]").click(function(){
-			//alert("hello jquery");
+				$(".pageRemember").remove();
+				$("body").append("<input type='hidden' id='pageContent2' class='pageRemember' name='pageContent2' value='pageContent2'>");
 
 			$.ajax({
 				'url':'sp_profit_and_loss_list_by_center.jsp',
@@ -549,9 +553,11 @@ return false;
 				$("#content2").empty();
 				$("#content3").empty();
 				$("#content4").empty();
-				$(".pageRemember").remove();
-				$("body").append("<input type='hidden' id='pageContent2' class='pageRemember' name='pageContent2' value='pageContent2'>");
+				
 				$("#content2").append(data);
+
+				
+
 				//if data content is null will content is hidden
 				if($(".textR").text()==""){
 					$("#content2").empty();
@@ -573,6 +579,8 @@ return false;
 		// ajax start 03
 
 			$("[href=#content3]").click(function(){
+				$(".pageRemember").remove();
+				$("body").append("<input type='hidden' id='pageContent3' class='pageRemember' name='pageContent3' value='pageContent3'>");
 			//alert("hello jquery");
 
 			$.ajax({
@@ -587,9 +595,10 @@ return false;
 			$("#content3").empty();
 			$("#content4").empty();
 
-				$(".pageRemember").remove();
-				$("body").append("<input type='hidden' id='pageContent3' class='pageRemember' name='pageContent3' value='pageContent3'>");
+				
 				$("#content3").append(data);
+
+				
 				//sufferTable();
 				
 				}
@@ -602,6 +611,8 @@ return false;
 
 	$("[href=#content4]").click(function(){
 	//alert("hello jquery");
+		$(".pageRemember").remove();
+		$("body").append("<input type='hidden' id='pageContent4' class='pageRemember' name='pageContent4' value='pageContent4'>");
 
 	$.ajax({
 		'url':'sp_profit_and_loss_list.jsp',
@@ -615,9 +626,10 @@ return false;
 	$("#content3").empty();
 	$("#content4").empty();
 
-		$(".pageRemember").remove();
-		$("body").append("<input type='hidden' id='pageContent4' class='pageRemember' name='pageContent4' value='pageContent4'>");
+
 		$("#content4").append(data);
+
+		
 
 		//pieChart33();
 		sufferTable();
