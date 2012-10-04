@@ -544,6 +544,7 @@ return false;
 				'dataType':'html',
 				data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramOrg':$("#domParamOrg").val()},
 				success:function(data){
+				
 				$("#content1").empty();
 				$("#content2").empty();
 				$("#content3").empty();
@@ -551,10 +552,10 @@ return false;
 				$(".pageRemember").remove();
 				$("body").append("<input type='hidden' id='pageContent2' class='pageRemember' name='pageContent2' value='pageContent2'>");
 				$("#content2").append(data);
-				//$(".k-plus").trigger("click");
-
-
-
+				//if data content is null will content is hidden
+				if($(".textR").text()==""){
+					$("#content2").empty();
+				}
 
 				$("#chart2").empty();
 				sufferTable();
@@ -580,7 +581,7 @@ return false;
 				'dataType':'html',
 				data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramOrg':$("#domParamOrg").val()},
 				success:function(data){
-				//alert(data);
+			
 			$("#content1").empty();
 			$("#content2").empty();
 			$("#content3").empty();
@@ -608,7 +609,7 @@ return false;
 		'dataType':'html',
 		data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramOrg':$("#domParamOrg").val()},
 		success:function(data){
-		//alert(data);
+		
 	$("#content2").empty();
 	$("#content1").empty();
 	$("#content3").empty();
@@ -730,10 +731,10 @@ function tootipFormat(value,summ){
 				<li ><a href="#content4">งบรายได้ค่าใช้จ่ายแยกศูนย์</a></li>
 			
 			</ul>
-			<div id="content1">content1</div>
-			<div id="content2">content2</div>
-			<div id="content3">content3</div>
-			<div id="content4">content4</div>
+			<div id="content1"></div>
+			<div id="content2"></div>
+			<div id="content3"></div>
+			<div id="content4"></div>
 <br style="clear:both" />
 </div>
 <!-- TAB MANAGEMENT END -->

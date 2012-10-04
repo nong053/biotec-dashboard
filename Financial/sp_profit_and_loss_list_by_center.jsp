@@ -3,7 +3,7 @@
 <%@page import="java.text.DecimalFormat" %>
 <!--- Tab2 -->
 <%
-	DecimalFormat numberFormatter = new DecimalFormat("#0.00");
+	DecimalFormat numberFormatter = new DecimalFormat("###,###,##0.00");
 	String paramYear= request.getParameter("paramYear");
 	String paramMonth= request.getParameter("paramMonth");
 //	String paramYear= "2012";
@@ -93,10 +93,16 @@ Double Result=0.0;
 			
 			pMonthAmt = rs.getDouble("pMonthAmt");
 			currentAmt = rs.getDouble("currentAmt");
+
+			if(currentAmt==0.0){
+			GrowthPercentage=0.0;
+			}else{
 			Result = pMonthAmt-currentAmt;
 			GrowthPercentage =(Result / currentAmt)* 100;
+			}
 
-		dataDefault+="Field5:\"<div class='textR'>"+GrowthPercentage+"%</div>\",";
+
+		dataDefault+="Field5:\"<div class='textR'>"+numberFormatter.format(GrowthPercentage)+"%</div>\",";
 		dataDefault+="Field6:\"<div class='textR'>"+numberFormatter.format(rs.getDouble("pYearAmt"))+"</div>\"";
 		dataDefault+="}" ;
 		}else{
@@ -109,10 +115,14 @@ Double Result=0.0;
 			
 			pMonthAmt = rs.getDouble("pMonthAmt");
 			currentAmt = rs.getDouble("currentAmt");
+			if(currentAmt==0.0){
+			GrowthPercentage=0.0;
+			}else{
 			Result = pMonthAmt-currentAmt;
 			GrowthPercentage =(Result / currentAmt)* 100;
+			}
 
-		dataDefault+="Field5:\"<div class='textR'>"+GrowthPercentage+"%</div>\",";
+		dataDefault+="Field5:\"<div class='textR'>"+numberFormatter.format(GrowthPercentage)+"%</div>\",";
 		dataDefault+="Field6:\"<div class='textR'>"+numberFormatter.format(rs.getDouble("pYearAmt"))+"</div>\"";
 		dataDefault+="}" ;
 		}
@@ -668,12 +678,12 @@ dataLevel1+="[";
 	//Format  [{category: "ศจ.",value: 10,color:"#6C2E9B" }]
 	if(j==0){
 	dataLevel1+="{";
-		dataLevel1+="category:"+"\""+$(this).text()+"\",value:"+$(this).parent().parent().children('td').eq(2).text();
+		dataLevel1+="category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());
 		//$("body").append("<input type='text'> name='domAccount_key"+J+"' id='domAccount_key"+J+"' class='account_key' value='"+$(this).text()+"' ");
 	dataLevel1+="}";
 	}else{
 	dataLevel1+=",{";
-		dataLevel1+="category:"+"\""+$(this).text()+"\",value:"+$(this).parent().parent().children('td').eq(2).text();
+		dataLevel1+="category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());
 	dataLevel1+="}";	
 	}
 	j++;
@@ -682,8 +692,8 @@ dataLevel1+="[";
 	//get is json same dataType in ajax
 	var obj = eval ("(" + dataLevel1 + ")"); 
 	var obj2=eval("("+titleText+")");
-	console.log("obj"+obj);
-	console.log("obj2"+obj2);
+	//console.log("obj"+obj);
+	//console.log("obj2"+obj2);
 	pieChart(obj,obj2);
 //Step1 Call Default
 
@@ -722,25 +732,25 @@ dataLevel1+="[";
 	var j=0;
 	var titleText="{\"title\":\""+account_name+"\"}";
 	//alert("titleText"+titleText);
-	console.log($(this).get());
+	//console.log($(this).get());
 	dataLevel2+="[";
 	$(".parent_key"+account_key).each(function(){
 		if(j==0){
 			dataLevel2+="{";
-				dataLevel2+="category:"+"\""+$(this).text()+"\",value:"+$(this).parent().parent().children('td').eq(2).text();
+				dataLevel2+="category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());
 			dataLevel2+="}";
 		}else{
 			dataLevel2+=",{";
-				dataLevel2+="category:"+"\""+$(this).text()+"\",value:"+$(this).parent().parent().children('td').eq(2).text();
+				dataLevel2+="category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());
 			dataLevel2+="}";		
 		}
 		j++;
 	});
 	dataLevel2+="]";
-	console.log(dataLevel2);
+	//console.log(dataLevel2);
 	var obj=eval("("+dataLevel2+")");
 	var obj2=eval("("+titleText+")");
-	console.log(obj2);
+	//console.log(obj2);
 	pieChart(obj,obj2);
 
 //Step Call Level2
@@ -792,25 +802,25 @@ dataLevel1+="[";
 	var j=0;
 	var titleText="{\"title\":\""+account_name+"\"}";
 	//alert("titleText"+titleText);
-	console.log($(this).get());
+	//console.log($(this).get());
 	dataLevel3+="[";
 	$(".parent_key"+account_key).each(function(){
 		if(j==0){
 			dataLevel3+="{";
-				dataLevel3+="category:"+"\""+$(this).text()+"\",value:"+$(this).parent().parent().children('td').eq(2).text();
+				dataLevel3+="category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());
 			dataLevel3+="}";
 		}else{
 			dataLevel3+=",{";
-				dataLevel3+="category:"+"\""+$(this).text()+"\",value:"+$(this).parent().parent().children('td').eq(2).text();
+				dataLevel3+="category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());
 			dataLevel3+="}";		
 		}
 		j++;
 	});
 	dataLevel3+="]";
-	console.log(dataLevel3);
+	//console.log(dataLevel3);
 	var obj=eval("("+dataLevel3+")");
 	var obj2=eval("("+titleText+")");
-	console.log(obj2);
+	//console.log(obj2);
 	pieChart(obj,obj2);
 
 //Step Call Level3
@@ -867,25 +877,25 @@ dataLevel1+="[";
 	var j=0;
 	var titleText="{\"title\":\""+account_name+"\"}";
 	//alert("titleText"+titleText);
-	console.log($(this).get());
+	//console.log($(this).get());
 	dataLevel4+="[";
 	$(".parent_key"+account_key).each(function(){
 		if(j==0){
 			dataLevel4+="{";
-				dataLevel4+="category:"+"\""+$(this).text()+"\",value:"+$(this).parent().parent().children('td').eq(2).text();
+				dataLevel4+="category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());
 			dataLevel4+="}";
 		}else{
 			dataLevel4+=",{";
-				dataLevel4+="category:"+"\""+$(this).text()+"\",value:"+$(this).parent().parent().children('td').eq(2).text();
+				dataLevel4+="category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());
 			dataLevel4+="}";		
 		}
 		j++;
 	});
 	dataLevel4+="]";
-	console.log(dataLevel4);
+	//console.log(dataLevel4);
 	var obj=eval("("+dataLevel4+")");
 	var obj2=eval("("+titleText+")");
-	console.log(obj2);
+	//console.log(obj2);
 	pieChart(obj,obj2);
 
 //Step Call Level4
@@ -941,17 +951,17 @@ dataLevel1+="[";
 	var j=0;
 	var titleText="{\"title\":\""+account_name+"\"}";
 	//alert("titleText"+titleText);
-	console.log($(this).get());
+	//console.log($(this).get());
 	dataLevel5+="[";
 	$(".parent_key"+account_key).each(function(){
 		if(j==0){
 			dataLevel5+="{";
-				dataLevel5+="account_key:"+account_key+",category:"+"\""+$(this).text()+"\",value:"+$(this).parent().parent().children('td').eq(2).text();
+				dataLevel5+="account_key:"+account_key+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());
 				dataLevel5_Sum+=parseInt($(this).parent().parent().children('td').eq(2).text());
 			dataLevel5+="}";
 		}else{
 			dataLevel5+=",{";
-				dataLevel5+="account_key:"+account_key+",category:"+"\""+$(this).text()+"\",value:"+$(this).parent().parent().children('td').eq(2).text();
+				dataLevel5+="account_key:"+account_key+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());
 				dataLevel5_Sum+=parseInt($(this).parent().parent().children('td').eq(2).text());
 			dataLevel5+="}";		
 		}
@@ -959,12 +969,12 @@ dataLevel1+="[";
 	});
 	dataLevel5+="]";
 
-	console.log(dataLevel5);
-	console.log(dataLevel5_Sum);
+	//console.log(dataLevel5);
+	//console.log(dataLevel5_Sum);
 
 	var obj=eval("("+dataLevel5+")");
 	var obj2=eval("("+titleText+")");
-	console.log(obj);
+	//console.log(obj);
 	pieChart(obj,obj2);
 
 //Step Call Level5
@@ -1035,10 +1045,18 @@ function tootipFormat(value,summ){
       <tr>
 		 <!--<th class="k-hierarchy-cell k-header"></th>-->
           <th data-field="Field1" ><center><div class="fontTitle"> </div></center></th>
-		  <th  data-field="Field2"><center><div class="fontTitle"><%=paramMonthPerv%> &nbsp; <%=paramCurentYear%> </div></center></th>		 
-		  <th data-field="Field3"><center><div class="fontTitle"><%=paramMonthCurent%> &nbsp; <%=paramCurentYear%> </div></center></th>
+		  <%
+			String paramCurentYearStr=String.valueOf(paramCurentYear);
+			String paramCurentYearSub=paramCurentYearStr.substring(2);
+		%>
+		  <th  data-field="Field2"><center><div class="fontTitle"><%=paramMonthPerv%> &nbsp; <%=paramCurentYearSub%> </div></center></th>		 
+		  <th data-field="Field3"><center><div class="fontTitle"><%=paramMonthCurent%> &nbsp; <%=paramCurentYearSub%> </div></center></th>
 		  <th data-field="Field5"><center><div class="fontTitle">%</div></center></th>
-		  <th data-field="Field6"><center><div class="fontTitle"><%=paramMonthCurent%> &nbsp; <%=paramLastYear%> </div></center></th>
+		  <%
+		  String paramLastYearStr=String.valueOf(paramLastYear);
+		  String paramLastYearSub=paramLastYearStr.substring(2);
+		  %>
+		  <th data-field="Field6"><center><div class="fontTitle"><%=paramMonthCurent%> &nbsp; <%=paramLastYearSub%> </div></center></th>
 	  </tr>
   </thead>
   <tbody>
