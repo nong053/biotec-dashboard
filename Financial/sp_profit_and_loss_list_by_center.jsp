@@ -361,6 +361,7 @@ function checkBarType(e){
 
 	$("#boxB").dialog({
 	title:"",
+	modal: true,
 	width:650,
 	buttons:{
 		"OK":function(){

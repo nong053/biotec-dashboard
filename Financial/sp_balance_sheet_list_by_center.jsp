@@ -357,8 +357,10 @@ function onSeriesClick(e) {
 
 					barChart(data[0]['series'],$category);
 					var $width=$("body").width()-100;
+
 					$("#boxB").dialog({
 					width:650,
+					modal: true,
 					title:"งบแสดงฐานะการเงิน",
 					buttons:{
 					"OK":function(){
