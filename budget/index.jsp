@@ -12,7 +12,6 @@
 		 <link href="../styles/kendo.dataviz.min.css" rel="stylesheet">
 		
 
-
         <script src="../js/jquery.min.js"></script>
 		<script src="../js/kendo.all.min.js"></script>
 		  <script src="../js/kendo.dataviz.min.js"></script>
@@ -20,8 +19,6 @@
 		<script type="text/javascript" src="../jqueryUI/js/jquery-ui-1.8.21.custom.min.js"></script>
 	<!--	<script src="../js/console.js"></script>-->
 	
-	  
-		
 		<style type="text/css">
 			html,
 			body {
@@ -1086,7 +1083,7 @@ function addCommas(nStr)
 				dataType:"json",
 				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val()},
 				success:function(data){
-				HiddenValueIsNull();
+			
 				$("#content1").hide();
 				$("#content2").hide();
 				$("#content3").hide();
@@ -1295,7 +1292,7 @@ var barChart1 = function(seriesParam,categoryParam){
 				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+category);
 				$("#contentR .projectHead1").empty();
 				$("#contentR .projectHead1").append("Top 10 Project Least Spending of "+category);
-
+				HiddenValueIsNull(); 
 				callProgressbar("111",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
 				callProgressbar("112",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
 				callProgressbar("113",parseFloat(data[6]["value"]).toFixed(2),data[7]["name"]);
@@ -1318,7 +1315,7 @@ var barChart1 = function(seriesParam,categoryParam){
 				callProgressbar("128",parseFloat(data[36]["value"]).toFixed(2),data[37]["name"]);
 				callProgressbar("129",parseFloat(data[38]["value"]).toFixed(2),data[39]["name"]);
 				callProgressbar("1210",parseFloat(data[40]["value"]).toFixed(2),data[41]["name"]);
-
+				HiddenValueIsNull(); 
 					/*
 					var serie1 = data[0]["series1"];
 					var category1 = data[1]["category1"];
@@ -1560,6 +1557,7 @@ var barChart21 = function(seriesParam,categoryParam){
 				$("#contentR .projectHead1").append("Top 10 Project Least Spending of "+category);
 
 					try{
+						HiddenValueIsNull2(); 
 					callProgressbar("211",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
 					callProgressbar("212",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
 					callProgressbar("213",parseFloat(data[6]["value"]).toFixed(2),data[7]["name"]);
@@ -1582,6 +1580,7 @@ var barChart21 = function(seriesParam,categoryParam){
 					callProgressbar("228",parseFloat(data[36]["value"]).toFixed(2),data[37]["name"]);
 					callProgressbar("229",parseFloat(data[38]["value"]).toFixed(2),data[39]["name"]);
 					callProgressbar("2210",parseFloat(data[40]["value"]).toFixed(2),data[41]["name"]);
+					HiddenValueIsNull2(); 
 					}
 					catch(err)
 						{
@@ -1768,7 +1767,7 @@ function funContent3(e){
 				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+center);
 				$("#contentR .projectHead1").empty();
 				$("#contentR .projectHead1").append("Top 10 Project Least Spending of "+center);
-
+					HiddenValueIsNull3(); 
 					callProgressbar("311",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
 					callProgressbar("312",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
 					callProgressbar("313",parseFloat(data[6]["value"]).toFixed(2),data[7]["name"]);
@@ -1791,6 +1790,7 @@ function funContent3(e){
 					callProgressbar("328",parseFloat(data[36]["value"]).toFixed(2),data[37]["name"]);
 					callProgressbar("329",parseFloat(data[38]["value"]).toFixed(2),data[39]["name"]);
 					callProgressbar("3210",parseFloat(data[40]["value"]).toFixed(2),data[41]["name"]);
+					HiddenValueIsNull3(); 
 					/*
 					var serie1 = data[0]["series1"];
 					var category1 = data[1]["category1"];
@@ -1965,7 +1965,7 @@ function funContent4(e){
 				$("#contentL .projectHead1").append("Top 10 Cost Center Most Spending of "+center);
 				$("#contentR .projectHead1").empty();
 				$("#contentR .projectHead1").append("Top 10 Cost Center Least Spending of "+center);
-
+					HiddenValueIsNull4(); 
 					callProgressbar("411",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
 					callProgressbar("412",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
 					callProgressbar("413",parseFloat(data[6]["value"]).toFixed(2),data[7]["name"]);
@@ -1988,6 +1988,7 @@ function funContent4(e){
 					callProgressbar("428",parseFloat(data[36]["value"]).toFixed(2),data[37]["name"]);
 					callProgressbar("429",parseFloat(data[38]["value"]).toFixed(2),data[39]["name"]);
 					callProgressbar("4210",parseFloat(data[40]["value"]).toFixed(2),data[41]["name"]);
+					HiddenValueIsNull4(); 
 					/*
 					var serie1 = data[0]["series1"];
 					var category1 = data[1]["category1"];
@@ -2362,7 +2363,7 @@ function templateFormat(value,summ) {
 												<th colspan="2"><div class="projectHead1">Top 10 Project Most Spending of </div></th>
 										</tr>
 										<tr>
-												<th  width="60%"><div class="projectHead">Cost Center </div></th>
+												<th  width="60%"><div class="projectHead">Project</div></th>
 												<th  width="40%"><div class="projectHead">% Remaining vs Plan</div></th>
 										</tr>
 									</thead>
@@ -2525,7 +2526,7 @@ function templateFormat(value,summ) {
 												<th colspan="2"><div class="projectHead1">Top 10 Project Least Spending</div></th>
 										</tr>
 										<tr>
-												<th  width="60%"><div class="projectHead">Cost Center </div></th>
+												<th  width="60%"><div class="projectHead">Project </div></th>
 												<th  width="40%"><div class="projectHead">% Remaining vs Plan</div></th>
 										</tr>
 									</thead>
@@ -2732,7 +2733,7 @@ function templateFormat(value,summ) {
 												<th colspan="2"><div class="projectHead1">Top 10 Project Most Spending of </div></th>
 										</tr>
 										<tr>
-												<th  width="60%"><div class="projectHead">Cost Center  </div></th>
+												<th  width="60%"><div class="projectHead">Project </div></th>
 												<th  width="40%"><div class="projectHead">% Remaining vs Plan</div></th>
 										</tr>
 									</thead>
@@ -2893,7 +2894,7 @@ function templateFormat(value,summ) {
 												<th colspan="2"><div class="projectHead1">Top 10 Project Least Spending</div></th>
 										</tr>
 										<tr>
-												<th  width="60%"><div class="projectHead">Cost Center  </div></th>
+												<th  width="60%"><div class="projectHead">Project  </div></th>
 												<th  width="40%"><div class="projectHead">% Remaining vs Plan</div></th>
 										</tr>
 									</thead>
@@ -3096,7 +3097,7 @@ function templateFormat(value,summ) {
 												<th colspan="2"><div class="projectHead1">Top 10 Project Most Spending of </div></th>
 										</tr>
 										<tr>
-												<th  width="60%"><div class="projectHead">Cost Center  </div></th>
+												<th  width="60%"><div class="projectHead">Project  </div></th>
 												<th  width="40%"><div class="projectHead">% Remaining vs Plan</div></th>
 										</tr>
 									</thead>
@@ -3257,7 +3258,7 @@ function templateFormat(value,summ) {
 												<th colspan="2"><div class="projectHead1">Top 10 Project Least Spending</div></th>
 										</tr>
 										<tr>
-												<th  width="60%"><div class="projectHead">Cost Center  </div></th>
+												<th  width="60%"><div class="projectHead">Project  </div></th>
 												<th  width="40%"><div class="projectHead">% Remaining vs Plan</div></th>
 										</tr>
 									</thead>
@@ -3449,7 +3450,7 @@ function templateFormat(value,summ) {
 								<table width="100%" id="top10Tbl" >
 									<thead>
 										<tr id="h1">
-												<th colspan="2"><div class="projectHead1">Top 10 Project Most Spending of </div></th>
+												<th colspan="2"><div class="projectHead1">Top 10 Cost Center Most Spending of </div></th>
 										</tr>
 										<tr>
 												<th  width="60%"><div class="projectHead">Cost Center  </div></th>
@@ -3610,7 +3611,7 @@ function templateFormat(value,summ) {
 								<table width="100%" id="top10Tbl" >
 									<thead>
 									<tr id="h1">
-												<th colspan="2"><div class="projectHead1">Top 10 Project Least Spending</div></th>
+												<th colspan="2"><div class="projectHead1">Top 10 Cost Center Least Spending</div></th>
 										</tr>
 										<tr>
 												<th  width="60%"><div class="projectHead">Cost Center </div></th>
