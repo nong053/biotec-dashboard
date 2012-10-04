@@ -198,7 +198,10 @@ out.println("Error"+ex);
 }
 	/*#### Tab search above top start ###*/
 	$(document).ready(function(){
-
+$("body").live("click",function(){
+	//$("#boxB").dialog("close");
+	$(".ui-icon ui-icon-closethick").trigger("click");
+});
 
 	/*#### Loading Start ###*/
 		var $width=($('body').width()/2)-50;
@@ -364,46 +367,7 @@ $("a.ui-dialog-titlebar-close").click(function(){
 $(".contentMain").css("opacity","1");
 return false;
 });
-	//alert("HELLO WORLD");
-	$(".contentMain").css("opacity","0.5");
-	var $category = e.category;
-	var $subCategory  = $category.substring(0,2);
-	if($subCategory=="01"){
 
-	lineChart1();
-	$("#boxB").dialog({
-	title:"รายได้ค่าใช้จ่าย",
-	width:600,
-	buttons:{
-		"OK":function(){
-			$(this).dialog("close");
-			$(".contentMain").css("opacity","1");
-		}
-	},
-	regend:{
-	position:"botom"
-	}
-	});
-
-	}else{
-	lineChart2();
-	
-	$("#boxB").dialog({
-	title:"รายได้ค่าใช้จ่าย",
-	width:600,
-	buttons:{
-		"OK":function(){
-			$(this).dialog("close");
-			$(".contentMain").css("opacity","1");
-		}
-	},
-	regend:{
-	position:"position"
-	}
-
-	});
-
-	}
 
 }
 /*### Financial Pie Chart Start###*/
@@ -508,7 +472,7 @@ return false;
 	// ajax start 01
 
 	$("[href=#content1]").click(function(){
-
+		$(".ui-icon ui-icon-closethick").trigger("click");
 		$(".pageRemember").remove();
 		$("body").append("<input type='hidden' id='pageContent1' class='pageRemember' name='pageContent1' value='pageContent1'>");
 
@@ -539,6 +503,7 @@ return false;
 		// ajax start 02
 
 			$("[href=#content2]").click(function(){
+			
 				$(".pageRemember").remove();
 				$("body").append("<input type='hidden' id='pageContent2' class='pageRemember' name='pageContent2' value='pageContent2'>");
 
@@ -579,6 +544,7 @@ return false;
 		// ajax start 03
 
 			$("[href=#content3]").click(function(){
+		
 				$(".pageRemember").remove();
 				$("body").append("<input type='hidden' id='pageContent3' class='pageRemember' name='pageContent3' value='pageContent3'>");
 			//alert("hello jquery");
@@ -611,6 +577,9 @@ return false;
 
 	$("[href=#content4]").click(function(){
 	//alert("hello jquery");
+	
+	
+	
 		$(".pageRemember").remove();
 		$("body").append("<input type='hidden' id='pageContent4' class='pageRemember' name='pageContent4' value='pageContent4'>");
 
@@ -642,7 +611,7 @@ return false;
 		// ajax end 04
 
 		$("form#form_1").live("submit",function(){
-			
+	
 			$(".contentMain").show();
 			//embeded dom id document for process start
 				$(".domParam").remove();
