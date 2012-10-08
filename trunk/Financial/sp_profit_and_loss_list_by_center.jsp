@@ -333,7 +333,8 @@ var pieChart= function(paramValue,titleText,paramSum){
 			height:300
 			},
 			title: {
-				 text: titleText['title']
+				 text: titleText['title'],
+				font:"14px Tahoma"
 			},
 			legend: {
                             position: "bottom"
