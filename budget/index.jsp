@@ -3729,10 +3729,10 @@ function templateFormat(value,summ) {
 	<div id="row1"  style="height:340px;">
 		<div id="column11">
 				<div class="content"  style="height:340px;" >
-						<div id="barChart" style="float:left; width:60%;">
+						<div id="barChart" style="float:left; width:50%;">
 							<div id="barChart51"></div>
 						</div>
-						<div id="pieChart" style="float:right;width:40%;">
+						<div id="pieChart" style="float:right;width:50%;">
 							<div id="pieChart52"></div>
 						</div>
 
