@@ -428,7 +428,7 @@ var $titleJ5 =[
 					cache:false,
 					data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramLevel':5,'paramParentKey':e.data.account_key},
 					success:function(data){
-						console.log(data);
+						//console.log(data);
 								 $("<table><th></th></table>").kendoGrid({
 								detailInit: detailInit3,
 								columns: $titleJ2,
