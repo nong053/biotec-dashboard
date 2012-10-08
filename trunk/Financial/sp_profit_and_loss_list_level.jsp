@@ -44,7 +44,7 @@ String amount_list="";
 		}
 		//Loop for get value amount_list 
 		
-		dataLevel+="\"Field9\":\"<div class='textR'>"+numberFormatter.format(amount_sum)+"</div>\"";
+		dataLevel+="\"Field10\":\"<div class='textR'>"+numberFormatter.format(amount_sum)+"</div>\"";
 		dataLevel+="}" ;
 		}else{
 		dataLevel+=",{" ;
@@ -65,7 +65,7 @@ String amount_list="";
 		}
 		//Loop for get value amount_list 
 
-		dataLevel+="\"Field9\":\"<div class='textR'>"+numberFormatter.format(amount_sum)+"</div>\"";
+		dataLevel+="\"Field10\":\"<div class='textR'>"+numberFormatter.format(amount_sum)+"</div>\"";
 		dataLevel+="}" ;
 		}//if
 i++;

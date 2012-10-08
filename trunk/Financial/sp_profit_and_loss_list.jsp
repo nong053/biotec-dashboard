@@ -40,17 +40,19 @@ DecimalFormat numberFormatter = new DecimalFormat("###,###,##0.00");
 		//Loop for get value amount_list
 		amount_list=rs.getString("amount_list");
 		amount_list_array = amount_list.split(",");
+
 		int j=2;
 		Double amount_sum=0.0;
 		Double amount_by_center=0.0;
 		for(int l=0; l<amount_list_array.length; l++ ){
+			
 				amount_by_center=Double.parseDouble(amount_list_array[l]);
 				dataDefault+="Field"+j+":\"<div class='textR'>"+numberFormatter.format(amount_by_center)+"</div>\",";
 				amount_sum+=Double.parseDouble(amount_list_array[l]);
 		j++;
 		}
 		//Loop for get value amount_list 
-		dataDefault+="Field9:\"<div class='textR'>"+numberFormatter.format(amount_sum)+"</div>\"";
+		dataDefault+="Field10:\"<div class='textR'>"+numberFormatter.format(amount_sum)+"</div>\"";
 		dataDefault+="}" ;
 		}else{
 		dataDefault+=",{" ;
@@ -72,7 +74,7 @@ DecimalFormat numberFormatter = new DecimalFormat("###,###,##0.00");
 		}
 		//Loop for get value amount_list 
 
-		dataDefault+="Field9:\"<div class='textR'>"+numberFormatter.format(amount_sum)+"</div>\"";
+		dataDefault+="Field10:\"<div class='textR'>"+numberFormatter.format(amount_sum)+"</div>\"";
 		dataDefault+="}" ;
 		}//if
 i++;
@@ -133,7 +135,7 @@ font-size:16px;
 	.textR{
 	/*background:red;*/
 	text-align:right;
-	padding-right:5px;
+	padding-right:0px;
 	}
 	#textL{
 	/*background:red;*/
@@ -190,13 +192,15 @@ font-size:16px;
 	var setFont = function(){
 		$(".k-draghandle").css({"font-size":"50%"}); 
 		$(".k-grid td").css({"padding-top":"0px","padding-bottom":"0px"});
+		//$(".k-grid td").css({"padding":"0px"});
+
 }
 	// TITLE BY JSON START
 	/*########## Table Content Start ##########*/
 	var $titleJ =[
               {
                   field: "Field1",
-				   width: 250
+				   width: 200
               },
               {
                   field: "Field2",
@@ -228,12 +232,15 @@ font-size:16px;
 			 },
               {
                   field: "Field9",
+				  width:80
+			 },{
+                  field: "Field10",
 			 } ];
 
 var $titleJ2 =[
               {
                   field: "Field1",
-				  width: 242
+				  width: 192
               },
               {
                   field: "Field2",
@@ -265,13 +272,17 @@ var $titleJ2 =[
 			 },
               {
                   field: "Field9",
-				   width:105
+				    width: 80
+			 },
+              {
+                  field: "Field10",
+				   width:75
 			 }
            ];
 var $titleJ3 =[
               {
                   field: "Field1",
-				  width: 235
+				  width: 185
               },
               {
                   field: "Field2",
@@ -296,20 +307,22 @@ var $titleJ3 =[
               {
                   field: "Field7",
 				    width: 80
-			 },
-              {
+			 },{
                   field: "Field8",
+				    width: 80
+			 },{
+                  field: "Field9",
 				    width: 80
 			 },
               {
-                  field: "Field9",
-				   width:105
+                  field: "Field10",
+				   width:75
 			 }
            ];
 var $titleJ4 =[
               {
                   field: "Field1",
-				  width: 228
+				  width: 180
               },
               {
                   field: "Field2",
@@ -338,16 +351,19 @@ var $titleJ4 =[
               {
                   field: "Field8",
 				    width: 80
+			 },{
+                  field: "Field9",
+				    width: 80
 			 },
               {
-                  field: "Field9",
-				   width:105
+                  field: "Field10",
+				   width:75
 			 }
            ];
 var $titleJ5 =[
               {
                   field: "Field1",
-				  width: 251
+				  width: 203
               },
               {
                   field: "Field2",
@@ -376,10 +392,13 @@ var $titleJ5 =[
               {
                   field: "Field8",
 				    width: 80
+			 },{
+                  field: "Field9",
+				    width: 80
 			 },
               {
                   field: "Field9",
-				   width:105
+				   width:75
 			 }
            ];
 
