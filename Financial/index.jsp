@@ -11,18 +11,13 @@ DecimalFormat numberFormatter = new DecimalFormat("#0.00");
 <html>
     <head>
         <title>Finance Dashboard</title>
-	<!--	<link href="../ChartLib_KendoUI/styles/examples.css" rel="stylesheet"/>
-        <link href="../ChartLib_KendoUI/styles/kendo.common.css" rel="stylesheet"/>
-        <link href="../ChartLib_KendoUI/styles/kendo.metro.css" rel="stylesheet"/>-->
 		<link href="../styles/kendo.common.min.css" rel="stylesheet">
 		<link href="../styles/kendo.default.min.css" rel="stylesheet">
-		<!--<link href="../jqueryUI/css/smoothness/jquery-ui-1.8.20.custom.css" rel="stylesheet">-->
 		<link href="../jqueryUI/css/cupertino/jquery-ui-1.8.21.custom.css" rel="stylesheet">
 		 <link href="../styles/kendo.dataviz.min.css" rel="stylesheet">
         <script src="../js/jquery.min.js"></script>
 		<script src="../js/kendo.all.min.js"></script>
-		  <script src="../js/kendo.dataviz.min.js"></script>
-	<!--	<script type="text/javascript" src="../jqueryUI/js/jquery-ui-1.8.20.custom.min.js"></script>-->
+		<script src="../js/kendo.dataviz.min.js"></script>
 		<script type="text/javascript" src="../jqueryUI/js/jquery-ui-1.8.21.custom.min.js"></script>
 		<style type="text/css">
 			html,
@@ -33,7 +28,6 @@ DecimalFormat numberFormatter = new DecimalFormat("#0.00");
 				padding:0px;
 				font-size:11px;
 				font:Tahoma;
-
 			}
 
 			#Detail-Panel {
@@ -52,8 +46,6 @@ DecimalFormat numberFormatter = new DecimalFormat("#0.00");
 			position:absolute ;
 			position:center;
 			z-index:5;
-			
-			
 			}
 			.inlinesparkline{
 			width:100px;
@@ -64,13 +56,10 @@ DecimalFormat numberFormatter = new DecimalFormat("#0.00");
 			width:975px;
 			margin:auto;
 			}
-			
 		</style>
 		<style scoped>
 				#Main-Panel{
-			
 					padding: 3px;
-					/*border: 1px solid #dedede;*/
 					margin:0px;
 					margin-bottom:2px;
 					-webkit-border-radius: 5px;
@@ -83,12 +72,10 @@ DecimalFormat numberFormatter = new DecimalFormat("#0.00");
 					background:#008EC3;
 					font-weight:bold;
 					color:white;
+					font-size:12px;
 				}
 			</style>
-
-
 	<%
-
 
 		/*------------------- Set Variable --------------------*/
 
@@ -133,7 +120,6 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 	//insert code allow function start
 	st = conn.createStatement();
 		/*------------------- Parameter Year & Month  -------------------*/
-		
 		rs = null;
 		Query  = "SELECT Date_format(SYSDATE(),'%Y') as year_date,Date_format(SYSDATE(),'%m') as month_date;";
 		rs = st.executeQuery(Query);
@@ -170,7 +156,6 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 			}				
 		}
 		// set select
-
 	//insert code allow function end
 		conn.close();
 	}
@@ -180,12 +165,9 @@ out.println("Error"+ex);
 }
 //############### Query Handler Year & Month start ###############
 	%>
-
 	<script type="text/javascript">
-
 	/*#### Tab search above top start ###*/
 	$(document).ready(function(){
-
 	/*#### Loading Start ###*/
 		var $width=($('body').width()/2)-50;
 		//console.log($width);
@@ -194,9 +176,7 @@ out.println("Error"+ex);
 		}).ajaxStop(function(){
 		$(this).hide();
 		});
-		/*#### Loading End ###*/
-
-
+	/*#### Loading End ###*/
 	/*Config table suffer table*/
 	var sufferTable = function(){
 //#######################Menagement Tab Start ######################
@@ -228,10 +208,8 @@ var setHeader= function(){
 
 var setHeaderDateYear = function(){
 	$(".k-grid-header-wrap table thead ").prepend("<tr><th></th><th style='border-bottom:1px solid white; border-left:1px solid white; color:white;'>รายการ</th><th colspan='3' style='border-bottom:1px solid white; border-left:1px solid white; color:white;'>ปีนี้</th><th style='border-bottom:1px solid white; border-left:1px solid white; color:white;'>ปีที่แล้ว</th></tr>");
-
 }
 //#######################Menagement Tab End #######################
-
 
 	  $("#ParamYear").kendoDropDownList();
 
@@ -256,45 +234,33 @@ var setHeaderDateYear = function(){
 		dataType:'html',
 		data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramOrg':$('#domParamOrg').val()},
 		success:function(data){
-		//alert(data);
+
 	$("#content1").empty();
 	$("#content2").empty();
 	$("#content3").empty();
 	$("#content4").empty();
 
     $("#content1").append(data);
-
-		
-
 		//pieChart1();
 		}
 	});
 	});
-
 		// ajax end 01
-		
 		// ajax start 02
-
 			$("[href=#content2]").click(function(){
-			
 				$(".pageRemember").remove();
 				$("body").append("<input type='hidden' id='pageContent2' class='pageRemember' name='pageContent2' value='pageContent2'>");
-
 			$.ajax({
 				'url':'sp_profit_and_loss_list_by_center.jsp',
 				'type':'get',
 				'dataType':'html',
 				data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramOrg':$("#domParamOrg").val()},
 				success:function(data){
-				
 				$("#content1").empty();
 				$("#content2").empty();
 				$("#content3").empty();
-				$("#content4").empty();
-				
-				$("#content2").append(data);
-
-				
+				$("#content4").empty();			
+				$("#content2").append(data);			
 				//if data content is null will content is hidden
 				if($(".textR").text()==""){
 					$("#content2").empty();
@@ -306,7 +272,6 @@ var setHeaderDateYear = function(){
 				setHeader();
 
 			setHeaderDateYear();
-
 				}
 			});
 			
@@ -327,74 +292,40 @@ var setHeaderDateYear = function(){
 				'dataType':'html',
 				data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramOrg':$("#domParamOrg").val()},
 				success:function(data){
-			
-			$("#content1").empty();
-			$("#content2").empty();
-			$("#content3").empty();
-			$("#content4").empty();
-
-				
+				$("#content1").empty();
+				$("#content2").empty();
+				$("#content3").empty();
+				$("#content4").empty();
 				$("#content3").append(data);
-
-				
-				//sufferTable();
-				
 				}
 			});
-			
 			});
-
-		// ajax end 03
-		// ajax start 04
-
 	$("[href=#content4]").click(function(){
-	//alert("hello jquery");
-	
-	
-	
 		$(".pageRemember").remove();
 		$("body").append("<input type='hidden' id='pageContent4' class='pageRemember' name='pageContent4' value='pageContent4'>");
-
 	$.ajax({
 		'url':'sp_profit_and_loss_list.jsp',
 		'type':'get',
 		'dataType':'html',
 		data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramOrg':$("#domParamOrg").val()},
 		success:function(data){
-		
-	$("#content2").empty();
-	$("#content1").empty();
-	$("#content3").empty();
-	$("#content4").empty();
-
-
-		$("#content4").append(data);
-
-		
-
-		//pieChart33();
+		$("#content2").empty();
+		$("#content1").empty();
+		$("#content3").empty();
+		$("#content4").empty();
+		$("#content4").append(data)
 		sufferTable();
 		setFont();
 		setHeader();
 		}
 	});
 	});
-
-		// ajax end 04
-
 		$("form#form_1").live("submit",function(){
-	
-			$(".contentMain").show();
-			//embeded dom id document for process start
+				$(".contentMain").show();
 				$(".domParam").remove();
 				$("body").append("<input type='hidden' name='domParamYear' id='domParamYear' class='domParam' value='"+$("#ParamYear").val()+"'>");
-
 				$("body").append("<input type='hidden' name='domParamMonth' id='domParamMonth' class='domParam' value='"+$("#ParamMonth").val()+"'>");
-
 				$("body").append("<input type='hidden' name='domParamOrg' id='domParamOrg' class='domParam' value='"+$("#ParamOrg").val()+"'>");
-
-			    //embeded dom id document for process end
-			    //$("[href=#content1]").trigger("click");
 				if($("#pageContent1").val()){
 					 $("[href=#content1]").trigger("click");
 				}else if($("#pageContent2").val()){
@@ -406,18 +337,14 @@ var setHeaderDateYear = function(){
 				}else{
 					$("[href=#content1]").trigger("click");
 				}
-
 			    return false;
 		});
-	
-	/*###  jQuery Config Start ###*/
-
+	/*###  jQuery Config  Tab jQueryUi Start ###*/
 	$(".ui-tabs-panel").css("padding","2px");
 	/*###  jQuery Config End ###*/
-	/*#### jquery manage tab below end ###*/
+	/*#### jquery manage Tab jQueryUi end ###*/
 	});
 /*###  function for kendo tootip Start ###*/
-
 function tootipFormat(value,summ){
    var value1 = Math.floor(value);
    var value2 = Math.floor((value/summ)*100);
@@ -428,7 +355,6 @@ function tootipFormat(value,summ){
     </head>
     <body>
 	<!--------------------------- HEADER --------------------------->
-<!--<h2><center><font color="black">Financial Dashboard</font></center></h2>-->
 	<div align="center">
 		<div id="Main-Panel" class="k-content">
 		<!--------------------------- Parameter --------------------------->
@@ -440,45 +366,33 @@ function tootipFormat(value,summ){
 						<%out.print(V_Year);%>
 					</select>
 					</td>
-
 					<td><label for="ParamMonth">เดือน :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
 					<select name="ParamMonth" id="ParamMonth">
 						<%out.print(V_Month);%>
 					</select>
 					</td>
-
 					<td><label for="ParamOrg">ศูนย์ :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
 					<select name="ParamOrg" id="ParamOrg" >
 						<%out.print(V_Org);%>
 					</select>
 					</td>
-
 					<td>
-					<!--<button id="get" class="k-button" >&nbsp;&nbsp;OK&nbsp;&nbsp;</button>-->
 					<input type="submit"value="&nbsp;&nbsp;OK&nbsp;&nbsp;"  class="k-button" id="submit1" >
 					</td>
 				</tr>
 				</table>
 				</form>
-		
-		
 		</div>
-	
 	</div>
 	<!--------------------------- Details Start--------------------------->
-
 	<div class="contentMain">
-
-
 <!-- TAB MANAGEMENT START -->
-
 		<div id="tabs">
 			<ul>
 				<li ><a href="#content1">งบแสดงฐานะการเงิน</a></li>
 				<li ><a href="#content2">งบรายได้ค่าใช้จ่าย</a></li>
 				<li ><a href="#content3">งบแสดงฐานะการเงินแยกศูนย์</a></li>
 				<li ><a href="#content4">งบรายได้ค่าใช้จ่ายแยกศูนย์</a></li>
-			
 			</ul>
 			<div id="content1"></div>
 			<div id="content2"></div>
@@ -487,7 +401,6 @@ function tootipFormat(value,summ){
 <br style="clear:both" />
 </div>
 <!-- TAB MANAGEMENT END -->
-
 	</div>
 	<div id="loading" >
 				<br>

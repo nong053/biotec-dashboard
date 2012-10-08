@@ -3,21 +3,16 @@
 <%@page import="java.text.DecimalFormat" %>
 <!--- Tab1 -->
 <%
-//double price = 10.59;
 DecimalFormat numberFormatter = new DecimalFormat("0.00");
-//out.print(numberFormatter.format(price));
-
-	String paramYear= request.getParameter("paramYear");
-	String paramMonth= request.getParameter("paramMonth");
-	String paramMonthPerv= "";
-	String paramMonthCurent= "";
-	String paramOrg= request.getParameter("paramOrg");
-//String str=Integer.toString(number);
+String paramYear= request.getParameter("paramYear");
+String paramMonth= request.getParameter("paramMonth");
+String paramMonthPerv= "";
+String paramMonthCurent= "";
+String paramOrg= request.getParameter("paramOrg");
 Integer paramYearInt =Integer.parseInt(paramYear);
 Integer paramLastYear = paramYearInt+542;
 Integer paramCurentYear=paramYearInt+543;
-//out.print("paramLastYear"+paramLastYear);
-//out.print("paramCurentYear"+paramCurentYear);
+
 	if(paramMonth.equals("1")){
 	paramMonthCurent="ต.ค.";
 	paramMonthPerv="พ.ย.";
@@ -55,12 +50,6 @@ Integer paramCurentYear=paramYearInt+543;
 	paramMonthCurent="ก.ย.";
 	paramMonthPerv="ต.ค.";
 	}
-/*
-	out.print("paramLastYear"+paramLastYear+"<br>");
-	out.print("paramCurentYear"+paramCurentYear+"<br>");
-	out.print("paramMonthCurent"+paramMonthCurent+"<br>");
-	out.print("paramMonthPerv"+paramMonthPerv+"<br>");
-*/
 %>
 <!-- Config Style-->
 	<style type="text/css">
@@ -96,12 +85,8 @@ Integer paramCurentYear=paramYearInt+543;
 		}
 		.level2,.level3,.level4{
 		cursor:pointer;
-		
 		}
 
-	</style>
-
-	<style type="text/css">
 	#pie{
 	padding:5px;
 	}
@@ -132,7 +117,6 @@ Integer paramCurentYear=paramYearInt+543;
 	width:35%;
 	height:auto;
 	background-color:#CFCFCF;
-
 	background-image:url("images/highlight.png");
 	border-radius:10px;
 	}
@@ -152,10 +136,10 @@ Integer paramCurentYear=paramYearInt+543;
 	}
 	#table_title  #title{
 
-padding:15px;
-padding-top:20px;
-font-weight:bold;
-font-size:16px;
+	padding:15px;
+	padding-top:20px;
+	font-weight:bold;
+	font-size:16px;
 
 	}
 	#textR{
@@ -206,19 +190,13 @@ font-size:16px;
 	height:auto;
 	clear:both;
 	position:center;
-
-	
 	}
 	</style>
 <!-- Config  Sytle-->
-
-
 <script>
 $(document).ready(function(){
-
 	//#######################Menagement Tab1 Start ######################
 		$("table#finance_tb1 thead tr  th").css({"background":"#99ccff  ","padding-left":"5px","padding-right":"5px","color":"black","padding":"2px"});
-		//Set level1
 		$("table#finance_tb1 tbody tr  td .level2").css({"text-align":"left"});
 		$("table#finance_tb1 tbody tr  td .level2").parent().nextAll().andSelf().css({"text-align":"right","background":"#99ccff ","font-weight":"bold"});
 		$("table#finance_tb1 thead tr:eq(0) th").css({"background":"#008EC3 ","padding-left":"5px","padding-right":"5px","color":"white","padding":"2px"});
@@ -240,39 +218,8 @@ $(document).ready(function(){
 
 //#######################Graph Program Start#######################01
 
-
-
-
 var pieChart= function(paramValue,titleText,paramSum){
-		
 		$("#pie").show();
-		//var data=paramValue;
-		/*
-		var data = [
-                    {
-						"account_key": 01,
-                        "category": "สวทช.",
-                        "value": 22,
-                        //"explode": true
-                    },
-                    {
-						"account_key": 02,
-                        "category": "สวทช.",
-                        "value": 2
-                    },
-                    {
-						"account_key": 03,
-                        "category": "สวทช.",
-                        "value": 49
-                    },
-                    {
-						"account_key": 04,
-                        "category": "ศจ.",
-                        "value": 27
-                    }
-                ];
-				*/
-
 		$("#pie").kendoChart({
 			theme:$(document).data("kendoSkin") || "metro",
 			chartArea:{
@@ -280,7 +227,8 @@ var pieChart= function(paramValue,titleText,paramSum){
 			height:300
 			},
 			title: {
-				 text: titleText['title']
+				 text: titleText['title'],
+				font:"14px Tahoma"
 			},
 			legend: {
                             position: "bottom"
@@ -293,38 +241,13 @@ var pieChart= function(paramValue,titleText,paramSum){
                             type: "pie",
                             field: "value",
                             categoryField: "category",
-                            //explodeField: "explode"
                         }],
-
-				/*
-			series: [{
-                            type: "pie",
-							name:"01",
-							
-							//data:paramValue
-								
-                            data: [ {
-								id:01,
-                                category: "01-สินทรัพย์หมุนเวียน",
-                                value: 35
-                            }, {
-								id:02,
-                                category: "02-สินทรัพย์ไม่หมุนเวียน",
-                                value: 65
-                            }]
-
-							
-                        }],
-						*/
-
                         tooltip: {
                             visible: true,
 							//template:"#= tootipFormat(value,"+paramSum+") #"
 							template: "${ value }, #= kendo.format('{0:P}', percentage)#"
                           //  format: "{0}%"
-
                         },
-			
 			seriesDefaults: {
 				/*labels: {
 					visible: true,
@@ -332,11 +255,6 @@ var pieChart= function(paramValue,titleText,paramSum){
 				}*/
 			},
 			seriesClick: onSeriesClick,
-
-
-		
-			//axisLabelClick: onAxisLabelClick
-			
 		});
 }//function pie chart end
 
@@ -351,10 +269,6 @@ function onSeriesClick(e) {
 		dataType:'json',
 		data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'business_area': $('#domParamOrg').val(),'account_key':$account_key},
 			success:function(data){
-			//console.log(data[0]['series']);
-
-	//var $subCategory =$category.substring(0,2);
-	//alert($subCategory);
 
 					barChart(data[0]['series'],$category);
 					var $width=$("body").width()-100;
@@ -379,9 +293,10 @@ function onSeriesClick(e) {
 
 }//funciton
 //call Function PieChart 
+
 //call Function BarChart 
 var barChart = function(seriesParam,titleParam){
-	//alert("hello");
+
 			$("#chart").kendoChart({
 			theme:$(document).data("kendoSkin") || "metro",
 			title: {
@@ -428,16 +343,11 @@ var account_key="";
 var Sum=0;
 dataLevel2+="[";
 	$(".level2").each(function(){
-	//Format  [{category: "ศจ.",value: 10,color:"#6C2E9B" }]
-	//console.log("account_key"+$(this).attr("id"));
 	account_key=$(this).attr("id").substring(11);
-	//console.log("new"+account_key);
 	if(j==0){
 	dataLevel2+="{";
-	
 		dataLevel2+="account_key:"+account_key+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());
 		Sum+=parseFloat($(this).parent().parent().children('td').eq(2).text());
-		//$("body").append("<input type='text'> name='domAccount_key"+J+"' id='domAccount_key"+J+"' class='account_key' value='"+$(this).text()+"' ");
 	dataLevel2+="}";
 	}else{
 	dataLevel2+=",{";
@@ -451,10 +361,8 @@ dataLevel2+="[";
 	//get is json same dataType in ajax
 	var obj = eval ("(" + dataLevel2 + ")"); 
 	var obj2=eval("("+titleText+")");
-	//console.log("dataLevel2"+dataLevel2);
 	pieChart(obj,obj2,Sum);
 //Step1 Call Default
-
 
 //Step Call Level2
 $(".level2").click(function(e){
@@ -462,19 +370,16 @@ $(".level2").click(function(e){
 	var account_key_sub=account_key.substring(11);
 	var account_key_loop="";
 	var account_key_sub_loop="";
-	//alert(varaccount_key);
 	var dataLevel2 ="";
 	var Sum=0;
 	var j=0;
 
-
 	var titleText="{\"title\":\""+$(this).text()+"\"}";
-	
+
 	dataLevel2+="[";
 	$(".parent_key"+account_key_sub).each(function(){
 		account_key_loop=this.id;
 		account_key_sub_loop=account_key_loop.substring(11);
-
 
 		if(j==0){
 			dataLevel2+="{";
@@ -490,10 +395,8 @@ $(".level2").click(function(e){
 		j++;
 	});
 	dataLevel2+="]";
-	//console.log(dataLevel2);
 	var obj=eval("("+dataLevel2+")");
 	var obj2=eval("("+titleText+")");
-	//console.log(obj2);
 	pieChart(obj,obj2,Sum);
 });
 //Step Call Level2
@@ -506,7 +409,6 @@ $(".level3").click(function(e){
 	var account_key_loop="";
 	var account_key_sub_loop="";
 	var Sum=0;
-	//alert(varaccount_key);
 	var titleText="{\"title\":\""+$(this).text()+"\"}";
 	var dataLevel3 ="";
 	var j=0;
@@ -586,13 +488,8 @@ $(".level4").click(function(e){
 	return x1 + x2;
 }
 
-//
-
-//alert("addCommas"+addCommas(12000.00));
 });
-
 </script>
-
 <%
 String $htmlTable1="";
 Query="CALL sp_balance_sheet_list_by_center("+paramYear+","+paramMonth+",'"+paramOrg+"');";
@@ -660,7 +557,6 @@ Double Result=0.00;
 		$htmlTable1+="<tr>";
 			$htmlTable1+="<td><div class='level"+rs.getString("level") +" parent_key"+rs.getString("parent_key")+"'  id='account_key"+rs.getString("account_key")+" '>"+rs.getString("account_name")+"</div></td>";
 			$htmlTable1+="<td>";
-			//rs.getDouble("pMonthAmt")
 				$htmlTable1+=numberFormatter.format(rs.getDouble("pMonthAmt"));
 			$htmlTable1+="</td>";
 	
@@ -690,7 +586,6 @@ Double Result=0.00;
 
 //sucessfully
 
-//out.print($htmlTable1);
 %>
 <div id="mainContent">
 	<div id="row1">
@@ -700,10 +595,7 @@ Double Result=0.00;
 			</div>
 			<div id="column2">
 				<div id="contentL">	
-
 					<div id="pie"></div>
-					
-
 				</div>
 		   </div>
 	</div>

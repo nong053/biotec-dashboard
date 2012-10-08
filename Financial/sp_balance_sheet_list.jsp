@@ -7,10 +7,7 @@ DecimalFormat numberFormatter = new DecimalFormat("###,###,##0.00");
 	String paramYear= request.getParameter("paramYear");
 	String paramMonth= request.getParameter("paramMonth");
 	String paramOrg= request.getParameter("paramOrg");
-/*
-	String paramYear="2012";
-	String paramMonth="11";
-*/
+
 %>
 <!-- Tab3 -->
 <%
@@ -42,7 +39,6 @@ $htmlTable2+="<table  id='finance_tb1'  width='100%' cellpadding='1px' cellspaci
 				$htmlTable2+="รวม";
 			$htmlTable2+="</th>";
 
-
 		$htmlTable2+="</tr>";
 //tr#########################################1
 	$htmlTable2+="</thead>";
@@ -63,7 +59,7 @@ Double amount_by_center=0.0;
 			$htmlTable2+="<td>"+numberFormatter.format(amount_sum)+"</td>";
 			
 		$htmlTable2+="</tr>";
-		
+		amount_sum=0.0;
 	}
 
 // Loop while into tbody
@@ -81,7 +77,6 @@ out.print($htmlTable2);
 <!-- Config Style-->
 	<style type="text/css">
 		#mainContent{
-		/*border:1px solid #cccccc;*/
 		width:auto;
 		height:auto;
 		}
@@ -106,7 +101,6 @@ out.print($htmlTable2);
 		margin-top:10px;
 		border:1px solid #dbeef3;
 		position:fixed;
-		/*background-color:red;*/
 		padding:5px;
 		border-radius:5px;
 		}
@@ -227,7 +221,6 @@ font-size:16px;
 
 <script type="text/javascript">
 	$(document).ready(function(){
-
 		//#######################Menagement Tab1 Start ###############
 		$("table#finance_tb1 thead tr  th").css({"background":"#008EC3  ","padding-left":"5px","padding-right":"5px","color":"white","padding":"2px"});
 		//Set level1
@@ -250,7 +243,6 @@ font-size:16px;
 		$(".summary").parent().nextAll().andSelf().css({"background":"#99ccff","padding":"5px"});
 //#######################Menagement Tab1 Start ######################
 
-	
 	});
 
 </script>
