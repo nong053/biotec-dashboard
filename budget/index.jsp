@@ -825,7 +825,7 @@ function addCommas(nStr)
 					barChart21(serie1,category1);
 
 					colorSufferRow();
-									$("#contentL .projectHead1").empty();
+				$("#contentL .projectHead1").empty();
 				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
 				$("#contentR .projectHead1").empty();
 				$("#contentR .projectHead1").append("Top 10 Project Least Spending of "+data[42]["active_category"]);
@@ -892,14 +892,13 @@ function addCommas(nStr)
 
 				
 
-				$("#content1").slideDown("slow",function(){
-					
+				
 					//console.log(data);
 					var serie1 = data[0]["series1"];
 					var category1 = data[1]["category1"];
 					barChart1(serie1,category1);
-				});
-				
+			
+		
 				/*### call function sufferRow  Start ###*/
 				colorSufferRow();
 				$("#contentL .projectHead1").empty();
@@ -935,47 +934,39 @@ function addCommas(nStr)
 				/*### call function sufferRow  End ###*/
 		
 				HiddenValueIsNull();
+				$("#content1").fadeIn();
 				}
 			});
 			return false;
 	};
 	var includeCon2 = function(){
-	//$("a[href=#content2]").click(function(){
 			var dropDown = $("#select2").data("kendoDropDownList");
 			dropDown.select(0);
-			//alert($("#select2").val());
 			$.ajax({
 				url:"content2.jsp",
 				type:"get",
 				dataType:"json",
 				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val(),"cluster":$("#select2").val()},
 				success:function(data){
-					
-					//console.log(data);
 
-				$("#content1").hide();
-				$("#content2").hide();
-				$("#content3").hide();
-				$("#content4").hide();
-				$("#content5").hide();
-				$(".pageRemember").remove();
-				$("body").append("<input type='hidden' id='pageCon2' class='pageRemember' name='pageCon2' value='pageCon2'>");
-
-				//$("#content2").append(data).hide();
-				$("#content2").slideDown("slow",function(){
-
-					
+					$("#content1").hide();
+					$("#content2").hide();
+					$("#content3").hide();
+					$("#content4").hide();
+					$("#content5").hide();
+					$(".pageRemember").remove();
+					$("body").append("<input type='hidden' id='pageCon2' class='pageRemember' name='pageCon2' value='pageCon2'>");
 
 					var serie1 = data[0]["series1"];
 					var category1 = data[1]["category1"];
 					barChart21(serie1,category1);		
 					colorSufferRow();
-					//console.log(data);
-				$("#contentL .projectHead1").empty();
-				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
-				$("#contentR .projectHead1").empty();
-				$("#contentR .projectHead1").append("Top 10 Project Least Spending of "+data[42]["active_category"]);
-					
+
+					$("#contentL .projectHead1").empty();
+					$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
+					$("#contentR .projectHead1").empty();
+					$("#contentR .projectHead1").append("Top 10 Project Least Spending of "+data[42]["active_category"]);
+						
 					HiddenValueIsNull2();
 
 					callProgressbar("211",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
@@ -1002,16 +993,13 @@ function addCommas(nStr)
 					callProgressbar("2210",parseFloat(data[40]["value"]).toFixed(2),data[41]["name"]);
 
 					HiddenValueIsNull2();
-				});
-				
-				//$("#select2").kendoDropDownList();
+					$("#content2").fadeIn();
 				
 				}
 			});
 			return false;
 	};
 	var includeCon3 = function(){
-		//$("a[href=#content3]").click(function(){
 			$.ajax({
 				url:"content3.jsp",
 				type:"get",
@@ -1027,21 +1015,17 @@ function addCommas(nStr)
 				$(".pageRemember").remove();
 				$("body").append("<input type='hidden' id='pageCon3' class='pageRemember' name='pageCon3' value='pageCon3'>");
 
-				$("#content3").slideDown(function(){
-
 					var serie1 = data[0]["series1"];
 					var category1 = data[1]["category1"];
 					barChart31(serie1,category1);
 					colorSufferRow();
-					//console.log(data);
 
-				$("#contentL .projectHead1").empty();
-				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
-				$("#contentR .projectHead1").empty();
-				$("#contentR .projectHead1").append("Top 10 Project Least Spending of "+data[42]["active_category"]);
+					$("#contentL .projectHead1").empty();
+					$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
+					$("#contentR .projectHead1").empty();
+					$("#contentR .projectHead1").append("Top 10 Project Least Spending of "+data[42]["active_category"]);
 					
 					HiddenValueIsNull3();
-
 					callProgressbar("311",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
 					callProgressbar("312",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
 					callProgressbar("313",parseFloat(data[6]["value"]).toFixed(2),data[7]["name"]);
@@ -1052,7 +1036,6 @@ function addCommas(nStr)
 					callProgressbar("318",parseFloat(data[16]["value"]).toFixed(2),data[17]["name"]);
 					callProgressbar("319",parseFloat(data[18]["value"]).toFixed(2),data[19]["name"]);
 					callProgressbar("3110",parseFloat(data[20]["value"]).toFixed(2),data[21]["name"]);
-
 
 					callProgressbar("321",parseFloat(data[22]["value"]).toFixed(2),data[23]["name"]);
 					callProgressbar("322",parseFloat(data[24]["value"]).toFixed(2),data[25]["name"]);
@@ -1066,8 +1049,7 @@ function addCommas(nStr)
 					callProgressbar("3210",parseFloat(data[40]["value"]).toFixed(2),data[41]["name"]);
 					
 					HiddenValueIsNull3();
-
-				});
+					$("#content3").fadeIn();
 			
 				
 				}
@@ -1075,8 +1057,6 @@ function addCommas(nStr)
 			return false;
 	};
 	var includeCon4 = function(){
-//	$("a[href=#content4]").click(function(){
-
 			$.ajax({
 				url:"content4.jsp",
 				type:"get",
@@ -1092,20 +1072,16 @@ function addCommas(nStr)
 				$(".pageRemember").remove();
 				$("body").append("<input type='hidden' id='pageCon4' class='pageRemember' name='pageCon4' value='pageCon4'>");
 
-				$("#content4").slideDown("slow",function(){
-
 					var serie1 = data[0]["series1"];
 					var category1 = data[1]["category1"];
 					barChart41(serie1,category1);
 					colorSufferRow();
-					//console.log(data);
-				$("#contentL .projectHead1").empty();
-				$("#contentL .projectHead1").append("Top 10 Cost Center Most Spending of "+data[42]["active_category"]);
-				$("#contentR .projectHead1").empty();
-				$("#contentR .projectHead1").append("Top 10 Cost Center Least Spending of "+data[42]["active_category"]);
+					$("#contentL .projectHead1").empty();
+					$("#contentL .projectHead1").append("Top 10 Cost Center Most Spending of "+data[42]["active_category"]);
+					$("#contentR .projectHead1").empty();
+					$("#contentR .projectHead1").append("Top 10 Cost Center Least Spending of "+data[42]["active_category"]);
 
 					HiddenValueIsNull4(); 
-
 					callProgressbar("411",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
 					callProgressbar("412",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
 					callProgressbar("413",parseFloat(data[6]["value"]).toFixed(2),data[7]["name"]);
@@ -1117,7 +1093,6 @@ function addCommas(nStr)
 					callProgressbar("419",parseFloat(data[18]["value"]).toFixed(2),data[19]["name"]);
 					callProgressbar("4110",parseFloat(data[20]["value"]).toFixed(2),data[21]["name"]);
 
-
 					callProgressbar("421",parseFloat(data[22]["value"]).toFixed(2),data[23]["name"]);
 					callProgressbar("422",parseFloat(data[24]["value"]).toFixed(2),data[25]["name"]);
 					callProgressbar("423",parseFloat(data[26]["value"]).toFixed(2),data[27]["name"]);
@@ -1128,10 +1103,8 @@ function addCommas(nStr)
 					callProgressbar("428",parseFloat(data[36]["value"]).toFixed(2),data[37]["name"]);
 					callProgressbar("429",parseFloat(data[38]["value"]).toFixed(2),data[39]["name"]);
 					callProgressbar("4210",parseFloat(data[40]["value"]).toFixed(2),data[41]["name"]);
-					
 					HiddenValueIsNull4();
-
-				});
+					$("#content4").fadeIn();
 			
 				
 				}
@@ -1156,7 +1129,7 @@ function addCommas(nStr)
 				$("#content5").hide();
 				$(".pageRemember").remove();
 				$("body").append("<input type='hidden' id='pageCon5' class='pageRemember' name='pageCon5' value='pageCon5'>");
-				$("#content5").slideDown("slow",function(){
+				
 				var serie1 = data[0]["series1"];
 				var category1 = data[1]["category1"];
 				barChart51(category1,serie1);
@@ -1164,19 +1137,15 @@ function addCommas(nStr)
 				var value = data[3]["value_pie"];
 				var sum = data[2]["totalPie"];
 			    var value_center = data[4]["active_category"];
-				//console.log(data[4]["active_category"]);
 				pieChart52(value,sum,value_center);
-				
-				});
-			
-				
+				$("#content5").fadeIn();
 				}
 			});
 			return false;
 	};
 
 	
-		$("#tabs").tabs();
+	$("#tabs").tabs();
 	/*### Tabs Content End ###*/
     /*### barChart1 Start###*/
 
@@ -1191,47 +1160,19 @@ var barChart1 = function(seriesParam,categoryParam){
 			},
 			//seriesClick:onSeriesClick,
 			chartArea: {
-			height: 260
+			height: 260,
+			width:940
 			 },
 			legend: {
                             position: "right"
             },
 			series: seriesParam,
-				/*[
-				 { 
-						 name: "แผน",
-						data: [600,170,700,100,250,900,150,160],
-						color: "BLUE"
-						
-						
-				 } ,
-				 {
-                            name: "Release",
-                            data: [300,130,700,70,20,900,60,60]
-						
-						
-
-                   } ,
-				 {
-                            name: "ผูกพัน",
-                            data: [20,10,60,10,0,700,5,10]
-						
-						
-
-                   } ,
-				 {
-                            name: "เบิกจ่าย",
-                            data: [50,60,200,10,0,700,10,15]
-						
-						
-
-                   }
-				
-				 
-			],*/
 			valueAxis: {
 							// ie can not reading font-size
-                           title: {text: "งบประมาณ(ล้านบาท)" , font:"14px Tahoma"}
+                           title: {text: "งบประมาณ(ล้านบาท)" , font:"14px Tahoma"},
+							labels:{
+						   font:"10px Tahoma"
+						   }
 						   //title: {text: "งบประมาณ(ล้านบาท)" },
                        
 						
@@ -1484,7 +1425,8 @@ var barChart21 = function(seriesParam,categoryParam){
 				 text: " "
 			},
 			chartArea: {
-			height: 260
+			height: 260,
+			width:940
 			 },
 			legend: {
                             position: "right"
@@ -1692,7 +1634,8 @@ var barChart31 = function(seriesParam,categoryParam){
 				 text: " "
 			},
 			chartArea: {
-			height: 260
+			height: 260,
+			width:940
 			 },
 			legend: {
                             position: "right"
@@ -1900,7 +1843,8 @@ var barChart41 = function(seriesParam,categoryParam){
 				 text: " "
 			},
 			chartArea: {
-			height: 260
+			height: 260,
+			width:940
 			 },
 			legend: {
                             position: "right"
@@ -2325,7 +2269,7 @@ function templateFormat(value,summ) {
 									แหล่งทุน :
 									</td>
 									<td>
-									<select id="select1">
+									<select id="select1" style="width:250px;">
 									<%=select1%>
 									</select>
 
