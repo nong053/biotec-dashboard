@@ -751,7 +751,7 @@ dataLevel1+="[";
 	//get is json same dataType in ajax
 	var obj = eval ("(" + dataLevel1 + ")"); 
 	var obj2=eval("("+titleText+")");
-	console.log("obj"+dataLevel1);
+	//console.log("obj"+dataLevel1);
 	//console.log("obj2"+obj2);
 	pieChart(obj,obj2);
 //Step1 Call Default
