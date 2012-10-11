@@ -20,19 +20,17 @@ DecimalFormat numberFormatter = new DecimalFormat("###,###,##0.00");
 	String[] area_array;
 	String area_list="";
 
-	rs.next();
-	area_array=rs.getString("area_list").split(",");
-	
-	int h=2;
-	
-	for(int p=0; p < area_array.length;p++){
-
-	area_list+="<th data-field=\"Field"+h+"\"><center><div class=\"fontTitle\">"+area_array[p]+"</div></center></th>";
-	h++;
-	}
 	dataDefault+="[";
 	while(rs.next()){
 		if(i==0){
+		//header
+		area_array=rs.getString("area_list").split(",");
+		int h=2;
+		for(int p=0; p < area_array.length;p++){
+		area_list+="<th data-field=\"Field"+h+"\"><center><div class=\"fontTitle\">"+area_array[p]+"</div></center></th>";
+		h++;
+		}
+		// end header
 		dataDefault+="{" ;
 		dataDefault+="account_key:"+rs.getString("account_key")+",";
 		dataDefault+="Field1:\"<div class='textL level"+rs.getString("level") +" parent_key"+rs.getString("parent_key")+"'  id='account_key"+rs.getString("account_key")+" '>"+rs.getString("account_name")+" </div>\",";
