@@ -140,48 +140,10 @@ while(rs.next()){
 	{
 		//	if(KpiID.equals(rs1.getString("kpi_id") ))
 		//	{
-				String Oct = rs1.getString("Oct");
-				String Nov = rs1.getString("Nov");
-				String Dec = rs1.getString("Dec");
-				String Jan = rs1.getString("Jan");
-				String Feb = rs1.getString("Feb");
-				String Mar = rs1.getString("Mar");
-				String Apr = rs1.getString("Apr");
-				String May = rs1.getString("May");
-				String Jun = rs1.getString("Jun");
-				String Jul = rs1.getString("Jul");
-				String Aug = rs1.getString("Aug");
-				String Sep = rs1.getString("Sep");
-
-				out.print("<span class=inlinedata id="+(i+200)+" style='display:none'>"
-								+Oct+","
-								+Nov+","
-								+Dec+","
-								+Jan+","
-								+Feb+","
-								+Mar+","
-								+Apr+","
-								+May+","
-								+Jun+","
-								+Jul+","
-								+Aug+","
-								+Sep
-								+"</span>");
+				String value = rs1.getString("value_list");
+				out.print("<span class=inlinedata id="+(i+200)+" style='display:none'>"+value+"</span>");
 				
-				tableFun += "<div class=inlinesparkline id="+(i+100)+">"
-								+Oct+","
-								+Nov+","
-								+Dec+","
-								+Jan+","
-								+Feb+","
-								+Mar+","
-								+Apr+","
-								+May+","
-								+Jun+","
-								+Jul+","
-								+Aug+","
-								+Sep
-								+"</div>\"";
+				tableFun += "<div class=inlinesparkline id="+(i+100)+">"+value+"</div>\"";
 				tableFun += "}";
 		//	}
 	}
