@@ -141,33 +141,9 @@ while(rs.next()){
 	{
 		//	if(KpiID.equals(rs1.getString("kpi_id") ))
 		//	{
-				String Oct = rs1.getString("Oct");
-				String Nov = rs1.getString("Nov");
-				String Dec = rs1.getString("Dec");
-				String Jan = rs1.getString("Jan");
-				String Feb = rs1.getString("Feb");
-				String Mar = rs1.getString("Mar");
-				String Apr = rs1.getString("Apr");
-				String May = rs1.getString("May");
-				String Jun = rs1.getString("Jun");
-				String Jul = rs1.getString("Jul");
-				String Aug = rs1.getString("Aug");
-				String Sep = rs1.getString("Sep");
+				String value = rs1.getString("value_list");
 
-				tableFun += "<span class=inlinesparkline>"
-								+Oct+","
-								+Nov+","
-								+Dec+","
-								+Jan+","
-								+Feb+","
-								+Mar+","
-								+Apr+","
-								+May+","
-								+Jun+","
-								+Jul+","
-								+Aug+","
-								+Sep
-								+"</span>\"";
+				tableFun += "<span class=inlinesparkline>"+value+"</span>\"";
 				tableFun += "}";
 		//	}
 	}

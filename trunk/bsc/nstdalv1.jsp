@@ -135,34 +135,8 @@ while(rs.next()){
 	rs1 = st1.executeQuery(QueryGraph);
 	while(rs1.next())
 	{
-				int Oct = rs1.getInt("Oct");
-			
-				int Nov = rs1.getInt("Nov");
-				int Dec = rs1.getInt("Dec");
-				int Jan = rs1.getInt("Jan");
-				int Feb = rs1.getInt("Feb");
-				int Mar = rs1.getInt("Mar");
-				int Apr = rs1.getInt("Apr");
-				int May = rs1.getInt("May");
-				int Jun = rs1.getInt("Jun");
-				int Jul = rs1.getInt("Jul");
-				int Aug = rs1.getInt("Aug");
-				int Sep = rs1.getInt("Sep");
-
-				tableFun2 += ""
-								+Oct+","
-								+Nov+","
-								+Dec+","
-								+Jan+","
-								+Feb+","
-								+Mar+","
-								+Apr+","
-								+May+","
-								+Jun+","
-								+Jul+","
-								+Aug+","
-								+Sep
-								+"";
+				String value = rs1.getString("value_list");
+				tableFun2 += ""+value+"";
 	}
 	tableFun2 += "</span>\"}";
 	//===============GraphLine End=====================
