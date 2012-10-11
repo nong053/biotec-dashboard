@@ -19,14 +19,19 @@ rs=st.executeQuery(Query);
 			
 $htmlTable2+="<table  id='finance_tb1'  width='100%' cellpadding='1px' cellspacing='1px' >";
 	$htmlTable2+="<thead>";
-//tr#########################################1
+// Loop while into tbody
+String[] amount_array;
+Double amount_sum=0.0;
+Double amount_by_center=0.0;
+Integer chkHead = 1;
+	while(rs.next()){
+		if(chkHead == 1){
+		//tr#########################################1
 		$htmlTable2+="<tr>";
 			$htmlTable2+="<th width='300'>";
 				$htmlTable2+="รายการ";
 			$htmlTable2+="</th>";
-
 			//######### Loop title Start ############
-			rs.next();
 			area_array=rs.getString("area_list").split(",");
 			for(int i=0; i<area_array.length; i++){
 			$htmlTable2+="<th>";
@@ -39,15 +44,12 @@ $htmlTable2+="<table  id='finance_tb1'  width='100%' cellpadding='1px' cellspaci
 				$htmlTable2+="รวม";
 			$htmlTable2+="</th>";
 
-		$htmlTable2+="</tr>";
-//tr#########################################1
-	$htmlTable2+="</thead>";
-	$htmlTable2+="<tbody>";
-// Loop while into tbody
-String[] amount_array;
-Double amount_sum=0.0;
-Double amount_by_center=0.0;
-	while(rs.next()){
+			$htmlTable2+="</tr>";
+			//tr#########################################1
+			$htmlTable2+="</thead>";
+			$htmlTable2+="<tbody>";
+			chkHead = 0;
+		}
 		amount_array =rs.getString("amount_list").split(",");
 		$htmlTable2+="<tr>";
 			$htmlTable2+="<td><div class='level"+rs.getString("level") +" parent_key"+rs.getString("parent_key")+"'  id='account_key"+rs.getString("account_key")+" '>"+rs.getString("account_name")+"</div></td>";
