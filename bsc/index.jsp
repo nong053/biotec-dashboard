@@ -137,7 +137,7 @@
 		else{
 			cMonth = 12;
 		}
-		Query="CALL sp_fiscal_year;";
+		Query="CALL sp_fiscal_year()";
 		rs = st.executeQuery(Query);
 		while(rs.next()){
 			if( rs.getString("fiscal_year").equals(cYear+"")){
@@ -148,7 +148,7 @@
 			}
 		}
 		rs = null;
-		Query="CALL sp_fiscal_month;";
+		Query="CALL sp_fiscal_month()";
 		rs = st.executeQuery(Query);
 		while(rs.next()){
 			if(rs.getString("fiscal_month_no").equals(cMonth+"")){
@@ -339,6 +339,7 @@
 							 $("#tabBsc").show();
 
 						$(".paramSubmit").remove();
+						//alert($("#ParamMonth").val()+":"+$("#ParamYear").val());
 						$("body").append("<input type='hidden' value='"+$("#ParamMonth").val()+"' name='ParamMonthSubmit' id='ParamMonthSubmit' class='paramSubmit'> ");
 						$("body").append("<input type='hidden' value='"+$("#ParamYear").val()+"' name='ParamYearSubmit' id='ParamYearSubmit' class='paramSubmit'>");
 						//$("body").append("<input type='hidden' value='"+$("#ParamOrg").val()+"' name='ParamOrgSubmit' id='ParamOrgSubmit' class='paramSubmit'>");
