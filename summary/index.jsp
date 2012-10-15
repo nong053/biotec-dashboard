@@ -553,8 +553,11 @@ var barChartBudget = function(categoryParam,seriesParam){
                                // format: "{0}%"
 							  // format: "{0}",
 							        //      rotation: 10,
-							  font: "10px Tahoma",
-								min : 0
+							font: "10px Tahoma",
+							min : 0,
+							labels: {
+                                template: "#= kendo.format('{0:N0}', value ) # "
+                            }
                         },
                         categoryAxis: {
                          //   categories: [ "โครงการ" ," หน่วยงาน", "ครุภัณฑ์ ", "บุคลากร"]
@@ -853,15 +856,18 @@ var lineChartHr= function(serieParam,categoryParam){
                         valueAxis: {
                             labels: {
                                // format: "{0}%"
-							   format: "{0}%",
+							   //format: "{0}%",
+								template: "#= getValueTurnover(value) #",
 								font: "11px Tahoma"
-                            }
+                            },
+							//majorUnit: 0.5
                         },
                         categoryAxis: {
                             categories: categoryParam,// [" ต.ค."," พ.ย."," ธ.ค."," ม.ค."," ก.พ."," มี.ค."," เม.ย."," พ.ค."," มิ.ย."," ก.ค."," ส.ค."," ก.ย."],
 							labels:{
 							font:"11px Tahoma"
-							}
+							},
+							
                         },
                         tooltip: {
                             visible: true,
@@ -1531,6 +1537,10 @@ function templateFormat2(value,summ) {
 		return fieldtest;
 }
 */
+function getValueTurnover(value){
+return (value).toFixed(2)+"%";
+}
+
    	function getTooltip(category) {
 	var tooltipStr = "";
 	var id = parseInt(category)+100;
