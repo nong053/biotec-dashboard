@@ -1,5 +1,51 @@
 <%@page contentType="text/html" pageEncoding="utf-8"%>
 <%@ include file="../config.jsp"%>
+<%@page import="java.text.DecimalFormat" %>
+<%
+DecimalFormat numberFormatter = new DecimalFormat("###,###,##0.00");
+//out.print(numberFormatter.format(0));
+/*
+String number1="";
+String[] getDecimal;
+String decimal1="";
+String decimal2="";
+
+	  String num1 ="12345.00";
+	  String addDash=num1.replace(".","-");
+	  getDecimal = addDash.split("-");
+	  out.println(getDecimal[1]);
+	  decimal2 =getDecimal[1].substring(1);
+	  out.println("dicalmal2= "+decimal2);
+	  if(decimal2.equals("0")){
+	  out.print("dicalmal2==0");
+	  decimal2="";
+	  }else{
+		 decimal2=getDecimal[1].substring(1);
+		 out.print("dicalmal2!=0");
+	  }
+
+	   decimal1 =getDecimal[1].substring(0,1);
+	  out.print("decimal1= "+decimal1+"<br>");
+			if(decimal1.equals("0")){
+				out.print("dicalmal1==0");
+				decimal1="0";
+			}else{
+				 out.print("dicalmal1!=0");
+				 decimal1 =getDecimal[1].substring(0,1);
+			}
+	String numDecimal = decimal1+""+decimal2;
+	if(numDecimal.equals("0")){
+		  number1=getDecimal[0];
+	}else{
+		  number1=getDecimal[0]+"."+decimal1+""+decimal2;
+	}
+	  out.print("<br>number1= "+number1+"<br>");  
+*/
+%>
+
+
+
+
 <%! 
     String getColorBall(int position,String color,int id)
     {
@@ -26,7 +72,7 @@ String ParamMonth  = request.getParameter("ParamMonth");
 String ParamOrg  = request.getParameter("ParamOrg");
 Integer YearBY = (java.lang.Integer.parseInt(ParamYear))+543;
 String titleStr = "";
-
+String[] numStrSplit;
 
 Query="CALL sp_owner_wavg_score(";
 Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
@@ -36,7 +82,11 @@ while(rs.next()){
 	titleStr="ผลสำเร็จ สำนักงานพัฒนาวิทยาศาสตร์และเทคโนโลยีแห่งชาติได้ " + ParamScore +" คะแนน";
 }
 //=================================== DataJ Start===============================================
-
+//varible manage Decimal 
+String  performanceNumber="";
+String[] getDecimal;
+String decimal1="";
+String decimal2="";
 
 Query="CALL sp_parent_kpi_list(";
 Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
@@ -106,12 +156,43 @@ while(rs.next()){
 	tableFun += baseline + "\",";
 
 	String performance_value = rs.getString("performance_value") ;
+	
 	tableFun += "Field6: \"";
-	tableFun += "<div id=textR>"+ performance_value +"</div> \",";
 
+	//tableFun += "<div id=textR>"+ performance_value +"</div> \",";
+	performance_value=performance_value.trim();
+	if(performance_value.equals("")){
+		performance_value="0";
+	}
+	String performanceStr=numberFormatter.format(Double.parseDouble(performance_value));
+
+	// management Decimal start
+	  String addDash=performanceStr.replace(".","-");
+	  getDecimal = addDash.split("-");
+	  decimal2 =getDecimal[1].substring(1);
+	  if(decimal2.equals("0")){
+	  decimal2="";
+	  }else{
+		 decimal2=getDecimal[1].substring(1);
+	  }
+	   decimal1 =getDecimal[1].substring(0,1);
+			if(decimal1.equals("0")){
+				decimal1="0";
+			}else{
+				 decimal1 =getDecimal[1].substring(0,1);
+			}
+	String numDecimal = decimal1+""+decimal2;
+	if(numDecimal.equals("0")){
+		  performanceNumber=getDecimal[0];
+	}else{
+		  performanceNumber=getDecimal[0]+"."+decimal1+""+decimal2;
+	}
+
+	// management Decimal end
+
+	tableFun += "<div id=textR>"+performanceNumber+"</div> \",";
 //=================================Color Start=========================
 	String performance_percentage = rs.getString("performance_percentage");
-
 	Statement st1;
 	ResultSet  rs1;
 	String QueryColor = "";
