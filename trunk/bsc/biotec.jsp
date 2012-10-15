@@ -102,7 +102,6 @@ while(rs.next()){
 	if(performance_value.equals("")){
 		performance_value="0";
 	}
-	out.println(performance_value);
 	try{
 	String performanceStr=numberFormatter.format(Double.parseDouble(performance_value));
 
