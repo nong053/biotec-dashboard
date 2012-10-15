@@ -14,9 +14,6 @@ String V_Month = ""; // Values of Parameter Sales Region
 String V_Org = ""; // Values of Parameter Branch
 //set variable
 
-
-
-
 //Query Handler Organization start
 try{
 Class.forName(Driver).newInstance();
@@ -26,7 +23,6 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 	st = conn.createStatement();
 		Query="CALL sp_center();";
 		rs = st.executeQuery(Query);
-		 
 		while(rs.next()){
 		//out.println(rs.getString("center_name"));
 		V_Org+="<option value="+rs.getString("center_name")+">"+rs.getString("center_name")+"</option>";
@@ -161,6 +157,9 @@ out.println("Error"+ex);
 			#contentMain{
 			display:none;
 			}
+			#dialogBox{
+			display:none;
+			}
 
 		</style>
 		<style scoped>
@@ -191,6 +190,26 @@ out.println("Error"+ex);
 	<script type="text/javascript">
 		/*#### Tab search above top start ###*/
 	$(document).ready(function(){
+		$("#buttonDetail").live("click",function(){
+			
+			$("#dialogBox").dialog({
+					width:650,
+					modal: true,
+					title:"Browse File",
+					buttons:{
+					"OK":function(){
+					$(this).dialog("close");
+						}
+					},
+					regend:{
+					position:"buttom"
+					}
+					
+					});
+
+					$("#dialogBox").show();
+
+		});
 		/*#### Loading Start ###*/
 		var $width=($('body').width()/2)-50;
 		//console.log($width);
@@ -215,6 +234,7 @@ out.println("Error"+ex);
 	/*### Function Ajax Management Start###*/
 	var includeHr_1 = function(){
 		//AJAX1
+				
 				$.ajax({
 					url:'hr.jsp',
 					type:'get',
@@ -243,12 +263,17 @@ out.println("Error"+ex);
 		$(".pageRemember").remove();
 		$("body").append("<input type='hidden' id='pageNpr' class='pageRemember' name='pageNpr' value='pageNpr'>");
 		$("#content2").append(data);
+
+		$("#buttonDetail").remove();
+		$(".ui-tabs-nav").append("<input type='button' style='float:right;  margin-top:3px; '  id='buttonDetail' value='Detail'>");
+
 		}
 	});
 	} 
 	$("a[href=#content1]").click(function(){
 		$("#content1").empty();
 		$("#content2").empty();
+		$("#buttonDetail").remove();
 		includeHr_1();
 	});
 
@@ -260,12 +285,9 @@ out.println("Error"+ex);
 	});
 
 	/*### Function Ajax Management End###*/
-		
 		$("form#form_1").submit(function(){
-
 			$("#content1").empty();
 			$("#content2").empty();
-
 			$("#contentMain").show();
 			$("#tabHr").tabs();
 			$(".ui-tabs-panel").css("padding","0px");
@@ -356,7 +378,16 @@ $("form#form_1").trigger("submit");
 		<b>Loading...</b>
 	</span>
 	</div>
-	
+	<div id="dialogBox">
+
+		<ul>
+			<li><a href="<%=request.getContextPath()%>/biotec-dashboard/archive/NPR_201206.xls">NPR_201206.xls</a></li>
+			<li><a href="<%=request.getContextPath()%>/biotec-dashboard/archive/NPR_201207.xls">NPR_201207.xls</a></li>
+			<li><a href="<%=request.getContextPath()%>/biotec-dashboard/archive/NPR_201208.xls">NPR_201208.xls</a></li>
+			<li><a href="<%=request.getContextPath()%>/biotec-dashboard/archive/NPR09-update-20121012_201210.xls">NPR09-update-20121012_201210.xls</a></li>
+			<li><a href="<%=request.getContextPath()%>/biotec-dashboard/archive/NPR-SEP55_20121010 edit_201210.xls">NPR-SEP55_20121010 edit_201210.xls</a></li>
+		</ul>
+	</div>
 	<!--------------------------- Details End--------------------------->
 	</body>
 </html>
