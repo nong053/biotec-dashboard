@@ -190,10 +190,28 @@ out.println("Error"+ex);
 	<script type="text/javascript">
 		/*#### Tab search above top start ###*/
 	$(document).ready(function(){
+		
 		$("#buttonDetail").live("click",function(){
-			
+			var htmlArchive="";
+			$("#dialogBox").empty();
+			$.ajax({
+				url:'NPR_listfile.jsp',
+				dataType:'html',
+				success:function(data){
+				var obj=eval("("+data+")");
+					//alert(obj.length);
+					for(var iNum=0; iNum <obj.length; iNum++){
+						htmlArchive+="<ul>";
+						htmlArchive+="<li><a href='<%=request.getContextPath()%>/biotec-dashboard/archive/"+obj[iNum]+"'>"+obj[iNum]+"</a></li>";
+						htmlArchive+="</ul>";
+					}
+
+			$("#dialogBox").append(htmlArchive);
+				}
+			});
+
 			$("#dialogBox").dialog({
-					width:650,
+					width:500,
 					modal: true,
 					title:"Browse File",
 					buttons:{
@@ -379,7 +397,7 @@ $("form#form_1").trigger("submit");
 	</span>
 	</div>
 	<div id="dialogBox">
-
+<!--
 		<ul>
 			<li><a href="<%=request.getContextPath()%>/biotec-dashboard/archive/NPR_201206.xls">NPR_201206.xls</a></li>
 			<li><a href="<%=request.getContextPath()%>/biotec-dashboard/archive/NPR_201207.xls">NPR_201207.xls</a></li>
@@ -387,6 +405,7 @@ $("form#form_1").trigger("submit");
 			<li><a href="<%=request.getContextPath()%>/biotec-dashboard/archive/NPR09-update-20121012_201210.xls">NPR09-update-20121012_201210.xls</a></li>
 			<li><a href="<%=request.getContextPath()%>/biotec-dashboard/archive/NPR-SEP55_20121010 edit_201210.xls">NPR-SEP55_20121010 edit_201210.xls</a></li>
 		</ul>
+-->
 	</div>
 	<!--------------------------- Details End--------------------------->
 	</body>

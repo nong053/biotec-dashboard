@@ -3,7 +3,7 @@
 <%@ page language="java" import="net.sf.json.JSONArray" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
         <%!        public void GetDirectory(String a_Path, Vector a_files, Vector a_folders) {
                 File l_Directory = new File(a_Path);
                 File[] l_files = l_Directory.listFiles();
@@ -19,7 +19,8 @@
         %> 
         <%
             Vector l_Files = new Vector(), l_Folders = new Vector();
-			String LPath = "D:\\biserver-ce-3.8.0\\biserver-ce\\tomcat\\webapps\\pentaho\\biotec-dashboard\\archive";
+			//String LPath = "D:\\biserver-ce-3.8.0\\biserver-ce\\tomcat\\webapps\\pentaho\\biotec-dashboard\\archive";
+			String LPath = "D:\\bi-server\\biserver-ce\\tomcat\\webapps\\pentaho\\biotec-dashboard\\archive";
             GetDirectory(LPath, l_Files, l_Folders);
 
 			JSONArray arrayObj = new JSONArray();
