@@ -1,5 +1,9 @@
 <%@page contentType="text/html" pageEncoding="utf-8"%>
 <%@ include file="../config.jsp"%>
+<%@page import="java.text.DecimalFormat" %>
+<%
+DecimalFormat numberFormatter = new DecimalFormat("###,###,##0.00");
+%>
 <%! 
     String getColorBall(int position,String color,int id)
     {
@@ -35,7 +39,11 @@ while(rs.next()){
 	String ParamScore =  rs.getString("owner_wavg_score") ;
 	titleStr="ผลสำเร็จ ศูนย์เทคโนโลยีโลหะและวัสดุแห่งชาติได้ " + ParamScore +" คะแนน";
 }
-
+//varible manage Decimal 
+String  performanceNumber="";
+String[] getDecimal;
+String decimal1="";
+String decimal2="";
 
 Query="CALL sp_parent_kpi_list(";
 Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
@@ -85,7 +93,36 @@ while(rs.next()){
 
 	String performance_value = rs.getString("performance_value") ;
 	tableFun += "Field6: \"";
-	tableFun += "<div id=textR>"+ performance_value +"</div> \",";
+		performance_value=performance_value.trim();
+	if(performance_value.equals("")){
+		performance_value="0";
+	}
+	String performanceStr=numberFormatter.format(Double.parseDouble(performance_value));
+
+	// management Decimal start
+	  String addDash=performanceStr.replace(".","-");
+	  getDecimal = addDash.split("-");
+	  decimal2 =getDecimal[1].substring(1);
+	  if(decimal2.equals("0")){
+	  decimal2="";
+	  }else{
+		 decimal2=getDecimal[1].substring(1);
+	  }
+	   decimal1 =getDecimal[1].substring(0,1);
+			if(decimal1.equals("0")){
+				decimal1="0";
+			}else{
+				 decimal1 =getDecimal[1].substring(0,1);
+			}
+	String numDecimal = decimal1+""+decimal2;
+	if(numDecimal.equals("0")){
+		  performanceNumber=getDecimal[0];
+	}else{
+		  performanceNumber=getDecimal[0]+"."+decimal1+""+decimal2;
+	}
+
+	// management Decimal end
+	tableFun += "<div id=textR>"+ performanceNumber +"</div> \",";
 
 //=================================Color Start=========================
 	String performance_percentage = rs.getString("performance_percentage");
