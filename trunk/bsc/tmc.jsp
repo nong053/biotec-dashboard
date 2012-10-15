@@ -99,6 +99,7 @@ while(rs.next()){
 	if(performance_value.equals("")){
 		performance_value="0";
 	}
+	try{
 	String performanceStr=numberFormatter.format(Double.parseDouble(performance_value));
 	// management Decimal start
 	  String addDash=performanceStr.replace(".","-");
@@ -121,9 +122,12 @@ while(rs.next()){
 	}else{
 		  performanceNumber=getDecimal[0]+"."+decimal1+""+decimal2;
 	}
-
 	// management Decimal end
-	tableFun += "<div id=textR>"+ performanceNumber +"</div> \",";
+	performance_value = performanceNumber;
+	}catch(NumberFormatException nfe){
+		performance_value = performance_value;
+	}
+	tableFun += "<div id=textR>"+ performance_value +"</div> \",";
 
 //=================================Color Start=========================
 	String performance_percentage = rs.getString("performance_percentage");

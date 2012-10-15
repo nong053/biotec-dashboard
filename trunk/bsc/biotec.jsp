@@ -76,7 +76,7 @@ while(rs.next()){
 		tableFun +=" <a href="+urlpage+"?ks="+kpi_code+"&yy="+ParamYear+"&mm="+ParamMonth+" target=_blank><button class=k-button>Detail</button></a> ";
 	}
 	tableFun += "\", ";
-
+	
 	//=============Get Url with Details Button End============
 	String target_value = rs.getString("target_value");
 	tableFun += "Field3: \"";
@@ -96,11 +96,14 @@ while(rs.next()){
 
 	
 	tableFun += "Field6: \"";
+	
 	String performance_value = rs.getString("performance_value") ;
 	performance_value=performance_value.trim();
 	if(performance_value.equals("")){
 		performance_value="0";
 	}
+	out.println(performance_value);
+	try{
 	String performanceStr=numberFormatter.format(Double.parseDouble(performance_value));
 
 	// management Decimal start
@@ -124,11 +127,13 @@ while(rs.next()){
 	}else{
 		  performanceNumber=getDecimal[0]+"."+decimal1+""+decimal2;
 	}
-
-	// management Decimal end
-
 	
-	tableFun += "<div id=textR>"+ performanceNumber +"</div> \",";
+	// management Decimal end
+		performance_value = performanceNumber;
+	}catch(NumberFormatException nfe){
+		performance_value = performance_value;
+	}
+	tableFun += "<div id=textR>"+ performance_value +"</div> \",";
 //=================================Color Start=========================
 	String performance_percentage = rs.getString("performance_percentage");
 
@@ -191,6 +196,7 @@ while(rs.next()){
 	i++;
 }
 tableFun += "]";
+
 
 %>
 	<style type="text/css">
