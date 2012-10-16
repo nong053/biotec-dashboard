@@ -3,8 +3,8 @@
 <%@page import="java.text.DecimalFormat" %>
 <!--- Tab2 -->
 <%
-	//DecimalFormat numberFormatter = new DecimalFormat("###,###,##0.00");
-	DecimalFormat numberFormatter = new DecimalFormat("0.00");
+	DecimalFormat numberFormatter = new DecimalFormat("###,###,##0.00");
+	//DecimalFormat numberFormatter = new DecimalFormat("0.00");
 	String paramYear= request.getParameter("paramYear");
 	String paramMonth= request.getParameter("paramMonth");
 //	String paramYear= "2012";
@@ -18,42 +18,55 @@
 	Integer paramLastYear = paramYearInt+542;
 	Integer paramCurentYear=paramYearInt+543;
 
-	if(paramMonth.equals("1")){
+
+ if(paramMonth.equals("1")){
 	paramMonthCurent="ต.ค.";
-	paramMonthPerv="พ.ย.";
+	paramMonthPerv="ก.ย.";
+
 	}else if(paramMonth.equals("2")){
 	paramMonthCurent="พ.ย.";
-	paramMonthPerv="ธ.ค.";
+	paramMonthPerv="ต.ค.";
+	
+	
 	}else if(paramMonth.equals("3")){
 	paramMonthCurent="ธ.ค.";
-	paramMonthPerv="ม.ค.";
+	paramMonthPerv="พ.ย.";
+	
 	}else if(paramMonth.equals("4")){
 	paramMonthCurent="ม.ค.";
-	paramMonthPerv="ก.พ.";
+	paramMonthPerv="ธ.ค.";
+	
 	}else if(paramMonth.equals("5")){
+	paramMonthPerv="ม.ค.";
 	paramMonthCurent="ก.พ.";
-	paramMonthPerv="มี.ค.";
 	}else if(paramMonth.equals("6")){
-	paramMonthCurent="มี.ค";
-	paramMonthPerv="เม.ษ.";
+	paramMonthCurent="มี.ค.";
+	paramMonthPerv="ก.พ.";
+	
 	}else if(paramMonth.equals("7")){
 	paramMonthCurent="เม.ษ.";
-	paramMonthPerv="พ.ค.";
+	paramMonthPerv="มี.ค";
+	
 	}else if(paramMonth.equals("8")){
-	paramMonthPerv="พ.ค.";
-	paramMonthPerv="มิ.ย.";
+	paramMonthCurent="พ.ค.";
+	paramMonthPerv="เม.ษ.";
+	
 	}else if(paramMonth.equals("9")){
 	paramMonthCurent="มิ.ย.";
-	paramMonthPerv="ก.ค.";
+	paramMonthPerv="พ.ค.";
+	
 	}else if(paramMonth.equals("10")){
 	paramMonthCurent="ก.ค.";
-	paramMonthPerv="ส.ค.";
+	paramMonthPerv="มิ.ย.";
+	
 	}else if(paramMonth.equals("11")){
 	paramMonthCurent="ส.ค.";
-	paramMonthPerv="ก.ย.";
+	paramMonthPerv="ก.ค.";
+	
 	}else if(paramMonth.equals("12")){
 	paramMonthCurent="ก.ย.";
-	paramMonthPerv="ต.ค.";
+	paramMonthPerv="ส.ค.";
+	
 	}
 /*
 	out.print("paramLastYear"+paramLastYear+"<br>");
@@ -89,8 +102,8 @@ Double Result=0.0;
 		dataDefault+="account_name:\""+rs.getString("account_name")+"\",";
 		dataDefault+="account_key:"+rs.getString("account_key")+",";
 		dataDefault+="Field1:\"<div class='textL level"+rs.getString("level") +" parent_key"+rs.getString("parent_key")+"'  id='account_key"+rs.getString("account_key")+" '>"+rs.getString("account_name")+" </div>\",";
-		dataDefault+="Field2:\"<div class='textR'>"+numberFormatter.format(rs.getDouble("pMonthAmt"))+"</div>\",";
-		dataDefault+="Field3:\"<div class='textR'>"+numberFormatter.format(rs.getDouble("currentAmt"))+"</div>\",";
+		dataDefault+="Field2:\"<div class='textR'>"+numberFormatter.format(rs.getDouble("currentAmt"))+"</div>\",";
+		dataDefault+="Field3:\"<div class='textR'>"+numberFormatter.format(rs.getDouble("pMonthAmt"))+"</div>\",";
 			
 			pMonthAmt = rs.getDouble("pMonthAmt");
 			currentAmt = rs.getDouble("currentAmt");
@@ -98,8 +111,8 @@ Double Result=0.0;
 			if(currentAmt==0.0){
 			GrowthPercentage=0.0;
 			}else{
-			Result = pMonthAmt-currentAmt;
-			GrowthPercentage =(Result / currentAmt)* 100;
+			Result = currentAmt-pMonthAmt;
+			GrowthPercentage =(Result / pMonthAmt)* 100;
 			}
 
 
@@ -111,16 +124,16 @@ Double Result=0.0;
 		dataDefault+="account_name:\""+rs.getString("account_name")+"\",";
 		dataDefault+="account_key:"+rs.getString("account_key")+",";
 		dataDefault+="Field1:\"<div class='textL level"+rs.getString("level") +" parent_key"+rs.getString("parent_key")+"'  id='account_key"+rs.getString("account_key")+" '>"+rs.getString("account_name")+" </div>\",";
-		dataDefault+="Field2:\"<div class='textR'>"+numberFormatter.format(rs.getDouble("pMonthAmt"))+"</div>\",";
-		dataDefault+="Field3:\"<div class='textR'>"+numberFormatter.format(rs.getDouble("currentAmt"))+"</div>\",";
+		dataDefault+="Field2:\"<div class='textR'>"+numberFormatter.format(rs.getDouble("currentAmt"))+"</div>\",";
+		dataDefault+="Field3:\"<div class='textR'>"+numberFormatter.format(rs.getDouble("pMonthAmt"))+"</div>\",";
 			
 			pMonthAmt = rs.getDouble("pMonthAmt");
 			currentAmt = rs.getDouble("currentAmt");
 			if(currentAmt==0.0){
 			GrowthPercentage=0.0;
 			}else{
-			Result = pMonthAmt-currentAmt;
-			GrowthPercentage =(Result / currentAmt)* 100;
+			Result =  currentAmt-pMonthAmt;
+			GrowthPercentage =(Result / pMonthAmt)* 100;
 			}
 
 		dataDefault+="Field5:\"<div class='textR'>"+numberFormatter.format(GrowthPercentage)+"%</div>\",";
@@ -1135,8 +1148,8 @@ function tootipFormat(value,summ){
 			String paramCurentYearStr=String.valueOf(paramCurentYear);
 			String paramCurentYearSub=paramCurentYearStr.substring(2);
 		%>
-		  <th  data-field="Field2"><center><div class="fontTitle"><%=paramMonthPerv%> &nbsp; <%=paramCurentYearSub%> </div></center></th>		 
-		  <th data-field="Field3"><center><div class="fontTitle"><%=paramMonthCurent%> &nbsp; <%=paramCurentYearSub%> </div></center></th>
+		  <th  data-field="Field2"><center><div class="fontTitle"><%=paramMonthCurent%> &nbsp; <%=paramCurentYearSub%> </div></center></th>		 
+		  <th data-field="Field3"><center><div class="fontTitle"><%=paramMonthPerv%> &nbsp; <%=paramCurentYearSub%> </div></center></th>
 		  <th data-field="Field5"><center><div class="fontTitle">%</div></center></th>
 		  <%
 		  String paramLastYearStr=String.valueOf(paramLastYear);
