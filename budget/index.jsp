@@ -115,12 +115,13 @@ String center_name="";
 		rs = st.executeQuery(Query);
 		rs.next();
 		int	cYear =  Integer.parseInt(rs.getString("year_date"));
-		int	cMonth = Integer.parseInt(rs.getString("month_date"));
+		int	cMonth = Integer.parseInt(rs.getString("month_date"))-1;
 		if((cMonth+3) > 12) {
 			cYear = cYear ;
 		}
 		if((cMonth+3)%12!=0){
 			cMonth = (cMonth+3)%12;
+			//out.println("cMonth= "+cMonth+"<br>");
 		}
 		else{
 			cMonth = 12;
