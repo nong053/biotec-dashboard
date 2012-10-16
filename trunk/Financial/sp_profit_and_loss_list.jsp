@@ -50,7 +50,7 @@ DecimalFormat numberFormatter = new DecimalFormat("###,###,##0.00");
 		j++;
 		}
 		//Loop for get value amount_list 
-		dataDefault+="Field10:\"<div class='textR'>"+numberFormatter.format(amount_sum)+"</div>\"";
+		dataDefault+="Field9:\"<div class='textR'>"+numberFormatter.format(amount_sum)+"</div>\"";
 		dataDefault+="}" ;
 		}else{
 		dataDefault+=",{" ;
@@ -72,7 +72,7 @@ DecimalFormat numberFormatter = new DecimalFormat("###,###,##0.00");
 		}
 		//Loop for get value amount_list 
 		//(amount_list_array.length)+1)
-		dataDefault+="Field10:\"<div class='textR'>"+numberFormatter.format(amount_sum)+"</div>\"";
+		dataDefault+="Field9:\"<div class='textR'>"+numberFormatter.format(amount_sum)+"</div>\"";
 		dataDefault+="}" ;
 		}//if
 i++;
@@ -198,7 +198,7 @@ font-size:16px;
 	var $titleJ =[
               {
                   field: "Field1",
-				   width: 200
+				   width: 250
               },
               {
                   field: "Field2",
@@ -228,17 +228,14 @@ font-size:16px;
                   field: "Field8",
 				  width: 80
 			 },
-              {
+             {
                   field: "Field9",
-				  width:80
-			 },{
-                  field: "Field10",
 			 } ];
 
 var $titleJ2 =[
               {
                   field: "Field1",
-				  width: 192
+				  width: 243
               },
               {
                   field: "Field2",
@@ -270,17 +267,13 @@ var $titleJ2 =[
 			 },
               {
                   field: "Field9",
-				    width: 80
-			 },
-              {
-                  field: "Field10",
-				   width:75
+				    width: 105
 			 }
            ];
 var $titleJ3 =[
               {
                   field: "Field1",
-				  width: 185
+				  width: 236
               },
               {
                   field: "Field2",
@@ -310,17 +303,13 @@ var $titleJ3 =[
 				    width: 80
 			 },{
                   field: "Field9",
-				    width: 80
-			 },
-              {
-                  field: "Field10",
-				   width:75
+				    width: 105
 			 }
            ];
 var $titleJ4 =[
               {
                   field: "Field1",
-				  width: 180
+				  width: 229
               },
               {
                   field: "Field2",
@@ -351,17 +340,13 @@ var $titleJ4 =[
 				    width: 80
 			 },{
                   field: "Field9",
-				    width: 80
-			 },
-              {
-                  field: "Field10",
-				   width:75
+				    width: 105
 			 }
            ];
 var $titleJ5 =[
               {
                   field: "Field1",
-				  width: 203
+				  width: 252
               },
               {
                   field: "Field2",
@@ -392,11 +377,7 @@ var $titleJ5 =[
 				    width: 80
 			 },{
                   field: "Field9",
-				    width: 80
-			 },
-              {
-                  field: "Field9",
-				   width:75
+				    width: 105
 			 }
            ];
 
