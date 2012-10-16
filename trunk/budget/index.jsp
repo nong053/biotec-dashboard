@@ -47,6 +47,13 @@
 			position:center;
 			z-index:5;
 			}
+			#barChart1{
+			top:-30px;
+			}
+			#titleTXT{
+			position:relative;
+			top:-45px;
+			}
 /*
 			.ui-progressbar .ui-progressbar-value { 	
 				background: url("images/progressbar.gif");
@@ -110,7 +117,7 @@ String center_name="";
 		int	cYear =  Integer.parseInt(rs.getString("year_date"));
 		int	cMonth = Integer.parseInt(rs.getString("month_date"));
 		if((cMonth+3) > 12) {
-			cYear = cYear+1 ;
+			cYear = cYear ;
 		}
 		if((cMonth+3)%12!=0){
 			cMonth = (cMonth+3)%12;
@@ -1160,7 +1167,7 @@ var barChart1 = function(seriesParam,categoryParam){
 			},
 			//seriesClick:onSeriesClick,
 			chartArea: {
-			height: 260,
+			height: 300,
 			width:940
 			 },
 			legend: {
@@ -1171,7 +1178,8 @@ var barChart1 = function(seriesParam,categoryParam){
 							// ie can not reading font-size
                            title: {text: "งบประมาณ(ล้านบาท)" , font:"14px Tahoma"},
 							labels:{
-						   font:"10px Tahoma"
+						   font:"11px Tahoma",
+						   template: "#= kendo.format('{0:N0}', value ) # "
 						   }
 						   //title: {text: "งบประมาณ(ล้านบาท)" },
                        
@@ -1465,8 +1473,7 @@ var barChart21 = function(seriesParam,categoryParam){
 			],*/
 			valueAxis: {
                             title: { text: "งบประมาณ(ล้านบาท)" ,font:"14px Tahoma"},
-                           // min: 0,
-                            //max: 1200
+							labels:{ template: "#= kendo.format('{0:N0}', value ) # "}
                         },
 
 			categoryAxis:{
@@ -1675,6 +1682,9 @@ var barChart31 = function(seriesParam,categoryParam){
 			],*/
 			valueAxis: {
                             title: { text: "งบประมาณ(ล้านบาท)" ,font:"14px Tahoma"},
+							labels:{
+							template: "#= kendo.format('{0:N0}', value ) # "
+							}
                           /*  min: 0,
                             max: 1200
 							*/
@@ -1877,6 +1887,7 @@ var barChart41 = function(seriesParam,categoryParam){
 			],*/
 			valueAxis: {
                             title: { text: "งบประมาณ(ล้านบาท)",font:"14px Tahoma" },
+							labels:{ template: "#= kendo.format('{0:N0}', value ) # "}
                           /*  min: 0,
                             max: 1200
 							*/
@@ -2048,6 +2059,7 @@ var barChart51 = function(categoryParam,seriesParam){
 			series: seriesParam,
 			valueAxis: {
                             title: { text: "งบประมาณ(ล้านบาท)" ,font:"14px Tahoma"},
+							labels:{ template: "#= kendo.format('{0:N0}', value ) # "}
                 
                         },
 
@@ -2281,7 +2293,9 @@ function templateFormat(value,summ) {
 				<div class="content">
 				
 						<div id="barChart1"></div>
-						<center><b>แหล่งทุน</b></center><br>
+						<div id="titleTXT">
+							<center><b>แหล่งทุน</b></center><br>
+						</div>
 				</div>
 		</div>
 	</div>

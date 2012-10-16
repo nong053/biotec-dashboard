@@ -23,6 +23,8 @@ border-radius:5px;
 font-weight:bold;
 padding-left:5px;
 margin:1px;
+position: relative;
+z-index: 200;
 }
 #content #row1 #column11 .content{
 border:1px solid #cccccc;
