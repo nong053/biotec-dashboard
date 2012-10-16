@@ -71,7 +71,7 @@ DecimalFormat numberFormatter = new DecimalFormat("###,###,##0.00");
 		k++;
 		}
 		//Loop for get value amount_list 
-
+		//(amount_list_array.length)+1)
 		dataDefault+="Field10:\"<div class='textR'>"+numberFormatter.format(amount_sum)+"</div>\"";
 		dataDefault+="}" ;
 		}//if

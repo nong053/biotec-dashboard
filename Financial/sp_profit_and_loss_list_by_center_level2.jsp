@@ -3,8 +3,8 @@
 <%@page import="java.text.DecimalFormat" %>
 <%
 
-	//DecimalFormat numberFormatter = new DecimalFormat("###,###,##0.00");
-	DecimalFormat numberFormatter = new DecimalFormat("0.00");
+	DecimalFormat numberFormatter = new DecimalFormat("###,###,##0.00");
+	//DecimalFormat numberFormatter = new DecimalFormat("0.00");
 	String paramYear= request.getParameter("paramYear");
 	String paramMonth= request.getParameter("paramMonth");
 	String paramArea=(request.getParameter("paramArea").trim());

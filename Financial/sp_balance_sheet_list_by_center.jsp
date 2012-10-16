@@ -3,7 +3,7 @@
 <%@page import="java.text.DecimalFormat" %>
 <!--- Tab1 -->
 <%
-DecimalFormat numberFormatter = new DecimalFormat("0.00");
+DecimalFormat numberFormatter = new DecimalFormat("###,###,##0.00");
 String paramYear= request.getParameter("paramYear");
 String paramMonth= request.getParameter("paramMonth");
 String paramMonthPerv= "";
@@ -13,42 +13,54 @@ Integer paramYearInt =Integer.parseInt(paramYear);
 Integer paramLastYear = paramYearInt+542;
 Integer paramCurentYear=paramYearInt+543;
 
-	if(paramMonth.equals("1")){
+	 if(paramMonth.equals("1")){
 	paramMonthCurent="ต.ค.";
-	paramMonthPerv="พ.ย.";
+	paramMonthPerv="ก.ย.";
+
 	}else if(paramMonth.equals("2")){
 	paramMonthCurent="พ.ย.";
-	paramMonthPerv="ธ.ค.";
+	paramMonthPerv="ต.ค.";
+	
+	
 	}else if(paramMonth.equals("3")){
 	paramMonthCurent="ธ.ค.";
-	paramMonthPerv="ม.ค.";
+	paramMonthPerv="พ.ย.";
+	
 	}else if(paramMonth.equals("4")){
 	paramMonthCurent="ม.ค.";
-	paramMonthPerv="ก.พ.";
+	paramMonthPerv="ธ.ค.";
+	
 	}else if(paramMonth.equals("5")){
+	paramMonthPerv="ม.ค.";
 	paramMonthCurent="ก.พ.";
-	paramMonthPerv="มี.ค.";
 	}else if(paramMonth.equals("6")){
-	paramMonthCurent="มี.ค";
-	paramMonthPerv="เม.ษ.";
+	paramMonthCurent="มี.ค.";
+	paramMonthPerv="ก.พ.";
+	
 	}else if(paramMonth.equals("7")){
 	paramMonthCurent="เม.ษ.";
-	paramMonthPerv="พ.ค.";
+	paramMonthPerv="มี.ค";
+	
 	}else if(paramMonth.equals("8")){
-	paramMonthPerv="พ.ค.";
-	paramMonthPerv="มิ.ย.";
+	paramMonthCurent="พ.ค.";
+	paramMonthPerv="เม.ษ.";
+	
 	}else if(paramMonth.equals("9")){
 	paramMonthCurent="มิ.ย.";
-	paramMonthPerv="ก.ค.";
+	paramMonthPerv="พ.ค.";
+	
 	}else if(paramMonth.equals("10")){
 	paramMonthCurent="ก.ค.";
-	paramMonthPerv="ส.ค.";
+	paramMonthPerv="มิ.ย.";
+	
 	}else if(paramMonth.equals("11")){
 	paramMonthCurent="ส.ค.";
-	paramMonthPerv="ก.ย.";
+	paramMonthPerv="ก.ค.";
+	
 	}else if(paramMonth.equals("12")){
 	paramMonthCurent="ก.ย.";
-	paramMonthPerv="ต.ค.";
+	paramMonthPerv="ส.ค.";
+	
 	}
 %>
 <!-- Config Style-->
@@ -522,13 +534,13 @@ $htmlTable1+="<table  id='finance_tb1'  width='700' cellpadding='1px' cellspacin
 		$htmlTable1+="<th>";
 			String paramCurentYearStr1=String.valueOf(paramCurentYear);
 			String paramCurentYearSub1=paramCurentYearStr1.substring(2);
-			$htmlTable1+=paramMonthPerv+" "+paramCurentYearSub1;
+			$htmlTable1+=paramMonthCurent+" "+paramCurentYearSub1;
 		$htmlTable1+="</th>";
 
 		$htmlTable1+="<th>";
 			String paramCurentYearStr=String.valueOf(paramCurentYear);
 			String paramCurentYearSub=paramCurentYearStr.substring(2);
-			$htmlTable1+=paramMonthCurent+"  "+paramCurentYearSub;
+			$htmlTable1+=paramMonthPerv+""+paramCurentYearSub;
 		$htmlTable1+="</th>";
 
 		$htmlTable1+="<th>";
@@ -557,18 +569,22 @@ Double Result=0.00;
 		$htmlTable1+="<tr>";
 			$htmlTable1+="<td><div class='level"+rs.getString("level") +" parent_key"+rs.getString("parent_key")+"'  id='account_key"+rs.getString("account_key")+" '>"+rs.getString("account_name")+"</div></td>";
 			$htmlTable1+="<td>";
+				$htmlTable1+=numberFormatter.format(rs.getDouble("currentAmt"));
+			$htmlTable1+="</td>";
+
+			$htmlTable1+="<td>";
 				$htmlTable1+=numberFormatter.format(rs.getDouble("pMonthAmt"));
 			$htmlTable1+="</td>";
 	
-			$htmlTable1+="<td>"+numberFormatter.format(rs.getDouble("currentAmt"))+"</td>";
+			
 
 			pMonthAmt = rs.getDouble("pMonthAmt");
 			currentAmt = rs.getDouble("currentAmt");
 			if(currentAmt==0.0){
 			GrowthPercentage=0.0;
 			}else{
-			Result = pMonthAmt-currentAmt;
-			GrowthPercentage =(Result / currentAmt)* 100;
+			Result = currentAmt-pMonthAmt;
+			GrowthPercentage =(Result / pMonthAmt)* 100;
 			}
 			//GrowthPercentage= isNaN(GrowthPercentage)? 0.00: GrowthPercentage;
 
