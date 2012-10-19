@@ -534,13 +534,13 @@ $htmlTable1+="<table  id='finance_tb1'  width='700' cellpadding='1px' cellspacin
 		$htmlTable1+="<th>";
 			String paramCurentYearStr1=String.valueOf(paramCurentYear);
 			String paramCurentYearSub1=paramCurentYearStr1.substring(2);
-			$htmlTable1+=paramMonthCurent+" "+paramCurentYearSub1;
+			$htmlTable1+=paramMonthPerv+" "+paramCurentYearSub1;
 		$htmlTable1+="</th>";
 
 		$htmlTable1+="<th>";
 			String paramCurentYearStr=String.valueOf(paramCurentYear);
 			String paramCurentYearSub=paramCurentYearStr.substring(2);
-			$htmlTable1+=paramMonthPerv+""+paramCurentYearSub;
+			$htmlTable1+=paramMonthCurent+""+paramCurentYearSub;
 		$htmlTable1+="</th>";
 
 		$htmlTable1+="<th>";
@@ -569,11 +569,11 @@ Double Result=0.00;
 		$htmlTable1+="<tr>";
 			$htmlTable1+="<td><div class='level"+rs.getString("level") +" parent_key"+rs.getString("parent_key")+"'  id='account_key"+rs.getString("account_key")+" '>"+rs.getString("account_name")+"</div></td>";
 			$htmlTable1+="<td>";
-				$htmlTable1+=numberFormatter.format(rs.getDouble("currentAmt"));
+				$htmlTable1+=numberFormatter.format(rs.getDouble("pMonthAmt"));
 			$htmlTable1+="</td>";
 
 			$htmlTable1+="<td>";
-				$htmlTable1+=numberFormatter.format(rs.getDouble("pMonthAmt"));
+				$htmlTable1+=numberFormatter.format(rs.getDouble("currentAmt"));
 			$htmlTable1+="</td>";
 	
 			
