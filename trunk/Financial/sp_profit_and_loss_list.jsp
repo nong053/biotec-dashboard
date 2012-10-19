@@ -11,7 +11,7 @@ DecimalFormat numberFormatter = new DecimalFormat("###,###,##0.00");
 
 
 	String dataDefault="";
-	Query="CALL sp_profit_and_loss_list_per_level("+paramYear+","+paramMonth+",4,null);";
+	Query="CALL sp_profit_and_loss_list_per_level("+paramYear+","+paramMonth+",2,null);";
 	rs=st.executeQuery(Query);
 
 	Integer i=0;
@@ -405,7 +405,7 @@ var $titleJ5 =[
 					type:'get',
 					dataType:'json',
 					cache:false,
-					data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramLevel':5,'paramParentKey':e.data.account_key},
+					data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramLevel':3,'paramParentKey':e.data.account_key},
 					success:function(data){
 						//console.log(data);
 								 $("<table><th></th></table>").kendoGrid({
@@ -440,7 +440,7 @@ var $titleJ5 =[
 					type:'get',
 					dataType:'json',
 					cache:false,
-					data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramLevel':6,'paramParentKey':e.data.account_key},
+					data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramLevel':4,'paramParentKey':e.data.account_key},
 					success:function(data){
 								 $("<table><th></th></table>").kendoGrid({
 								detailInit: detailInit4,
@@ -471,7 +471,7 @@ var $titleJ5 =[
 					type:'get',
 					dataType:'json',
 					cache:false,
-					data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramLevel':7,'paramParentKey':e.data.account_key},
+					data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramLevel':5,'paramParentKey':e.data.account_key},
 					success:function(data){
 								 $("<table><th></th></table>").kendoGrid({
 								detailInit: detailInit5,
@@ -501,7 +501,7 @@ var $titleJ5 =[
 					type:'get',
 					dataType:'json',
 					cache:false,
-					data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramLevel':8,'paramParentKey':e.data.account_key},
+					data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramLevel':9,'paramParentKey':e.data.account_key},
 					success:function(data){
 								 $("<table><th></th></table>").kendoGrid({
 								columns: $titleJ5,

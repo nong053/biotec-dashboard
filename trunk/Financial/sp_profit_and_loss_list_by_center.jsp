@@ -75,7 +75,7 @@
 	out.print("paramMonthPerv"+paramMonthPerv+"<br>");
 */
 	String dataDefault="";
-	Query="CALL sp_profit_and_loss_list_by_center_per_level("+paramYear+","+paramMonth+",'"+paramOrg+"',4,null);";
+	Query="CALL sp_profit_and_loss_list_by_center_per_level("+paramYear+","+paramMonth+",'"+paramOrg+"',2,null);";
 	rs=st.executeQuery(Query);
 	Integer i=0;
 	dataDefault+="[";
@@ -102,8 +102,8 @@ Double Result=0.0;
 		dataDefault+="account_name:\""+rs.getString("account_name")+"\",";
 		dataDefault+="account_key:"+rs.getString("account_key")+",";
 		dataDefault+="Field1:\"<div class='textL level"+rs.getString("level") +" parent_key"+rs.getString("parent_key")+"'  id='account_key"+rs.getString("account_key")+" '>"+rs.getString("account_name")+" </div>\",";
-		dataDefault+="Field2:\"<div class='textR'>"+numberFormatter.format(rs.getDouble("currentAmt"))+"</div>\",";
-		dataDefault+="Field3:\"<div class='textR'>"+numberFormatter.format(rs.getDouble("pMonthAmt"))+"</div>\",";
+		dataDefault+="Field2:\"<div class='textR'>"+numberFormatter.format(rs.getDouble("pMonthAmt"))+"</div>\",";
+		dataDefault+="Field3:\"<div class='textR'>"+numberFormatter.format(rs.getDouble("currentAmt"))+"</div>\",";
 			
 			pMonthAmt = rs.getDouble("pMonthAmt");
 			currentAmt = rs.getDouble("currentAmt");
@@ -124,8 +124,8 @@ Double Result=0.0;
 		dataDefault+="account_name:\""+rs.getString("account_name")+"\",";
 		dataDefault+="account_key:"+rs.getString("account_key")+",";
 		dataDefault+="Field1:\"<div class='textL level"+rs.getString("level") +" parent_key"+rs.getString("parent_key")+"'  id='account_key"+rs.getString("account_key")+" '>"+rs.getString("account_name")+" </div>\",";
-		dataDefault+="Field2:\"<div class='textR'>"+numberFormatter.format(rs.getDouble("currentAmt"))+"</div>\",";
-		dataDefault+="Field3:\"<div class='textR'>"+numberFormatter.format(rs.getDouble("pMonthAmt"))+"</div>\",";
+		dataDefault+="Field2:\"<div class='textR'>"+numberFormatter.format(rs.getDouble("pMonthAmt"))+"</div>\",";
+		dataDefault+="Field3:\"<div class='textR'>"+numberFormatter.format(rs.getDouble("currentAmt"))+"</div>\",";
 			
 			pMonthAmt = rs.getDouble("pMonthAmt");
 			currentAmt = rs.getDouble("currentAmt");
@@ -1148,8 +1148,8 @@ function tootipFormat(value,summ){
 			String paramCurentYearStr=String.valueOf(paramCurentYear);
 			String paramCurentYearSub=paramCurentYearStr.substring(2);
 		%>
-		  <th  data-field="Field2"><center><div class="fontTitle"><%=paramMonthCurent%> &nbsp; <%=paramCurentYearSub%> </div></center></th>		 
-		  <th data-field="Field3"><center><div class="fontTitle"><%=paramMonthPerv%> &nbsp; <%=paramCurentYearSub%> </div></center></th>
+		  <th data-field="Field2"><center><div class="fontTitle"><%=paramMonthPerv%> &nbsp; <%=paramCurentYearSub%> </div></center></th>
+		  <th data-field="Field3"><center><div class="fontTitle"><%=paramMonthCurent%> &nbsp; <%=paramCurentYearSub%> </div></center></th>		
 		  <th data-field="Field5"><center><div class="fontTitle">%</div></center></th>
 		  <%
 		  String paramLastYearStr=String.valueOf(paramLastYear);
