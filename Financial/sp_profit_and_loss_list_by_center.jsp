@@ -727,8 +727,8 @@ var $titleJ5 =[
 
           columns: $titleJ,
           dataSource: {
-              data: $dataJ,
-			  pageSize: 10,
+              data: $dataJ
+			  //pageSize: 10,
 			
           }
       });
@@ -790,8 +790,8 @@ dataLevel1+="[";
 											detailInit: detailInit3,
 											columns: $titleJ2,
 											dataSource: {
-											data: data,
-											pageSize: 8
+											data: data
+											//pageSize: 8
 											}
 											}).appendTo(e.detailCell);
 //new level2 end
@@ -870,8 +870,8 @@ dataLevel1+="[";
 											detailInit: detailInit4,
 											columns: $titleJ3,
 											dataSource: {
-											data: data,
-											pageSize: 8
+											data: data
+											//pageSize: 8
 											}
 											}).appendTo(e.detailCell);
 //new level2 end
@@ -951,8 +951,8 @@ dataLevel1+="[";
 											detailInit: detailInit5,
 											columns: $titleJ4,
 											dataSource: {
-											data: data,
-											pageSize: 8
+											data: data
+											//pageSize: 8
 											}
 											}).appendTo(e.detailCell);
 //new level2 end
@@ -1030,8 +1030,8 @@ dataLevel1+="[";
 											//detailInit: detailInit4,
 											columns: $titleJ5,
 											dataSource: {
-											data: data,
-											pageSize: 8
+											data: data
+											//pageSize: 8
 											}
 											}).appendTo(e.detailCell);
 //new level2 end
