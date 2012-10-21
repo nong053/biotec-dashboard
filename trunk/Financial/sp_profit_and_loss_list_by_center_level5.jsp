@@ -17,7 +17,7 @@
 */
 
 String dataLevel5="";
-	Query="CALL sp_profit_and_loss_list_by_center_per_level("+paramYear+","+paramMonth+",'"+paramArea+"',9,"+paramParentKey+");";
+	Query="CALL sp_profit_and_loss_list_by_center_per_level("+paramYear+","+paramMonth+",'"+paramArea+"',6,"+paramParentKey+");";
 	rs=st.executeQuery(Query);
 	Integer i=0;
 	dataLevel5+="[";
@@ -64,8 +64,8 @@ Double Result=0.0;
 		dataLevel5+="\"account_name\":\""+rs.getString("account_name")+"\",";
 		dataLevel5+="\"account_key\":"+rs.getString("account_key")+",";
 		dataLevel5+="\"Field1\":\"<div class='textL level"+rs.getString("level") +" parent_key"+rs.getString("parent_key")+"'  id='account_key"+rs.getString("account_key")+" '>"+rs.getString("account_name")+" </div>\",";
-		dataLevel5+="\"Field2\":\"<div class='textR'>"+numberFormatter.format(rs.getDouble("currentAmt"))+"</div>\",";
-		dataLevel5+="\"Field3\":\"<div class='textR'>"+numberFormatter.format(rs.getDouble("pMonthAmt"))+"</div>\",";
+		dataLevel5+="\"Field2\":\"<div class='textR'>"+numberFormatter.format(rs.getDouble("pMonthAmt"))+"</div>\",";
+		dataLevel5+="\"Field3\":\"<div class='textR'>"+numberFormatter.format(rs.getDouble("currentAmt"))+"</div>\",";
 
 			pMonthAmt = rs.getDouble("pMonthAmt");
 			currentAmt = rs.getDouble("currentAmt");

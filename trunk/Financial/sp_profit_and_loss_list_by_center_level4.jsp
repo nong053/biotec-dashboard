@@ -64,8 +64,8 @@ Double Result=0.0;
 		dataLevel4+="\"account_name\":\""+rs.getString("account_name")+"\",";
 		dataLevel4+="\"account_key\":"+rs.getString("account_key")+",";
 		dataLevel4+="\"Field1\":\"<div class='textL level"+rs.getString("level") +" parent_key"+rs.getString("parent_key")+"'  id='account_key"+rs.getString("account_key")+" '>"+rs.getString("account_name")+" </div>\",";
-		dataLevel4+="\"Field2\":\"<div class='textR'>"+numberFormatter.format(rs.getDouble("currentAmt"))+"</div>\",";
-		dataLevel4+="\"Field3\":\"<div class='textR'>"+numberFormatter.format(rs.getDouble("pMonthAmt"))+"</div>\",";
+		dataLevel4+="\"Field2\":\"<div class='textR'>"+numberFormatter.format(rs.getDouble("pMonthAmt"))+"</div>\",";
+		dataLevel4+="\"Field3\":\"<div class='textR'>"+numberFormatter.format(rs.getDouble("currentAmt"))+"</div>\",";
 	
 			pMonthAmt = rs.getDouble("pMonthAmt");
 			currentAmt = rs.getDouble("currentAmt");

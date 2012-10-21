@@ -501,13 +501,13 @@ var $titleJ5 =[
 					type:'get',
 					dataType:'json',
 					cache:false,
-					data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramLevel':9,'paramParentKey':e.data.account_key},
+					data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramLevel':6,'paramParentKey':e.data.account_key},
 					success:function(data){
 								 $("<table><th></th></table>").kendoGrid({
 								columns: $titleJ5,
 								dataSource: {
-								data: data,
-								pageSize: 8
+								data: data
+								//pageSize: 30
 								}
 								}).appendTo(e.detailCell);
 								setFont();
