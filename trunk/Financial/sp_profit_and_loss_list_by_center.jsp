@@ -15,9 +15,25 @@
 //	String paramOrg="สวทช.";
 
 	Integer paramYearInt =Integer.parseInt(paramYear);
-	Integer paramLastYear = paramYearInt+542;
-	Integer paramCurentYear=paramYearInt+543;
-
+	Integer paramLastYear = 0;
+	Integer paramCurentYear = 0;
+	Integer paramCurentYearLastMonth = 0;
+	Integer paramMonthInt = Integer.parseInt(paramMonth);
+	if ((paramMonthInt-4)>0){
+		paramCurentYearLastMonth=paramYearInt+543;
+		paramCurentYear=paramYearInt+543;
+		paramLastYear = paramYearInt+542;
+	}
+	else if((paramMonthInt-4)==0){
+		paramCurentYearLastMonth=paramYearInt+542;
+		paramCurentYear=paramYearInt+543;
+		paramLastYear = paramYearInt+542;
+	}
+	else{
+		paramCurentYearLastMonth=paramYearInt+542;
+		paramCurentYear=paramYearInt+542;
+		paramLastYear = paramYearInt+542;
+	}
 
  if(paramMonth.equals("1")){
 	paramMonthCurent="ต.ค.";
@@ -1252,10 +1268,12 @@ function tootipFormat(value,summ){
 		 <!--<th class="k-hierarchy-cell k-header"></th>-->
           <th data-field="Field1" ><center><div class="fontTitle"> </div></center></th>
 		  <%
+			String paramCurentYearStrLastMonth=String.valueOf(paramCurentYearLastMonth);
+			String paramCurentYearSubLastMonth=paramCurentYearStrLastMonth.substring(2);
 			String paramCurentYearStr=String.valueOf(paramCurentYear);
 			String paramCurentYearSub=paramCurentYearStr.substring(2);
 		%>
-		  <th data-field="Field2"><center><div class="fontTitle"><%=paramMonthPerv%> &nbsp; <%=paramCurentYearSub%> </div></center></th>
+		  <th data-field="Field2"><center><div class="fontTitle"><%=paramMonthPerv%> &nbsp; <%=paramCurentYearSubLastMonth%> </div></center></th>
 		  <th data-field="Field3"><center><div class="fontTitle"><%=paramMonthCurent%> &nbsp; <%=paramCurentYearSub%> </div></center></th>		
 		  <th data-field="Field5"><center><div class="fontTitle">%</div></center></th>
 		  <%

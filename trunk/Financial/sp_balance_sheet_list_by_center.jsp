@@ -10,8 +10,25 @@ String paramMonthPerv= "";
 String paramMonthCurent= "";
 String paramOrg= request.getParameter("paramOrg");
 Integer paramYearInt =Integer.parseInt(paramYear);
-Integer paramLastYear = paramYearInt+542;
-Integer paramCurentYear=paramYearInt+543;
+Integer paramLastYear = 0;
+Integer paramCurentYear = 0;
+Integer paramCurentYearLastMonth = 0;
+Integer paramMonthInt = Integer.parseInt(paramMonth);
+if ((paramMonthInt-4)>0){
+	paramCurentYearLastMonth=paramYearInt+543;
+	paramCurentYear=paramYearInt+543;
+	paramLastYear = paramYearInt+542;
+}
+else if((paramMonthInt-4)==0){
+	paramCurentYearLastMonth=paramYearInt+542;
+	paramCurentYear=paramYearInt+543;
+	paramLastYear = paramYearInt+542;
+}
+else{
+	paramCurentYearLastMonth=paramYearInt+542;
+	paramCurentYear=paramYearInt+542;
+	paramLastYear = paramYearInt+542;
+}
 
 	 if(paramMonth.equals("1")){
 	paramMonthCurent="ต.ค.";
@@ -552,7 +569,7 @@ $htmlTable1+="<table  id='finance_tb1'  width='700' cellpadding='1px' cellspacin
 		$htmlTable1+="</th>";
 
 		$htmlTable1+="<th>";
-			String paramCurentYearStr1=String.valueOf(paramCurentYear);
+			String paramCurentYearStr1=String.valueOf(paramCurentYearLastMonth);
 			String paramCurentYearSub1=paramCurentYearStr1.substring(2);
 			$htmlTable1+=paramMonthPerv+" "+paramCurentYearSub1;
 		$htmlTable1+="</th>";
