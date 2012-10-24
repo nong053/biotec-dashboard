@@ -206,6 +206,18 @@ Integer paramCurentYear=paramYearInt+543;
 	</style>
 <!-- Config  Sytle-->
 <script>
+function addCommas(nStr)
+{
+	nStr += '';
+	x = nStr.split('.');
+	x1 = x[0];
+	x2 = x.length > 1 ? '.' + x[1] : '';
+	var rgx = /(\d+)(\d{3})/;
+	while (rgx.test(x1)) {
+		x1 = x1.replace(rgx, '$1' + ',' + '$2');
+	}
+	return x1 + x2;
+}
 $(document).ready(function(){
 	//#######################Menagement Tab1 Start ######################
 		$("table#finance_tb1 thead tr  th").css({"background":"#99ccff  ","padding-left":"5px","padding-right":"5px","color":"black","padding":"2px"});
@@ -257,7 +269,8 @@ var pieChart= function(paramValue,titleText,paramSum){
                         tooltip: {
                             visible: true,
 							//template:"#= tootipFormat(value,"+paramSum+") #"
-							template: "${ value }, #= kendo.format('{0:P}', percentage)#"
+							//template: "${ value }, #= kendo.format('{0:P}', percentage)#"
+							template: "#= addCommas(value) #, #= kendo.format('{0:P}', percentage)#",
                           //  format: "{0}%"
                         },
 			seriesDefaults: {
@@ -328,8 +341,8 @@ var barChart = function(seriesParam,titleParam){
 							labels: {
                                 template: "#= kendo.format('{0:N0}', value ) # "
                             },
-                            min: 0,
-                            max: 8000
+                          //  min: 0,
+                           // max: 8000
                         }, {
                             name: "Variance",
                             title: { text: "%Variance" },
@@ -356,14 +369,16 @@ var Sum=0;
 dataLevel2+="[";
 	$(".level2").each(function(){
 	account_key=$(this).attr("id").substring(11);
+	var valueMonthParam = $(this).parent().parent().children('td').eq(2).text();
+	var valueMonthParamNonComma =valueMonthParam.replace(",","");
 	if(j==0){
 	dataLevel2+="{";
-		dataLevel2+="account_key:"+account_key+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());
+		dataLevel2+="account_key:"+account_key+",category:"+"\""+$(this).text()+"\",value:"+valueMonthParamNonComma;
 		Sum+=parseFloat($(this).parent().parent().children('td').eq(2).text());
 	dataLevel2+="}";
 	}else{
 	dataLevel2+=",{";
-			dataLevel2+="account_key:"+account_key+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());
+			dataLevel2+="account_key:"+account_key+",category:"+"\""+$(this).text()+"\",value:"+valueMonthParamNonComma;
 			Sum+=parseFloat($(this).parent().parent().children('td').eq(2).text());
 	dataLevel2+="}";	
 	}
@@ -392,15 +407,16 @@ $(".level2").click(function(e){
 	$(".parent_key"+account_key_sub).each(function(){
 		account_key_loop=this.id;
 		account_key_sub_loop=account_key_loop.substring(11);
-
+		var valueMonthParam = $(this).parent().parent().children('td').eq(2).text();
+		var valueMonthParamNonComma =valueMonthParam.replace(",","");
 		if(j==0){
 			dataLevel2+="{";
-				dataLevel2+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());
+				dataLevel2+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+valueMonthParamNonComma;
 				Sum+=parseFloat($(this).parent().parent().children('td').eq(2).text());
 			dataLevel2+="}";
 		}else{
 			dataLevel2+=",{";
-				dataLevel2+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());
+				dataLevel2+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+valueMonthParamNonComma;
 				Sum+=parseFloat($(this).parent().parent().children('td').eq(2).text());
 			dataLevel2+="}";
 		}
@@ -428,14 +444,16 @@ $(".level3").click(function(e){
 	$(".parent_key"+account_key_sub).each(function(){
 		account_key_loop=this.id;
 		account_key_sub_loop=account_key_loop.substring(11);
+		var valueMonthParam = $(this).parent().parent().children('td').eq(2).text();
+		var valueMonthParamNonComma =valueMonthParam.replace(",","");
 		if(j==0){
 			dataLevel3+="{";
-				dataLevel3+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());
+				dataLevel3+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+valueMonthParamNonComma;
 				Sum+=parseFloat($(this).parent().parent().children('td').eq(2).text());
 			dataLevel3+="}";
 		}else{
 			dataLevel3+=",{";
-				dataLevel3+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());	
+				dataLevel3+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+valueMonthParamNonComma;	
 				Sum+=parseFloat($(this).parent().parent().children('td').eq(2).text());
 			dataLevel3+="}";
 		}
@@ -464,14 +482,16 @@ $(".level4").click(function(e){
 	$(".parent_key"+account_key_sub).each(function(){
 		account_key_loop=this.id;
 		account_key_sub_loop=account_key_loop.substring(11);
+		var valueMonthParam = $(this).parent().parent().children('td').eq(2).text();
+		var valueMonthParamNonComma =valueMonthParam.replace(",","");
 		if(j==0){
 			dataLevel4+="{";
-				dataLevel4+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());
+				dataLevel4+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+valueMonthParamNonComma;
 				Sum+=parseFloat($(this).parent().parent().children('td').eq(2).text());
 			dataLevel4+="}";
 		}else{
 			dataLevel4+=",{";
-				dataLevel4+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(2).text());	
+				dataLevel4+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+valueMonthParamNonComma;	
 				Sum+=parseFloat($(this).parent().parent().children('td').eq(2).text());
 			dataLevel4+="}";
 		}
