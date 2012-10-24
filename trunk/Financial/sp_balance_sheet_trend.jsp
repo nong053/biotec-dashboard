@@ -39,7 +39,7 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 			series_sp_balance_sheet_trend+=",{\"name\":"+"\""+(rs.getInt("period")+543)+"\","+"\"data\":["+rs.getString("amount_list")+"]}";
 			}else{
 
-series_sp_balance_sheet_trend+=",{\"type\":\"line\","+"\"data\":["+rs.getString("amount_list")+"],\"name\":\"Target\",\"color\":\"GREEN\",\"axis\":\"Variance\"}";
+series_sp_balance_sheet_trend+=",{\"type\":\"line\","+"\"data\":["+rs.getString("amount_list")+"],\"name\":\"Variance\",\"color\":\"GREEN\",\"axis\":\"Variance\"}";
 			}
 		i++;
 		}//while
