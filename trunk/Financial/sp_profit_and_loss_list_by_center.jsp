@@ -283,6 +283,9 @@ font-size:16px;
 	padding-left:35px;
 
 	}
+	.clickable{
+	cursor:pointer;
+	}
 
 	</style>
 	<!--<script src="http://code.jquery.com/jquery.js"></script>
@@ -293,9 +296,95 @@ font-size:16px;
 	<link href="jqueryUI/css/smoothness/jquery-ui-1.8.20.custom.css" rel="stylesheet">
 	<script type="text/javascript" src="jqueryUI/js/jquery-ui-1.8.20.custom.min.js"></script>--> 
 	<script type="text/javascript">
-	$(document).ready(function(){
+function addCommas(nStr)
+{
+	nStr += '';
+	x = nStr.split('.');
+	x1 = x[0];
+	x2 = x.length > 1 ? '.' + x[1] : '';
+	var rgx = /(\d+)(\d{3})/;
+	while (rgx.test(x1)) {
+		x1 = x1.replace(rgx, '$1' + ',' + '$2');
+	}
+	return x1 + x2;
+}
+
+$(document).ready(function(){
+
+		
 
 
+
+var clickLevelAgain5=function(){
+	$("#boxR").hide();
+}
+var clickLevelAgain= function(levelElement=".level2"){
+
+	
+				$(levelElement).live("click",function(){
+				var id= $(this).attr('id');
+				var account_name= $(this).text();
+				//alert(id);
+				//alert(obj22);
+				//pieChart(obj21,obj22);
+				//Step Call Level2
+
+					var account_key = id.substring(11);
+					var account_key_loop="";
+					var account_key_sub_loop="";
+					//var account_name = "test";
+					var dataLevel2 ="";
+					var j=0;
+
+
+					var titleText="{\"title\":\""+account_name+"\"}";
+					//alert("titleText"+titleText);
+					//console.log($(this).get());
+					dataLevel2+="[";
+					$(".parent_key"+account_key).each(function(){
+
+						account_key_loop=this.id;
+						account_key_sub_loop=account_key_loop.substring(11);
+
+						//console.log("account_key_sub_loop"+account_key_sub_loop);
+						var valueMonthParam = $(this).parent().parent().children('td').eq(3).text();
+						var valueMonthParamNonComma =valueMonthParam.replace(",","");
+						
+						if(j==0){
+							dataLevel2+="{";
+								dataLevel2+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+valueMonthParamNonComma;
+							dataLevel2+="}";
+						}else{
+							dataLevel2+=",{";
+								dataLevel2+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+valueMonthParamNonComma;
+							dataLevel2+="}";		
+						}
+						j++;
+					});
+					dataLevel2+="]";
+					//console.log(dataLevel2);
+					var obj21=eval("("+dataLevel2+")");
+					var obj22=eval("("+titleText+")");
+					
+					if(dataLevel2=="[]"){
+					$("#boxR").show();
+					}else{
+					$("#boxR").show();
+					pieChart(obj21,obj22);
+					}
+				//Step Call Level2
+
+				});
+	
+}
+/*
+clickLevelAgain(".level2");
+clickLevelAgain(".level3");
+clickLevelAgain(".level4");
+clickLevelAgain(".level5");
+clickLevelAgain(".level6");
+clickLevelAgain(".level7");
+*/
 
 	var setFont = function(){
 		/*Config font*/
@@ -387,8 +476,8 @@ var pieChart= function(paramValue,titleText,paramSum){
                         tooltip: {
                             visible: true,
 							//template:"#= tootipFormat(value,"+paramSum+") #"
-							template: "${ value }, #= kendo.format('{0:P}', percentage)#"
-                          //  format: "{0}%"
+							template: "#= addCommas(value) #, #= kendo.format('{0:P}', percentage)#",
+							//format: "N0"
 
                         },
 			
@@ -468,8 +557,8 @@ var barChart = function(seriesParam,titleParam){
 							labels: {
                                 template: "#= kendo.format('{0:N0}', value ) # "
                             },
-                            min: 0,
-                            max: 8000
+                           // min: 0,
+                           // max: 8000
                         }, {
                             name: "Variance",
                             title: { text: "%Variance" },
@@ -719,6 +808,7 @@ var $titleJ5 =[
          /* scrollable: true,
           sortable: true,
           pageable: true,*/
+
 		  detailInit: detailInit2,
 
 		/*   dataBound: function() {
@@ -743,19 +833,21 @@ var dataLevel1 ="";
 var titleText="{\"title\":\"สัดส่วนงบรายได้ค่าใช้จ่าย\"}";
 var account_key="";
 dataLevel1+="[";
-	$(".level4").each(function(){
+	$(".level2").each(function(){
 		
 	//Format  [{category: "ศจ.",value: 10,color:"#6C2E9B" }]
 	account_key=$(this).attr("id").substring(11);
-	
+	var valueMonthParam = $(this).parent().parent().children('td').eq(3).text();
+	var valueMonthParamNonComma =valueMonthParam.replace(",","");
+//alert(parseFloat(valueMonthParamNonComma));
 	if(j==0){
 	dataLevel1+="{";
-		dataLevel1+="account_key:"+account_key+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(3).text());
+		dataLevel1+="account_key:"+account_key+",category:"+"\""+$(this).text()+"\",value:"+parseFloat(valueMonthParamNonComma);
 		//$("body").append("<input type='text'> name='domAccount_key"+J+"' id='domAccount_key"+J+"' class='account_key' value='"+$(this).text()+"' ");
 	dataLevel1+="}";
 	}else{
 	dataLevel1+=",{";
-		dataLevel1+="account_key:"+account_key+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(3).text());
+		dataLevel1+="account_key:"+account_key+",category:"+"\""+$(this).text()+"\",value:"+parseFloat(valueMonthParamNonComma);
 	dataLevel1+="}";	
 	}
 	j++;
@@ -765,16 +857,19 @@ dataLevel1+="[";
 	var obj = eval ("(" + dataLevel1 + ")"); 
 	var obj2=eval("("+titleText+")");
 	//console.log("obj"+dataLevel1);
-	//console.log("obj2"+obj2);
+	//console.log("obj2"+titleText);
+	$("#boxR").show();
 	pieChart(obj,obj2);
 //Step1 Call Default
 
 //#################### Manment Pie Chart #######################
 			
 	 function detailInit2(e) {
-								
+							clickLevelAgain(".level2");
+							$(".k-minus").parent().next().addClass("clickable");
+			
 							//alert(e.data.account_name);
-							//alert(e.data.account_name);/
+							//alert(e.data.account_name);
 								
 							$.ajax({
 								url:'sp_profit_and_loss_list_by_center_level2.jsp',
@@ -814,25 +909,27 @@ dataLevel1+="[";
 		account_key_loop=this.id;
 		account_key_sub_loop=account_key_loop.substring(11);
 
-		//console.log("account_key_sub_loop"+account_key_sub_loop);
+		var valueMonthParam = $(this).parent().parent().children('td').eq(3).text();
+		var valueMonthParamNonComma =valueMonthParam.replace(",","");
 
 		if(j==0){
 			dataLevel2+="{";
-				dataLevel2+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(3).text());
+				dataLevel2+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+valueMonthParamNonComma;
 			dataLevel2+="}";
 		}else{
 			dataLevel2+=",{";
-				dataLevel2+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(3).text());
+				dataLevel2+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+valueMonthParamNonComma;
 			dataLevel2+="}";		
 		}
 		j++;
 	});
 	dataLevel2+="]";
 	//console.log(dataLevel2);
-	var obj=eval("("+dataLevel2+")");
-	var obj2=eval("("+titleText+")");
+	 obj21=eval("("+dataLevel2+")");
+	 obj22=eval("("+titleText+")");
 	//console.log(obj2);
-	pieChart(obj,obj2);
+	$("#boxR").show();
+	pieChart(obj21,obj22);
 
 //Step Call Level2
 
@@ -854,6 +951,8 @@ dataLevel1+="[";
 
 			//Start detailInit3
 				function detailInit3(e) {
+					clickLevelAgain(".level3");
+					$(".k-minus").parent().next().addClass("clickable");
 					//alert(e.data.account_name);
 					//alert(e.data.account_key);
 						$.ajax({
@@ -891,14 +990,16 @@ dataLevel1+="[";
 
 		account_key_loop=this.id;
 		account_key_sub_loop=account_key_loop.substring(11);
+		var valueMonthParam = $(this).parent().parent().children('td').eq(3).text();
+		var valueMonthParamNonComma =valueMonthParam.replace(",","");
 
 		if(j==0){
 			dataLevel3+="{";
-				dataLevel3+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(3).text());
+				dataLevel3+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+valueMonthParamNonComma;
 			dataLevel3+="}";
 		}else{
 			dataLevel3+=",{";
-				dataLevel3+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(3).text());
+				dataLevel3+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+valueMonthParamNonComma;
 			dataLevel3+="}";		
 		}
 		j++;
@@ -908,6 +1009,7 @@ dataLevel1+="[";
 	var obj=eval("("+dataLevel3+")");
 	var obj2=eval("("+titleText+")");
 	//console.log(obj2);
+	$("#boxR").show();
 	pieChart(obj,obj2);
 
 //Step Call Level3
@@ -931,10 +1033,11 @@ dataLevel1+="[";
 			// REMOVE COLUMN END
 
 				}//end detailInit3
-
-
 				//Start detailInit4
 				function detailInit4(e) {
+					
+					clickLevelAgain(".level4");
+					$(".k-minus").parent().next().addClass("clickable");
 					//alert(e.data.account_name);
 					//alert(e.data.account_key);
 						$.ajax({
@@ -972,14 +1075,15 @@ dataLevel1+="[";
 		
 		account_key_loop=this.id;
 		account_key_sub_loop=account_key_loop.substring(11);
-
+		var valueMonthParam = $(this).parent().parent().children('td').eq(3).text();
+		var valueMonthParamNonComma =valueMonthParam.replace(",","");
 		if(j==0){
 			dataLevel4+="{";
-				dataLevel4+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(3).text());
+				dataLevel4+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+valueMonthParamNonComma;
 			dataLevel4+="}";
 		}else{
 			dataLevel4+=",{";
-				dataLevel4+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+parseFloat($(this).parent().parent().children('td').eq(3).text());
+				dataLevel4+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+valueMonthParamNonComma;
 			dataLevel4+="}";		
 		}
 		j++;
@@ -989,6 +1093,7 @@ dataLevel1+="[";
 	var obj=eval("("+dataLevel4+")");
 	var obj2=eval("("+titleText+")");
 	//console.log(obj2);
+	$("#boxR").show();
 	pieChart(obj,obj2);
 
 //Step Call Level4
@@ -1014,6 +1119,7 @@ dataLevel1+="[";
 
 				//Start detailInit5
 				function detailInit5(e) {
+					clickLevelAgain5();
 					//alert(e.data.account_name);
 					//alert(e.data.account_key);
 						$.ajax({
@@ -1074,6 +1180,7 @@ dataLevel1+="[";
 	var obj=eval("("+dataLevel5+")");
 	var obj2=eval("("+titleText+")");
 	//console.log(obj);
+	$("#boxR").hide();
 	pieChart(obj,obj2);
 
 //Step Call Level5
@@ -1125,7 +1232,7 @@ dataLevel1+="[";
 	});
 		//$(". k-plus")
 		/*################# jQuery End #############*/
-	
+
 function tootipFormat(value,summ){
 		var value1 = Math.floor(value);
 		var value2 = (Math.floor((value/summ)*100)).toFixed(2);
@@ -1188,6 +1295,5 @@ function tootipFormat(value,summ){
 	</center>
 	<br style="clear:both">
 </div>
-
 
 <!-- ####################################### Content tab2 End ###################################-->
