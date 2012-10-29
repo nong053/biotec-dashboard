@@ -334,7 +334,7 @@ $(document).ready(function(){
 var clickLevelAgain5=function(){
 	$("#boxR").hide();
 }
-var clickLevelAgain= function(levelElement=".level2"){
+var clickLevelAgain= function(levelElement){
 
 	
 				$(levelElement).live("click",function(){
