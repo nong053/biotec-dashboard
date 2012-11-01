@@ -210,9 +210,9 @@
 			Query1  = "SELECT Date_format(SYSDATE(),'%Y') as year_date,Date_format(SYSDATE(),'%m') as month_date;";
 			st1 = conn.createStatement();
 			rs1 = st1.executeQuery(Query1);
-			i = 0;
+			i = 0; 
 			while(rs1.next()){
-				int presentMonth = rs1.getInt("month_date")-1; 
+				int presentMonth = rs1.getInt("month_date")-2;	//adjust month by siam.nak (2012.11.01)
 				int present_year = rs1.getInt("year_date");
 		//		int presentMonth = 10; 
 				//int present_year = 2012;
@@ -251,7 +251,7 @@
 			st1 = conn.createStatement();
 			rs1 = st1.executeQuery(Query1);
 			while(rs1.next()){
-				int presentMonth = rs1.getInt("month_date")-1;
+				int presentMonth = rs1.getInt("month_date")-2;	//adjust month by siam.nak (2012.11.01)
 				//int presentMonth = 10;
 				presentMonth = presentMonth +3 ;
 				if(presentMonth>12){
