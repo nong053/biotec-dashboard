@@ -127,7 +127,7 @@
 		rs = st.executeQuery(Query);
 		rs.next();
 		int	cYear =  Integer.parseInt(rs.getString("year_date"));
-		int	cMonth = Integer.parseInt(rs.getString("month_date"))-1;
+		int	cMonth = Integer.parseInt(rs.getString("month_date"))-2;	//adjust month by siam.nak (2012.11.01)
 		if((cMonth+3) > 12) {
 			cYear = cYear+1 ;
 		}
