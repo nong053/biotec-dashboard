@@ -143,6 +143,6 @@ while(rs.next()){
 	i++;
 }
 tableFun2 += "]";
-
+tableFun2 = tableFun2.replace("\n","");
 out.print(tableFun2);
 				  %>
