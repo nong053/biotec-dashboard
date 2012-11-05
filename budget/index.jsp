@@ -7,18 +7,13 @@
 		<link href="budget.css" rel="stylesheet" type="text/css">
 		<link href="../styles/kendo.common.min.css" rel="stylesheet">
 		<link href="../styles/kendo.default.min.css" rel="stylesheet">
-		<!--<link href="../jqueryUI/css/smoothness/jquery-ui-1.8.20.custom.css" rel="stylesheet">-->
 		<link href="../jqueryUI/css/cupertino/jquery-ui-1.8.21.custom.css" rel="stylesheet">
 		 <link href="../styles/kendo.dataviz.min.css" rel="stylesheet">
 		
-
         <script src="../js/jquery.min.js"></script>
 		<script src="../js/kendo.all.min.js"></script>
 		  <script src="../js/kendo.dataviz.min.js"></script>
-		<!--<script type="text/javascript" src="../jqueryUI/js/jquery-ui-1.8.20.custom.min.js"></script>-->
 		<script type="text/javascript" src="../jqueryUI/js/jquery-ui-1.8.21.custom.min.js"></script>
-	<!--	<script src="../js/console.js"></script>-->
-	
 		<style type="text/css">
 			html,
 			body {
@@ -730,6 +725,9 @@ function addCommas(nStr)
 
 	return false;
 	});
+	//comment here
+	$("form#form_1").trigger("submit");
+
 	$("a[href=#content1]").click(function(){
 			includeCon1();
 	});
