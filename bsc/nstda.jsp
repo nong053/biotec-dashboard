@@ -74,19 +74,13 @@ Integer YearBY = (java.lang.Integer.parseInt(ParamYear))+543;
 String titleStr = "";
 String[] numStrSplit;
 
-//== Added by Thapanat.sop 2012/11/06		
-if(ParamMonth.equals("12"))
-{	titleStr = "ผลสำเร็จ สำนักงานพัฒนาวิทยาศาสตร์และเทคโนโลยีแห่งชาติได้  96.09  คะแนน";
-
-}else{
-	Query="CALL sp_owner_wavg_score(";
-	Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
-	rs = st.executeQuery(Query);
-	while(rs.next()){
-		String ParamScore =  rs.getString("owner_wavg_score") ;
-		titleStr="ผลสำเร็จ สำนักงานพัฒนาวิทยาศาสตร์และเทคโนโลยีแห่งชาติได้ " + ParamScore +" คะแนน";
-	}
-} //== Added by Thapanat.sop 2012/11/06	
+Query="CALL sp_owner_wavg_score(";
+Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
+rs = st.executeQuery(Query);
+while(rs.next()){
+	String ParamScore =  rs.getString("owner_wavg_score") ;
+	titleStr="ผลสำเร็จ สำนักงานพัฒนาวิทยาศาสตร์และเทคโนโลยีแห่งชาติได้ " + ParamScore +" คะแนน";
+}
 
 //=================================== DataJ Start===============================================
 //varible manage Decimal 
