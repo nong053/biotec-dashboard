@@ -40,20 +40,14 @@ String decimal2="";
 
 String orgScore = "";
 
-//== Added by Thapanat.sop 2012/11/06		
-if(ParamMonth.equals("12"))
-{	orgScore ="คะแนนรวม 96.09 คะแนน";
 
-}else{
-	Query="CALL sp_owner_wavg_score(";
-	Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
-	rs = st.executeQuery(Query);
-	while(rs.next()){
-		String ParamScore =  rs.getString("owner_wavg_score") ;
-		orgScore ="คะแนนรวม " + ParamScore +" คะแนน";
-	}
-} 	
-//== Added by Thapanat.sop 2012/11/06		
+Query="CALL sp_owner_wavg_score(";
+Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
+rs = st.executeQuery(Query);
+while(rs.next()){
+	String ParamScore =  rs.getString("owner_wavg_score") ;
+	orgScore ="คะแนนรวม " + ParamScore +" คะแนน";
+}
 
 if(orgScore == null || orgScore.equals("")){
 			orgScore = "คะแนนรวม 0  คะแนน";
