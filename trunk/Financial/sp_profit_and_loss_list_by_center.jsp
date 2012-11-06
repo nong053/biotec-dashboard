@@ -14,11 +14,12 @@
 	String paramOrg=request.getParameter("paramOrg");
 //	String paramOrg="สวทช.";
 
+// Calculate Display Year (layout: previous Month , Current Month , Month previous Year
 	Integer paramYearInt =Integer.parseInt(paramYear);
+	Integer paramMonthInt = Integer.parseInt(paramMonth);
 	Integer paramLastYear = 0;
 	Integer paramCurentYear = 0;
 	Integer paramCurentYearLastMonth = 0;
-	Integer paramMonthInt = Integer.parseInt(paramMonth);
 	if ((paramMonthInt-4)>0){
 		paramCurentYearLastMonth=paramYearInt+543;
 		paramCurentYear=paramYearInt+543;
@@ -32,7 +33,7 @@
 	else{
 		paramCurentYearLastMonth=paramYearInt+542;
 		paramCurentYear=paramYearInt+542;
-		paramLastYear = paramYearInt+542;
+		paramLastYear = paramYearInt+541;
 	}
 
  if(paramMonth.equals("1")){
