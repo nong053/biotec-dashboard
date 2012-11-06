@@ -40,14 +40,20 @@ String decimal2="";
 
 String orgScore = "";
 
+//== Added by Thapanat.sop 2012/11/06		
+if(ParamMonth.equals("12"))
+{	orgScore ="คะแนนรวม 96.09 คะแนน";
 
-Query="CALL sp_owner_wavg_score(";
-Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
-rs = st.executeQuery(Query);
-while(rs.next()){
-	String ParamScore =  rs.getString("owner_wavg_score") ;
-	orgScore ="คะแนนรวม " + ParamScore +" คะแนน";
-}
+}else{
+	Query="CALL sp_owner_wavg_score(";
+	Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
+	rs = st.executeQuery(Query);
+	while(rs.next()){
+		String ParamScore =  rs.getString("owner_wavg_score") ;
+		orgScore ="คะแนนรวม " + ParamScore +" คะแนน";
+	}
+} 	
+//== Added by Thapanat.sop 2012/11/06		
 
 if(orgScore == null || orgScore.equals("")){
 			orgScore = "คะแนนรวม 0  คะแนน";
@@ -348,35 +354,19 @@ font-size:14px;
 	//CONTENT BY JSON END
 
 	$("#grid").kendoGrid({
-
 		theme:$(document).data("kendoSkin") || "blueOpal",
-		//theme:$(document).data("kendoSlin") || "metro",
-		
-          height: 300,
-	
-	      //groupable: true,
-			scrollable: false,
-          //sortable: true,
+         height: 300,
+		 scrollable: false,
          pageable: true,
-		/*  detailInit: detailInit,*/
-
-		/*   dataBound: function() {
-                            this.expandRow(this.tbody.find("tr.k-master-row").first());
-                        },*/
-
-          columns: $titleJ,
-          dataSource: {
+         columns: $titleJ,
+         dataSource: {
               data: $dataJ,
 			  pageSize: 10
           }
 		
       });
 	  /*########## Table Content End ##########*/
-			//SET SPARKLINE
-		//$(".k-pager-wrap").remove();
 
-		//console.log($(".k-grid td").get());
-	//	console.log($("th.k-header").get());
 		/*Header Bgcolor*/
 		$("th.k-header").css({"background":"#99ccff "});
 		$(".k-grid-header").css({"background":"#99ccff "});
@@ -391,47 +381,21 @@ font-size:14px;
 		$("ul.k-numeric li span").html("");
 		$(".k-pager-wrap").html("<div id='right' style='text-align:right; padding-right:20px;'><span style='font-weight:bold';>"+orgScore+"</span></div>" );
 		$('.inlinesparkline').sparkline(); 
-		//$('.inlinesparkline').sparkline('html',{type:'line',width:'100'}); 
 		$('.inlinebar').sparkline('html', {type: 'bullet',height: '30',width:'200', barColor: 'red'} );
-
 	    $("th.k-header").click(function(){
 		$('.inlinesparkline').sparkline(); 
-		//$('.inlinesparkline').sparkline('html',{type:'line',width:'100'}); 
 
 	});
-		//#######################Menagement Table Start ######################
-		//alert($("table#grid tr td:eq(3)").length);
-		//alert($("table#grid tr td:eq(3)").text());
-
-
-		//#######################Menagement Table End #######################
-	
-
-		/*##########Function jQuery  add Deatail  result  Start ########*/
-/*
-$(".k-grid-pager").append("<span style='float:right; padding-right:210px;'><b>% เฉลี่ยถ่วงน้ำหนักรวม  = 36.42   </b></span>");
-*/
-
-		/*##########Function jQuery  add Deatail  result  End ########*/
 		//set Ball corner
 		$(".ball").corner("0px");
 	});
-
-	
-
 	</script>
 
 
  <!-- Define the HTML table, with rows, columns, and data -->
 
  <div id="table_title">
-	<!--<div id="title">-->
-	<%
-	//out.print(titleStr);
-	%>
-<!--<span class="inlinebar">4.5,5,5,5,5,5</span>-->
 	
-	<!--</div>-->
  </div>
  
  <div class="content">
@@ -440,20 +404,14 @@ $(".k-grid-pager").append("<span style='float:right; padding-right:210px;'><b>% 
   <thead>
       <tr color="#99ccff ">
 		  
-<!--<th class="k-hierarchy-cell k-header">&nbsp;</th>-->
           <th data-field="Field1" ><center>มุมมอง</center></th>
 		  <th  data-field="Field2"><center>ตัวชี้วัด</center></th>
-		 
 		  <th data-field="Field3"><center>เป้าหมาย</center></th>
 		  <th data-field="Field4"><center>หน่วยนับ</center></th>
 		  <th data-field="Field5"><center>น้ำหนัก</center></th>
 		  <th data-field="Field5_1"><center>ข้อมูลฐาน</center></th>
-		
 		  <th data-field="Field6"><center>ผลงานสะสม</center></th>
 		  <th data-field="Field7"><center>%เทียบเป้าหมาย</center></th>
-	
-
-        
 
 	  </tr>
   </thead>
@@ -467,14 +425,10 @@ $(".k-grid-pager").append("<span style='float:right; padding-right:210px;'><b>% 
           <td></td>
 		  <td></td>
           <td></td>
-		 
-</tr>
-
+	</tr>
   </tbody>
  </table>
-
  </div>
-
 </div>
 
 

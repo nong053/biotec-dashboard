@@ -5,10 +5,7 @@
 <html>
 <head>
 <title>Summary Dashboard</title>
-
-			<!--	<link href="../ChartLib_KendoUI/styles/examples.css" rel="stylesheet"/>
-        <link href="../ChartLib_KendoUI/styles/kendo.common.css" rel="stylesheet"/>
-        <link href="../ChartLib_KendoUI/styles/kendo.metro.css" rel="stylesheet"/>-->
+		<!-- link load external stylesheet -->
 		<link href="summary.css" rel="stylesheet" type="text/css" />
 		<link href="../plugin/tooltip.css" rel="stylesheet" type="text/css">
 		<link href="../styles/kendo.common.min.css" rel="stylesheet">
@@ -18,15 +15,10 @@
 		  <link href="../plugin/tooltip.css" rel="stylesheet">
 
 		 <!-- corner round-->
-
 		 <link rel="stylesheet" type="text/css" href="css/niftyCorners.css">
 		<link rel="stylesheet" type="text/css" href="css/niftyPrint.css" media="print">
-		
-
 		 <!-- corner round-->
 		
-
-
         <script src="../js/jquery.min.js"></script>
 		<!--<script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>-->
 		<script type="text/javascript" src="js/jquery.corner.js"></script>
@@ -35,15 +27,17 @@
 		  <script src="../js/kendo.dataviz.min.js"></script>
 		  <script type="text/javascript" src="../js/jquery.sparkline.min.js"></script> 
 		<script type="text/javascript" src="../jqueryUI/js/jquery-ui-1.8.21.custom.min.js"></script>
-	<script src="../js/console.js"></script>
-	<script type="text/javascript" src="js/nifty.js"></script> 
+		<script src="../js/console.js"></script>
+		<script type="text/javascript" src="js/nifty.js"></script> 
 		<script type="text/javascript" src="../plugin/jquery.tooltip.js"></script>
 	
 	 
 
 		<style type="text/css">
+			*{
+				font-family:Tahoma;
+			}
 			body {
-				
 				background-color: white;
 				color:black;
 				font-size:11px;
@@ -51,8 +45,6 @@
 				font-family:Tahoma;
 				margin:0px;
 			}
-		
-
 			#Detail-Panel {
 				position:absolute;
 				top:80px;
@@ -69,8 +61,6 @@
 			position:absolute ;
 			position:center;
 			z-index:5;
-			
-			
 			}
 			.inlinesparkline{
 			width:100px;
@@ -115,7 +105,6 @@
                     height: 110px;
                     text-align: center;
                     margin: 0 auto 0px auto;
-				
 				}
 					#container-gauge3{
 					 background: transparent url("../content/dataviz/gauge/gauge-container-partial110.png") no-repeat 50% 50% ;
@@ -123,20 +112,8 @@
                     height: 110px;
                     text-align: center;
                     margin: 0 auto 0px auto;
-				
 				}
 				.gaugeValue{
-				/*position:relative;
-				width:30px;*/
-				/*border:1px solid #cccccc;*/
-				/*border-radius:5px;
-				padding:5px;
-				top:-35px;
-				left:35px;
-				text-align:center;
-				background-color:#008EC3 ;
-				color:white;
-*/
 				background-color: #008EC3;
 				border-radius: 3px 3px 3px 3px;
 				color: white;
@@ -147,10 +124,6 @@
 				top: -33px;
 				width: 30px;
 				}
-				
-				
-	
-				
 		</style>
 				<!--------------------------- Configuration --------------------------->
 			<style scoped>
@@ -167,26 +140,13 @@
 					min-height: 0px;
 					width:auto
 					position: relative;
-					background:#008EC3  ;
-	
-					
+					background:#008EC3;
 				}
 			</style>
 		</head>
 		<body>
 
 	<%
-		/*------------------- Set Connection -------------------
-		String connectionURL = "jdbc:mysql://localhost:3306/mysql"; 
-		String driver = "com.mysql.jdbc.Driver";
-		String userName = "root"; 
-		String password = "root";
-		String query = "";
-		Connection conn = null; 
-		Statement st;
-		ResultSet rs;
-		------------------- End Set Connection -------------------*/
-
 		/*------------------- Set Variable -------------------*/
 
 		String ParamYear = "";
@@ -199,7 +159,6 @@
 		/*------------------- End Set Variable -------------------*/
 
 		/*------------------- Parameter Year -------------------*/
-
 		int i = 0;
 		Query="CALL sp_fiscal_year;";
 		String Query1 ="";
@@ -214,9 +173,6 @@
 			while(rs1.next()){
 				int presentMonth = rs1.getInt("month_date")-2;	//adjust month by siam.nak (2012.11.01)
 				int present_year = rs1.getInt("year_date");
-		//		int presentMonth = 10; 
-				//int present_year = 2012;
-
 				presentMonth = presentMonth +3 ; 
 				if(presentMonth>12){
 					present_year = present_year+1; 
@@ -233,14 +189,6 @@
 			}
 			i++;
 		}
-/*
-		V_Year += "<option value=\"2012\"  selected='selected'>2555</option>";
-		V_Year += "<option value=\"2011\">2554</option>";
-		V_Year += "<option value=\"2010\">2553</option>";
-		V_Year += "<option value=\"2009\">2552</option>";
-		
-		------------------- End Parameter Year -------------------*/
-
 		/*------------------- Parameter Month -------------------*/
 
 		Query="CALL sp_fiscal_month;";
@@ -274,30 +222,16 @@
 			i++;
 		}
 		textMonth+="]";
-		/*
-		V_Month += "<option value=\"10\" selected='selected' >ตุลาคม </option>";
-		V_Month += "<option value=\"11\">พฤศจิกายน </option>";
-		V_Month += "<option value=\"12\">ธันวาคม</option>";
-		V_Month += "<option value=\"1\">มกราคม </option>";
-		V_Month += "<option value=\"2\">กุมภาพันธ์ </option>";
-		V_Month += "<option value=\"3\">มีนาคม </option>";
-		V_Month += "<option value=\"4\">เมษายน </option>";
-		V_Month += "<option value=\"5\">พฤษภาคม </option>";
-		V_Month += "<option value=\"6\">มิถุนายน </option>";
-		V_Month += "<option value=\"7\">กรกฎาคม </option>";
-		V_Month += "<option value=\"8\">สิงหาคม </option>";
-		V_Month += "<option value=\"9\">กันยายน </option>";
-
-		------------------- End Parameter Month -------------------*/
+		
 
 
-		/*------------------- End Organization Parameter -------------------*/
+	
 		%>
 
 <!--------------------- Function --------------------->
 
 	<script type="text/javascript">
-//===================================== Function to add comma in decimal
+//============== Function to add comma in decimal ==============//
 function addCommas(nStr)
 {
 	nStr += '';
@@ -310,182 +244,39 @@ function addCommas(nStr)
 	}
 	return x1 + x2;
 }
-//==========================================end=====================
+//==================end====================================
 
 		var conURL = "<%=connectionURL%>";
 		var pw = "<%=Pass%>";
 		var ParamYear = "<%=ParamYear%>";
 		var ParamMonth = "<%=ParamMonth%>";
-		//var ParamOrg = "<%=ParamOrg%>";
-
-	/*	function getParamYear(value)
-		{
-			ParamYear = value;
-		}
-
-		function getParamMonth(value)
-		{
-			ParamMonth = value;
-		}
-
-		function getParamOrg(value)
-		{
-			ParamOrg = value;
-		}
-
-		function goUrl(iFrameID1)
-		{
-			var objFrame=document.getElementById(iFrameID1);
-
-			//alert(ParamYear+' '+ParamMonth+' '+ParamOrg);
-			objFrame.src='<%=request.getContextPath()%>/BiotecDashBoard/BSC_Details.jsp';
-		}
-*/
+	
 		/*########## Function jQuery Start#########*/
 
 		$(document).ready(function(){
-		//========================== Load Tooltip =======================
-/*		$.ajax({
-		url:'revTooltip.jsp',
-		type:'get',
-		dataType:'html',
-		data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val()},
-		success:function(data){
-				 var dataSplit= data.split(",");
-				 var htmlInput="";
-					for(var i=0; i<dataSplit.length; i++){
-					htmlInput+="<div id='"+(i+101)+"' class='revTooltip' style='display:none'>"+dataSplit[i]+"</div>";
-					//console.log(dataSplit[i]);
-					}
-					$(".revTooltip").empty();
-					$("body").append(htmlInput);
-					//console.log($(".revTooltip#1").length);
-		}
-		});
-*/
 
-
-
-
-		  /*$('.inlinesparkline').sparkline(); */
+		/*จัดการปรับตำแหน่งตัว Loading */
 			var $width = $("body").width();
-			//alert($width);
 			var $widthWrap  =(($width/2)-25);
-				//alert($widthWrap);
-				$("#loading").css({"left":$widthWrap+"px"})
+			$("#loading").css({"left":$widthWrap+"px","top":"250px"});
+		
+		
 
-			$("#get").click(function(){
-				$("#content").empty();
-				
-				$.ajax({
-							url:'kendoUI.html',
-							type:"GET",
-							dataType:'html',
-							success:function(data){
-							$("#content").append(data);
-							
-							}
-							
-				});
-			});
-// Dialog For Graph Start
+			/*สั่งให้ loading ทำงาน เมื่อเรียกใช้ ajax และloading หายไปเมื่อ load ajax เรียบร้อย*/
 			$("#loading").ajaxStart(function(){
-			//	$("#piehr2").css("opacity","0.5");
 				$(this).show();
 			}).ajaxStop(function(){
 				$(this).hide();
-				//$("#piehr2").css("opacity","1");
 			});
 
-			// Dialog
-				$('#dialog').dialog({
-					autoOpen: false,
-					width: 620,
-					buttons: {
-						"Ok": function() {
-							$(this).dialog("close");
-						}
-					},
-					legend:{
-					position:"bottom"
-					}
-				});
-			
-
-	// Dialog Link
-				$('.inlinesparkline').live("click",function(){
-					//alert("hello");
-					$('#dialog').dialog('open');
-
-
-					return false;
-				});
-				$('#date').datepicker();
-		
-	// Dialog Link
-// Dialog For Graph End
-
-
 		});
-//#######################Graph Program Start#######################
-		$(document).ready(function(){
-			$("#chart").kendoChart({
-			title: {
-				 text: "ข้อมูลผลการดำเนินงานเทียบเป้าหมาย"
-			},
-			series: [
-				 { name: "ผลการดำเนินงาน", data: [2, 3, 4, 5,6,6,7,7,8,8,9,9],
-				color: "BLUE"
-				 }
-				 , 
-				
-				 {
-                            type: "line",
-                            data: [10, 10, 10, 10, 10,10, 10, 10, 10, 10,10,10],
-                            name: "เป้าหมาย",
-                            color: "GREEN"
-							
-                  }
-			],
-			categoryAxis:{
-			categories: [ "Jan", "Feb", "Mar", "Apr","May", "Jun", "Jul", "Aug","Sep", "Oct", "Nov", "Dec" ]
-			},
-			legend:{
-			position:"bottom"
-			}
-		});
-		//#######################Graph Program End#######################
-		
-
-	});
-
-		/*########## Function jQuery End#########*/
 
 	</script>
+<!-- Start jQuery 0001-->
+<script type="text/javascript">
+$(document).ready(function(){
 
-
-
-
-
-<!-- code for graphic-->
-
-
-<!-- ui-dialog -->	
-	<div id="dialog" title="Overall">
-			<div id="chart"><p></p></div>
-		</div>
-<!-- ui-dialog -->	
-
-
-<!-- code for graphic-->
-
-		<!-- Start jQuery 0001-->
-			<script type="text/javascript">
-			$(document).ready(function(){
-						//console.log("console"+console);
-
-				/*### kendoRadialGauge Start ###*/
-				
+/*### kendoRadialGauge End ###*/
 var gauge = function(selectorParam,valueParam){
 $(selectorParam).kendoRadialGauge({
 					theme:$(document).data("kendoSlin") || "metro",
@@ -518,10 +309,9 @@ $(selectorParam).kendoRadialGauge({
 				});
 
 }
-				/*### kendoRadialGauge End ###*/
+/*### kendoRadialGauge End ###*/
 
 /*###  barChart Budget start ###*/
-//var barChartBudget = function(selectorParam,valueParam){
 var barChartBudget = function(categoryParam,seriesParam){
 	$("#barChartBudget").kendoChart({
                         theme: $(document).data("kendoSkin") || "metro",
@@ -542,17 +332,7 @@ var barChartBudget = function(categoryParam,seriesParam){
 							stack: false
                         },
 						series: seriesParam,
-                      /*  series: [{
-                            name: "แผน",
-                            data: [1, 5, 5, 3]
-                        }, {
-                            name: "ผล",
-                            data: [2,3, 4, 6]
-                        }]*/
                         valueAxis: {
-                               // format: "{0}%"
-							  // format: "{0}",
-							        //      rotation: 10,
 							font: "10px Tahoma",
 							min : 0,
 							labels: {
@@ -560,7 +340,6 @@ var barChartBudget = function(categoryParam,seriesParam){
                             }
                         },
                         categoryAxis: {
-                         //   categories: [ "โครงการ" ," หน่วยงาน", "ครุภัณฑ์ ", "บุคลากร"]
 							categories: categoryParam,
 							labels:{
 							font: "11px Tahoma"
@@ -570,25 +349,13 @@ var barChartBudget = function(categoryParam,seriesParam){
                             visible: true,
                             format: "{0}",
 							template: "#= addCommas(value) # ล้านบาท"
-
                         }
                     });
 }
-//barChartBudget();
 /*###  barChart Budget  end ###*/
 
 /*###  pieChart hr  start ###*/
 
-function onSeriesHover(e) {
-    //console.log("Hovered value: " + e.value*2);
-	
-}
-function onSeriesClick(e) {
-  
-	//console.log(e.category  );
-
-	//alert($subCategory);
-}
 var pieChartHR= function(selectorParam,valueParam,sumParam){
 	    $(selectorParam).kendoChart({
 			theme:$(document).data("kendoSkin") || "metro",
@@ -598,9 +365,6 @@ var pieChartHR= function(selectorParam,valueParam,sumParam){
 			name:"9",
 			plotArea:{
 						background:"",
-						
-						
-
 			},
 			legend: {
                             position: "right",
@@ -620,10 +384,7 @@ var pieChartHR= function(selectorParam,valueParam,sumParam){
                         }],
                         tooltip: {
                             visible: true,
-                         //  format: "{0}"
-						 //  template: "${ category } ,${ value }%"
 						 template: "#= templateFormat(value,"+sumParam+") #"
-
                         },
 			
 			seriesDefaults: {
@@ -631,9 +392,7 @@ var pieChartHR= function(selectorParam,valueParam,sumParam){
 					visible: false,
 					format: "{0}%"
 				}
-			},
-			//seriesHover:onSeriesHover,
-			seriesClick:onSeriesClick
+			}
 		});
 }
 var pieChartHR2= function(selectorParam,valueParam,sumParam){
@@ -677,149 +436,11 @@ var pieChartHR2= function(selectorParam,valueParam,sumParam){
 					visible: false,
 					format: "{0}%"
 				}
-			},
-			//seriesHover:onSeriesHover,
-			seriesClick:onSeriesClick
+			}
+
 		});
 }
-//pieCharhr();
-
-/*###  pieChart2 hr  end ###
-
-var pieCharthr2= function(){
-var summ=900;
-		$("#piehr2").kendoChart({
-			theme:$(document).data("kendoSkin") || "metro",
-			title: {
-				 text: ""
-			},
-			name:"9",
-			plotArea:{
-						background:""
-
-			},
-			legend: {
-                            position: "right",
-							labels:{
-							font: "11px Tahoma"
-							}
-            },
-			chartArea: {
-			width: 300,
-			height: 130
-			},
-			series: [{
-                            type: "pie",
-
-                            data: [ {
-	
-                                category: "คชจ. ดำเนินการ",
-                                value: 220
-								 
-                            }, {
-	
-                                category: "คชจ.บุคลากร",
-                                value: 240
-                            }]
-                        }],
-                        tooltip: {
-                            visible: true,
-                         //  format: "{0}"
-						 //  template: "${ category } ,${ value }%"
-						 template: "#= templateFormat(value,900) #"
-
-                        },
-
-			seriesDefaults: {
-				labels: {
-					visible: false,
-					format: "{0}%"
-				}
-			},
-			//seriesHover:onSeriesHover,
-			seriesClick:onSeriesClick
-		});
-
-
-		
-		
-}
-pieCharthr2();
-*/
-/*###  pieChart3 hr  end ###*/
-/*
-var pieCharthr3= function(){
-var summ=900;
-		$("#piehr3").kendoChart({
-		theme:$(document).data("kendoSkin") || "metro",
-			title: {
-				 text: ""
-			},
-			name:"9",
-			plotArea:{
-						background:""
-						
-						
-			},
-			legend: {
-                            position: "right",
-							labels:{
-							font: "11px Tahoma"
-							}
-            },
-			chartArea: {
-			width: 300,
-			height: 130
-			},
-			series: [{
-                            type: "pie",
-
-                            data: [ {
-	
-                                category: "ปฎิบัติการ.",
-                                value: 15
-								 
-                            }, {
-	
-                                category: "วิจัยและวิชาการ ",
-                                value: 40
-                            }, {
-	
-                                category:"จัดการ ",
-                                value: 40
-                            }, {
-	
-                                category: "บริหาร",
-                                value: 5
-                            }]
-                        }],
-                        tooltip: {
-                            visible: true,
-                         //  format: "{0}"
-						 //  template: "${ category } ,${ value }%"
-						 template: "#= templateFormat(value,900) #"
-
-                        },
-			
-			seriesDefaults: {
-				labels: {
-					visible: false,
-					format: "{0}%"
-				}
-			},
-			//seriesHover:onSeriesHover,
-			seriesClick:onSeriesClick
-	
-			
-		});
-
-
-		
-		
-}
-pieCharthr3();
-
-/*###  pieChart3 hr  end ###*/
+/*###  pieChart hr  end ###*/
 
 /*###  lineChart hr start ###*/
 var lineChartHr= function(serieParam,categoryParam){
@@ -832,8 +453,6 @@ var lineChartHr= function(serieParam,categoryParam){
 						width:310,
 						height:170
 						},
-
-					
                         legend: {
                             position: "bottom",
 							labels:{
@@ -842,21 +461,10 @@ var lineChartHr= function(serieParam,categoryParam){
                         },
                         seriesDefaults: {
                             type: "line",
-							//stack: true
                         },
-                        series: serieParam
-							/* [{
-                            name: "ปีปัจจุบัน",
-                            data: [10, 12, 11, 13, 12,11,13,12,13,13,13,13,12]
-                        },{
-                            name: "ปีที่แล้ว",
-                            data: [10, 12, 13, 13, 13,10,13,14,12,13,12,13,10]
-                        }]*/
-						,
+                        series: serieParam	,
                         valueAxis: {
                             labels: {
-                               // format: "{0}%"
-							   //format: "{0}%",
 								template: "#= getValueTurnover(value) #",
 								font: "11px Tahoma"
                             },
@@ -878,8 +486,9 @@ var lineChartHr= function(serieParam,categoryParam){
 		
 		
 }
-//lineChartHr();
+
 /*###  lineChart hr end ###*/
+
 /*###  Financial Start ###*/
 /*###  kendoRadialGauge financial stat ###*/
 	$("#gauge3").kendoRadialGauge({
@@ -887,14 +496,12 @@ var lineChartHr= function(serieParam,categoryParam){
 					pointer: {
                             value: 65
                         },
-
                         scale: {
                             minorUnit: 10,
                             startAngle: -25,
                             endAngle: 210,
                             max: 100,
 							labels: {
-								//template: "#= value #%",
                                 position:"outside",
 								font: "11px Tahoma"
 
@@ -907,14 +514,12 @@ var lineChartHr= function(serieParam,categoryParam){
                                     color: "#99ccff"
                                 }
                             ]
-						
 							/*Rang End */
                         }
 				});
 
 /*### kendoRadialGauge financial end  ###*/
 /*###  barChart Financial start ###*/
-
 var barChartFinancial= function(serieParam,categoryParam){
 	$("#barChartFinancial").kendoChart({
                         theme: $(document).data("kendoSkin") || "metro",
@@ -936,16 +541,9 @@ var barChartFinancial= function(serieParam,categoryParam){
                             },
 							stack: false
                         },
-
                         series: serieParam,
-							/*[{
-                           name: "รายได้แบ่งตามประเภท(ล้านบาท)",
-                           data: [291.22, 75.39, 7.16, 67.38, 35.59,50.41],
-							
-                        }],*/
                         valueAxis: {
                             labels: {
-                               // format: "{0}%"
 							    visible: true,
 							   format: "{0}",
 								font: "10px Tahoma"
@@ -968,109 +566,15 @@ var barChartFinancial= function(serieParam,categoryParam){
                         }
                     });
 }
-//barChartFinancial();
-/*###  barChart Financial  end ###
-###  Financial Stop ###*/
-/*// This is before Edit
-				$("#form_1").submit(function(){
-					$.ajax({
-						url:'processBudget.jsp',
-						type:'get',
-						dataType:'json',
-						data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val()},
-						success:function(data2){
-						//	console.log(data2[0]["gauge1"]);
-					//		console.log(data2[0]["plang1"]);
-					//		console.log(data2[0]["resultg1"]);
-					//		console.log(data2[0]["gauge2"]);
-					//		console.log(data2[1]["series_center"]);
-					//		console.log(data2[2]["category_center"]);
 
-
-							var pecent = parseFloat(data2[0]["gauge1"]).toFixed(2);
-							gauge("#gauge1",pecent);
-							$("#container-gauge2 .gaugeValue").empty();
-							$("#container-gauge2 .gaugeValue").append(pecent);
-							$(".r#plan1").empty();
-							var plan = parseFloat(data2[0]["plang1"]).toFixed(2);
-							var planwC = addCommas(plan);
-							planwC += " ล้านบาท";
-							$(".r#plan1").append(planwC);
-							$(".r#result1").empty();
-							var result = parseFloat(data2[0]["resultg1"]).toFixed(2);
-							var resultwC = addCommas(result);
-							resultwC += " ล้านบาท";
-							$(".r#result1").append(resultwC);
-							//===================End Gauge1
-
-							var pecent = parseFloat(data2[0]["gauge2"]).toFixed(2);
-							gauge("#gauge2",pecent);
-							$("#container-gauge .gaugeValue").empty();
-							$("#container-gauge .gaugeValue").append(pecent);
-							$(".r#plan2").empty();
-							var plan = parseFloat(data2[0]["plang2"]).toFixed(2);
-							var planwC = addCommas(plan);
-							planwC += " ล้านบาท";
-							$(".r#plan2").append(planwC);
-							$(".r#result2").empty();
-							var result = parseFloat(data2[0]["resultg2"]).toFixed(2);
-							var resultwC = addCommas(result);
-							resultwC += " ล้านบาท";
-							$(".r#result2").append(resultwC);
-						//=======================End Gauge 2 =====================
-						//========================Bar Chart ===============
-							var seriesBudget = data2[1]["series_center"];
-							var categoryBudget = data2[2]["category_center"];
-							//console.log(data2[1]["series_center"]);
-							//console.log(data2[2]["category_center"]);
-							barChartBudget(categoryBudget,seriesBudget);
-							//====================End Bar Chart ================
-						}
-					});
-				});
-/*
-		$("#form_1").submit(function(){
-					$.ajax({
-						url:'processHR.jsp',
-						type:'get',
-						dataType:'json',
-						data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val()},
-						success:function(data2){
-							//console.log(data2[0]["totalPieHR1"]);
-							//console.log(data2[1]["value_piehr1"]);
-							//console.log(data2[2]["totalPieHR2"]);
-							//console.log(data2[3]["value_piehr2"]);
-							//console.log(data2[4]["categorylinehr3"]);
-							//console.log(data2[5]["value_linehr3"]);
-
-							//============= HR Pie 1================
-							var totalPieHR1 = data2[0]["totalPieHR1"];
-							var valuePieHR1 = data2[1]["value_piehr1"];
-							pieChartHR("#piehr",valuePieHR1,totalPieHR1);
-							// ========End HR Pie 1===============
-							// ======= HR Pie 2=================
-							var totalPieHR2 = data2[2]["totalPieHR2"];
-							var valuePieHR2 = data2[3]["value_piehr2"];
-							pieChartHR("#piehr3",valuePieHR2,totalPieHR2);
-							// ========End HR Pie 2 ===============
-							// ======= HR Line 3=================
-							var categoryLineHR2 = data2[4]["categorylinehr3"];
-							var  valueLineHR3 = data2[5]["value_linehr3"];
-							lineChartHr(valueLineHR3,categoryLineHR2);
-							// ========End HR Line 3 ===============
-						}
-					});
-				});
-*/
 ///////////////// Gague 1 Working
 var ParamYearArr = <%=textMonth%>;
 
 			$("#form_1").submit(function(){
-
-				//var ParamYearPlus = parseInt($("#ParamYear").val());
-				//var ParamMonthPlus = (parseInt($("#ParamMonth").val()))+1;
-				var ParamYearPlus =2012;
-				var ParamMonthPlus = 12;
+				var ParamYearPlus = parseInt($("#ParamYear").val());
+				var ParamMonthPlus = (parseInt($("#ParamMonth").val()))+1;
+				//var ParamYearPlus =2012;
+				//var ParamMonthPlus = 12;
 				
 				var ParamYearPlusText = "";
 				var ParamMonthPlusText = "";
@@ -1111,14 +615,14 @@ var ParamYearArr = <%=textMonth%>;
 					});
 				});
 
-///////////////// Gague 2 Working
+		//จับ event เหตุการณ์ การกด submit 1
 			$("#form_1").submit(function(){
-				
-			
-				//var ParamYearPlus = parseInt($("#ParamYear").val());
-				//var ParamMonthPlus = (parseInt($("#ParamMonth").val()))+1;
-				var ParamYearPlus =2012;
-				var ParamMonthPlus = 12;
+				//รับค่าตาม parameter
+				var ParamYearPlus = parseInt($("#ParamYear").val());
+				var ParamMonthPlus = (parseInt($("#ParamMonth").val()))+1;
+				//กำหนดค่าแสดงค่าตามเดือน/ปี ที่ต้องการ
+				//var ParamYearPlus =2012;
+				//var ParamMonthPlus = 12;
 
 				var ParamYearPlusText = "";
 				var ParamMonthPlusText = "";
@@ -1154,10 +658,12 @@ var ParamYearArr = <%=textMonth%>;
 
 ///////////////// Barchart Budget Working
 			$("#form_1").submit(function(){
-				//var ParamYearPlus = parseInt($("#ParamYear").val());
-				//var ParamMonthPlus = (parseInt($("#ParamMonth").val()))+1;
-				var ParamYearPlus =2012;
-				var ParamMonthPlus = 12;
+				//รับค่าตาม parameter
+				var ParamYearPlus = parseInt($("#ParamYear").val());
+				var ParamMonthPlus = (parseInt($("#ParamMonth").val()))+1;
+				//กำหนดค่าแสดงค่าตามเดือน/ปี ที่ต้องการ
+				//var ParamYearPlus =2012;
+				//var ParamMonthPlus = 12;
 
 				var ParamYearPlusText = "";
 				var ParamMonthPlusText = "";
@@ -1175,49 +681,12 @@ var ParamYearArr = <%=textMonth%>;
 							//========================Bar Chart ===============
 							var seriesBudget = data2[0]["series_center"];
 							var categoryBudget = data2[1]["category_center"];
-							//console.log(data2[1]["series_center"]);
-							//console.log(data2[2]["category_center"]);
 							barChartBudget(categoryBudget,seriesBudget);
 							//====================End Bar Chart ================						
 							}
 					});
 				});
-/*
-			$("#form_1").submit(function(){
-					$.ajax({
-						url:'processHR.jsp',
-						type:'get',
-						dataType:'json',
-						data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val()},
-						success:function(data2){
-							console.log(data2);
-							//console.log(data2[0]["totalPieHR1"]);
-							//console.log(data2[1]["value_piehr1"]);
-							//console.log(data2[2]["totalPieHR2"]);
-							//console.log(data2[3]["value_piehr2"]);
-							//console.log(data2[4]["categorylinehr3"]);
-							//console.log(data2[5]["value_linehr3"]);
 
-							//============= HR Pie 1================
-							var totalPieHR1 = data2[0]["totalPieHR1"];
-							var valuePieHR1 = data2[1]["value_piehr1"];
-							pieChartHR("#piehr",valuePieHR1,totalPieHR1);
-							// ========End HR Pie 1===============
-							// ======= HR Pie 2=================
-							var totalPieHR2 = data2[2]["totalPieHR2"];
-							var valuePieHR2 = data2[3]["value_piehr2"];
-							pieChartHR("#piehr3",valuePieHR2,totalPieHR2);
-							// ========End HR Pie 2 ===============
-							// ======= HR Line 3=================
-							var categoryLineHR2 = data2[4]["categorylinehr3"];
-							var  valueLineHR3 = data2[5]["value_linehr3"];
-							lineChartHr(valueLineHR3,categoryLineHR2);
-							// ========End HR Line 3 ===============
-						}
-					});
-				});
-
-*/
 //////////============================== Pie Hr Chart 1
 	$("#form_1").submit(function(){
 					$.ajax({
@@ -1236,6 +705,7 @@ var ParamYearArr = <%=textMonth%>;
 					});
 				});
 //////////============================== Pie Hr Chart 2
+//สร้าง pie chart ของ HR 
 	$("#form_1").submit(function(){
 					$.ajax({
 						url:'processHR2.jsp',
@@ -1243,7 +713,6 @@ var ParamYearArr = <%=textMonth%>;
 						dataType:'json',
 						data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val()},
 						success:function(data2){
-						//	console.log(data2);
 							//============= HR Pie 2================
 					var totalPieHR2 = data2[0]["totalPieHR2"];
 							var valuePieHR2 = data2[1]["value_piehr2"];
@@ -1277,10 +746,12 @@ var ParamYearArr = <%=textMonth%>;
 
 
 		$("#form_1").submit(function(){
-				//var ParamYearPlus = parseInt($("#ParamYear").val());
-				//var ParamMonthPlus = (parseInt($("#ParamMonth").val()))+1;
-				var ParamYearPlus =2012;
-				var ParamMonthPlus = 12;
+			//รับค่าตาม parameter
+				var ParamYearPlus = parseInt($("#ParamYear").val());
+				var ParamMonthPlus = (parseInt($("#ParamMonth").val()))+1;
+				//กำหนดค่าแสดงค่าตามเดือน/ปี ที่ต้องการ
+				//var ParamYearPlus =2012;
+				//var ParamMonthPlus = 12;
 				var ParamYearPlusText = "";
 				var ParamMonthPlusText = "";
 				if(ParamMonthPlus>12){
@@ -1315,45 +786,15 @@ var ParamYearArr = <%=textMonth%>;
 
 
 
-
-
-
-	/*	$("#form_1").submit(function(){
-					$.ajax({
-						url:'processRevenue.jsp',
-						type:'get',
-						dataType:'json',
-						data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val()},
-						success:function(data2){
-							//console.log(data2)
-							var pecent = parseFloat(data2[0]["gauge3"]).toFixed(2);
-							gauge("#gauge3",pecent);
-							$("#container-gauge3 .gaugeValue").empty();
-							$("#container-gauge3 .gaugeValue").append(pecent);
-							$("#plan3").empty();
-							var plan = parseFloat(data2[0]["plang3"]).toFixed(2);
-							var planwC = addCommas(plan);
-							planwC += " ล้านบาท";
-							$("#plan3").append(planwC);
-							$("#revenue3").empty();
-							var result = parseFloat(data2[0]["revenueg3"]).toFixed(2);
-							var resultwC = addCommas(result);
-							resultwC += " ล้านบาท";
-							$("#revenue3").append(resultwC);
-							//===================End Gauge3
-							var serieBar = data2[1]["value_barrevenue2"];
-							var categoryBar = data2[2]["categorybarrevenue2"];
-							barChartFinancial(serieBar,categoryBar);
-
-						}
-					});
-				});*/
 //==========================Revenue Gauge =====================
-						$("#form_1").submit(function(){
-				//var ParamYearPlus = parseInt($("#ParamYear").val());
-				//var ParamMonthPlus = (parseInt($("#ParamMonth").val()))+1;
-				var ParamYearPlus =2012;
-				var ParamMonthPlus = 12;
+				$("#form_1").submit(function(){
+				//รับค่าตาม parameter
+				var ParamYearPlus = parseInt($("#ParamYear").val());
+				var ParamMonthPlus = (parseInt($("#ParamMonth").val()))+1;
+				
+				//กำหนดค่าแสดงค่าตามเดือน/ปี ที่ต้องการ
+				//var ParamYearPlus =2012;
+				//var ParamMonthPlus = 12;
 							var ParamYearPlusText = "";
 							var ParamMonthPlusText = "";
 							if(ParamMonthPlus>12){
@@ -1388,10 +829,12 @@ var ParamYearArr = <%=textMonth%>;
 				});
 				//====================Revenue Chart ==================
 		$("#form_1").submit(function(){
-				//var ParamYearPlus = parseInt($("#ParamYear").val());
-				//var ParamMonthPlus = (parseInt($("#ParamMonth").val()))+1;
-				var ParamYearPlus =2012;
-				var ParamMonthPlus = 12;
+			//รับค่าตาม parameter
+				var ParamYearPlus = parseInt($("#ParamYear").val());
+				var ParamMonthPlus = (parseInt($("#ParamMonth").val()))+1;
+				//กำหนดค่าแสดงค่าตามเดือน/ปี ที่ต้องการ
+				//var ParamYearPlus =2012;
+				//var ParamMonthPlus = 12;
 							var ParamYearPlusText = "";
 							var ParamMonthPlusText = "";
 							if(ParamMonthPlus>12){
@@ -1405,7 +848,6 @@ var ParamYearArr = <%=textMonth%>;
 						dataType:'json',
 						data:{"month":ParamMonthPlus,"year":ParamYearPlus},
 						success:function(data2){
-							//console.log(data2)
 						    var serieBar = data2[0]["value_barrevenue2"];
 							var categoryBar = data2[1]["categorybarrevenue2"];
 							barChartFinancial(serieBar,categoryBar);
@@ -1414,13 +856,6 @@ var ParamYearArr = <%=textMonth%>;
 				});
 //====================== Radio Button Click
 		$(".radio1").click(function(){
-			//$("#loading").ajaxStart(function(){
-			//	$("#piehr2").css("opacity","0.2");
-		///	}).ajaxStop(function(){
-		//		$("#piehr2").css("opacity","1");
-		//	});
-			//alert("yes");
-			//alert($("input:radio[id=notsum]:checked").val());
 					$.ajax({
 						url:'processHRvsOper.jsp',
 						type:'get',
@@ -1438,30 +873,9 @@ var ParamYearArr = <%=textMonth%>;
 						}
 					});
 				});
-/*
-		$("#sum").click(function(){
-					$.ajax({
-						url:'processHRvsOper.jsp',
-						type:'get',
-						dataType:'json',
-						data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val(),"flag":$("input.radio1").val()},
-						success:function(data2){
-							console.log(data2)
-							//============= HR Pie 3================
-							var totalPieHR1 = data2[0]["totalPieHR3"];
-							var valuePieHR1 = data2[1]["value_piehr3"];
-							pieChartHR("#piehr2",valuePieHR1,totalPieHR1);
-							// ========End HR Pie 3===============
-
-						}
-					});
-				});
-
-*/
-
+	//กด submit ฟังก์ชันจัดการ
 				$("#form_1").submit(function(){
-						//	$("#piehr2").empty();
-						//	$("#notsum").trigger("click");
+					//ตอนกดปุ่ม submit สั่งให้ #checkRadio1 ทำงานด้วย
 						$("#checkRadio1").trigger("click");
 						$.ajax({
 						url:'Process.jsp',
@@ -1469,113 +883,64 @@ var ParamYearArr = <%=textMonth%>;
 						dataType:'html',
 						data:$(this).serialize(),
 						success:function(data){
-							//alert("data ok");
-
-							//$("body").append("<>")
 							$("#content").empty();
-							
 							$("#content").append(data);
-							
 							$(".kpiN").tooltip({
-							//txt:"Key Performance Indicator Key Performance Indicator",
 							color:"black"
 							});
-									
-							$(".ball").tooltip({
-							//txt:"Key Performance Indicator Key Performance Indicator",
-							color:"black"
-							});
-
 							
+							$(".ball").tooltip({
+							color:"black"
+							});
 						}						
 						});
 				return false;
 				});
-//click trigger();
+		//เปิดโปรแกรมครั้งแรกให้โปรแกรมทำงานเลย
 		$("form.#form_1 #submit1").trigger("click");
 		$("#checkRadio1").trigger("click");
 			});
 
 
-
-/*###  pieChart hr  Defind start ###
-function templateFormat(value,summ) {
-   var value1 = Math.floor(value);
-   var value2 = Math.floor((value/summ)*100);
-   return value1 + " , " + value2 + " %";
-}*/
+//templateFormat จัดการ tooltip ถ้าเป็นการแสดงนับจำนวนคนไม่มี ทศนิยม
 function templateFormat(value,summ) {
    var value1 = addCommas(value.toFixed(2));
    var value2 = ((value/summ)*100).toFixed(2);
    return value1 + " , " + value2 + " %";
 }
+//templateFormat2 จัดการ tooltip ถ้าเป็นการแสดงค่าเงินให้มีทศนิยม2 ตำแหน่ง
 function templateFormat2(value,summ) {
    var value1 = addCommas(value);
    var value2 = ((value/summ)*100).toFixed(2);
    return value1 + " , " + value2 + " %";
 }
- /*  
-   	function getTooltip(category) {
-	var fieldtest ="";
-				   $(document).ready(function(){
-						$.ajax({
-							url:'revTooltip.jsp',
-							type:'GET',
-							dataType:'text',
-							data:{"bsc_id":category},
-							success:function(data){
-								fieldtest = data;
-								//alert(test);
-							}
-						});
-					});
-					setTimeout(function(){
-							console.log(fieldtest);
-
-					},2000);
-	    console.log(fieldtest);
-		return fieldtest;
-}
-*/
+//ฟังก์ชันสำหรับ tooltip แสดงค่าตัวเลข 2 ตำแหน่ง
 function getValueTurnover(value){
 return (value).toFixed(2)+"%";
 }
-
-   	function getTooltip(category) {
+//ฟังก์ชันสำหรับ tooltip แสดงค่า category ของ barChartFinancial
+function getTooltip(category) {
 	var tooltipStr = "";
 	var id = parseInt(category)+100;
 	var idStr = ".revTooltip#"+id;
-	//console.log(category);
-	//console.log(idStr);
-
-	//console.log($(".revTooltip#1").length);
-	//console.log($(idStr).text());
 return	$(idStr).text();
-	
-	
 	}
+//ผูกฟังก์ชัน kendoDropDownList
+  $("#ParamYear").kendoDropDownList({
+  theme:$(document).data("kendoSkin") || "metro",
+	  height:400,
+  });
+//ผูกฟังก์ชัน kendoDropDownList
+  $("#ParamMonth").kendoDropDownList({
+   height: 400
+  });
+//ผูกฟังก์ชัน kendoDropDownList
+$("#ParamOrg").kendoDropDownList();
+//});
+</script>
 
-
-/*### pieChart hr  Defind   end ###*/
-
-			</script>
-		<!-- End jQuery 0001-->
-			<script>
-			   $(document).ready(function(){
-				  $("#ParamYear").kendoDropDownList({
-				  theme:$(document).data("kendoSkin") || "metro",
-					  height:400,
-					  //width:50
-				  });
-				  $("#ParamMonth").kendoDropDownList({
-				   height: 400
-				  });
-	
-				  $("#ParamOrg").kendoDropDownList();
-			   });
-			</script>
 		<div id="tooltip"></div>
-		<div class="content" style="width:970px; margin:auto;">
+		<div class="content" style="width:971px; margin:auto;">
 			<div id="row1">
 						<div id="boxL">
 							<!-- ### BSC Dashboard Start ###-->
@@ -1594,13 +959,7 @@ return	$(idStr).text();
 											<%out.print(V_Month);%>
 										</select>
 										</td>
-										<!--
-										<td><label for="ParamOrg">หน่วยงาน :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-										<select name="ParamOrg" id="ParamOrg" onChange="getParamOrg(this.value);">
-											<%out.print(V_Org);%>
-										</select>
-										</td>
-										-->
+										
 										<td>
 										<input type="submit"value="&nbsp;&nbsp;OK&nbsp;&nbsp;"  class="k-button" id="submit1" >
 										</td>
@@ -1826,19 +1185,3 @@ return	$(idStr).text();
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

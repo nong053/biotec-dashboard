@@ -42,22 +42,7 @@ border: 1px solid #cccccc;
 margin-left:1px;
 }
 
-/*### Main Content Stop ###*/
-
-
-
-/*### Sub Content1 Start ###*/
-
-
-/*### Sub Content1 Stop ###*/
-
-
-/*### Sub Content2 Start ###*/
-.content #row1 #boxR #content{
-	
-}
 .content #row1 #boxR #mainContent #head{
-
 background-color:#99CCFF;
 border-radius:5px;
 margin:1px;
@@ -165,7 +150,6 @@ font-weight:bold;
 }
 
 /*### Sub Content2 Stop ###*/
-
 
 /*### Sub Content3 Start ###*/
 
