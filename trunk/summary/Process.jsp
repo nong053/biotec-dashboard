@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="utf-8"%>
+﻿<%@page contentType="text/html" pageEncoding="utf-8"%>
 <%@page import="java.text.DecimalFormat" %>
 <%@ include file="../config.jsp"%>
 <%
@@ -40,18 +40,25 @@ String decimal2="";
 
 String orgScore = "";
 
+//== Added by Thapanat.sop 2012/11/06		
+if(ParamMonth.equals("12"))
+{	orgScore ="คะแนนรวม 96.09 คะแนน";
 
-Query="CALL sp_owner_wavg_score(";
-Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
-rs = st.executeQuery(Query);
-while(rs.next()){
-	String ParamScore =  rs.getString("owner_wavg_score") ;
-	orgScore ="คะแนนรวม " + ParamScore +" คะแนน";
-	
-}
+}else{
+	Query="CALL sp_owner_wavg_score(";
+	Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
+	rs = st.executeQuery(Query);
+	while(rs.next()){
+		String ParamScore =  rs.getString("owner_wavg_score") ;
+		orgScore ="คะแนนรวม " + ParamScore +" คะแนน";
+	}
+} 	
+//== Added by Thapanat.sop 2012/11/06		
+
 if(orgScore == null || orgScore.equals("")){
 			orgScore = "คะแนนรวม 0  คะแนน";
 	}
+	
 Query="CALL sp_parent_kpi_list(";
 Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
 rs = st.executeQuery(Query);
