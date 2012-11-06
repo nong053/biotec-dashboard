@@ -26,22 +26,7 @@ String seriesPlanBarchart ="{\"series_center\": [{ \"name\": \"แผน\",\"dat
 String seriesResultBarchart =",{ \"name\": \"ผล\",\"data\": [";
 String seriesBarchart = "";
 String categoryBarchart = "{\"category_center\":[";
-			//		 [ 
-				//        {"category_center":["BIOTEC","MTEC","NECTEC","NANOTEC"]},
-				//        {"series_center":[{"name":"IC Score","data":[0,0,0,0]},
-				//        {"pie_sp_ic_score":[0,0,0,0]},
-				//        {"sum_pie_sp_ic_score":0}
-				//        ]
-				// console.log(data[0]["category_center"]);
-				 //   categories: [ "โครงการ" ," หน่วยงาน", "ครุภัณฑ์ ", "บุคลากร"]
-
-				                /*  series: [{
-                            name: "แผน",
-                            data: [1, 5, 5, 3]
-                        }, {
-                            name: "ผล",
-                            data: [2,3, 4, 6]
-                        }]*/
+		
 while(rs.next()){
 	if(i>0){
 			seriesPlanBarchart += ",";
@@ -51,9 +36,6 @@ while(rs.next()){
 		double Plan = rs.getDouble("plan");
 		double Result = rs.getDouble("result");
 
-		//DecimalFormat priceFormatter = new DecimalFormat("#0.00");
-		//String PlanFormat = priceFormatter.format(Plan);
-		//String PlanResult = priceFormatter.format(Result);
 
 		String Type = rs.getString("type");
 		seriesPlanBarchart += Round(Plan,2);
