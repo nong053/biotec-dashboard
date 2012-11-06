@@ -4,18 +4,23 @@
  <html>
     <head>
         <title>Budgeting Dashboard</title>
+		<!-- load stylesheet from external-->
 		<link href="budget.css" rel="stylesheet" type="text/css">
 		<link href="../styles/kendo.common.min.css" rel="stylesheet">
 		<link href="../styles/kendo.default.min.css" rel="stylesheet">
 		<link href="../jqueryUI/css/cupertino/jquery-ui-1.8.21.custom.css" rel="stylesheet">
 		 <link href="../styles/kendo.dataviz.min.css" rel="stylesheet">
-		
+		<!-- load javascript from external-->
         <script src="../js/jquery.min.js"></script>
 		<script src="../js/kendo.all.min.js"></script>
 		  <script src="../js/kendo.dataviz.min.js"></script>
 		<script type="text/javascript" src="../jqueryUI/js/jquery-ui-1.8.21.custom.min.js"></script>
+		<!-- stylesheet embed -->
 		<style type="text/css">
 			html,
+			*{
+			font-family:Tahoma;
+			}
 			body {
 				background-color: white;
 				color:black;
@@ -49,11 +54,7 @@
 			position:relative;
 			top:-45px;
 			}
-/*
-			.ui-progressbar .ui-progressbar-value { 	
-				background: url("images/progressbar.gif");
-			}
-*/
+
 			.contentMain{
 			display:none;
 			width: 960px;
@@ -65,9 +66,6 @@
 			margin:auto;
 			
 			}
-			/*tr.RowData{
-			display:none;
-			}*/
 			
 		</style>
 		<style scoped>
@@ -80,7 +78,6 @@
 					-moz-border-radius: 5px;
 					border-radius: 5px;
 					text-align: left;
-				/*	min-height: 30px;*/
 					width:960px;
 					position: relative;
 					font-weight:bold;
@@ -91,7 +88,6 @@
 	<%
 String center_name="";
 		/*------------------- Set Variable -------------------*/
-
 		String ParamYear = "";
 		String ParamMonth = "";
 		String ParamOrg = "";
@@ -141,21 +137,8 @@ String center_name="";
 				V_Month += "<option value=\""+rs.getString("fiscal_month_no")+"\">"+rs.getString("calendar_th_month_name")+"</option>";
 			}				
 		}
-		// set select
-
-		
 		//		------------------- End Parameter Year & Month -------------------*/
-		/*------------------- Organization Parameter -------------------*/
-
-
-		V_Org +="<option value=\"NSTDA\">สก.</option>";
-		V_Org +="<option value=\"BIOTEC\">ศช. </option>";
-		V_Org +="<option value=\"MTEC\">ศว.</option>";
-		V_Org +="<option value=\"NECTEC\">ศจ.</option>";
-		V_Org +="<option value=\"NANOTEC\">ศน.</option>";
-
-
-		/*------------------- End Organization Parameter -------------------*/
+	
 		//====================select1 query ============================
 		String select1 ="";//"<option value=\"ALL\" >สวทช</option><option value=\"BIOTEC\" >ศช.</option>";
 
@@ -194,6 +177,7 @@ String center_name="";
 
 	<script type="text/javascript">
 //===================================== Function to add comma in decimal
+//ฟังก์ชันจัดการใส่ commas
 function addCommas(nStr)
 {
 	nStr += '';
@@ -208,14 +192,12 @@ function addCommas(nStr)
 }
 //==========================================end=====================
 
-		
-
 		var conURL = "<%=connectionURL%>";
 		var pw = "<%=Pass%>";
 		var ParamYear = "<%=ParamYear%>";
 		var ParamMonth = "<%=ParamMonth%>";
 		//var ParamOrg = "<%=ParamOrg%>";
-
+		//ฟังก์ชันจัดการดึงค่า getParamจากการเหตุการณ์ "Chang" ใน tag <select>
 		function getParamYear(value)
 		{
 			ParamYear = value;
@@ -231,14 +213,13 @@ function addCommas(nStr)
 			ParamOrg = value;
 		}
 
-			   /*#### Tab search above top start ###*/
 	$(document).ready(function(){
 		
 		/*#### Management by hidden value is no data ####*/
+		
+		//ซ่อนค่าที่มี Content ที่เท่ากับ "No data" ถ้ามีข้อมูลให้ทำการแสดงผลออกมา ของ Tab1
+		//Table1
 		var HiddenValueIsNull = function(){
-			//alert("hello");
-			
-
 			if($(".namePro111").text()=="No data"){
 			$(".namePro111").parent().parent().parent().hide();
 			}else{
@@ -291,7 +272,7 @@ function addCommas(nStr)
 			}
 			
 
-			//table2
+			//table2 
 			if($(".namePro121").text()=="No data"){
 			$(".namePro121").parent().parent().parent().hide();
 			}else{
@@ -343,11 +324,9 @@ function addCommas(nStr)
 			$(".namePro1210").parent().parent().parent().show();
 			}
 		}
-
+		//ซ่อนค่าที่มี Content ที่เท่ากับ "No data" ถ้ามีข้อมูลให้ทำการแสดงผลออกมา ของ Tab2
 		var HiddenValueIsNull2 = function(){
-			//alert("hello");
-			
-
+			//Table1
 			if($(".namePro211").text()=="No data"){
 			$(".namePro211").parent().parent().parent().hide();
 			}else{
@@ -399,8 +378,7 @@ function addCommas(nStr)
 			$(".namePro2110").parent().parent().parent().show();
 			}
 			
-
-			//table2
+			//Table2
 			if($(".namePro221").text()=="No data"){
 			$(".namePro221").parent().parent().parent().hide();
 			}else{
@@ -452,11 +430,9 @@ function addCommas(nStr)
 			$(".namePro2210").parent().parent().parent().show();
 			}
 		}
-
+		//ซ่อนค่าที่มี Content ที่เท่ากับ "No data" ถ้ามีข้อมูลให้ทำการแสดงผลออกมา Tab3
 		var HiddenValueIsNull3 = function(){
-			//alert("hello");
-			
-
+			//Table1
 			if($(".namePro311").text()=="No data"){
 			$(".namePro311").parent().parent().parent().hide();
 			}else{
@@ -507,9 +483,8 @@ function addCommas(nStr)
 			}else{
 			$(".namePro3110").parent().parent().parent().show();
 			}
-			
 
-			//table2
+			//Table2
 			if($(".namePro321").text()=="No data"){
 			$(".namePro321").parent().parent().parent().hide();
 			}else{
@@ -561,10 +536,9 @@ function addCommas(nStr)
 			$(".namePro3210").parent().parent().parent().show();
 			}
 		}
+//ซ่อนค่าที่มี Content ที่เท่ากับ "No data" ถ้ามีข้อมูลให้ทำการแสดงผลออกมา Tab4
 		var HiddenValueIsNull4 = function(){
-			//alert("hello");
-			
-
+			//Table1
 			if($(".namePro411").text()=="No data"){
 			$(".namePro411").parent().parent().parent().hide();
 			}else{
@@ -617,7 +591,7 @@ function addCommas(nStr)
 			}
 			
 
-			//table2
+			//Table2
 			if($(".namePro421").text()=="No data"){
 			$(".namePro421").parent().parent().parent().hide();
 			}else{
@@ -669,11 +643,10 @@ function addCommas(nStr)
 			$(".namePro4210").parent().parent().parent().show();
 			}
 		}
-		/*#### Management by hidden value is no data ####*/
+		/*#### Management by hidden value is no data  end####*/
 
 	  /*#### Loading Start ###*/
 		var $width=($('body').width()/2)-50;
-		//console.log($width);
 		$("#loading").css({"top":"250px","left":$width+"px"}).ajaxStart(function(){
 		$(this).show();
 		}).ajaxStop(function(){
@@ -681,29 +654,31 @@ function addCommas(nStr)
 		});
 		/*#### Loading End ###*/
 
+	//ผูกเมธอด kendoDropDownList() ให้<select>เดือน <select>ปี
 	  $("#ParamYear").kendoDropDownList();
-
 	  $("#ParamMonth").kendoDropDownList();
 
-	  $("#ParamOrg").kendoDropDownList();
+ //ผูกเมธอด kendoDropDownList() ให้<select>#select1 <select>#select1
 	var dropdownList1 = $("#select1").kendoDropDownList();
 	var dropdownList2 =$("#select2").kendoDropDownList();
 
 	/*### jQuery Funtions Start ###*/
-
-	/*### Main Content Start ###*/
-	
+	//สั่งทำงานเมื่อเกิดเหตุการณ์ submit
 		$("form#form_1").submit(function(){
+	//กรณีที่ใช้เมธอด .hide() แทนที่จะเป็น .empty() เนื่องจากเรากำหนด laout 
+	//ทั้งหมดไว้หน้าแรกถ้า empty(ลบ)ไปจะทำให้ไม่สามารถแสดงผลได้
 				$("#content1").hide();
 				$("#content2").hide();
 				$("#content3").hide();
 				$("#content4").hide();
 				$("#content5").hide();
 				$("#tabs").show();
+				//ลบตัวแปรที่ฝั่งไว้ใน Dom ที่เป็น parameter ที่เลือกไว้ตอน submit เพื่อเก็บค่าใหม่
 				$(".paramSubmit").remove();
+				//เก็บค่า parameter ฝั่งไว้ใน dom document เพื่อเอาไว้ใช้ตอนเรียก tab
 				$("body").append("<input type='hidden' value='"+$("#ParamMonth").val()+"' name='ParamMonthSubmit' id='ParamMonthSubmit' class='paramSubmit'> ");
 				$("body").append("<input type='hidden' value='"+$("#ParamYear").val()+"' name='ParamYearSubmit' id='ParamYearSubmit' class='paramSubmit'>");
-
+				//ตรวจสอบว่าปัจจุบันอยู่หน้าอะไร ตอนกด submit ให้ tab แสดงหน้านั้น
 				if($("#pageCon1").val()){
 						$("a[href=#content1]").trigger("click");
 				}else if($("#pageCon2").val()){
@@ -716,18 +691,15 @@ function addCommas(nStr)
 						$("a[href=#content5]").trigger("click");
 				}else{
 						$("a[href=#content1]").trigger("click");
+						
 				}
-
-				//$("#tabs").slideDown(500,function(){
-					//$("a[href=#content1]").trigger("click");
-
-		//	});
 
 	return false;
 	});
-	//comment here
+	//จัดการให้หน้าเริ่มต้นให้ทำการ submit ทันทีที่โหลดเพจ
 	$("form#form_1").trigger("submit");
-
+	
+	//ดักเหตุการณ์การclick เพื่อเรียกฟังก์ชัน
 	$("a[href=#content1]").click(function(){
 			includeCon1();
 	});
@@ -752,6 +724,7 @@ function addCommas(nStr)
 	
 
 	/*### Tabs Content Start ###*/
+	//ดักเหตุการณ์การchange เพื่อเรียก ajax มาสร้าง Tag <select></select>
 		$("#select1").change(function(){
 				$.ajax({
 				url:"content1.jsp",
@@ -759,34 +732,24 @@ function addCommas(nStr)
 				dataType:"json",
 				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val(),"pg_code":$(this).val()},
 				success:function(data){
-					//console.log(data);
 					var serie1 = data[0]["series1"];
 					var category1 = data[1]["category1"];
+					//เรียกฟังก์ชัน barchart เพื่อสร้าง Bar Chart ใหม่
 					barChart1(serie1,category1);
+					//เรียกฟังก์ชันจัดการสลับสีของ Table
 					colorSufferRow();
-	/*
-					var progressbarID1 =["111","112","113","114","115","116","117","118","119","1110"];
-					var progressbarID2 =["121","122","123","124","125","126","127","128","129","1210"];
-					var dataValueID1 = [4,6,8,10,12,14,16,18,20,22];
-					var dataNameID1 = [5,7,9,11,13,15,17,19,21,23];
-					var dataValueID2 = [24,26,28,30,32,34,36,38,40,42];
-					var dataNameID2 = [25,27,29,31,33,35,37,39,41,43];
-					var lengthProgressBar1 = data[2]["lengthProgressBar1"];
-					var lengthProgressBar2 = data[3]["lengthProgressBar2"];
-					for(var i=0;i<lengthProgressBar1;i++){
-						callProgressbar(progressbarID1[i],parseFloat(data[dataValueID1[i]]["value"]).toFixed(2),data[dataNameID1[i]]["name"]);
-					}
-					for(var i=0;i<lengthProgressBar1;i++){
-						callProgressbar(progressbarID2[i],parseFloat(data[dataValueID2[i]]["value"]).toFixed(2),data[dataNameID2[i]]["name"]);
-					}
-*/								
-				$("#contentL .projectHead1").empty();
-				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
-				$("#contentR .projectHead1").empty();
-				$("#contentR .projectHead1").append("Top 10 Project Least Spending of "+data[42]["active_category"]);
-					
+						
+					$("#contentL .projectHead1").empty();
+					//ใส่ text ตัวหัว table
+					$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+data[42]["active_category"]);
+					$("#contentR .projectHead1").empty();
+					//ใส่ content ภายใน table
+					$("#contentR .projectHead1").append("Top 10 Project Least Spending of "+data[42]["active_category"]);
+					//ตรวจสอบค่าว่างถ้าค่าว่างไม่ต้องแสดง
 					HiddenValueIsNull();
+					//เรียก ฟังก์ชัน callProgressbar เพื่อสร้าง Progressbar
 
+					//Tab1
 					callProgressbar("111",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
 					callProgressbar("112",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
 					callProgressbar("113",parseFloat(data[6]["value"]).toFixed(2),data[7]["name"]);
@@ -798,7 +761,7 @@ function addCommas(nStr)
 					callProgressbar("119",parseFloat(data[18]["value"]).toFixed(2),data[19]["name"]);
 					callProgressbar("1110",parseFloat(data[20]["value"]).toFixed(2),data[21]["name"]);
 
-
+					//Tab2
 					callProgressbar("121",parseFloat(data[22]["value"]).toFixed(2),data[23]["name"]);
 					callProgressbar("122",parseFloat(data[24]["value"]).toFixed(2),data[25]["name"]);
 					callProgressbar("123",parseFloat(data[26]["value"]).toFixed(2),data[27]["name"]);
@@ -825,8 +788,6 @@ function addCommas(nStr)
 
 					var serie1 = data[0]["series1"];
 					var category1 = data[1]["category1"];
-					//console.log(serie1);
-					//console.log(category1);
 
 					barChart21(serie1,category1);
 
@@ -862,22 +823,12 @@ function addCommas(nStr)
 					callProgressbar("2210",parseFloat(data[40]["value"]).toFixed(2),data[41]["name"]);
 					
 					HiddenValueIsNull2();
-					/*
-					var serie2 = data[2]["series2"];
-					var category2 = data[3]["category2"];
-					barChart22(serie2,category2);
-
-					var serie3 = data[4]["series3"];
-					var category3 = data[5]["category3"];
-					barChart23(serie3,category3);
-				*/
 				}
 			});
 		});
 
+//ฟังก์ชันสำหรับเรียก ajax content 1
 	var includeCon1 = function(){
-		
-//	$("a[href=#content1]").click(function(){
 		var dropDown = $("#select1").data("kendoDropDownList");
 		dropDown.select(0);				
 			$.ajax({
@@ -885,26 +836,22 @@ function addCommas(nStr)
 				type:"get",
 				dataType:"json",
 				data:{"month":$("#ParamMonthSubmit").val(),"year":$("#ParamYearSubmit").val(),"pg_code":$("#select1").val()},
-				//data:{"ParamYear":$("#ParamYearSubmit").val(),"ParamMonth":$("#ParamMonthSubmit").val(),"ParamOrg":"NS"},
 				success:function(data){
-				
 				$("#content1").hide();
 				$("#content2").hide();
 				$("#content3").hide();
 				$("#content4").hide();
 				$("#content5").hide();
+				//ลบค่าหน้าปัจจุบัน
 				$(".pageRemember").remove();
+				//add element เพื่อเอาไว้กำหนดหน้าว่าปัจจุบันอยู่กำลังอยู่หน้าไหน
 				$("body").append("<input type='hidden' id='pageCon1' class='pageRemember' name='pageCon1' value='pageCon1'>");
 
-				
-
-				
-					//console.log(data);
 					var serie1 = data[0]["series1"];
 					var category1 = data[1]["category1"];
+					//เรียกฟังก์ชัน barChart1 ให้ทำงาน
 					barChart1(serie1,category1);
-			
-		
+
 				/*### call function sufferRow  Start ###*/
 				colorSufferRow();
 				$("#contentL .projectHead1").empty();
@@ -945,6 +892,8 @@ function addCommas(nStr)
 			});
 			return false;
 	};
+	//สั่งให้ทำงานเมื่อโหลดเพจขึ้นครั้งแรก
+	includeCon1();
 	var includeCon2 = function(){
 			var dropDown = $("#select2").data("kendoDropDownList");
 			dropDown.select(0);
@@ -1118,7 +1067,6 @@ function addCommas(nStr)
 			return false;
 	};
 
-//	$("a[href=#content5]").click(function(){
 	var includeCon5 = function(){
 
 			$.ajax({
@@ -1127,7 +1075,6 @@ function addCommas(nStr)
 				dataType:"json",
 				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val()},
 				success:function(data){
-					//console.log(data);
 				$("#content1").hide();
 				$("#content2").hide();
 				$("#content3").hide();
@@ -1135,11 +1082,9 @@ function addCommas(nStr)
 				$("#content5").hide();
 				$(".pageRemember").remove();
 				$("body").append("<input type='hidden' id='pageCon5' class='pageRemember' name='pageCon5' value='pageCon5'>");
-				
 				var serie1 = data[0]["series1"];
 				var category1 = data[1]["category1"];
 				barChart51(category1,serie1);
-
 				var value = data[3]["value_pie"];
 				var sum = data[2]["totalPie"];
 			    var value_center = data[4]["active_category"];
@@ -1154,17 +1099,13 @@ function addCommas(nStr)
 	$("#tabs").tabs();
 	/*### Tabs Content End ###*/
     /*### barChart1 Start###*/
-
+	//bar chart ตรง Tab ที่1
 var barChart1 = function(seriesParam,categoryParam){
-	//alert("hello barChart");
-	//alert("require baChart"+$("#barchart1").length);
-		
 			$("#barChart1").kendoChart({
 			theme: $(document).data("kendoSkin") || "metro",
 			title: {
 				 text: " "
 			},
-			//seriesClick:onSeriesClick,
 			chartArea: {
 			height: 300,
 			width:940
@@ -1180,25 +1121,19 @@ var barChart1 = function(seriesParam,categoryParam){
 						   font:"11px Tahoma",
 						   template: "#= kendo.format('{0:N0}', value ) # "
 						   }
-						   //title: {text: "งบประมาณ(ล้านบาท)" },
-                       
-						
-							
-		
-							
                         },
 
 			categoryAxis:{
 				labels: {
+					//ปรับค่าองศาในการแสดงผลของ legend
                                 rotation: -45,
 								font:"11px Tahoma"
                             },
-			categories: categoryParam//[ "Cluster", "Platform", "Essential Program","Improvement Project","Director Initiative", "Investment", "Seed Money", "Others" ]
+			categories: categoryParam
 					
 			},
                         tooltip: {
                             visible: true,
-                           // format: "{0} ล้านบาท",
 							template: "#= addCommas(parseFloat(value).toFixed(2))# ล้านบาท"
                         }, seriesClick:funContent1
 
@@ -1207,7 +1142,7 @@ var barChart1 = function(seriesParam,categoryParam){
 
 
 	/*### barChart1 End ###*/
-				
+	// เรียกฟังก์ชัน funContent1 เมื่อคลิ๊ก ฺBarChartใน Tab1 เมื่อคลิ๊กแล้วก็จะส่ง parameter e มาเพื่อรับ e.category เสร็จแล้วแล้วส่งเข้าไปใน store procedure
 	function funContent1(e){
 			var category = e.category;
 			$.ajax({
@@ -1215,27 +1150,9 @@ var barChart1 = function(seriesParam,categoryParam){
 				type:'get',
 				dataType:'json',
 				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val(),"pg_code":$("#select1").val(),"spa":category},
-
 				success:function(data){
-				//console.log(data);
 				colorSufferRow();
-/*
-				var progressbarID1 =["111","112","113","114","115","116","117","118","119","1110"];
-				var progressbarID2 =["121","122","123","124","125","126","127","128","129","1210"];
-				var dataValueID1 = [4,6,8,10,12,14,16,18,20,22];
-				var dataNameID1 = [5,7,9,11,13,15,17,19,21,23];
-				var dataValueID2 = [24,26,28,30,32,34,36,38,40,42];
-				var dataNameID2 = [25,27,29,31,33,35,37,39,41,43];
-				var lengthProgressBar1 = data[2]["lengthProgressBar1"];
-				var lengthProgressBar2 = data[3]["lengthProgressBar2"];
-				for(var i=0;i<lengthProgressBar1;i++){
-					callProgressbar(progressbarID1[i],parseFloat(data[dataValueID1[i]]["value"]).toFixed(2),data[dataNameID1[i]]["name"]);
-				}
-				for(var i=0;i<lengthProgressBar2;i++){
-					callProgressbar(progressbarID2[i],parseFloat(data[dataValueID2[i]]["value"]).toFixed(2),data[dataNameID2[i]]["name"]);
-				}
-*/
-				//console.log(data);
+
 				$("#contentL .projectHead1").empty();
 				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+category);
 				$("#contentR .projectHead1").empty();
@@ -1264,168 +1181,15 @@ var barChart1 = function(seriesParam,categoryParam){
 				callProgressbar("129",parseFloat(data[38]["value"]).toFixed(2),data[39]["name"]);
 				callProgressbar("1210",parseFloat(data[40]["value"]).toFixed(2),data[41]["name"]);
 				HiddenValueIsNull(); 
-					/*
-					var serie1 = data[0]["series1"];
-					var category1 = data[1]["category1"];
-					barChart22(serie1,category1);
 
-					var serie2 = data[2]["series2"];
-					var category2 = data[3]["category2"];
-					barChart23(serie2,category2);
-					*/
 					}
 			});
 }
 
-	  /*### barChart2Start###*/
-
-var barChart2 = function(a,b,c,d,e,f,g,h,i,j){
-	//alert("require baChart"+$("#barchart1").length);
-		
-			$("#barChart2").kendoChart({
-					theme:$(document).data("kendoSkin") || "metro",
-					title: {
-                            text: "Top 10 project most spending"
-                        },
-					
-                        legend: {
-                            position: "bottom",
-							visible:false
-                        },
-                        chartArea: {
-                            background: "",
-							height:290
-                        },
-                        seriesDefaults: {
-                            type: "bar"
-                        },
-                        series: [{
-                            name: "Project",
-                            data: [a,b,c,d,e,f,g,h,i,j]
-                        }],
-                        valueAxis: {
-                            labels: {
-                                format: "{0}%"
-                            }
-                        },
-                        categoryAxis: {
-                            categories: ["Project Z", "Project Y", "Project X", "Project W", "Project V", "Project U", "Project T", "Project S", "Project R", "Project Q"]
-                        },
-                        tooltip: {
-                            visible: true,
-                            format: "{0}%"
-                        }
-		});
-}
-	/*### barChart2 End ###*/
-	  /*### barChart3 Start###*/
-
-var barChart3 = function(a,b,c,d,e,f,g,h,i,j){
-	//alert("require baChart"+$("#barchart1").length);
-		
-			$("#barChart3").kendoChart({
-						theme:$(document).data("kendoSkin") || "metro",
-						title: {
-                            text: "Top 10 project  least spending"
-                        },
-					
-                        legend: {
-                            position: "bottom",
-							visible:false
-                        },
-                        chartArea: {
-                            background: "",
-							height:290
-                        },
-                        seriesDefaults: {
-                            type: "bar"
-                        },
-                        series: [{
-                            name: "Project",
-                            data: [a,b,c,d,e,f,g,h,i,j]
-                        }],
-                        valueAxis: {
-                            labels: {
-                                format: "{0}%"
-                            }
-                        },
-                        categoryAxis: {
-                            categories: ["Project A", "Project B", "Project C", "Project D", "Project E", "Project F", "Project H", "Project I", "Project J", "Project K"]
-                        },
-                        tooltip: {
-                            visible: true,
-                            format: "{0}%"
-                        }
-		});
-}
-	/*### barChart3 End ###*/
-
-
-
-function onSeriesClick(e){
-//alert(e.category);
-//alert($("#row211 .head .title").html());
-var trim =$.trim(e.category);
-
-if(trim=="Cluster"){
-$("#row211 .head .title").html("แหล่งทุน "+trim);
-barChart2(1, 7, 10, 13.5, 16.6, 16.6, 20, 40,43, 49);
-barChart3(57,56,55,54,53,52,51,45,12,11);
-
-}else if(trim=="Platform"){
-$("#row211 .head .title").html("แหล่งทุน "+trim);
-barChart2(1, 7, 10, 13.5, 16.6, 16.6, 20, 40,43, 49);
-barChart3(57,56,55,54,53,52,51,45,12,11);
-
-}else if(trim=="Improvement Project"){
-barChart2(1, 2, 3, 4, 4, 5, 6, 7,8, 9);
-barChart3(57,56,55,54,53,52,51,45,12,11);
-$("#row211 .head .title").html("แหล่งทุน "+trim);
-
-}else if(trim=="Essential Program"){
-barChart2(1, 2, 3, 4, 4, 5, 6, 7,8, 9);
-barChart3(57,56,55,54,53,52,51,45,12,11);
-$("#row211 .head .title").html("แหล่งทุน "+trim);
-
-}else if(trim=="Director Initiative"){
-barChart2(1, 2, 3, 4, 4, 5, 6, 7,8, 9);
-barChart3(57,56,55,54,53,52,51,45,12,11);
-
-}else if(trim=="Investment"){
-barChart2(1, 2, 3, 4, 4, 5, 6, 7,8, 9);
-barChart3(57,56,55,54,53,52,51,45,12,11);
-$("#row211 .head .title").html("แหล่งทุน "+trim);
-
-}else if(trim=="Seed Money"){
-barChart2(1, 2, 3, 4, 4, 5, 6, 7,8, 9);
-barChart3(57,56,55,54,53,52,51,45,12,11);
-$("#row211 .head .title").html("แหล่งทุน "+trim);
-
-}else if(trim=="Others"){
-barChart2(1, 2, 3, 4, 4, 5, 6, 7,8, 9);
-barChart3(57,56,55,54,53,52,51,45,12,11);
-$("#row211 .head .title").html("แหล่งทุน "+trim);
-
-}
-
-	
-	
-	
-	
-
-
-}
-
-
-
-
-
 
 	  /*### barChart21 Start###*/
-
-var barChart21 = function(seriesParam,categoryParam){
-	//alert("require baChart"+$("#barchart1").length);
-		
+	// barChart Tab2 หน้า2
+var barChart21 = function(seriesParam,categoryParam){		
 			$("#barChart21").kendoChart({
 			theme:$(document).data("kendoSkin") || "metro",
 			title: {
@@ -1438,57 +1202,25 @@ var barChart21 = function(seriesParam,categoryParam){
 			legend: {
                             position: "right"
             },
-			series: seriesParam,/*[
-				 { 
-						 name: "แผน",
-						data: [600,170,700,100,250,900,150,160,600,170,700,100,250,900,150],
-						color: "BLUE"
-						
-						
-				 } ,
-				 {
-                            name: "Release",
-                            data: [300,130,700,70,20,900,60,60,300,130,700,70,20,900,60]
-						
-						
-
-                   } ,
-				 {
-                            name: "ผูกพัน",
-                            data: [20,10,60,10,0,700,5,10,20,10,60,10,0,700,5]
-						
-						
-
-                   } ,
-				 {
-                            name: "เบิกจ่าย",
-                            data: [50,60,200,10,0,700,10,15,50,60,200,10,0,700,10]
-						
-						
-
-                   }
-				
-				 
-			],*/
+			series: seriesParam,
 			valueAxis: {
                             title: { text: "งบประมาณ(ล้านบาท)" ,font:"14px Tahoma"},
 							labels:{ template: "#= kendo.format('{0:N0}', value ) # "}
                         },
 
 			categoryAxis:{
-			categories: categoryParam,// [ "B1","A1","A7","A8","B1-1","B1-2","B1-3","B1-4","B1-5","B1-6","B1-7","B1-8","B1-9","B1-10","B1-11" ],
+			categories: categoryParam,
 			
 			},
                         tooltip: {
                             visible: true,
-                           // format: "{0} ล้านบาท",
 							template: "#= addCommas(parseFloat(value).toFixed(2))# ล้านบาท"
                         },
 							seriesClick:funContent2
 		});
 }
 	/*### barChart21 End ###*/
-
+	//ดักจับ event การคลิ๊กที BarChart ของ Tab2 มาเรียกฟังก์ชัน funContent2 เพื่อเรียก ajax
 	function funContent2(e){
 			var category = e.category;
 			$.ajax({
@@ -1498,14 +1230,13 @@ var barChart21 = function(seriesParam,categoryParam){
 				data:{"month":$("#ParamMonth").val(),"year":$("#ParamYear").val(),"cluster":$("#select2").val(),"spa":category},
 
 				success:function(data){
-					colorSufferRow();
-									$("#contentL .projectHead1").empty();
+				colorSufferRow();
+				$("#contentL .projectHead1").empty();
 				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+category);
 				$("#contentR .projectHead1").empty();
 				$("#contentR .projectHead1").append("Top 10 Project Least Spending of "+category);
-
 					try{
-						HiddenValueIsNull2(); 
+					HiddenValueIsNull2(); 
 					callProgressbar("211",parseFloat(data[2]["value"]).toFixed(2),data[3]["name"]);
 					callProgressbar("212",parseFloat(data[4]["value"]).toFixed(2),data[5]["name"]);
 					callProgressbar("213",parseFloat(data[6]["value"]).toFixed(2),data[7]["name"]);
@@ -1516,7 +1247,6 @@ var barChart21 = function(seriesParam,categoryParam){
 					callProgressbar("218",parseFloat(data[16]["value"]).toFixed(2),data[17]["name"]);
 					callProgressbar("219",parseFloat(data[18]["value"]).toFixed(2),data[19]["name"]);
 					callProgressbar("2110",parseFloat(data[20]["value"]).toFixed(2),data[21]["name"]);
-
 
 					callProgressbar("221",parseFloat(data[22]["value"]).toFixed(2),data[23]["name"]);
 					callProgressbar("222",parseFloat(data[24]["value"]).toFixed(2),data[25]["name"]);
@@ -1534,106 +1264,18 @@ var barChart21 = function(seriesParam,categoryParam){
 						{
 						//console.log(err);
 					}
-					/*
-					var serie1 = data[0]["series1"];
-					var category1 = data[1]["category1"];
-					barChart22(serie1,category1);
-
-					var serie2 = data[2]["series2"];
-					var category2 = data[3]["category2"];
-					barChart23(serie2,category2);
-					*/
+					
 					}
 			});
 }
 
-	  /*### barChart22Start###*/
-
-var barChart22 = function(seriesParam,categoryParam){
-	//alert("require baChart"+$("#barchart1").length);
-		
-			$("#barChart22").kendoChart({
-					theme:$(document).data("kendoSkin") || "metro",
-					title: {
-                            text: "Top 10 project most spending"
-                        },
-					
-                        legend: {
-                            position: "bottom",
-							visible:false
-                        },
-                        chartArea: {
-                            background: "",
-							height:290
-                        },
-                        seriesDefaults: {
-                            type: "bar"
-                        },
-                        series: [{
-                            name: "Project",
-                            data: [15.7, 16.7, 20, 23.5, 26.6, 26.6, 70, 80, 82, 89]
-                        }],
-                        valueAxis: {
-                            labels: {
-                                format: "{0}%"
-                            }
-                        },
-                        categoryAxis: {
-                            categories: ["Project Z", "Project Y", "Project X", "Project W", "Project V", "Project U", "Project T", "Project S", "Project R", "Project Q"]
-                        },
-                        tooltip: {
-                            visible: true,
-                            format: "{0}%"
-                        }
-		});
-}
-	/*### barChart22 End ###*/
-	  /*### barChart23 Start###*/
-
-var barChart23 = function(seriesParam,categoryParam){
-	//alert("require baChart"+$("#barchart1").length);
-		
-			$("#barChart23").kendoChart({
-						theme:$(document).data("kendoSkin") || "metro",
-						title: {
-                            text: "Top 10 project  least spending"
-                        },
-					
-                        legend: {
-                            position: "bottom",
-							visible:false
-                        },
-                        chartArea: {
-                            background: "",
-							height:290
-                        },
-                        seriesDefaults: {
-                            type: "bar"
-                        },
-                        series: [{
-                            name: "Project",
-                            data: [89,85,80,75,70,68,66,65,63,60]
-                        }],
-                        valueAxis: {
-                            labels: {
-                                format: "{0}%"
-                            }
-                        },
-                        categoryAxis: {
-                            categories: ["Project A", "Project B", "Project C", "Project D", "Project E", "Project F", "Project H", "Project I", "Project J", "Project K"]
-                        },
-                        tooltip: {
-                            visible: true,
-                            format: "{0}%"
-                        }
-		});
-}
-	/*### barChart23 End ###*/
+	 
+	
 
 	/*### barChart31 Start###*/
+	//ฺBar Chart ใน Tab3
 var barChart31 = function(seriesParam,categoryParam){
-	//alert("require baChart"+$("#barchart1").length);
-		
+
 			$("#barChart31").kendoChart({
 			theme:$(document).data("kendoSkin") || "metro",
 			title: {
@@ -1647,46 +1289,12 @@ var barChart31 = function(seriesParam,categoryParam){
                             position: "right"
             },
 			series: seriesParam,
-				/*[
-				 { 
-						 name: "แผน",
-						data: [1400,190,190,210,180,50],
-						color: "BLUE"
-						
-						
-				 } ,
-				 {
-                            name: "Release",
-                            data: [1350,180,180,200,170,40]
-						
-						
-
-                   } ,
-				 {
-                            name: "ผูกพัน",
-                            data: [800,30,40,50,30,10]
-						
-						
-
-                   } ,
-				 {
-                            name: "เบิกจ่าย",
-                            data: [390,70,60,70,70,20]
-						
-						
-
-                   }
-				
-				 
-			],*/
+			
 			valueAxis: {
                             title: { text: "งบประมาณ(ล้านบาท)" ,font:"14px Tahoma"},
 							labels:{
 							template: "#= kendo.format('{0:N0}', value ) # "
 							}
-                          /*  min: 0,
-                            max: 1200
-							*/
                         },
 
 			categoryAxis:{
@@ -1695,14 +1303,13 @@ var barChart31 = function(seriesParam,categoryParam){
 			},
                         tooltip: {
                             visible: true,
-                           // format: "{0} ล้านบาท",
 							template: "#= addCommas(parseFloat(value).toFixed(2))# ล้านบาท"
                         },
 						seriesClick:funContent3
 		});
 }
 	/*### barChart31 End ###*/
-
+//click event ใน barChart tab3 
 function funContent3(e){
 			var center = e.category;
 			$.ajax({
@@ -1714,7 +1321,7 @@ function funContent3(e){
 				success:function(data){
 
 				colorSufferRow();
-					//console.log(data);
+					
 				$("#contentL .projectHead1").empty();
 				$("#contentL .projectHead1").append("Top 10 Project Most Spending of "+center);
 				$("#contentR .projectHead1").empty();
@@ -1743,109 +1350,14 @@ function funContent3(e){
 					callProgressbar("329",parseFloat(data[38]["value"]).toFixed(2),data[39]["name"]);
 					callProgressbar("3210",parseFloat(data[40]["value"]).toFixed(2),data[41]["name"]);
 					HiddenValueIsNull3(); 
-					/*
-					var serie1 = data[0]["series1"];
-					var category1 = data[1]["category1"];
-					barChart32(serie1,category1);
-
-					var serie2 = data[2]["series2"];
-					var category2 = data[3]["category2"];
-					barChart33(serie2,category2);*/
+					
 				}
 			});
 }
 
 
-
-	  /*### barChart32Start###*/
-
-var barChart32 = function(seriesParam,categoryParam){
-	//alert("require baChart"+$("#barchart1").length);
-		
-			$("#barChart32").kendoChart({
-					theme:$(document).data("kendoSkin") || "metro",
-					title: {
-                            text: "Top 10 project most spending"
-                        },
-					
-                        legend: {
-                           // position: "bottom"
-							visible:false
-                        },
-                        chartArea: {
-                            background: "",
-							height:290
-                        },
-                        seriesDefaults: {
-                            type: "bar"
-                        },
-                        series: seriesParam,// [{
-                           // name: "Project",
-                         //   data: [15.7, 16.7, 20, 23.5, 26.6, 26.6, 70, 80, 82, 89]
-                     //   }],
-                        valueAxis: {
-                            labels: {
-                                format: "{0}%"
-                            }
-                        },
-                        categoryAxis: {
-                            categories: categoryParam//["Project Z", "Project Y", "Project X", "Project W", "Project V", "Project U", "Project T", "Project S", "Project R", "Project Q"]
-                        },
-                        tooltip: {
-                            visible: true,
-                            format: "{0}%"
-                        }
-		});
-}
-	/*### barChart32 End ###*/
-	  /*### barChart33 Start###*/
-
-var barChart33 = function(seriesParam,categoryParam){
-	//alert("require baChart"+$("#barchart1").length);
-		
-			$("#barChart33").kendoChart({
-						title: {
-                            text: "Top 10 project  least spending"
-                        },
-						theme:$(document).data("kendoSkin") || "metro",
-						
-					
-                        legend: {
-                            position: "bottom",
-								visible:false
-                        },
-                        chartArea: {
-                            background: "",
-							height:290
-                        },
-                        seriesDefaults: {
-                            type: "bar"
-                        },
-                        series: seriesParam,// [{
-                          //  name: "Project",
-                         //   data: [89,85,80,75,70,68,66,65,63,60],
-							//color:"red"
-                     //   }],
-                        valueAxis: {
-                            labels: {
-                                format: "{0}%"
-                            }
-                        },
-                        categoryAxis: {
-                            categories: categoryParam//["Project A", "Project B", "Project C", "Project D", "Project E", "Project F", "Project H", "Project I", "Project J", "Project K"]
-                        },
-                        tooltip: {
-                            visible: true,
-                            format: "{0}%"
-                        }
-		});
-}
-	/*### barChart33 End ###*/
-
 	/*### barChart41 Start###*/
 var barChart41 = function(seriesParam,categoryParam){
-	//alert("require baChart"+$("#barchart1").length);
-		
 			$("#barChart41").kendoChart({
 			theme:$(document).data("kendoSkin") || "metro",
 			title: {
@@ -1859,31 +1371,6 @@ var barChart41 = function(seriesParam,categoryParam){
                             position: "right"
             },
 			series: seriesParam,
-				/* [
-				 { 
-						 name: "แผน",
-						data: [270,90,100,80,110,30],
-						color: "BLUE"
-						
-						
-				 } ,
-				 {
-                            name: "ผูกพัน",
-                            data: [90,30,30,40,30,10]
-						
-						
-
-                   } ,
-				 {
-                            name: "เบิกจ่าย",
-                            data: [70,40,30,40,30,10]
-						
-						
-
-                   }
-				
-				 
-			],*/
 			valueAxis: {
                             title: { text: "งบประมาณ(ล้านบาท)",font:"14px Tahoma" },
 							labels:{ template: "#= kendo.format('{0:N0}', value ) # "}
@@ -1943,103 +1430,13 @@ function funContent4(e){
 					callProgressbar("429",parseFloat(data[38]["value"]).toFixed(2),data[39]["name"]);
 					callProgressbar("4210",parseFloat(data[40]["value"]).toFixed(2),data[41]["name"]);
 					HiddenValueIsNull4(); 
-					/*
-					var serie1 = data[0]["series1"];
-					var category1 = data[1]["category1"];
-					barChart42(serie1,category1);
-
-					var serie2 = data[2]["series2"];
-					var category2 = data[3]["category2"];
-					barChart43(serie2,category2);*/
 				}
 			});
 }
 
 	/*### barChart41 End ###*/
-	  /*### barChart42Start###*/
+	
 
-var barChart42 = function(seriesParam,categoryParam){
-	//alert("require baChart"+$("#barchart1").length);
-			
-			$("#barChart42").kendoChart({
-					theme:$(document).data("kendoSkin") || "metro",
-					title: {
-                            text: "Top 10 project most spending"
-                        },
-					
-                        legend: {
-                            position: "bottom",
-							visible:false
-                        },
-                        chartArea: {
-                            background: "",
-							height:290
-                        },
-                        seriesDefaults: {
-                            type: "bar"
-                        },
-                        series: seriesParam,
-							/*[{
-                            name: "Project",
-                            data: [15.7, 16.7, 20, 23.5, 26.6, 26.6, 70, 80, 82, 89]
-                        }],*/
-                        valueAxis: {
-                            labels: {
-                                format: "{0}%"
-                            }
-                        },
-                        categoryAxis: {
-                            categories: categoryParam//["Project Z", "Project Y", "Project X", "Project W", "Project V", "Project U", "Project T", "Project S", "Project R", "Project Q"]
-                        },
-                        tooltip: {
-                            visible: true,
-                            format: "{0}%"
-                        }
-		});
-}
-	/*### barChart42 End ###*/
-	  /*### barChart43 Start###*/
-
-var barChart43 = function(seriesParam,categoryParam){
-	//alert("require baChart"+$("#barchart1").length);
-		
-			$("#barChart43").kendoChart({
-						theme:$(document).data("kendoSkin") || "metro",
-						title: {
-                            text: "Top 10 project  least spending"
-                        },
-					
-                        legend: {
-                            position: "bottom",
-							visible:false
-                        },
-                        chartArea: {
-                            background: "",
-							height:290
-                        },
-                        seriesDefaults: {
-                            type: "bar"
-                        },
-                        series: seriesParam,
-							/*[{
-                            name: "Project",
-                            data: [89,85,80,75,70,68,66,65,63,60]
-                        }],*/
-                        valueAxis: {
-                            labels: {
-                                format: "{0}%"
-                            }
-                        },
-                        categoryAxis: {
-                            categories: categoryParam //["Project A", "Project B", "Project C", "Project D", "Project E", "Project F", "Project H", "Project I", "Project J", "Project K"]
-                        },
-                        tooltip: {
-                            visible: true,
-                            format: "{0}%"
-                        }
-		});
-}
-	/*### barChart43 End ###*/
 
 
 	/*### barChart51 Start###*/
@@ -2088,6 +1485,7 @@ var barChart51 = function(categoryParam,seriesParam){
 					var sum = data[0]["totalPie"];
 					var value = data[1]["value_pie"];
 					//console.log(center);
+					//เรียกฟังก์ชัน pieChart52 เพื่อสร้าง pieChart
 					pieChart52(value,sum,center);
 					}
 			});
@@ -2178,18 +1576,7 @@ var pieChart52 = function(valueParam,sumParam,center){
 			$(bar).progressbar({
 			value:value
 			});
-/*
-			var pGress = setInterval(function(){
-				var pVal = $(bar).progressbar('option', 'value');
-				var pCnt = !isNaN(pVal) ? (pVal + 1) : 1;
-				if (pCnt > 100) {
-					 clearInterval(pGress);
-				 } else {
-				$(bar).progressbar({value: $value});
-				 }		    
-			},10);*/
-		//var uiprogressbar = bar+" .ui-progressbar-value";
-		/*Set Color progressbar*/
+
 		$(".ui-corner-left").css({"background":"#008EC3 "});
 		$(".value > .ui-corner-all").css("border-radius","0px");
 		$(".ui-progressbar-value").css("border-radius","0px");
@@ -2197,12 +1584,7 @@ var pieChart52 = function(valueParam,sumParam,center){
 	}
 	/*### Set Manage  Progressbar###*/
 	});
-/*###  pieChart hr  Defind start ###
-function templateFormat(value,summ) {
-   var value1 = Math.floor(value);
-   var value2 = Math.floor((value/summ)*100);
-   return value1 + " , " + value2 + " %";
-}*/
+//ฟังก์ชันจัดการ tooltip
 function templateFormat(value,summ) {
    var value1 = addCommas(value.toFixed(2));
    var value2 = ((value/summ)*100).toFixed(2);
@@ -2212,15 +1594,11 @@ function templateFormat(value,summ) {
 /*### pieChart hr  Defind   end ###*/
 
 	</script>
-
-
-
     </head>
     <body>
 
 	<!--------------------------- HEADER --------------------------->
 
-<!--<h2><center><font color="black">Budgeting Dashboard</font></center></h2>-->
 	<div align="center">
 		<div id="Main-Panel" class="k-content">
 		<!--------------------------- Parameter --------------------------->
@@ -2239,10 +1617,7 @@ function templateFormat(value,summ) {
 					</select>
 					</td>
 
-				
-
 					<td>
-					<!--<button id="get" class="k-button" >&nbsp;&nbsp;OK&nbsp;&nbsp;</button>-->
 					<input type="submit"value="&nbsp;&nbsp;OK&nbsp;&nbsp;"  class="k-button" id="submit1" >
 					</td>
 				</tr>
@@ -2473,10 +1848,7 @@ function templateFormat(value,summ) {
 						</div>
 						<div id="contentR">
 						
-							<!-- #contentL .projectHead1
-							#contentR .projectHead1
-							<div id="barChart3"></div>
-								<div id="barChart13"></div>-->
+	
 								<table width="100%" id="top10Tbl" >
 									<thead>
 									<tr id="h1">
@@ -3207,8 +2579,7 @@ function templateFormat(value,summ) {
 						</div>
 						<div id="contentR">
 						
-							<!--	<div id="barChart3"></div>
-								<div id="barChart13"></div>-->
+					
 								<table width="100%" id="top10Tbl" >
 									<thead>
 									<tr id="h1">
@@ -3364,14 +2735,6 @@ function templateFormat(value,summ) {
 									</tbody>
 								</table>
 						</div>
-				<!--		<div id="contentL">
-						
-								<div id="barChart32"></div>
-						</div>
-						<div id="contentR">
-						
-								<div id="barChart33"></div>
-						</div>-->
 				</div>
 			</div>
 		</div>
@@ -3563,8 +2926,7 @@ function templateFormat(value,summ) {
 						</div>
 						<div id="contentR">
 						
-							<!--	<div id="barChart3"></div>
-								<div id="barChart13"></div>-->
+
 								<table width="100%" id="top10Tbl" >
 									<thead>
 									<tr id="h1">
@@ -3720,15 +3082,7 @@ function templateFormat(value,summ) {
 									</tbody>
 								</table>
 						</div>
-				<!--		<div id="contentL">
-						
-								<div id="barChart42"></div>
-						</div>
-						<div id="contentR">
-						
-								<div id="barChart43"></div>
-
-						</div>-->
+			
 				</div>
 			</div>
 		</div>
@@ -3769,6 +3123,7 @@ function templateFormat(value,summ) {
 
 
 	<!--------------------------- Details End--------------------------->
+	<!-- element loadding-->
 	<div id="loading" >
 				<br>
 				<br>
