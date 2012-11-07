@@ -10,12 +10,7 @@
 	String paramArea=(request.getParameter("paramArea").trim());
 	String paramParentKey=request.getParameter("paramParentKey");
 
-/*
-	out.print("paramYear"+paramYear+"<br>");
-	out.print("paramMonth"+paramMonth+"<br>");
-	out.print("paramArea"+paramArea+"<br>");
-	out.print("paramParentKey"+paramParentKey+"<br>");
-*/
+
 
 String dataLevel2="";
 	Query="CALL sp_profit_and_loss_list_by_center_per_level("+paramYear+","+paramMonth+",'"+paramArea+"',3,"+paramParentKey+");";
@@ -87,24 +82,5 @@ i++;
 	dataLevel2+="]";
 	out.print(dataLevel2);
  conn.close();
-/*
-var $dataJ21 =[
-                  {
-                      Field1: "เงินอุดหนุนจากรัฐบาล",
-					  Field2: "<div id='textR'>1,391.88</div>",
-                      Field3: "<div id='textR'> 1,279.12 </div>",
-					
-                      Field5: "<div id='textR'>8.82%</div>",
-					  Field6: "<div id='textR'>1,440.10 </div>",
-                  
-                     
-                  },{
-                      Field1: "เงินอะดหนุนอื่น",
-					  Field2: "<div id='textR'>2,391.88</div>",
-                      Field3: " <div id='textR'>216.80 </div>",
-					
-                      Field5: "<div id='textR'>10.68%</div>",
-					  Field6: "<div id='textR'>230.99 </div>",
-                  }];
-*/
+
 %>

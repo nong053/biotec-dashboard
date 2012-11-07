@@ -9,12 +9,11 @@ String paramMonth= request.getParameter("paramMonth");
 String paramMonthPerv= "";
 String paramMonthCurent= "";
 String paramOrg= request.getParameter("paramOrg");
-// Calculate Display Year (layout: previous Month , Current Month , Month previous Year
 Integer paramYearInt =Integer.parseInt(paramYear);
-Integer paramMonthInt = Integer.parseInt(paramMonth);
 Integer paramLastYear = 0;
 Integer paramCurentYear = 0;
 Integer paramCurentYearLastMonth = 0;
+Integer paramMonthInt = Integer.parseInt(paramMonth);
 	if ((paramMonthInt-4)>0){ // month > 'Jan'
 		paramCurentYearLastMonth=paramYearInt+543;
 		paramCurentYear=paramYearInt+543;
@@ -286,25 +285,16 @@ var pieChart= function(paramValue,titleText,paramSum){
                         }],
                         tooltip: {
                             visible: true,
-							//template:"#= tootipFormat(value,"+paramSum+") #"
-							//template: "${ value }, #= kendo.format('{0:P}', percentage)#"
 							template: "#= addCommas(value) #, #= kendo.format('{0:P}', percentage)#",
-                          //  format: "{0}%"
                         },
 			seriesDefaults: {
-				/*labels: {
-					visible: true,
-					format: "{0}%"
-				}*/
 			},
-			seriesClick: onSeriesClick,
+			seriesClick: onSeriesClick
 		});
 }//function pie chart end
 
 function onSeriesClick(e) { 
-	//console.log(e.dataItem['account_key']);
 	var $account_key=e.dataItem['account_key'];
-	//console.log($account_key);
 	var $category = e.category;
 	$.ajax({
 		url:'sp_balance_sheet_trend.jsp',
@@ -553,11 +543,11 @@ $htmlTable1+="<table  id='finance_tb1'  width='700' cellpadding='1px' cellspacin
 			$htmlTable1+="</th>";
 
 			$htmlTable1+="<th  colspan='3'>";
-				$htmlTable1+="ปีนี้";
+				$htmlTable1+="ปี "+(paramYearInt+543);
 			$htmlTable1+="</th>";
 
 			$htmlTable1+="<th>";
-				$htmlTable1+="ปีที่แล้ว";
+				$htmlTable1+="ปี "+(paramYearInt+542);
 			$htmlTable1+="</th>";
 
 		$htmlTable1+="</tr>";
@@ -613,8 +603,6 @@ Double Result=0.00;
 			$htmlTable1+="<td>";
 				$htmlTable1+=numberFormatter.format(rs.getDouble("currentAmt"));
 			$htmlTable1+="</td>";
-	
-			
 
 			pMonthAmt = rs.getDouble("pMonthAmt");
 			currentAmt = rs.getDouble("currentAmt");

@@ -17,7 +17,7 @@ DecimalFormat numberFormatter = new DecimalFormat("#0.00");
 		<link href="../styles/kendo.dataviz.min.css" rel="stylesheet">
         <script src="../js/jquery.min.js"></script>
 		<script src="../js/kendo.all.min.js"></script>
-		<script src="../js/kendo.dataviz.min.js"></script>
+		<!--<script src="../js/kendo.dataviz.min.js"></script>-->
 		<script type="text/javascript" src="../jqueryUI/js/jquery-ui-1.8.21.custom.min.js"></script>
 		<style type="text/css">
 			html,body {
@@ -204,9 +204,10 @@ var setHeader= function(){
 	//Set and Config Parameter Now!
 	$(".k-header").css({"padding":"2px"});
 }
+//จัดการส่วนหัวตาราง Tab2
+var setHeaderDateYear = function(paramYear,YearPrev){
 
-var setHeaderDateYear = function(){
-	$(".k-grid-header-wrap table thead ").prepend("<tr><th></th><th style='border-bottom:1px solid white; border-left:1px solid white; color:white;'>รายการ</th><th colspan='3' style='border-bottom:1px solid white; border-left:1px solid white; color:white;'>ปีนี้</th><th style='border-bottom:1px solid white; border-left:1px solid white; color:white;'>ปีที่แล้ว</th></tr>");
+	$(".k-grid-header-wrap table thead ").prepend("<tr><th></th><th style='border-bottom:1px solid white; border-left:1px solid white; color:white;'>รายการ</th><th colspan='3' style='border-bottom:1px solid white; border-left:1px solid white; color:white;'>ปี "+paramYear+"</th><th style='border-bottom:1px solid white; border-left:1px solid white; color:white;'>ปี "+YearPrev+"</th></tr>");
 }
 //#######################Menagement Tab End #######################
 
@@ -269,8 +270,10 @@ var setHeaderDateYear = function(){
 				sufferTable();
 				setFont();
 				setHeader();
-
-			setHeaderDateYear();
+		//เรียกฟังก์ชั่นจัดการส่วนหัวของตาราง Tab2
+			var YearInt = parseInt($('#domParamYear').val())+543;
+			var YearPrev =  parseInt($('#domParamYear').val())+542;
+			setHeaderDateYear(YearInt,YearPrev);
 				}
 			});
 			
@@ -325,6 +328,7 @@ var setHeaderDateYear = function(){
 				$("body").append("<input type='hidden' name='domParamYear' id='domParamYear' class='domParam' value='"+$("#ParamYear").val()+"'>");
 				$("body").append("<input type='hidden' name='domParamMonth' id='domParamMonth' class='domParam' value='"+$("#ParamMonth").val()+"'>");
 				$("body").append("<input type='hidden' name='domParamOrg' id='domParamOrg' class='domParam' value='"+$("#ParamOrg").val()+"'>");
+
 				if($("#pageContent1").val()){
 					 $("[href=#content1]").trigger("click");
 				}else if($("#pageContent2").val()){
@@ -338,6 +342,9 @@ var setHeaderDateYear = function(){
 				}
 			    return false;
 		});
+	//สั่งให้รันแสดงผลออกมาโดยไม่กดปุ่ม Submit
+	$("form#form_1").trigger("submit");
+
 	/*###  jQuery Config  Tab jQueryUi Start ###*/
 	$(".ui-tabs-panel").css("padding","2px");
 	/*###  jQuery Config End ###*/
