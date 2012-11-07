@@ -11,7 +11,6 @@
 		<link href="rd.css" rel ="stylesheet" type="text/css">
 		<link href="../styles/kendo.common.min.css" rel="stylesheet">
 		<link href="../styles/kendo.default.min.css" rel="stylesheet">
-		<!--<link href="../jqueryUI/css/smoothness/jquery-ui-1.8.20.custom.css" rel="stylesheet">-->
 		<link href="../jqueryUI/css/cupertino/jquery-ui-1.8.21.custom.css" rel="stylesheet">
 		 <link href="../styles/kendo.dataviz.min.css" rel="stylesheet">
 		
@@ -20,12 +19,9 @@
         <script src="../js/jquery.min.js"></script>
 		<script src="../js/kendo.all.min.js"></script>
 		  <script src="../js/kendo.dataviz.min.js"></script>
-		<!--<script type="text/javascript" src="../jqueryUI/js/jquery-ui-1.8.20.custom.min.js"></script>-->
 		<script type="text/javascript" src="../jqueryUI/js/jquery-ui-1.8.21.custom.min.js"></script>
-	<!--	<script src="../js/console.js"></script>-->
 	
-	  
-		
+	<!-- Define CSS-->
 		<style type="text/css">
 			html,
 			body {
@@ -104,7 +100,6 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 		rs = st.executeQuery(Query);
 		 
 		while(rs.next()){
-		//out.println(rs.getString("center_name"));
 		V_Org+="<option value="+rs.getString("center_name")+">"+rs.getString("center_name")+"</option>";
 		}
 	//insert code allow function end
@@ -175,56 +170,15 @@ out.println("Error"+ex);
 }
 		
 //############### Query Handler Year & Month start ###############
-		/*------------------- End Set Variable -------------------*/
-
-		/*------------------- Parameter Year -------------------*/
-/*
-		V_Year += "<option value=\"2012\" selected='selected'>2555</option>";
-		V_Year += "<option value=\"2011\" >2554</option>";
-		V_Year += "<option value=\"2010\">2553</option>";
-		V_Year += "<option value=\"2009\">2552</option>";
-	*/	
-		/*------------------- End Parameter Year -------------------*/
-
-		/*------------------- Parameter Month -------------------*/
-/*
-		
-		V_Month += "<option value=\"10\" selected='selected' >ตุลาคม </option>";
-		V_Month += "<option value=\"11\">พฤศจิกายน </option>";
-		V_Month += "<option value=\"12\">ธันวาคม</option>";
-		V_Month += "<option value=\"1\">มกราคม </option>";
-		V_Month += "<option value=\"2\">กุมภาพันธ์ </option>";
-		V_Month += "<option value=\"3\">มีนาคม </option>";
-		V_Month += "<option value=\"4\">เมษายน </option>";
-		V_Month += "<option value=\"5\">พฤษภาคม </option>";
-		V_Month += "<option value=\"6\">มิถุนายน </option>";
-		V_Month += "<option value=\"7\">กรกฎาคม </option>";
-		V_Month += "<option value=\"8\">สิงหาคม </option>";
-		V_Month += "<option value=\"9\">กันยายน </option>";
-*/
-		/*------------------- End Parameter Month -------------------*/
-
-		/*------------------- Organization Parameter -------------------*/
-/*
-
-		V_Org +="<option value=\"NSTDA\">สก.</option>";
-		V_Org +="<option value=\"BIOTEC\">ศช. </option>";
-		V_Org +="<option value=\"MTEC\">ศว.</option>";
-		V_Org +="<option value=\"NECTEC\">ศจ.</option>";
-		V_Org +="<option value=\"NANOTEC\">ศน.</option>";
-
-*/
-		/*------------------- End Organization Parameter -------------------*/
 
 	%>
 
 	<script type="text/javascript">
-			   /*#### Tab search above top start ###*/
+	    /*#### Tab search above top start ###*/
 	$(document).ready(function(){
+
 		/*#### Loading Start ###*/
 		var $width=($('body').width()/2)-50;
-		//console.log($width);
-	
 		$("#loading").css({"top":"250px","left":$width+"px"}).ajaxStart(function(){
 		$(this).show();
 		}).ajaxStop(function(){
@@ -271,10 +225,10 @@ out.println("Error"+ex);
 
 				//console.log(data);
 				//$("#contentMain").empty();
-/*				
+			
 				console.log(data[0]["category_center"]);
 				console.log(data[1]["series_center"]);
-
+/*	
 				console.log(data[2]["category_division"]);
 				console.log(data[3]["series_division"]);
 
@@ -991,7 +945,7 @@ var stackChart_sp_count_emp_by_job_grade= function(categoryParam,seriesParam){
 
 });
 
-/*###  pieChart hr  Defind start ###*/
+/*###  pieChart hr  Define start ###*/
 function templateFormat(value,summ) {
    var value1 = Math.floor(value);
    var value2 = Math.floor((value/summ)*100);

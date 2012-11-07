@@ -27,9 +27,11 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 		series_sp_ic_score_by_center+="[";
 		while(rs.next()){
 			if(i==0){
+
 				categoryAxis_sp_ic_score_by_center=rs.getString("center_list");
+				//BIOTEC,MTEC,NECTEC,NANOTEC
+				//["BIOTEC","MTEC","NECTEC","NANOTEC"]
 				categoryAxis_sp_ic_score_by_center_array=categoryAxis_sp_ic_score_by_center.split(",");
-				series_sp_ic_score_by_center+="{\"name\":"+"\""+rs.getString("view_name")+"\",\"axis\":\""+rs.getString("axis")+"\","+"\"data\":["+rs.getString("val_list")+"]}";
 				for(int j=0; j< categoryAxis_sp_ic_score_by_center_array.length; j++){
 					if(j==0){
 					categoryAxis_sp_ic_score_by_center_using+="\""+categoryAxis_sp_ic_score_by_center_array[j]+"\"";
@@ -37,6 +39,9 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 					categoryAxis_sp_ic_score_by_center_using+=",\""+categoryAxis_sp_ic_score_by_center_array[j]+"\"";
 					}//if
 				}//for
+			
+
+			series_sp_ic_score_by_center+="{\"name\":"+"\""+rs.getString("view_name")+"\",\"axis\":\""+rs.getString("axis")+"\","+"\"data\":["+rs.getString("val_list")+"]}";
 			}else{//if
 			series_sp_ic_score_by_center+=",{\"name\":"+"\""+rs.getString("view_name")+"\",\"axis\":\""+rs.getString("axis")+"\","+"\"data\":["+rs.getString("val_list")+"]}";
 			}
