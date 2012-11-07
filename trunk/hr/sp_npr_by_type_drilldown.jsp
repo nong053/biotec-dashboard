@@ -9,8 +9,6 @@ String ParamMonth = request.getParameter("ParamMonth");
 String ParamYear = request.getParameter("ParamYear");
 String ParamNprlist = request.getParameter("ParamNprlist");
 
-
-
 //############################bar  sp_npr_by_type_drilldown  Start ############################ /
 
 String categoryAxis_npr_type = "";
@@ -57,14 +55,6 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 		out.println("[{\"category\":"+categoryAxis_npr_type_using+"},{\"series\":"+series_job_type+"}]");
 		//out.println("{\"series1\":"+series_job_type+"}");
 	//Success fully Stop
-
-
-		//num row start
-		rs.last();
-		int c = rs.getRow();
-		//out.println("num_row"+c);
-		rs.beforeFirst();
-		//num row end
 
 		conn.close();
 	}

@@ -1,5 +1,4 @@
 <%@page contentType="text/html" pageEncoding="utf-8"%>
-<!--<meta http-equiv="Content-type" content="text/html; charset=utf-8">-->
 <%@page import="java.sql.*" %> 
 <%@page import="java.io.*" %> 
 <%@page import="java.lang.*"%> 
@@ -9,20 +8,6 @@ String ParamMonth = request.getParameter("ParamMonth");
 String ParamYear = request.getParameter("ParamYear");
 String ParamOrg = request.getParameter("ParamOrg");
 String Param_sp_center = "";
-
-//out.print("ParamMonth"+ParamMonth);
-//out.print("ParamYear"+ParamYear);
-//out.print("ParamOrg"+ParamOrg);
-
-/*
--- biotec_dwh --
-Type: MYSQL
-Server: 10.226.202.114
-database: biotec_dwh
-user: root
-pass: bioteccockpit
-*/
-
 String sp_emp_by_center="";
 Integer sum_total_employee=0;
 String shortname="";
@@ -33,11 +18,13 @@ Class.forName(Driver).newInstance();
 conn=DriverManager.getConnection(connectionURL,User,Pass);
 	if(!conn.isClosed()){
 		st = conn.createStatement();
+		//เรียก store procedure เพื่อสร้าง pie Chart
 		Query="CALL sp_emp_by_center("+ParamYear+","+ParamMonth+");";
 		rs = st.executeQuery(Query);
 		Integer i =1 ;
 		sp_emp_by_center+="[";
 		while(rs.next()){
+		//กำหนดสีตามศูนย์
 		if(rs.getString("center_th_shortname").equals("สก.")){
 		color="#25a0da";
 		}else if(rs.getString("center_th_shortname").equals("ศช.")){
@@ -51,10 +38,11 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 		}else if(rs.getString("center_th_shortname").equals("ศจ.")){
 		color="#6C2E9B";
 		}
-		//Format  [{category: "ศจ.",value: 10,color:"#6C2E9B" }]
+		
 		if(i==1){
+		//สร้าง json สำหรับ piechart มีรูปแบบดังนี้
+		//Format  [{category: "ศจ.",value: 10,color:"#6C2E9B" }]
 		sp_emp_by_center+="{category:";
-	
 		sp_emp_by_center+= "\""+rs.getString("center_th_shortname") +"\"";
 		sp_emp_by_center+= ",value:"+rs.getString("total_employee") ;
 		sp_emp_by_center+= ",color:\""+color+"\"";
@@ -62,7 +50,6 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 		sp_emp_by_center+="}";
 		}else{
 		sp_emp_by_center+=",{category:";
-	
 		sp_emp_by_center+= "\""+rs.getString("center_th_shortname") +"\"";
 		sp_emp_by_center+= ",value:"+rs.getString("total_employee");
 		sp_emp_by_center+= ",color:\""+color+"\"";
@@ -82,8 +69,6 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 catch(Exception ex){
 out.println("Error"+ex);
 }
-
-
 //sp_emp_by_employ_type
 String sp_emp_by_employ_type ="";
 Integer sum_sp_emp_by_employ_type =0;
@@ -95,31 +80,24 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 	if(!conn.isClosed()){
 		st = conn.createStatement();
 		Query="CALL sp_emp_by_employ_type("+ParamYear+","+ParamMonth+",'"+ParamOrg+"');";
-		
-
 		//Query="CALL sp_emp_by_employ_type(2012,11,'ศจ.');";
 		rs = st.executeQuery(Query);
 		sp_emp_by_employ_type+="[";
 		while(rs.next()){
 		//Format  [{category: "ศจ.",value: 10,color:"#6C2E9B" }]
-		
 		if(j==1){
-	
 		sp_emp_by_employ_type+="{category:";
-	
 		sp_emp_by_employ_type+= "\""+rs.getString("employ_type") +"\"";
 		sp_emp_by_employ_type+= ",value:"+rs.getString("total_employee") ;
 		sum_sp_emp_by_employ_type+=rs.getInt("total_employee");
 		sp_emp_by_employ_type+="}";
 		}else{
 		sp_emp_by_employ_type+=",{category:";
-	
 		sp_emp_by_employ_type+= "\""+rs.getString("employ_type") +"\"";
 		sp_emp_by_employ_type+= ",value:"+rs.getString("total_employee");
 		sum_sp_emp_by_employ_type+=rs.getInt("total_employee");
 		sp_emp_by_employ_type+="}";
 		}
-		
 	j++;
 		}
 		sp_emp_by_employ_type+="]";
@@ -465,6 +443,7 @@ height:250px;
 </style>
 
 <script type="text/javascript">
+//ฟังก์ชั่นจัดการCommas
 function addCommas(nStr)
 {
 	nStr += '';
@@ -484,6 +463,8 @@ $(document).ready(function(){
 var pieChart= function(id_param,data_param,summ_param){
 
 		var templateFormat;
+		//ทำการตรวจสอบ id_param ว่าเป็นของ pie Chart ตัวไหนถ้าเป็น #pie_hr_expense ตอน hover ให้ไปเรียกฟังก์ชั่น
+		//templateFormat2 ถ้าไม่ใช่ให้เรียกฟังก์ชั่น templateFormat
 		if( id_param == "#pie_hr_expense"){ templateFormat = "#= templateFormat2(value,"+summ_param+")#"; }
 		else { templateFormat =  "#= templateFormat(value,"+summ_param+")#"; }
 		$(id_param).kendoChart({
@@ -505,9 +486,7 @@ var pieChart= function(id_param,data_param,summ_param){
                         }],
                         tooltip: {
                             visible: true,
-                           // format: "{0}%"
 							template:templateFormat
-
                         },
 			
 			seriesDefaults: {
@@ -517,56 +496,37 @@ var pieChart= function(id_param,data_param,summ_param){
 					
 				}
 			}
-	
-			
+
 		});
 }
-
-
 
 /*###  pie end ###*/
 
 /* Using PieChart*/
-
+//เรียกฟังก์ชัน piechart พร้อมส่ง parameter
 pieChart("#pie_emp_by_center",<%=sp_emp_by_center%>,<%=sum_total_employee%>);
 pieChart("#pie_emp_by_employ_type",<%=sp_emp_by_employ_type%>,<%=sum_sp_emp_by_employ_type%>);
 pieChart("#pie_emp_by_education_level_group",<%=sp_emp_by_education_level_group%>,<%=sum_sp_emp_by_education_level_group%>);
 pieChart("#pie_emp_by_job_family",<%=sp_emp_by_job_family%>,<%=sum_sp_emp_by_job_family%>);
 pieChart("#pie_emp_by_function_type",<%=sp_emp_by_function_type%>,<%=sum_sp_emp_by_function_type%>);
 pieChart("#pie_hr_expense",<%=sp_hr_expense%>,<%=sum_sp_hr_expense%>);
-
-
 /* Using PieChart*/
 
-
-
-
-
 /* Tab2 Start*/
-
-	
-
-
 $("#tabHr1.ui-tabs-panel ").css({"padding":"0px"});
 $("#tabHr1.ui-widget-content").css({"border":"0px"});
-
-
 /*Tab2 End*/
+
 /*### Config Tab End ###*/
 });
 
-//define function extenal jquery
-//function templateFormat(value,summ) {
-//   var value1 = Math.floor(value);
- //  var value2 = Math.floor((value/summ)*100);
-//   return value1 + " , " + value2 + " %";
-//}
+//ฟังก์ชั่นสำหรับ tooltip
 function templateFormat(value,summ) {
    var value1 = addCommas(value);
    var value2 = ((value/summ)*100).toFixed(2);
    return value1 + " , " + value2 + " %";
 }
-// for
+//ฟังก์ชั่นสำหรับ tooltip มีหน่วยเป็น "ล้านบาท"
 function templateFormat2(value,summ) {
    var value1 = addCommas(value.toFixed(2));
    var value2 = ((value/summ)*100).toFixed(2);
