@@ -458,7 +458,7 @@ var $titleJ2 =[
 
 	$("#grid").kendoGrid({
 		
-          height: 490,
+         // height: 490,
 	      //groupable: true,
          // scrollable: true,
          // sortable: true,

@@ -1,9 +1,7 @@
 <%@page import="java.sql.*"%>
 <%@page import="java.io.*"%>
 <%@page import="java.lang.*"%>
-
 <% 
-
 String ParamYear  = request.getParameter("ParamYear");
 String ParamMonth  = request.getParameter("ParamMonth");
 String ParamOrg  = request.getParameter("ParamOrg");
@@ -11,67 +9,34 @@ String ParamOrg  = request.getParameter("ParamOrg");
 Integer YearBY = (java.lang.Integer.parseInt(ParamYear))+543;
 
 String titleStr = "";
-//out.print("{"+ParamYear+","+ParamMonth+","+ParamOrg+"}");
-//out.print('{"0":"nong","1":"nuy","2":"TEST"}');
-//out.print(ParamOrg);
-
-//out.print(ParamOrg);
-//out.print(ParamOrg.trim());
 if(ParamOrg.equals("NSTDA")){
-	
-	
 	titleStr=" ผลการดำเนินงานสะสมของ นายทวีศักดิ์ กออนันตกูล ได้ 36.42 %&nbsp;&nbsp;  ";
 
 }else if(ParamOrg.equals("BIOTEC")){
-	
 	titleStr=" ผลการดำเนินงานสะสมของ นายวีระศักดิ์ อุดมกิจเดชา ได้ 47.5%";
 
 }else if(ParamOrg.equals("MTEC")){
-	
 titleStr=" ผลการดำเนินงานสะสมของ นายทวีศักดิ์ นายวีระศักดิ์ อุดมกิจเดชา 36.42 %  ";
 
-
 }else if(ParamOrg.equals("NECTEC")){
-	
 titleStr=" ผลสำเร็จศูนย์พันธุวิศวกรรมและเทคโนโลยีชีวภาพได้ 36.42 คะแนน  ";
 
-
 }else{
-	
-
 titleStr=" ผลสำเร็จศูนย์พันธุวิศวกรรมและเทคโนโลยีชีวภาพได้ 36.42 คะแนน  ";
 //NANOTEC
 }
-
-
-
 String connectionURL="jdbc:mysql://localhost:3306/biotec_dwh";
 String Driver = "com.mysql.jdbc.Driver";
 String User="root";
 String Pass="root";
 String Query="";
 String center_name="";
-//Connection conn= null;
 Connection conn= null;
 Statement st;
 ResultSet  rs;
 
 Class.forName(Driver).newInstance();
 conn = DriverManager.getConnection(connectionURL,User,Pass);
-// if(!conn.isClosed()){
-//out.println("Connenction is sucessfully");
-//}else{
-//out.println("Connection is false");
-//}
-/*
-st =conn.createStatement();
-Query="";
-rs = st.executeQuery(Query);
-*/
-
-
-
-
 
 %>
 

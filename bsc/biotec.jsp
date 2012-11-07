@@ -28,7 +28,6 @@ DecimalFormat numberFormatter = new DecimalFormat("###,###,##0.00");
 String ParamYear  = request.getParameter("ParamYear");
 String ParamMonth  = request.getParameter("ParamMonth");
 String ParamOrg  = request.getParameter("ParamOrg");
-// convert to buddhism Year
 Integer YearBY = (java.lang.Integer.parseInt(ParamYear))+543;
 String titleStr = "";
 
@@ -40,7 +39,6 @@ while(rs.next()){
 	titleStr="ผลสำเร็จ ศูนย์พันธุวิศวกรรมและเทคโนโลยีชีวภาพแห่งชาติได้ " + ParamScore +" คะแนน";
 }
 
-//varible manage Decimal 
 String  performanceNumber="";
 String[] getDecimal;
 String decimal1="";
@@ -62,11 +60,8 @@ while(rs.next()){
 	tableFun += "{Field2: \"";
 	tableFun += "<div class =kpiN id="+i+" title="+rs.getString("kpi_comment")+">"+kpi_code+"</div>"+kpi;
 	out.print("<div class=tootip id="+i+"><b>"+rs.getString("kpi_comment")+"</b></div>");
-	//tootipBody+="<div class=tootip id="+i+"><b>"+rs.getString("kpi_comment")+"</b></div>";
-
 	//=============Get Url with Details Button Start============
 	String urlpage = rs.getString("url");
-	//out.print("["+urlpage+"]WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW") ;
 	if(urlpage == null || urlpage.equals(""))
 	{
 		tableFun +="";
@@ -76,7 +71,6 @@ while(rs.next()){
 		tableFun +=" <a href="+urlpage+"?ks="+kpi_code+"&yy="+ParamYear+"&mm="+ParamMonth+" target=_blank><button class=k-button>Detail</button></a> ";
 	}
 	tableFun += "\", ";
-	
 	//=============Get Url with Details Button End============
 	String target_value = rs.getString("target_value");
 	tableFun += "Field3: \"";
@@ -94,9 +88,8 @@ while(rs.next()){
 	tableFun += "Field5_1: \"";
 	tableFun += baseline + "\",";
 
-	
 	tableFun += "Field6: \"";
-	
+
 	String performance_value = rs.getString("performance_value") ;
 	performance_value=performance_value.trim();
 	if(performance_value.equals("")){
@@ -135,7 +128,6 @@ while(rs.next()){
 	tableFun += "<div id=textR>"+ performance_value +"</div> \",";
 //=================================Color Start=========================
 	String performance_percentage = rs.getString("performance_percentage");
-
 	Statement st1;
 	ResultSet  rs1;
 	String QueryColor = "";
@@ -143,7 +135,6 @@ while(rs.next()){
 	QueryColor="CALL sp_color_code(";
 	QueryColor += performance_percentage+")";
 	rs1 = st1.executeQuery(QueryColor);
-
 	tableFun += "Field7: \"";
 	tableFun += "<center><div id='target'><div id='percentage'>" + performance_percentage +"</div></div></center> ";
 	while(rs1.next())
@@ -151,7 +142,6 @@ while(rs.next()){
 		int positionBall =  rs1.getInt("color_order");
 		String colorCode = rs1.getString("color_code");
 		tableFun += getColorBall(positionBall,colorCode,(i+20000));
-	//	out.print(getColorBall(1,colorCode));
 		
 			Statement st2;
 			ResultSet  rs2;
@@ -166,30 +156,21 @@ while(rs.next()){
 					out.print("</div>");
 	}
 	tableFun += "\",";
-
 	String kpi_wavg_score = rs.getString("kpi_wavg_score");
 	tableFun += "Field7_1: \"";
 	tableFun += "<div id=textR>"+ kpi_wavg_score +"</div> \",";
 	//===============GraphLine Start=====================
 	tableFun += "Field9: \"";
-	
-	//Statement st2;
-	//ResultSet  rs2;
 	String QueryGraph = "";
 	String KpiID= rs.getString("kpi_id");
-	//out.print(KpiID+"<br>");
-	//st2 = conn.createStatement();
 	QueryGraph = "CALL sp_parent_kpi_trend(";
 	QueryGraph += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\","+KpiID+")";
 	rs1 = st1.executeQuery(QueryGraph);
 	while(rs1.next())
 	{
-		//	if(KpiID.equals(rs1.getString("kpi_id") ))
-		//	{
 				String value = rs1.getString("value_list");
 				tableFun += "<div class=inlinesparkline>"+value+"</div>\"";
 				tableFun += "}";
-		//	}
 	}
 	//===============GraphLine End=====================
 	i++;
@@ -209,11 +190,9 @@ tableFun += "]";
 	margin:auto;
 	}
 	#target #percentage{
-/*	float:left;*/
 	width:70px;
 	}
 	#target #score{
-	/*float:right;*/
 	width:auto;
 	display:block;
 	padding:5px;
@@ -246,9 +225,7 @@ tableFun += "]";
 	}
 
 
-	#head_graph{
-	/*background-color:#CFCFCF;*/
-	}
+
 	#table_title{
 	background:#dafbd1;
 	border-radius:3px;
@@ -262,7 +239,6 @@ tableFun += "]";
 	font-size:14px;
 	}
 	#textR{
-	/*background:red;*/
 	text-align:right;
 	padding-right:5px;
 	}
@@ -275,41 +251,33 @@ tableFun += "]";
 	margin:2px;
 
 	}
-			.tootip{
-			width:200px;
-			height:auto;
-			position:absolute;
-			z-index:1000;
-			background:white;
-			display:none;
-			border-radius:5px;
-			border:1px solid #cccccc;
-			cursor:pointer;
-			padding:5px;
-			}
-
-			.commentball{
-			width:200px;
-			height:auto;
-			position:absolute;
-			z-index:10;
-			background:white;
-			display:none;
-			border-radius:5px;
-			border:1px solid #cccccc;
-			cursor:pointer;
-			padding:5px;
-			}
-
-	/*
-	.inlinesparkline{
+	.tootip{
+	width:200px;
+	height:auto;
+	position:absolute;
+	z-index:1000;
+	background:white;
+	display:none;
+	border-radius:5px;
+	border:1px solid #cccccc;
 	cursor:pointer;
-	}
-	.inlinesparkline_sub{
-	cursor:pointer;
+	padding:5px;
 	}
 
-###  Config file Header  Start###*/
+	.commentball{
+	width:200px;
+	height:auto;
+	position:absolute;
+	z-index:10;
+	background:white;
+	display:none;
+	border-radius:5px;
+	border:1px solid #cccccc;
+	cursor:pointer;
+	padding:5px;
+	}
+
+/*###  Config file Header  Start###*/
 #contentMain1{
 	
 	width:auto;
@@ -341,17 +309,13 @@ tableFun += "]";
 	text-align:center;
 	}
 /*### Config file   Header End###*/
-	
 	</style>
-
 	<script type="text/javascript">
-
 	var ballRed  = "<div id='ballRed'  class='ball' style='background-color:#e51e25; width:20px;height:20px;border-radius:100px; float:left;'></div>";
 	var ballYellow  = "<div id='ballYellow'  class='ball' style='background-color:yellow; width:20px;height:20px;border-radius:100px; float:left;'></div>";
 	var ballGreen  = "<div id='ballGreen'  class='ball' style='background-color:#8fbc01; width:20px;height:20px;border-radius:100px; float:left;'></div>";
 	var ballGray  = "<div id='ballGray'  class='ball' style='background-color:#cccccc; width:20px;height:20px;border-radius:100px; float:left;'></div>";
-	
-	// TITLE BY JSON START
+
 	/*########## Table Content Start ##########*/
 	var $titleJ =[
             
@@ -393,127 +357,13 @@ tableFun += "]";
 				  width: 80
 			 }];
 
-	//var $tootipbody = "<%=tootipBody%>";
-	//$(".commentKPI").append($tootipbody);
+
 
 	var $dataJ = <%=tableFun%>;
 
-
-//var $dataJ = [{Field2: "EXIM BANK 1697-9_11130_2700", Field3: "21239",Field4: "17",Field5: "590373.53",Field5_1: "68446.16",Field6: "-521927.37",Field7: "590373.53",Field7_1: "590373.53",Field9: "1,4,4,7,8,9,10"}] ;
-/*
-	var $dataJ =[
-                  {
-                    
-					  Field2: "<div class='kpiN'>KS1</div>สัดส่วนโครงการ RDDE/TT ที่มีการประเมินผลกระทบจากผลงานวิจัยต่อโครงการ RDD/TT ที่ดำเนินการทั้งหมด",
-                      Field3: " <div id='textR'>0.15</div> ",
-					  Field4: "-",
-                      Field5: "<div id='textR'>25</div>",
-					  Field5_1:"4,500 (ล้านบาท)",
-
-					  Field6: " <div id='textR'>0.44  <br>2,000 <br>ล้านบาท<div>",
-                      Field7: "<center><div id='target'><div id='percentage'>40%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></center> ",
-					 Field7_1:"<div id='textR'>10.10</div>",
-					 
-					  Field9: " <span class='inlinesparkline'>1,4,4,7,8,9,1,11,14,16,20,1</span> "
-                     
-					  
-                     
-                  },
-                  {
-                 
-					  Field2: "<div class='kpiN'>KS5</div>ร้อยละความสำเร็จในการขับเคลื่อน Flagship- ผลิตภัณฑ์จากทรัพยากรชีวภาพ เพื่อการถ่ายทอดเชิงพาณิชย์ - เทคโนโลยี สวทช. นำไปเผยแพร่แก่ชุมชน ชึ่งก่อให้เกิดรายได้เพื่ม และเป็นชุมชนต้นแบบให้กับชุมชนอื่นๆ",
-                    
-					  Field3: "<div id='textR'>100</div>  ",
-					  Field4: "ร้อยละ",
-                      Field5: "<div id='textR'> 15</div>",
-					  Field5_1:"1.07",
-				
-					  Field6: "<div id='textR'>1.13 <div>",
-                      Field7: "<center><div id='target'><div id='percentage'>113%</div> <div id='score'>"+ballGray+""+ballGray+""+ballGreen+"</div></div></center>",
-					  Field7_1:"<div id='textR'>11.30<div>",
-					
-					  Field9: "  <span class='inlinesparkline'>1,4,4,7,8,9,10</span>"
-                  },
-                  {
-                   
-					  Field2: "<div class='kpiN'>KS7</div>จำนวนรายได้อุดหนุนการวิจัย รับจ้าง/ร่วมวิจัยลิขสิทิธิ์/สิทธิประโยชน์และบริการเทคนิค/วิชาการ",
-                      
-					  Field3: "<div id='textR'>100</div>  ",
-					  Field4: " ล้านบาท",
-                      Field5: "<div id='textR'>15</div>",
-					  Field5_1:"15",
-			
-					  Field6: "<div id='textR'>4.30<div> ",
-                      Field7: "<center><div id='target'><div id='percentage'>11%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></center> ",
-					   Field7_1:"<div id='textR'>1.61<div>",
-					 
-					  Field9: " <span class='inlinesparkline'>1,4,4,7,8,9,10</span> "
-                  },
-                  {
-                
-					  Field2: " <div class='kpiN'>KS7-B</div>สัดส่วนรายได้ ต่อค่าใช้จ่าย(SBBU)",
-                      
-					  Field3: "<div id='textR'>0.69</div>  ",
-					  Field4: "-",
-                      Field5: "<div id='textR'>5</div> ",
-					  Field5_1:"20",
-					 
-					  Field6: "<div id='textR'>5.00<div>",
-                      Field7: " <center><div id='target'><div id='percentage'>25%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></cener>",
-					  Field7_1:"<div id='textR'>3.75<div>",
-					
-					  Field9: " <span class='inlinesparkline'>1,4,4,7,8,9,10</span>"
-                  },
-                  {
-                
-					  Field2: "<div class='kpiN'>KS9-A</div> จัดการระบบการรับงานทุกประเภทโดยใช้ระบบคุณภาพตามมาตรฐาน ISO 9001",
-                      
-					  Field3: "<div id='textR'>สอดคล้องกับมาตรฐาน ISO 9001</div>  ",
-					  Field4: "- ",
-                      Field5: "<div id='textR'>10 </div>",
-					  Field5_1:"-",
-				
-					  Field6: "<div id='textR'>36.00<div>",
-                      Field7: " <center><div id='target'><div id='percentage'>36%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></cener>",
-					  Field7_1:"<div id='textR'>3.60</div>",
-					  
-					  Field9: " <span class='inlinesparkline'>1,4,4,7,8,9,10</span>"
-                  },
-					
-                  {
-                  
-					  
-					  Field2: "<div class='kpiN'>KS1-A</div>สัดส่วน IC scoreต่อบุคคากรวิจัย</a> ",
-               
-					  Field3: "<div id='textR'>ไม่ต่ำกว่า 11.5</div> ",
-					  Field4: " -",
-                      Field5: " <div id='textR'>30</div>",
-					  Field5_1:"9,290(ล้านบาท)",
-					
-					  Field6: "<div id='textR'>0.58</div>",
-                      Field7: " <center><div id='target'><div id='percentage'>24%</div> <div id='score'>"+ballRed+""+ballGray+""+ballGray+"</div></div></center> ",
-					  Field7_1:"<div id='textR'>6.05</div>",
-					 
-					  Field9: " <span class='inlinesparkline'>1,4,4,7,8,9,10</span> "
-				  }
-				  
-				  ]; 		
-	*/
-
-
 	$("#grid").kendoGrid({
 		
-           height: 630,
-	      //groupable: true,
-         // scrollable: true,
-          //sortable: true,
-         // pageable: true,
-		//  detailInit: detailInit,
-
-		/*   dataBound: function() {
-                            this.expandRow(this.tbody.find("tr.k-master-row").first());
-                        },*/
-
+           //height: 630,
           columns: $titleJ,
           dataSource: {
               data: $dataJ,
@@ -522,78 +372,39 @@ tableFun += "]";
 		
       });
 
-
-
 	  /*########## Table Content End ##########*/
 			//SET SPARKLINE
 		$('.inlinesparkline').sparkline(); 
 		$('.inlinebar').sparkline('html', {type: 'bullet',height: '30',width:'200', barColor: 'red'} );
 	    $("th.k-header , .k-minus").click(function(){
-		//$('.inlinesparkline').sparkline(); 
-		//$('.inlinesparkline').sparkline('html',{type:'line',width:'100'}); 
 
 	});
-
-
-		//#######################Menagement Table Start ######################
-
-
-		//#######################Menagement Table End #######################
-
-	
-
-
-		/*##########Function jQuery  add Deatail  result  End ########*/
-
 		
 		//#######################Menagement Tab Start ######################
+		/*Remove  numberic  bottom tab*/
 		$("ul.k-numeric li span").removeClass();
 		$("ul.k-numeric li span").html("");
 		/*Remove  numberic  bottom tab*/
+
 		/*Header Bgcolor*/
 		$("th.k-header").css({"background":"#33cc33 "});
 		$(".k-grid-header").css({"background":"#33cc33 "});
 		/*Header Bgcolor*/
+
 		/*Content Suffer Color Row*/
 		 $("tr[data-uid]").css({"background":"#d7e4bd"});
 		$(".k-alt").css({"background":"#dafbd1"});
 		/*Content Suffer Suffer Color Row*/
+
 		/*Footer Bgcolor*/
 		$(".k-pager-wrap").css({"background":"#33cc33"});
-	
 		/*Footer Bgcolor*/
+
 		//set font white
 			$(".k-header").css({"color":"white"});
+		//set font white
 
-		/*### management grid2 Start###*/
-		var $title21=[{
-			field:"Field21",
-			width:100
-		},{
-			field:"Field22",
-			width:200
-		}];
-		var $data21=[{
-			
-			Field21:"test21",
-			Field22:"test content22"
-		},{
-			Field21:"2test21",
-			Field22:"2test content22"
-		}];
-/*
-		$("#grid2").kendoGrid({
-			columns:$title21,
-			dataSource:{
-			data:$data21,
-			pageSize:10
-			}
-		});
-*/
-		/*### Management grid2 End###*/
 		//#######################Menagement Tab End #######################
-
-
 	</script>
 
 
