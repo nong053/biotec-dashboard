@@ -5,9 +5,6 @@
 <%@page import="java.lang.*"%> 
 <%@ include file="../config.jsp"%>
 <%
-// Jsp  Server-side
-
-
 //set variable
 String V_Year = ""; // Values of Parameter Organization
 String V_Month = ""; // Values of Parameter Sales Region
@@ -100,27 +97,21 @@ out.println("Error"+ex);
 <html>
     <head>
         <title>HR Dashboard</title>
-<!--	<link href="../ChartLib_KendoUI/styles/examples.css" rel="stylesheet"/>
-        <link href="../ChartLib_KendoUI/styles/kendo.common.css" rel="stylesheet"/>
-        <link href="../ChartLib_KendoUI/styles/kendo.metro.css" rel="stylesheet"/>-->
-		
+		<!-- stylesheet load external-->
 		<link href="../styles/kendo.common.min.css" rel="stylesheet">
 		<link href="../styles/kendo.default.min.css" rel="stylesheet">
-<!--<link href="../jqueryUI/css/smoothness/jquery-ui-1.8.20.custom.css" rel="stylesheet">-->
 		<link href="../jqueryUI/css/cupertino/jquery-ui-1.8.21.custom.css" rel="stylesheet">
 		 <link href="../styles/kendo.dataviz.min.css" rel="stylesheet">
-		
+		<!-- stylesheet load external-->
 
-
+		<!-- javascript load external-->
         <script src="../js/jquery.min.js"></script>
 		<script src="../js/kendo.all.min.js"></script>
 		<script src="../js/kendo.dataviz.min.js"></script>
-		<!--<script type="text/javascript" src="../jqueryUI/js/jquery-ui-1.8.20.custom.min.js"></script>-->
 		<script type="text/javascript" src="../jqueryUI/js/jquery-ui-1.8.21.custom.min.js"></script>
-	<!--	<script src="../js/console.js"></script>-->
+	   <!-- javascript load external-->
 	
-	  
-		
+	  <!-- stylesheet embed-->
 		<style type="text/css">
 			html,
 			body {
@@ -188,9 +179,9 @@ out.println("Error"+ex);
 	
 
 	<script type="text/javascript">
-		/*#### Tab search above top start ###*/
+	/*#### Tab search above top start ###*/
 	$(document).ready(function(){
-		
+		//ปุ่ม Detail คลิ๊กเพื่อดูข้อมูลการ reject file จาก ETL
 		$("#buttonDetail").live("click",function(){
 			var htmlArchive="";
 			$("#dialogBox").empty();
@@ -199,17 +190,17 @@ out.println("Error"+ex);
 				dataType:'html',
 				success:function(data){
 				var obj=eval("("+data+")");
-					//alert(obj.length);
+				//สั่งวนลูปข้อมูลออกมาแสดง
 					for(var iNum=0; iNum <obj.length; iNum++){
 						htmlArchive+="<ul>";
 						htmlArchive+="<li><a href='<%=request.getContextPath()%>/biotec-dashboard/archive/"+obj[iNum]+"'>"+obj[iNum]+"</a></li>";
 						htmlArchive+="</ul>";
 					}
-
+			//นำข้อมูลที่ได้ไปวางไว้ภายใต้ Element #dialogBox
 			$("#dialogBox").append(htmlArchive);
 				}
 			});
-
+			//กำหนดค่าเริ่มต้นของ dialog box
 			$("#dialogBox").dialog({
 					width:500,
 					modal: true,
@@ -224,14 +215,13 @@ out.println("Error"+ex);
 					}
 					
 					});
-
+					//สั่งให้ dialogBox แสดงผล
 					$("#dialogBox").show();
 
 		});
+
 		/*#### Loading Start ###*/
 		var $width=($('body').width()/2)-50;
-		//console.log($width);
-
 		$("#loading").css({"top":"250px","left":$width+"px"}).ajaxStart(function(){
 		$(this).show();
 		}).ajaxStop(function(){
@@ -250,6 +240,7 @@ out.println("Error"+ex);
 
 
 	/*### Function Ajax Management Start###*/
+	//ฟังก์ชั่นในการเรียกหน้า HR
 	var includeHr_1 = function(){
 		//AJAX1
 				
@@ -260,16 +251,18 @@ out.println("Error"+ex);
 					//catch:false,
 					data:{"ParamMonth":$("#ParamMonthSubmit").val(),"ParamYear":$("#ParamYearSubmit").val(),"ParamOrg":$("#ParamOrgSubmit").val()},
 					success:function(data){
-						//alert(data);
+						//ลบหน้าที่จำไว้ทั้งหมด
 						$(".pageRemember").remove();
+						//เพิ่ม element เพื่อระบุว่าปัจจุบันกำลังอยู่หน้า HR
 						$("body").append("<input type='hidden' id='pageHr' class='pageRemember' name='pageHr' value='pageHr'>");
+						//นำข้อมูลที่ได้มาวางใส่ไว้ที่ element #content1
 						$("#content1").append(data);
 					}
 					
 				});
 				//AJAX1
 	} 
-
+//ฟังก์ชั่นในการเรียกหน้า NPR
 	var includeNpr_2 = function(){
 		$.ajax({
 		url:'npr.jsp',
@@ -282,19 +275,22 @@ out.println("Error"+ex);
 		$("body").append("<input type='hidden' id='pageNpr' class='pageRemember' name='pageNpr' value='pageNpr'>");
 		$("#content2").append(data);
 
+		
 		$("#buttonDetail").remove();
+		//เพิ่มปุ่ม buttonDetail
 		$(".ui-tabs-nav").append("<input type='button' style='float:right;  margin-top:3px; '  id='buttonDetail' value='Detail'>");
 
 		}
 	});
 	} 
+	//ดักฟังเหตุการณ์การ CLICK ที่ tab 1
 	$("a[href=#content1]").click(function(){
 		$("#content1").empty();
 		$("#content2").empty();
 		$("#buttonDetail").remove();
 		includeHr_1();
 	});
-
+//ดักฟังเหตุการณ์การ CLICK ที่ tab 2
 	$("a[href=#content2]").click(function(){
 		$("#content1").empty();
 		$("#content2").empty();
@@ -303,20 +299,18 @@ out.println("Error"+ex);
 	});
 
 	/*### Function Ajax Management End###*/
+	//ดักฟังเหตุการณ์ การ Submit 
 		$("form#form_1").submit(function(){
 			$("#content1").empty();
 			$("#content2").empty();
 			$("#contentMain").show();
 			$("#tabHr").tabs();
 			$(".ui-tabs-panel").css("padding","0px");
-						//console.log($("#ParamMonth").val());
-						//console.log($("#ParamYear").val());
-						//console.log($("#ParamOrg").val());
 						$(".paramSubmit").remove();
 						$("body").append("<input type='hidden' value='"+$("#ParamMonth").val()+"' name='ParamMonthSubmit' id='ParamMonthSubmit' class='paramSubmit'> ");
 						$("body").append("<input type='hidden' value='"+$("#ParamYear").val()+"' name='ParamYearSubmit' id='ParamYearSubmit' class='paramSubmit'>");
 						$("body").append("<input type='hidden' value='"+$("#ParamOrg").val()+"' name='ParamOrgSubmit' id='ParamOrgSubmit' class='paramSubmit'>");
-
+						//ตรวจสอบว่าปัจจุบันกำลังอยู่ที่หน้าใด ถ้ายังไม่ได้กด tab ค่าเริ่มต้นจะเรียก tab1 มาแสดง
 						if($("#pageHr").val()){
 								$("a[href=#content1]").trigger("click");
 						}else if($("#pageNpr").val()){
@@ -326,10 +320,9 @@ out.println("Error"+ex);
 						}
 				return false;
 		});
+//สั่งให้เกิดกด submit เมื่อเปิดโปรแกรมครั้งแรก
 $("form#form_1").trigger("submit");
-	/*### jQuery Funtions End ###*/
-			 	$("form.#form_1 #submit1").trigger("click");
-				//$("a[href=#content1]").trigger("click");
+
 	});
 	</script>
     </head>
@@ -397,15 +390,6 @@ $("form#form_1").trigger("submit");
 	</span>
 	</div>
 	<div id="dialogBox">
-<!--
-		<ul>
-			<li><a href="<%=request.getContextPath()%>/biotec-dashboard/archive/NPR_201206.xls">NPR_201206.xls</a></li>
-			<li><a href="<%=request.getContextPath()%>/biotec-dashboard/archive/NPR_201207.xls">NPR_201207.xls</a></li>
-			<li><a href="<%=request.getContextPath()%>/biotec-dashboard/archive/NPR_201208.xls">NPR_201208.xls</a></li>
-			<li><a href="<%=request.getContextPath()%>/biotec-dashboard/archive/NPR09-update-20121012_201210.xls">NPR09-update-20121012_201210.xls</a></li>
-			<li><a href="<%=request.getContextPath()%>/biotec-dashboard/archive/NPR-SEP55_20121010 edit_201210.xls">NPR-SEP55_20121010 edit_201210.xls</a></li>
-		</ul>
--->
 	</div>
 	<!--------------------------- Details End--------------------------->
 	</body>

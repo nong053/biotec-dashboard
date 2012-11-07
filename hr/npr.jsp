@@ -1,5 +1,4 @@
 <%@page contentType="text/html" pageEncoding="utf-8"%>
-<!--<meta http-equiv="Content-type" content="text/html; charset=utf-8">-->
 <%@page import="java.sql.*" %> 
 <%@page import="java.io.*" %> 
 <%@page import="java.lang.*"%> 
@@ -8,40 +7,26 @@
 String ParamMonth = request.getParameter("ParamMonth");
 String ParamYear = request.getParameter("ParamYear");
 String ParamOrg = "สวทช.";
-//String ParamOrg = request.getParameter("ParamOrg");
 String Param_sp_center = "";
 String sub_ParamOrg = "";
 
-//out.print("ParamMonth"+ParamMonth);
-//out.print("ParamYear"+ParamYear);
-//out.print("ParamOrg"+ParamOrg);
-
-/*
--- biotec_dwh --
-Type: MYSQL
-Server: 10.226.202.114
-database: biotec_dwh
-user: root
-pass: bioteccockpit
-*/
 // Jsp  Server-side
-
 //############################ pie sp_npr_by_center  Start ######################### /
 String sp_npr_by_center ="";
 Integer sum_npr_by_center=0;
 try{
-	//out.println("---------------------------------------------"+i);
 Class.forName(Driver).newInstance();
 conn=DriverManager.getConnection(connectionURL,User,Pass);
 	if(!conn.isClosed()){
 		st = conn.createStatement();
+		//เรียก store procedure เพื่อสร้าง json format สำหร้บ pie Chart sp_npr_by_center
 		Query="CALL sp_npr_by_center("+ParamYear+","+ParamMonth+");";
 		rs = st.executeQuery(Query);
 		sp_npr_by_center+="[";
 		Integer i =1;
 		String color="";
 		while(rs.next()){
-		
+		//กำหนดสีตามศูนย์
 		//Format  [{category: "ศจ.",value: 10,color:"#6C2E9B" }]
 		if(rs.getString("npr_center").equals("สก.")){
 		color="#25a0da";
@@ -56,7 +41,6 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 		}else if(rs.getString("npr_center").equals("ศจ.")){
 		color="#6C2E9B";
 		}
-
 		if(i==1){
 		sp_npr_by_center+="{category:";
 		sp_npr_by_center+= "\""+rs.getString("npr_center") +"\"";
@@ -75,10 +59,6 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 	i++;
 		}
 		sp_npr_by_center+="]";
-		//out.println("-------------------------------------------------------"+"<br>");
-		//out.println("sum_npr_by_center"+sum_npr_by_center+"<br>");
-		//out.println("sp_npr_by_center"+sp_npr_by_center+"<br>");
-		//out.println("-------------------------------------------------------"+"<br>");
 		conn.close();
 	}
 }
@@ -88,7 +68,7 @@ out.println("<font color='red'>Error sp_npr_by_center</font>"+ex);
 
 //############################pie  sp_npr_by_center  End ############################ /
 //############################bar  sp_npr_by_center_drilldown  Start ############################ /
-
+//สร้าง format json สำหรับ Bar Chart by_center_drilldown
 String categoryAxis_npr_center = "";
 String[] categoryAxis_npr_center_array;
 String categoryAxis_npr_center_using="";
@@ -109,6 +89,14 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 		categoryAxis_npr_center_using+="[";
 		series_job_center+="[";
 		while(rs.next()){
+			//สร้าง json format เพื่อนำไปสร้าง Bar Chart
+			//โดยมี format ดังนี้
+			/*
+			Category
+			["นักวิจัยร่วมวิจัย","นักวิจัยหลังปริญญาเอก","นักวิจัยแลกเปลี่ยน","นักศึกษาร่วมวิจัย(โท/เอก)"]
+			Series
+			[{"name":"Fulltime","data":[0,5,0,0]},{"name":"Partime","data":[1,0,5,33]}]
+			*/
 			if(i==0){
 				categoryAxis_npr_center=rs.getString("npr_list");
 				categoryAxis_npr_center_array=categoryAxis_npr_center.split(",");
@@ -127,21 +115,7 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 		}//while
 	categoryAxis_npr_center_using+="]";
 	series_job_center+="]";
-	
-	//Success fully Start
-	//out.println("categoryAxis_npr_center_using"+categoryAxis_npr_center_using+"<br>");
-	//out.println("series_job_center"+series_job_center+"<br>");
-	//Success fully Stop
-
-
-		//num row start
-		rs.last();
-		int c = rs.getRow();
-		//out.println("num_row"+c);
-		rs.beforeFirst();
-		//num row end
-
-		conn.close();
+	conn.close();
 	}
 }
 catch(Exception ex){
@@ -185,10 +159,6 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 	i++;
 		}
 		sp_npr_by_type+="]";
-		//out.println("-------------------------------------------------------"+"<br>");
-		//out.println("sum_npr_by_type"+sum_npr_by_type+"<br>");
-		//out.println("sp_npr_by_type"+sp_npr_by_type+"<br>");
-		//out.println("-------------------------------------------------------"+"<br>");
 		conn.close();
 	}
 }
@@ -238,12 +208,7 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 		}//while
 	categoryAxis_npr_type_using+="]";
 	series_job_type+="]";
-	
-	//Success fully Start
-	//out.println("categoryAxis_npr_type_using-----------2"+categoryAxis_npr_type_using+"<br>");
-	//out.println("series_job_type-----------2"+series_job_type+"<br>");
-	//Success fully Stop
-		conn.close();
+	conn.close();
 	}
 }
 catch(Exception ex){
@@ -286,10 +251,6 @@ conn=DriverManager.getConnection(connectionURL,User,Pass);
 	i++;
 		}
 		sp_npr_by_country_group+="]";
-		//out.println("-------------------------------------------------------"+"<br>");
-		//out.println("sum_npr_by_country_group"+sum_npr_by_country_group+"<br>");
-		//out.println("sp_npr_by_country_group"+sp_npr_by_country_group+"<br>");
-		//out.println("-------------------------------------------------------"+"<br>");
 		conn.close();
 	}
 }
@@ -298,7 +259,7 @@ out.println("<font color='red'>Error sp_npr_by_country_group</font>"+ex);
 }
 
 //############################pie  sp_npr_by_country_group  End ############################ /
-//############################bar  sp_npr_by_country_group_drilldown  Start ############################ /
+//############################bar  sp_npr_by_country_group_drilldown  Start #################### /
 
 String categoryAxis_npr_country_group = "";
 String[] categoryAxis_npr_country_group_array;
@@ -374,18 +335,10 @@ height:550px;
 float:left;
 margin:2px;
 border-radius:5px;
-    /*background: url("images/ui-bg_highlight-hard_100_f2f5f7_1x100.png") repeat-x scroll 50% top #F2F5F7;*/
     border: 1px solid #DDDDDD;
     color: #362B36;
-
-
 }
 .content  #row1 .box #head{
-/*width:auto;
-height:30px ;
-background:#99ccff;
-*/
-   /*background: none repeat scroll 0 0 #DEEDF7;*/
     border-radius: 5px 5px 5px 5px;
     color: #2779AA;
     height: 26px;
@@ -487,6 +440,7 @@ background:#ffffff;
 
 </style>
 <script type="text/javascript">
+//ฟังก์ชันจัดการ Commas
 function addCommas(nStr)
 {
 	nStr += '';
@@ -503,9 +457,8 @@ function addCommas(nStr)
 $(document).ready(function(){
 var ParamOrg = "สวทช.";
 /*###  pie center start ###*/
-
+//ฟังก์ชันสร้าง pie chart 
 var pieChartCenter= function(id_param,data_param,summ_param){
-
 		$(id_param).kendoChart({
 		 theme: $(document).data("kendoSkin") || "metro",
 			title: {
@@ -525,9 +478,7 @@ var pieChartCenter= function(id_param,data_param,summ_param){
                         }],
                         tooltip: {
                             visible: true,
-                           // format: "{0}%"
 							template:"#= templateFormat(value,"+summ_param+")#"
-
                         },
 			
 			seriesDefaults: {
@@ -537,6 +488,7 @@ var pieChartCenter= function(id_param,data_param,summ_param){
 					
 				}
 			},
+			//เมื่อเกิดเหตุการณ์ click ที่ pie ให้ไปทำงานต่อที่ฟังก์ชัน checkBarTypeCenter
 			seriesClick:checkBarTypeCenter
 	
 			
@@ -634,6 +586,7 @@ var pieChartByCountryGroup= function(id_param,data_param,summ_param){
 /*###  pie country_group end ###*/
 
 /*###  bar start ###*/
+//ฟังก์ชัน barchart
 var barChart= function(id_param,categoryAxis_param,series_param,title_param){
 //var categoryAxis_param = ["นักวิจัยร่วมวิจัย","นักวิจัยหลังปริญญาเอก","นักศึกษาร่วมวิจัย (โท/เอก)"];
 	$(id_param).kendoChart({
@@ -652,6 +605,7 @@ var barChart= function(id_param,categoryAxis_param,series_param,title_param){
                             position: "bottom"
                         },
                         seriesDefaults: {
+							//bar chart แนวตั้ง
                             type: "column",
 							stack: true
                         },
@@ -675,7 +629,7 @@ var barChart= function(id_param,categoryAxis_param,series_param,title_param){
                         }
                     });
 }
-
+//ฟังก์ชัน barchart แนวนอน
 var barChartCenter= function(id_param,categoryAxis_param,series_param,title_param){
 //var categoryAxis_param = ["นักวิจัยร่วมวิจัย","นักวิจัยหลังปริญญาเอก","นักศึกษาร่วมวิจัย (โท/เอก)"];
 	$(id_param).kendoChart({
@@ -688,19 +642,17 @@ var barChartCenter= function(id_param,categoryAxis_param,series_param,title_para
 						height:210,
 						background: ""
 						},
-
-						
                         legend: {
                             position: "bottom"
                         },
                         seriesDefaults: {
+							//bar chart แนวนอน
                             type: "bar",
 							stack: true
                         },
                         series:series_param,
                         valueAxis: {
                             labels: {
-                               // format: "{0}%"
 							   format: "{0}",
 							   font:"10px Tahoma"
                             }
@@ -719,16 +671,10 @@ var barChartCenter= function(id_param,categoryAxis_param,series_param,title_para
 }
 
 /*###  bar end ###*/
-/*
-String ParamMonth = request.getParameter("ParamMonth");
-String ParamYear = request.getParameter("ParamYear");
-String ParamOrg = request.getParameter("ParamOrg");
-pieChartByType("#pie_sp_npr_by_type",<%=sp_npr_by_type%>,<%=sum_npr_by_type%>);
-
-*/
+//จับเหตุการเมื่อมีการคลิ๊กที่ pie chart center
 function checkBarTypeCenter(e){
+		//รับ category ที่มีการคลิ๊กมาใช้งาน
 		ParamOrg = e.category;
-		//console.log(ParamOrg);
 	// ==============================Pie 2 Change====================================
 		$.ajax({
 		url:'sp_npr_by_type.jsp',
@@ -736,10 +682,6 @@ function checkBarTypeCenter(e){
 		dataType:'json',
 		data:{'ParamMonth':<%=ParamMonth%>,'ParamYear':<%=ParamYear%>,'ParamOrg':ParamOrg},
 		success:function(data){
-			//console.log(data);
-		//console.log(data[0]["category"]);
-		//console.log(data[1]["series"]);
-		//console.log(data);
 		$("#string_type_pie").empty();
 		$("#string_type_pie").append(ParamOrg);
 		pieChartByType("#pie_sp_npr_by_type",data[0]["category_pie"],data[1]["sum_pie"]);
@@ -752,10 +694,6 @@ function checkBarTypeCenter(e){
 		dataType:'json',
 		data:{'ParamMonth':<%=ParamMonth%>,'ParamYear':<%=ParamYear%>,'ParamOrg':ParamOrg},
 		success:function(data){
-		//	console.log(data);
-		//console.log(data[0]["category"]);
-		//console.log(data[1]["series"]);
-		//console.log(data);
 		$("#string_country_pie").empty();
 		$("#string_country_pie").append(ParamOrg);
 		pieChartByCountryGroup("#pie_sp_npr_by_country_group",data[0]["category_pie"],data[1]["sum_pie"]);
@@ -769,9 +707,6 @@ function checkBarTypeCenter(e){
 		dataType:'json',
 		data:{'ParamMonth':<%=ParamMonth%>,'ParamYear':<%=ParamYear%>,'ParamOrg':ParamOrg},
 		success:function(data){
-		//console.log(data[0]["category"]);
-		//console.log(data[1]["series"]);
-		//console.log(data);
 		barChartCenter("#bar_sp_npr_by_center_drilldown",data[0]["category"],data[1]["series"],ParamOrg);
 		}
 	});
@@ -782,9 +717,6 @@ $.ajax({
 		dataType:'json',
 		data:{'ParamMonth':<%=ParamMonth%>,'ParamYear':<%=ParamYear%>,'ParamNprlist':"ALL"},
 		success:function(data){
-		//console.log(data[0]["category"]);
-		//console.log(data[1]["series"]);
-		//console.log(data);
 		barChart("#bar_sp_npr_by_type_drilldown",data[0]["category"],data[1]["series"],"ทุกประเภท");
 		}
 	});
@@ -795,16 +727,13 @@ $.ajax({
 		dataType:'json',
 		data:{'ParamMonth':<%=ParamMonth%>,'ParamYear':<%=ParamYear%>,'ParamOrg':ParamOrg,'ParamWorkingRangelist':"ALL"},
 		success:function(data){
-		//console.log(data[0]["category"]);
-		//console.log(data[1]["series"]);
-		//console.log(data);
 		barChart("#bar_sp_npr_by_country_group_drilldown",data[0]["category"],data[1]["series"],"ทุกสัญชาติ");
 		}
 	});
 
 
 }//function
-
+//จับเหตุการณ์เมื่อมีการคลิ๊กที่  pieChartByType ให้เปลี่ยนเฉพาะ bar chart ของตัวเอง
 function checkBarTypeByType(e){
 	$.ajax({
 		url:'sp_npr_by_type_drilldown.jsp',
@@ -812,13 +741,11 @@ function checkBarTypeByType(e){
 		dataType:'json',
 		data:{'ParamMonth':<%=ParamMonth%>,'ParamYear':<%=ParamYear%>,'ParamNprlist':e.category},
 		success:function(data){
-		//console.log(data[0]["category"]);
-		//console.log(data[1]["series"]);
-		//console.log(data);
 		barChart("#bar_sp_npr_by_type_drilldown",data[0]["category"],data[1]["series"],e.category);
 		}
 	});
 }
+//จับเหตุการณ์เมื่อมีการคลิ๊กที่  pieChartByCountryGroup ให้เปลี่ยนเฉพาะ bar chart ของตัวเอง
 function checkBarTypeByCountryGroup(e){
 	$.ajax({
 		url:'sp_npr_by_country_group_drilldown.jsp',
@@ -826,116 +753,22 @@ function checkBarTypeByCountryGroup(e){
 		dataType:'json',
 		data:{'ParamMonth':<%=ParamMonth%>,'ParamYear':<%=ParamYear%>,'ParamOrg':ParamOrg,'ParamWorkingRangelist':e.category},
 		success:function(data){
-		//console.log(data[0]["category"]);
-		//console.log(data[1]["series"]);
-		//console.log(data);
 		barChart("#bar_sp_npr_by_country_group_drilldown",data[0]["category"],data[1]["series"],e.category);
 		}
 	});
 }
 
-/* Using PieChart*/
-
-//pie_sp_npr_by_center
+/* Using PieChart start*/
 pieChartCenter("#pie_sp_npr_by_center",<%=sp_npr_by_center%>,<%=sum_npr_by_center%>);
 pieChartByType("#pie_sp_npr_by_type",<%=sp_npr_by_type%>,<%=sum_npr_by_type%>);
 pieChartByCountryGroup("#pie_sp_npr_by_country_group",<%=sp_npr_by_country_group%>,<%=sum_npr_by_country_group%>);
-/* Using PieChart*/
+/* Using PieChart end*/
+/* Using BarChart start*/
 barChartCenter("#bar_sp_npr_by_center_drilldown", <%=categoryAxis_npr_center_using%>, <%=series_job_center%>,'สวทช.' )	;
 barChart("#bar_sp_npr_by_type_drilldown", <%=categoryAxis_npr_type_using%>, <%=series_job_type%>,'ทุกประเภท');
 barChart("#bar_sp_npr_by_country_group_drilldown", <%=categoryAxis_npr_country_group_using%>, <%=series_job_country_group%>,'ทุกสัญชาติ');
-/* Using BarChart*/
-
-/* Using BarChart*/
-
-
-/*###  kendoui panalBar start  ###*/
-$("#panelBar1").kendoPanelBar({
-expandMode: "single",
-animation: {
-        // fade-out closing items over 1000 milliseconds
-        close: {
-            duration: 15000,
-            effects: "fadeOut"
-        },
-       // fade-in and expand opening items over 500 milliseconds
-       open: {
-           duration: 5500,
-           effects: "expandVertical fadeIn"
-       }
-	  }
+/* Using BarChart end*/
 });
-$("#panelBar2").kendoPanelBar({
-	expandMode:"single"
-});
-
-/*###  kendoui panalBar end  ###*/
-
-/*###  kendoui barchart1 start  ###*/
-
-
-/*###  kendoui barchart1 end  ###*/
-	
-
-
-
-
-//alert($("#panelBar2").length);
-
-$("#panelBar2 .panel1").click(function(){
-
-
-});
-$("#panelBar2 .panel2").click(function(){
-
-
-});
-$("#panelBar2 .panel1").trigger("click");
-
-
-/*### Config Tab Start ###*/
-
-
-//$(".ui-tabs-panel").css({"padding":"0px"});
-
-
-/* Tab2 Start*/
-
-	
-
-$("#tabHr1").tabs();
-$("#tabHr1 ul li").css({"font-weight":"normal"});
-
-$("a[href=#hrContent21]").trigger("click");
-
-$("a[href=#hrContent21]").click(function(){
-
-});
-
-$("a[href=#hrContent22]").click(function(){
-
-});
-
-
-
-
-/*Tab2 End*/
-
-
-
-/*### Config Tab End ###*/
-
-
-});
-
-
-//define function extenal jquery
-
-//function templateFormat(value,summ) {
-  // var value1 = Math.floor(value);
- //  var value2 = Math.floor((value/summ)*100);
-  // return value1 + " , " + value2 + " %";
-//}
 
 function templateFormat(value,summ) {
    var value1 = addCommas(value);
@@ -964,7 +797,7 @@ function templateFormat(value,summ) {
 												
 											</tr>
 											<tr>
-												<td><hr size=1 noshade color="gray">
+												<td><hr size=0 noshade color="gray">
 												<div id="bar_sp_npr_by_center_drilldown"></div>
 												</td>
 											</tr>
@@ -987,7 +820,7 @@ function templateFormat(value,summ) {
 												</td>
 												
 											</tr>
-												<td><hr size=1 noshade color="gray">
+												<td><hr size=0 noshade color="gray">
 												<div id="bar_sp_npr_by_type_drilldown"></div>
 												</td>
 											<tr>
@@ -1016,7 +849,7 @@ function templateFormat(value,summ) {
 												
 											</tr>
 											<tr>
-												<td><hr size=1 noshade color="gray">
+												<td><hr size=0 noshade color="gray">
 												<div id="bar_sp_npr_by_country_group_drilldown"></div>
 												</td>
 											</tr>
