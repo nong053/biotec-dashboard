@@ -2,7 +2,9 @@
 width 1250
 height 800
 */
-
+*{
+font-family:Tahoma;
+}
 #content{
 width:970px;
 height:800px;
