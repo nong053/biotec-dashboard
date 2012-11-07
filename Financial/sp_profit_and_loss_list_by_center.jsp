@@ -4,33 +4,28 @@
 <!--- Tab2 -->
 <%
 	DecimalFormat numberFormatter = new DecimalFormat("###,###,##0.00");
-	//DecimalFormat numberFormatter = new DecimalFormat("0.00");
 	String paramYear= request.getParameter("paramYear");
 	String paramMonth= request.getParameter("paramMonth");
-//	String paramYear= "2012";
-//	String paramMonth= "11";
 	String paramMonthPerv= "";
 	String paramMonthCurent= "";
 	String paramOrg=request.getParameter("paramOrg");
-//	String paramOrg="สวทช.";
 
-// Calculate Display Year (layout: previous Month , Current Month , Month previous Year
 	Integer paramYearInt =Integer.parseInt(paramYear);
-	Integer paramMonthInt = Integer.parseInt(paramMonth);
 	Integer paramLastYear = 0;
 	Integer paramCurentYear = 0;
 	Integer paramCurentYearLastMonth = 0;
-	if ((paramMonthInt-4)>0){
+	Integer paramMonthInt = Integer.parseInt(paramMonth);
+	if ((paramMonthInt-4)>0){ // month > 'Jan'
 		paramCurentYearLastMonth=paramYearInt+543;
 		paramCurentYear=paramYearInt+543;
 		paramLastYear = paramYearInt+542;
 	}
-	else if((paramMonthInt-4)==0){
+	else if((paramMonthInt-4)==0){ //  month  = 'Jan'
 		paramCurentYearLastMonth=paramYearInt+542;
 		paramCurentYear=paramYearInt+543;
 		paramLastYear = paramYearInt+542;
 	}
-	else{
+	else{	 // month < 'Jan'
 		paramCurentYearLastMonth=paramYearInt+542;
 		paramCurentYear=paramYearInt+542;
 		paramLastYear = paramYearInt+541;
@@ -43,8 +38,7 @@
 	}else if(paramMonth.equals("2")){
 	paramMonthCurent="พ.ย.";
 	paramMonthPerv="ต.ค.";
-	
-	
+
 	}else if(paramMonth.equals("3")){
 	paramMonthCurent="ธ.ค.";
 	paramMonthPerv="พ.ย.";
@@ -85,12 +79,7 @@
 	paramMonthPerv="ส.ค.";
 	
 	}
-/*
-	out.print("paramLastYear"+paramLastYear+"<br>");
-	out.print("paramCurentYear"+paramCurentYear+"<br>");
-	out.print("paramMonthCurent"+paramMonthCurent+"<br>");
-	out.print("paramMonthPerv"+paramMonthPerv+"<br>");
-*/
+
 	String dataDefault="";
 	Query="CALL sp_profit_and_loss_list_by_center_per_level("+paramYear+","+paramMonth+",'"+paramOrg+"',2,null);";
 	rs=st.executeQuery(Query);
@@ -98,17 +87,6 @@
 	dataDefault+="[";
 	while(rs.next()){
 
-		/*
-		out.print("account_name"+rs.getString("account_name")+"<br>");
-		out.print("account_key"+rs.getString("account_key")+"<br>");
-		out.print("account_id"+rs.getString("account_id")+"<br>");
-		out.print("level"+rs.getString("level")+"<br>");
-		out.print("hlevel"+rs.getString("hlevel")+"<br>");
-		out.print("pMonthAmt"+rs.getString("pMonthAmt")+"<br>");
-		out.print("currentAmt"+rs.getString("currentAmt")+"<br>");
-		out.print("pYearAmt"+rs.getString("pYearAmt")+"<br>");
-		out.print("<br>-------------------------------------------------------------------<br>");
-		*/
 Double GrowthPercentage=0.00;
 Double pMonthAmt =0.0;
 Double currentAmt=0.0;
@@ -121,7 +99,7 @@ Double Result=0.0;
 		dataDefault+="Field1:\"<div class='textL level"+rs.getString("level") +" parent_key"+rs.getString("parent_key")+"'  id='account_key"+rs.getString("account_key")+" '>"+rs.getString("account_name")+" </div>\",";
 		dataDefault+="Field2:\"<div class='textR'>"+numberFormatter.format(rs.getDouble("pMonthAmt"))+"</div>\",";
 		dataDefault+="Field3:\"<div class='textR'>"+numberFormatter.format(rs.getDouble("currentAmt"))+"</div>\",";
-			
+			//คำนวณหาค่า Growth
 			pMonthAmt = rs.getDouble("pMonthAmt");
 			currentAmt = rs.getDouble("currentAmt");
 
@@ -131,7 +109,7 @@ Double Result=0.0;
 			Result = currentAmt-pMonthAmt;
 			GrowthPercentage =(Result / pMonthAmt)* 100;
 			}
-
+			//
 
 		dataDefault+="Field5:\"<div class='textR'>"+numberFormatter.format(GrowthPercentage)+"%</div>\",";
 		dataDefault+="Field6:\"<div class='textR'>"+numberFormatter.format(rs.getDouble("pYearAmt"))+"</div>\"";
@@ -143,7 +121,7 @@ Double Result=0.0;
 		dataDefault+="Field1:\"<div class='textL level"+rs.getString("level") +" parent_key"+rs.getString("parent_key")+"'  id='account_key"+rs.getString("account_key")+" '>"+rs.getString("account_name")+" </div>\",";
 		dataDefault+="Field2:\"<div class='textR'>"+numberFormatter.format(rs.getDouble("pMonthAmt"))+"</div>\",";
 		dataDefault+="Field3:\"<div class='textR'>"+numberFormatter.format(rs.getDouble("currentAmt"))+"</div>\",";
-			
+			//คำนวณหาค่า Growth
 			pMonthAmt = rs.getDouble("pMonthAmt");
 			currentAmt = rs.getDouble("currentAmt");
 			if(currentAmt==0.0){
@@ -152,7 +130,7 @@ Double Result=0.0;
 			Result =  currentAmt-pMonthAmt;
 			GrowthPercentage =(Result / pMonthAmt)* 100;
 			}
-
+			//
 		dataDefault+="Field5:\"<div class='textR'>"+numberFormatter.format(GrowthPercentage)+"%</div>\",";
 		dataDefault+="Field6:\"<div class='textR'>"+numberFormatter.format(rs.getDouble("pYearAmt"))+"</div>\"";
 		dataDefault+="}" ;
@@ -161,22 +139,6 @@ i++;
 }//while
 
 	dataDefault+="]";
-
-	  /*
-
-	  {
-					  Field0: "01",
-                      Field1: "<div id='textL'>รายได้ </div>",
-					  Field2: "<div id='textR'>1,992.54 </div>",
-                      Field3: " <div id='textR'>1,806.36</div> ",
-				
-                      Field5: "<div id='textR'>10.31%</div>",
-					  Field6: " <div id='textR'>2,030.21<div>",
-                  
-                  }
-*/
-
-
 
 %>
 
@@ -197,11 +159,9 @@ i++;
 	margin:auto;
 	}
 	#target #percentage{
-/*	float:left;*/
 	width:70px;
 	}
 	#target #score{
-	/*float:right;*/
 	width:auto;
 	display:block;
 	padding:5px;
@@ -305,13 +265,6 @@ font-size:16px;
 	}
 
 	</style>
-	<!--<script src="http://code.jquery.com/jquery.js"></script>
-	<script src="js/kendo.all.min.js"></script>
-	<script type="text/javascript" src="js/jquery.sparkline.min.js"></script>
-    <link href="styles/kendo.common.min.css" rel="stylesheet">
-    <link href="styles/kendo.default.min.css" rel="stylesheet">
-	<link href="jqueryUI/css/smoothness/jquery-ui-1.8.20.custom.css" rel="stylesheet">
-	<script type="text/javascript" src="jqueryUI/js/jquery-ui-1.8.20.custom.min.js"></script>--> 
 	<script type="text/javascript">
 function addCommas(nStr)
 {
@@ -327,63 +280,50 @@ function addCommas(nStr)
 }
 
 $(document).ready(function(){
-
-		
-
-
-
+//เมื่อคลิ๊กที่ level 5 ไม่ให้แสดง pieChart
 var clickLevelAgain5=function(){
 	$("#boxR").hide();
 }
+//สามารถคลิ๊กดูข้อมูลของ level ย้อนหลังได้
 var clickLevelAgain= function(levelElement){
 
 	
 				$(levelElement).live("click",function(){
 				var id= $(this).attr('id');
 				var account_name= $(this).text();
-				//alert(id);
-				//alert(obj22);
-				//pieChart(obj21,obj22);
-				//Step Call Level2
 
 					var account_key = id.substring(11);
 					var account_key_loop="";
 					var account_key_sub_loop="";
-					//var account_name = "test";
-					var dataLevel2 ="";
+					var dataLevel ="";
 					var j=0;
 
 
 					var titleText="{\"title\":\""+account_name+"\"}";
-					//alert("titleText"+titleText);
-					//console.log($(this).get());
-					dataLevel2+="[";
+					dataLevel+="[";
 					$(".parent_key"+account_key).each(function(){
 
 						account_key_loop=this.id;
 						account_key_sub_loop=account_key_loop.substring(11);
-
-						//console.log("account_key_sub_loop"+account_key_sub_loop);
 						var valueMonthParam = $(this).parent().parent().children('td').eq(3).text();
 						var valueMonthParamNonComma =valueMonthParam.replace(",","");
 						
 						if(j==0){
-							dataLevel2+="{";
-								dataLevel2+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+valueMonthParamNonComma;
-							dataLevel2+="}";
+							dataLevel+="{";
+								dataLevel+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+valueMonthParamNonComma;
+							dataLevel+="}";
 						}else{
-							dataLevel2+=",{";
-								dataLevel2+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+valueMonthParamNonComma;
-							dataLevel2+="}";		
+							dataLevel+=",{";
+								dataLevel+="account_key:"+account_key_sub_loop+",category:"+"\""+$(this).text()+"\",value:"+valueMonthParamNonComma;
+							dataLevel+="}";		
 						}
 						j++;
 					});
-					dataLevel2+="]";
-					//console.log(dataLevel2);
-					var obj21=eval("("+dataLevel2+")");
+					dataLevel+="]";
+					var obj21=eval("("+dataLevel+")");
 					var obj22=eval("("+titleText+")");
-					
-					if(dataLevel2=="[]"){
+					//ถ้าเป็นข้อมูลว่าง pie chart ไม่แสดงผล
+					if(dataLevel=="[]"){
 					$("#boxR").show();
 					}else{
 					$("#boxR").show();
@@ -394,23 +334,12 @@ var clickLevelAgain= function(levelElement){
 				});
 	
 }
-/*
-clickLevelAgain(".level2");
-clickLevelAgain(".level3");
-clickLevelAgain(".level4");
-clickLevelAgain(".level5");
-clickLevelAgain(".level6");
-clickLevelAgain(".level7");
-*/
-
 	var setFont = function(){
 		/*Config font*/
-		//alert("hello");
 		$(".k-draghandle").css({"font-size":"50%"}); 
 		//$(".k-grid td").css({"padding":"0px"});
 		$(".k-grid td").css({"padding-top":"0px","padding-bottom":"0px"});
 		/*Config font*/
-
 }
 	//#######################Graph Program Start#######################01
 
@@ -418,33 +347,6 @@ clickLevelAgain(".level7");
 var pieChart= function(paramValue,titleText,paramSum){
 		
 		$("#pieChart").show();
-		//var data=paramValue;
-		/*
-		var data = [
-                    {
-						"account_key": 01,
-                        "category": "สวทช.",
-                        "value": 22,
-                        //"explode": true
-                    },
-                    {
-						"account_key": 02,
-                        "category": "สวทช.",
-                        "value": 2
-                    },
-                    {
-						"account_key": 03,
-                        "category": "สวทช.",
-                        "value": 49
-                    },
-                    {
-						"account_key": 04,
-                        "category": "ศจ.",
-                        "value": 27
-                    }
-                ];
-				*/
-
 		$("#pieChart").kendoChart({
 			theme:$(document).data("kendoSkin") || "metro",
 			chartArea:{
@@ -469,27 +371,6 @@ var pieChart= function(paramValue,titleText,paramSum){
                             //explodeField: "explode"
                         }],
 
-				/*
-			series: [{
-                            type: "pie",
-							name:"01",
-							
-							//data:paramValue
-								
-                            data: [ {
-								id:01,
-                                category: "01-สินทรัพย์หมุนเวียน",
-                                value: 35
-                            }, {
-								id:02,
-                                category: "02-สินทรัพย์ไม่หมุนเวียน",
-                                value: 65
-                            }]
-
-							
-                        }],
-						*/
-
                         tooltip: {
                             visible: true,
 							//template:"#= tootipFormat(value,"+paramSum+") #"
@@ -506,15 +387,11 @@ var pieChart= function(paramValue,titleText,paramSum){
 			},
 			seriesClick: onSeriesClick,
 
-
-		
-			//axisLabelClick: onAxisLabelClick
 			
 		});
 }//function pie chart end
 /*### Pie End  ###*/
 function onSeriesClick(e) { 
-	//console.log(e.dataItem['account_key']);
 	var $account_key=e.dataItem['account_key'];
 	//console.log($account_key);
 	var $category = e.category;
@@ -524,11 +401,6 @@ function onSeriesClick(e) {
 		dataType:'json',
 		data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'business_area': $('#domParamOrg').val(),'account_key':$account_key},
 			success:function(data){
-			//console.log(data[0]['series']);
-
-	//var $subCategory =$category.substring(0,2);
-	//alert($subCategory);
-
 					barChart(data[0]['series'],$category);
 					var $width=$("body").width()-100;
 
@@ -552,9 +424,10 @@ function onSeriesClick(e) {
 
 }//funciton
 //call Function PieChart 
+
 //call Function BarChart 
 var barChart = function(seriesParam,titleParam){
-	//alert("hello");
+
 			$("#chart").kendoChart({
 			theme:$(document).data("kendoSkin") || "metro",
 			title: {
@@ -595,12 +468,8 @@ var barChart = function(seriesParam,titleParam){
 
 
 
-		//#######################Graph Program End#######################01
+	//#######################Graph Program End#######################01
 
-
-
-	//alert("hello jquery");
-	// TITLE BY JSON START
 	/*########## Table Content Start ##########*/
 	var $titleJ =[
               {
@@ -627,10 +496,12 @@ var barChart = function(seriesParam,titleParam){
 
 
 var $titleJ2 =[
+			
               {
                   field: "Field1",
 				   width: 230
               },
+
               {
                   field: "Field2",
 				    width: 104
@@ -647,11 +518,7 @@ var $titleJ2 =[
               {
                   field: "Field6",
 					width: 100
-
-			
 			 }
-
-
            ];
 	var $titleJ3 =[
               {
@@ -729,121 +596,29 @@ var $titleJ5 =[
               {
                   field: "Field6",
 					width: 100
-
-			
 			 }
-
-
            ];
-
-
-
-	
 
 	var $dataJ =<%=dataDefault%>; 		
 	
-
-
-	var $dataJ21 =[
-                  {
-                      Field1: "เงินอุดหนุนจากรัฐบาล",
-					  Field2: "<div id='textR'>1,391.88</div>",
-                      Field3: "<div id='textR'> 1,279.12 </div>",
-					
-                      Field5: "<div id='textR'>8.82%</div>",
-					  Field6: "<div id='textR'>1,440.10 </div>",
-                  
-                     
-                  },{
-                      Field1: "เงินอุดหนุนอื่น",
-					  Field2: "<div id='textR'>2,391.88</div>",
-                      Field3: " <div id='textR'>216.80 </div>",
-					
-                      Field5: "<div id='textR'>10.68%</div>",
-					  Field6: "<div id='textR'>230.99 </div>",
-                   
-                     
-                  },{
-                      Field1: "รายได้ค่าบริการและขายสินค้า</div>",
-					  Field2: "<div id='textR'>187.43</div>",
-                      Field3: " <div id='textR'>139.17</div>",
-					
-                      Field5: "<div id='textR'>34.68%</div>",
-					  Field6: "<div id='textR'>190.10 </div>",
-                   
-                     
-                  },{
-                      Field1: "รายได้อื่นๆ",
-					  Field2: "<div id='textR'>173.28</div>",
-                      Field3: " <div id='textR'>171.27 </div>",
-				
-                      Field5: "<div id='textR'>1.17%</div>",
-					  Field6: "<div id='textR'>169.02 </div>",
-                  
-                     
-                  }
-				 
-				  ]; 
-		var $dataJ22 =[
-                  {
-                      Field1: "ค่าใช้จ่ายด้านบุคลากร",
-					  Field2: "<div id='textR'>914.39</div>",
-                      Field3: "<div id='textR'>786.34 </div>",
-					
-                      Field5: "<div id='textR'>16.28%</div>",
-					  Field6: "<div id='textR'>959.32</div> ",
-                  
-                     
-                  },{
-                      Field1: "ค่าใช้จ่ายด้านดำเนินงาน",
-					  Field2: "<div id='textR'>700.79</div>",
-                      Field3: "<div id='textR'>559.00 </div>",
-					
-                      Field5: "<div id='textR'>25.36%</div>",
-					  Field6: "<div id='textR'>695.2 </div>",
-                  
-                     
-                  },{
-                      Field1: "ค่าเสื่อนราคา",
-					  Field2: "<div id='textR'>303.46</div>",
-                      Field3: " <div id='textR'>254.5 </div>",
-				
-                      Field5: "<div id='textR'>19.24%</div>",
-					  Field6: "<div id='textR'>294.98 </div>",
-                 
-                     
-                  }
-				 
-				  ]; 
+	
 	//CONTENT BY JSON END
 
 	$("#grid").kendoGrid({
 		theme:$(document).data("kendoSkin") || "metro",
           height: 550,
-		 // width:800,
-	      //groupable: true,
-         /* scrollable: true,
-          sortable: true,
-          pageable: true,*/
-
 		  detailInit: detailInit2,
-
-		/*   dataBound: function() {
-                            this.expandRow(this.tbody.find("tr.k-master-row").first());
-                        },*/
-
-          columns: $titleJ,
+          columns: $titleJ, //[{ field: "Field1"},{field: "Field2"}]
           dataSource: {
-              data: $dataJ
-			  //pageSize: 10,
-			
+              data: $dataJ //[{"Field0":"datavaule0"},{"Field1":"datavalue1"},{"Field2":"datavalue2"}]
           }
       });
 	  /*########## Table Content End ##########*/
 
 	  //#################### Manment Pie Chart #######################
 
-		//Step1  Call Default
+		//Step1  Call Default 
+		//	เรียก pie chart
 
 var j=0;
 var dataLevel1 ="";
@@ -871,17 +646,18 @@ dataLevel1+="[";
 	});
 	dataLevel1+="]";
 	//get is json same dataType in ajax
+	//console.log(dataLevel1);
 	var obj = eval ("(" + dataLevel1 + ")"); 
 	var obj2=eval("("+titleText+")");
-	//console.log("obj"+dataLevel1);
-	//console.log("obj2"+titleText);
+
 	$("#boxR").show();
-	pieChart(obj,obj2);
+//	pieChart(obj,obj2);
 //Step1 Call Default
 
 //#################### Manment Pie Chart #######################
 			
 	 function detailInit2(e) {
+							//ผูกฟังก์ชั่น clickLevelAgain ให้สามารถคลิ๊กได้ย้อนหลัง
 							clickLevelAgain(".level2");
 							$(".k-minus").parent().next().addClass("clickable");
 			
@@ -894,15 +670,15 @@ dataLevel1+="[";
 								dataType:'json',
 								cache:false,
 								data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramArea':$('#domParamOrg').val(),'paramParentKey':e.data.account_key},
+
 								success:function(data){
 									//console.log(data);
-								//var $data_level2=  eval("(" + data + ")"); 
-//new level2 start
+
 										   $("<table bgcolor='#f5f5f5'><th></th></table>").kendoGrid({
 											detailInit: detailInit3,
-											columns: $titleJ2,
+											columns: $titleJ2,//[{ field: "Field1"},{field: "Field2"}]
 											dataSource: {
-											data: data
+											data: data //[{"Field1":"datavalue1"},{"Field2":"datavalue2"}]
 											//pageSize: 8
 											}
 											}).appendTo(e.detailCell);
@@ -979,9 +755,7 @@ dataLevel1+="[";
 								cache:false,
 								data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramArea':$('#domParamOrg').val(),'paramParentKey':e.data.account_key},
 								success:function(data){
-									//console.log(data);
-								//var $data_level2=  eval("(" + data + ")"); 
-//new level2 start
+
 										   $("<table><th></th></table>").kendoGrid({
 											detailInit: detailInit4,
 											columns: $titleJ3,
@@ -1000,8 +774,7 @@ dataLevel1+="[";
 	var dataLevel3 ="";
 	var j=0;
 	var titleText="{\"title\":\""+account_name+"\"}";
-	//alert("titleText"+titleText);
-	//console.log($(this).get());
+
 	dataLevel3+="[";
 	$(".parent_key"+account_key).each(function(){
 
@@ -1055,8 +828,6 @@ dataLevel1+="[";
 					
 					clickLevelAgain(".level4");
 					$(".k-minus").parent().next().addClass("clickable");
-					//alert(e.data.account_name);
-					//alert(e.data.account_key);
 						$.ajax({
 								url:'sp_profit_and_loss_list_by_center_level4.jsp',
 								type:'get',
@@ -1064,9 +835,7 @@ dataLevel1+="[";
 								cache:false,
 								data:{'paramYear':$('#domParamYear').val(),'paramMonth':$('#domParamMonth').val(),'paramArea':$('#domParamOrg').val(),'paramParentKey':e.data.account_key},
 								success:function(data){
-									//console.log(data);
-								//var $data_level2=  eval("(" + data + ")"); 
-//new level2 start
+
 										   $("<table><th></th></table>").kendoGrid({
 											detailInit: detailInit5,
 											columns: $titleJ4,
@@ -1085,8 +854,7 @@ dataLevel1+="[";
 	var dataLevel4 ="";
 	var j=0;
 	var titleText="{\"title\":\""+account_name+"\"}";
-	//alert("titleText"+titleText);
-	//console.log($(this).get());
+
 	dataLevel4+="[";
 	$(".parent_key"+account_key).each(function(){
 		
@@ -1263,6 +1031,7 @@ function tootipFormat(value,summ){
 	<div id="titleTop" style="text-align:right"> หน่วย : ล้านบาท </div>
 	 <div class="content"><!-- Content	 Start-->
  <div id="table_content">
+ <!-- สร้างตารางGrid-->
  <table id="grid">
   <thead>
       <tr>
