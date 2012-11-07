@@ -17,10 +17,6 @@ int year = Integer.parseInt(request.getParameter("year"));
 int month = Integer.parseInt(request.getParameter("month"));
 String center = request.getParameter("center");
 
-//java.sql.Connection con;
-//java.sql.Statement s;
-//java.sql.ResultSet rs;
-//java.sql.PreparedStatement pst;
 
 conn=null;
 st=null;
@@ -57,7 +53,6 @@ ArrayList ret = new ArrayList();
 // Make sure you have the Gson JAR in your classpath
 String sql = "call sp_ic_score_by_division_2("+year+","+month+","+center+")";
 //String sql = "select 1 as IC_Score,2 as BSC_Score,3 as Emp_Score union select 2 as IC_Score,5 as BSC_Score,6 as Emp_Score";
-
 
 try{
 st = conn.createStatement();

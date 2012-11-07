@@ -26,30 +26,18 @@ s=null;
 pst=null;
 rs=null;
 
-// Remember to change the next line with your own environment 
-//String url="jdbc:mysql://localhost/biotec_dwh";
-//String id= "root";
-//String pass = "password";
-
 try{
 Class.forName(Driver).newInstance();
 con=DriverManager.getConnection(connectionURL,User,Pass);
-//Class.forName("com.mysql.jdbc.Driver").newInstance(); 
-//con = java.sql.DriverManager.getConnection(url, id, pass);
-
 
 }catch(ClassNotFoundException cnfex){
 cnfex.printStackTrace();
-
 }
-
-
 //ArrayList
 ArrayList en_name = new ArrayList();
 ArrayList IC_Score = new ArrayList();
 ArrayList BSC_Score = new ArrayList();
 ArrayList Emp_Score = new ArrayList();
-
 // use
 ArrayList category = new ArrayList();
 category.add("IC_Score");
@@ -66,8 +54,6 @@ ArrayList ret = new ArrayList();
 // Make sure you have the Gson JAR in your classpath
 String sql = "call sp_top20_ic_score_2("+year+","+month+")";
 //String sql = "select 1 as IC_Score,2 as BSC_Score,3 as Emp_Score union select 2 as IC_Score,5 as BSC_Score,6 as Emp_Score";
-
-
 try{
 s = con.createStatement();
 rs = s.executeQuery(sql);
