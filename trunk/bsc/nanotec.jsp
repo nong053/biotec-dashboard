@@ -399,7 +399,7 @@ font-size:14px;
 
 	$("#grid").kendoGrid({
 		
-          height: 490,
+         // height: 490,
 	  
 
 		/*   dataBound: function() {
