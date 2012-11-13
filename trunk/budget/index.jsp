@@ -108,7 +108,7 @@ String center_name="";
 		int	cYear =  Integer.parseInt(rs.getString("year_date"));
 		int	cMonth = Integer.parseInt(rs.getString("month_date"))-1;
 		if((cMonth+3) > 12) {
-			cYear = cYear ;
+			cYear = cYear+1 ;
 		}
 		if((cMonth+3)%12!=0){
 			cMonth = (cMonth+3)%12;
