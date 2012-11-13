@@ -116,7 +116,7 @@
 		Query="CALL sp_fiscal_year()";
 		rs = st.executeQuery(Query);
 		while(rs.next()){
-			// ถ้าปีปัจจุบันเท่ากับปีที่อยู่มาจาก stored procedure ให้ทำการแสดงผลปีนั้น
+			// ถ้าปีปัจจุบันเท่ากับปีที่มาจาก stored procedure ให้ทำการแสดงผลปีนั้น
 			if( rs.getString("fiscal_year").equals(cYear+"")){
 				V_Year += "<option value=\""+rs.getString("fiscal_year")+"\"  selected='selected'>"+rs.getString("buddhist_era_year")+"</option>";
 			}
