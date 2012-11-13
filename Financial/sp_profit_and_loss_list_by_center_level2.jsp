@@ -48,7 +48,7 @@ Double Result=0.0;
 			if(currentAmt==0.0){
 			GrowthPercentage=0.0;
 			}else{
-			Result = pMonthAmt-currentAmt;
+			Result = currentAmt-pMonthAmt;
 			GrowthPercentage =(Result / currentAmt)* 100;
 			}
 
@@ -68,7 +68,7 @@ Double Result=0.0;
 			if(currentAmt==0.0){
 			GrowthPercentage=0.0;
 			}else{
-			Result = pMonthAmt-currentAmt;
+			Result = currentAmt-pMonthAmt;
 			GrowthPercentage =(Result / currentAmt)* 100;
 			}
 
