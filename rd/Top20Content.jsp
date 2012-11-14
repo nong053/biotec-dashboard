@@ -52,7 +52,7 @@ ArrayList ret = new ArrayList();
 
 
 // Make sure you have the Gson JAR in your classpath
-String sql = "call sp_top20_ic_score_2("+year+","+month+")";
+String sql = "call sp_top20_ic_score("+year+","+month+")";
 //String sql = "select 1 as IC_Score,2 as BSC_Score,3 as Emp_Score union select 2 as IC_Score,5 as BSC_Score,6 as Emp_Score";
 try{
 s = con.createStatement();
