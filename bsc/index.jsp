@@ -101,7 +101,7 @@
 		rs.next();
 		int	cYear =  Integer.parseInt(rs.getString("year_date"));
 
-		int	cMonth = Integer.parseInt(rs.getString("month_date"))-2;
+		int	cMonth = Integer.parseInt(rs.getString("month_date"))-1;
 
 		if((cMonth+3) > 12) {
 			cYear = cYear+1 ;
