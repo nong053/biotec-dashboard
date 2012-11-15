@@ -500,9 +500,9 @@ font-size:14px;
 		  <th data-field="Field5_1"><center><b>ข้อมูลฐาน</b></center></th>
 		
 		  <th data-field="Field6"><center><b>ผลงานสะสม</b></center></th>
-		  <th data-field="Field7"><center><b>% เทียบเป้าหมาย</b></center></th>
-		  <th data-field="Field7_1"><center><b>คะแนน<br>ถ่วงน้ำหนัก </b></center></th>
-		  <th data-field="Field9"><center><b> กราฟคะแนน<br>ถ่วงน้ำหนัก</b></center></th>
+		  <th data-field="Field7"><center><b>% เทียบ<br>เป้าหมาย</b></center></th>
+		  <th data-field="Field7_1"><center><b>คะแนน</b></center></th>
+		  <th data-field="Field9"><center><b> กราฟคะแนน</b></center></th>
 
 	  </tr>
   </thead>
