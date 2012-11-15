@@ -550,7 +550,7 @@ $(".ball").corner();
 	</tbody>
 </table>
 <div style="padding:5px;">
-<b>ผลการดำเนินงานที่มอบหมาย(สะสม)</b>
+<b>ผลการดำเนินงานที่มอบหมาย(สะสมรายเดือน)</b>
 </div>
 <div style="padding:10px;">
 <%
