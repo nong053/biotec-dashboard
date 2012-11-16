@@ -35,10 +35,15 @@ String titleStr = "";
 Query="CALL sp_owner_wavg_score(";
 Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
 rs = st.executeQuery(Query);
-while(rs.next()){
-	String ParamScore =  rs.getString("owner_wavg_score") ;
-	titleStr="ศูนย์บริหารจัดการเทคโนโลยีได้ " + ParamScore +" คะแนน";
+
+
+String ParamScore="";
+if (rs == null || !rs.first()) {
+	ParamScore = "0.00" ;
+} else {
+	ParamScore =  rs.getString("owner_wavg_score") ;
 }
+titleStr="ศูนย์บริหารจัดการเทคโนโลยีได้ " + ParamScore +" คะแนน";
 //varible manage Decimal 
 String  performanceNumber="";
 String[] getDecimal;

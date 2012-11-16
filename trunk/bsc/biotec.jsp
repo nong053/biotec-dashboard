@@ -35,13 +35,14 @@ Query="CALL sp_owner_wavg_score(";
 Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
 rs = st.executeQuery(Query);
 
-while(rs.next()){
-	String ParamScore =  rs.getString("owner_wavg_score") ;
-	titleStr="ผลสำเร็จ ศูนย์พันธุวิศวกรรมและเทคโนโลยีชีวภาพแห่งชาติได้ " + ParamScore +" คะแนน";
+String ParamScore="";
+if (rs == null || !rs.first()) {
+	ParamScore = "0.00" ;
+} else {
+	ParamScore =  rs.getString("owner_wavg_score") ;
 }
-if(!rs.next()){
-	titleStr="ผลสำเร็จ ศูนย์พันธุวิศวกรรมและเทคโนโลยีชีวภาพแห่งชาติได้ 0.00 คะแนน";
-}
+titleStr="ผลสำเร็จ ศูนย์พันธุวิศวกรรมและเทคโนโลยีชีวภาพแห่งชาติได้ " + ParamScore +" คะแนน";
+
 
 String  performanceNumber="";
 String[] getDecimal;
