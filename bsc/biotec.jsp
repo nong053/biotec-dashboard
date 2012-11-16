@@ -34,9 +34,13 @@ String titleStr = "";
 Query="CALL sp_owner_wavg_score(";
 Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
 rs = st.executeQuery(Query);
+
 while(rs.next()){
 	String ParamScore =  rs.getString("owner_wavg_score") ;
 	titleStr="ผลสำเร็จ ศูนย์พันธุวิศวกรรมและเทคโนโลยีชีวภาพแห่งชาติได้ " + ParamScore +" คะแนน";
+}
+if(!rs.next()){
+	titleStr="ผลสำเร็จ ศูนย์พันธุวิศวกรรมและเทคโนโลยีชีวภาพแห่งชาติได้ 0.00 คะแนน";
 }
 
 String  performanceNumber="";
@@ -58,8 +62,7 @@ while(rs.next()){
 	String kpi_code = rs.getString("kpi_code");
 	String kpi = rs.getString("kpi") ;
 	tableFun += "{Field2: \"";
-
-	tableFun += "<div class =kpiN id="+i+" >"+kpi_code+"</div>"+kpi;
+	tableFun += "<div class =kpiN id="+i+">"+kpi_code+"</div>"+kpi;
 	out.print("<div class=tootip id="+i+"><b>"+rs.getString("kpi_comment")+"</b></div>");
 	//=============Get Url with Details Button Start============
 	String urlpage = rs.getString("url");
