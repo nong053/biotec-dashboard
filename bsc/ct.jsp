@@ -35,10 +35,14 @@ String titleStr = "";
 Query="CALL sp_owner_wavg_score(";
 Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
 rs = st.executeQuery(Query);
-while(rs.next()){
-	String ParamScore =  rs.getString("owner_wavg_score") ;
-	titleStr="ผลสำเร็จ สายงานด้านวิจัยนโยบาย สารสนเทศและสื่อสารองค์กรได้ " + ParamScore +" คะแนน";
+
+String ParamScore="";
+if (rs == null || !rs.first()) {
+	ParamScore = "0.00" ;
+} else {
+	ParamScore =  rs.getString("owner_wavg_score") ;
 }
+titleStr="ผลสำเร็จ สายงานด้านวิจัยนโยบาย สารสนเทศและสื่อสารองค์กรได้ " + ParamScore +" คะแนน";
 //varible manage Decimal 
 String  performanceNumber="";
 String[] getDecimal;
