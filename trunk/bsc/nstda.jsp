@@ -51,6 +51,7 @@ String  performanceNumber="";
 String[] getDecimal;
 String decimal1="";
 String decimal2="";
+String decimal3="";
 //เรียก stored procedure เพื่อจัดรูปแบบข้อมูลให้อยู่ในรูป json นำ json ที่ได้เป็นค่าเริ่มต้นของ data grid
 Query="CALL sp_parent_kpi_list(";
 Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
