@@ -131,6 +131,7 @@ while(rs.next()){
 	}
 	try{
 	String performanceStr=numberFormatterD3.format(Double.parseDouble(performance_value));
+	
 	out.print("======================");
    out.print("performanceStr"+performanceStr+"<br>");
 	// management Decimal start
@@ -154,7 +155,7 @@ while(rs.next()){
 	  decimal2 =getDecimal[1].substring(1,2);
 	  //ถ้าเป็น 0 ไม่ให้แสดง
 	  //ตัวอย่าง 10.10 ให้แสดงเป็น 10.1
-	  if(Integer.parseInt(decimal2)==0){
+	  if((Integer.parseInt(decimal2)==0) && (decimal3.equals(""))){
 	  decimal2="";
 	  }else {
 		  //ถ้าไม่ == 0 ให้แสดง
