@@ -3,6 +3,7 @@
 <%@page import="java.text.DecimalFormat" %>
 <%
 DecimalFormat numberFormatter = new DecimalFormat("###,###,##0.00");
+DecimalFormat numberFormatterD3 = new DecimalFormat("###,###,##0.000");
 %>
 <%! 
     String getColorBall(int position,String color,int id)
@@ -48,6 +49,7 @@ String  performanceNumber="";
 String[] getDecimal;
 String decimal1="";
 String decimal2="";
+String decimal3="";
 
 Query="CALL sp_parent_kpi_list(";
 Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
@@ -102,28 +104,38 @@ while(rs.next()){
 		performance_value="0";
 	}
 	try{
-	String performanceStr=numberFormatter.format(Double.parseDouble(performance_value));
+	String performanceStr=numberFormatterD3.format(Double.parseDouble(performance_value));
 
 	// management Decimal start
 	  String addDash=performanceStr.replace(".","-");
 	  getDecimal = addDash.split("-");
-	  decimal2 =getDecimal[1].substring(1);
-	  if(decimal2.equals("0")){
-	  decimal2="";
-	  }else{
-		 decimal2=getDecimal[1].substring(1);
+	  //ตรวจสอบทศนิยมตำแหน่งที่3
+	  decimal3 =getDecimal[1].substring(2,3);
+	  if(Integer.parseInt(decimal3)==0){
+	  decimal3="";
+	  }else {
+		 decimal3=getDecimal[1].substring(2,3);
 	  }
+	  //ตรวจสอบทศนิยมตำแหน่งที่2
+	  decimal2 =getDecimal[1].substring(1,2);
+	  if((Integer.parseInt(decimal2)==0) && (decimal3.equals(""))){
+	  decimal2="";
+	  }else {
+		 decimal2=getDecimal[1].substring(1,2);
+	  }
+	  //ตรวจสอบทศนิยมตำแหน่งที่1
 	   decimal1 =getDecimal[1].substring(0,1);
 			if(decimal1.equals("0")){
 				decimal1="0";
 			}else{
 				 decimal1 =getDecimal[1].substring(0,1);
 			}
-	String numDecimal = decimal1+""+decimal2;
+	String numDecimal = decimal1+""+decimal2+""+decimal3;
+	//ตรวจสอบทศนิยมทั้งหมด ถ้ามีค่าเป็น 0 ไม่ต้องแสดงทศนิยม
 	if(numDecimal.equals("0")){
 		  performanceNumber=getDecimal[0];
 	}else{
-		  performanceNumber=getDecimal[0]+"."+decimal1+""+decimal2;
+		  performanceNumber=getDecimal[0]+"."+decimal1+""+decimal2+""+decimal3;
 	}
 	// management Decimal end
 	performance_value = performanceNumber;

@@ -132,8 +132,7 @@ while(rs.next()){
 	try{
 	String performanceStr=numberFormatterD3.format(Double.parseDouble(performance_value));
 	
-	out.print("======================");
-   out.print("performanceStr"+performanceStr+"<br>");
+
 	// management Decimal start
 	//จัดการกับทศนิยม ถ้ามีทศนิยม3ตำแหน่งให้แสดง3 ตำแหน่งถ้ามีทศนิยม2ตำแหน่งให้แสดง2ตำแหน่งถ้ามีทศนิยม1ตำแหน่งให้แสดง1ตำแหน่ง
 	//ถ้าไม่มีทศนิยมไม่ต้องแสดง
@@ -171,10 +170,7 @@ while(rs.next()){
 				 decimal1 =getDecimal[1].substring(0,1);
 			}
 	String numDecimal = decimal1+""+decimal2+""+decimal3;
-	out.print("decimal1="+decimal1+"<br>");
-	out.print("decimal2="+decimal2+"<br>");
-	out.print("decimal3="+decimal3+"<br>");
-	out.print("numDecimal"+numDecimal+"<br>");
+	
 	//ตรวจสอบทศนิยมทั้งหมด ถ้ามีค่าเป็น 0 ไม่ต้องแสดงทศนิยม
 	if(numDecimal.equals("0")){
 		  performanceNumber=getDecimal[0];
