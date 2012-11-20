@@ -109,7 +109,7 @@ while(rs.next()){
 	// management Decimal start
 	  String addDash=performanceStr.replace(".","-");
 	  getDecimal = addDash.split("-");
-	//ตรวจสอบทศนิยมตำแหน่งที่3
+	 //ตรวจสอบทศนิยมตำแหน่งที่3
 	  decimal3 =getDecimal[1].substring(2,3);
 	  if(Integer.parseInt(decimal3)==0){
 	  decimal3="";
@@ -118,7 +118,7 @@ while(rs.next()){
 	  }
 	  //ตรวจสอบทศนิยมตำแหน่งที่2
 	  decimal2 =getDecimal[1].substring(1,2);
-	 if((Integer.parseInt(decimal2)==0) && (decimal3.equals(""))){
+	  if((Integer.parseInt(decimal2)==0) && (decimal3.equals(""))){
 	  decimal2="";
 	  }else {
 		 decimal2=getDecimal[1].substring(1,2);
