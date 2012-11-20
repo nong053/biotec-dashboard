@@ -118,7 +118,7 @@ while(rs.next()){
 	  }
 	  //ตรวจสอบทศนิยมตำแหน่งที่2
 	  decimal2 =getDecimal[1].substring(1,2);
-	  if(Integer.parseInt(decimal2)==0){
+	 if((Integer.parseInt(decimal2)==0) && (decimal3.equals(""))){
 	  decimal2="";
 	  }else {
 		 decimal2=getDecimal[1].substring(1,2);
