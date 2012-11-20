@@ -3,6 +3,7 @@
 <%@page import="java.text.DecimalFormat" %>
 <%
 DecimalFormat numberFormatter = new DecimalFormat("###,###,##0.00");
+DecimalFormat numberFormatterD3 = new DecimalFormat("###,###,##0.000");
 %>
 <%! 
 //ฟังก์ชั่นจัดการ ball score
@@ -126,38 +127,39 @@ while(rs.next()){
 	//tableFun += "<div id=textR>"+ performance_value +"</div> \",";
 	performance_value=performance_value.trim();
 	if(performance_value.equals("")){
-		performance_value="0";
+		performance_value="0.00";
 	}
 	try{
-	String performanceStr=numberFormatter.format(Double.parseDouble(performance_value));
-
+	String performanceStr=numberFormatterD3.format(Double.parseDouble(performance_value));
+	out.print("======================");
+   out.print("performanceStr"+performanceStr+"<br>");
 	// management Decimal start
 	//จัดการกับทศนิยม ถ้ามีทศนิยม3ตำแหน่งให้แสดง3 ตำแหน่งถ้ามีทศนิยม2ตำแหน่งให้แสดง2ตำแหน่งถ้ามีทศนิยม1ตำแหน่งให้แสดง1ตำแหน่ง
 	//ถ้าไม่มีทศนิยมไม่ต้องแสดง
 	  String addDash=performanceStr.replace(".","-");
 	  getDecimal = addDash.split("-");
-	//ตรวจสอบทศนิยมตำแหน่งที่3
-	  decimal3 =getDecimal[1].substring(2);
+
+	  //ตรวจสอบทศนิยมตำแหน่งที่3
+	  decimal3 =getDecimal[1].substring(2,3);
 	  //ถ้าเป็น 0 ไม่ให้แสดง
-	  //ตัวอย่าง 10.100 ให้แสดงเป็น 10.1
-	  if(decimal3.equals("0")){
+	  //ตัวอย่าง 10.110 ให้แสดงเป็น 10.11
+	  if(Integer.parseInt(decimal3)==0){
 	  decimal3="";
-	  }else{
+	  }else {
 		  //ถ้าไม่ == 0 ให้แสดง
 		  //ตัวอย่าง 10.111 ก็ให้แสดงเป็น 10.111
-		 decimal3=getDecimal[1].substring(2);
+		 decimal3=getDecimal[1].substring(2,3);
 	  }
-
 	  //ตรวจสอบทศนิยมตำแหน่งที่2
-	  decimal2 =getDecimal[1].substring(1);
+	  decimal2 =getDecimal[1].substring(1,2);
 	  //ถ้าเป็น 0 ไม่ให้แสดง
 	  //ตัวอย่าง 10.10 ให้แสดงเป็น 10.1
-	  if(decimal2.equals("0")){
+	  if(Integer.parseInt(decimal2)==0){
 	  decimal2="";
-	  }else{
+	  }else {
 		  //ถ้าไม่ == 0 ให้แสดง
 		  //ตัวอย่าง 10.11 ก็ให้แสดงเป็น 10.11
-		 decimal2=getDecimal[1].substring(1);
+		 decimal2=getDecimal[1].substring(1,2);
 	  }
 
 	  //ตรวจสอบทศนิยมตำแหน่งที่1
@@ -168,6 +170,10 @@ while(rs.next()){
 				 decimal1 =getDecimal[1].substring(0,1);
 			}
 	String numDecimal = decimal1+""+decimal2+""+decimal3;
+	out.print("decimal1="+decimal1+"<br>");
+	out.print("decimal2="+decimal2+"<br>");
+	out.print("decimal3="+decimal3+"<br>");
+	out.print("numDecimal"+numDecimal+"<br>");
 	//ตรวจสอบทศนิยมทั้งหมด ถ้ามีค่าเป็น 0 ไม่ต้องแสดงทศนิยม
 	if(numDecimal.equals("0")){
 		  performanceNumber=getDecimal[0];
@@ -175,6 +181,8 @@ while(rs.next()){
 		  performanceNumber=getDecimal[0]+"."+decimal1+""+decimal2+""+decimal3;
 	}
 	// management Decimal end
+
+
 	performance_value = performanceNumber;
 	}catch(NumberFormatException nfe){
 		performance_value = performance_value;
