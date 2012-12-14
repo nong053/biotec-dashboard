@@ -53,7 +53,7 @@ Double Result=0.0;
 			GrowthPercentage=0.0;
 			}else{
 			Result = currentAmt-pMonthAmt;
-			GrowthPercentage =(Result / currentAmt)* 100;
+			GrowthPercentage =(Result / pMonthAmt)* 100;
 			}
 
 		dataLevel5+="\"Field5\":\"<div class='textR'>"+numberFormatter.format(GrowthPercentage)+"%</div>\",";
@@ -73,7 +73,7 @@ Double Result=0.0;
 			GrowthPercentage=0.0;
 			}else{
 			Result = currentAmt-pMonthAmt;
-			GrowthPercentage =(Result / currentAmt)* 100;
+			GrowthPercentage =(Result / pMonthAmt)* 100;
 			}
 
 		dataLevel5+="\"Field5\":\"<div class='textR'>"+numberFormatter.format(GrowthPercentage)+"%</div>\",";
