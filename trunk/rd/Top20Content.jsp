@@ -53,7 +53,7 @@ ArrayList ret = new ArrayList();
 
 // Make sure you have the Gson JAR in your classpath
 String sql = "call sp_top20_ic_score("+year+","+month+")";
-//String sql = "select 1 as IC_Score,2 as BSC_Score,3 as Emp_Score union select 2 as IC_Score,5 as BSC_Score,6 as Emp_Score";
+//String sql = "select 1 as IC_Score,2 as BSC_Score,3 as Emp_Score union select 2 as IC_Score,5 as BSC_Score,6 as 'Employee(JF2000)'";
 try{
 s = con.createStatement();
 rs = s.executeQuery(sql);
@@ -61,15 +61,18 @@ rs = s.executeQuery(sql);
 		en_name.add('"'+rs.getString("en_name")+'"');	
 		IC_Score.add(rs.getInt("IC_Score"));	
 		BSC_Score.add(rs.getInt("BSC_Score"));	
-		Emp_Score.add(rs.getInt("Emp_Score"));
+		Emp_Score.add(rs.getInt("Employee(JF2000)"));
 	}	
 	serie1.put("name","IC_Score");
+	serie1.put("axis","one");
 	serie1.put("data",IC_Score);
 	series.add(serie1);
 	serie2.put("name","BSC_Score");
+	serie2.put("axis","one");
 	serie2.put("data",BSC_Score);
 	series.add(serie2);
-	serie3.put("name","Emp_Score");
+	serie3.put("name","Employee(JF2000)");
+	serie3.put("axis","two");
 	serie3.put("data",Emp_Score);
 	series.add(serie3);
 	main.put("category",en_name.toString());
