@@ -345,7 +345,7 @@ var baChart_sp_ic_score_by_center= function(seriesParam, categoryParam){
 							stack: false
                         },
                         series:seriesParam,
-                      valueAxis: [{
+						valueAxis: [{
 								name: "one",
                             title: { text: "" },
                            // min: 0,
@@ -589,6 +589,7 @@ var baChart_sp_top20_ic_score= function(categoryParam,seriesParam){
                         },
                         series: seriesParam,
                        valueAxis: [{
+							name: "one",
                             title: { text: "" },
 							 labels: {
                                 template: "#= kendo.format('{0:N0}', value ) # "
@@ -596,7 +597,7 @@ var baChart_sp_top20_ic_score= function(categoryParam,seriesParam){
                            // min: 0,
                            // max: 1400
                         }, {
-                            name: "Varaince",
+                            name: "two",
                             title: { text: "" },
                             min: 0,
                             max: 140
