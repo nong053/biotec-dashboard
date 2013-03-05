@@ -211,7 +211,7 @@ out.println("Error"+ex);
 				//console.log(data[1]["series_center"]);
 
 				$("#divisionName").text($("#domParamCenter").val());
-				OutputTypeOpenUrlHandle($("#domParamCenter").val(),'','',parseInt($("#domParamYear").val())+543);
+				OutputTypeOpenUrlHandle(parseInt($("#domParamYear").val()),parseInt($("#domParamMonth").val()),$("#domParamCenter").val(),'','');
 				baChart_sp_ic_score_by_department('','');
 				baChart_sp_ic_score_by_center(data[1]["series_center"],data[0]["category_center"]);
 				pieChart_sp_ic_score_by_job_family(data[2]["pie_sp_ic_score"],data[3]["sum_pie_sp_ic_score"]);
@@ -231,11 +231,11 @@ out.println("Error"+ex);
 
 	/* ### Ajax to server Function ### */
 	
-function OutputTypeOpenUrlHandle(center,div,dept,year){
+function OutputTypeOpenUrlHandle(year,month,center,div,dept){
 
 	$("#ic_score_open").unbind('click');
 	$("#ic_score_open").click(function(){
-		var url = "https://app2.biotec.or.th/dw/icscore_02_open.asp?t=out&emp_out="+center+","+div+","+dept+"&bgy="+year+"";
+		var url = "<%=request.getContextPath()%>/csv/csv_rd.jsp?year="+year+"&month="+month+"&center_en="+center+"&division_en="+div+"&department_en="+dept;
 		window.open(url,"_blank");
 	});
 }	
@@ -312,7 +312,7 @@ function  checkBarTypeCenter(e){
 				console.log(data[11]["series_emp_by_job_grade"]);
 */
 				$("#divisionName").text($("#domParamCenter").val());
-				OutputTypeOpenUrlHandle($("#domParamCenter").val(),'','',parseInt($("#domParamYear").val())+543);
+				OutputTypeOpenUrlHandle(parseInt($("#domParamYear").val()),parseInt($("#domParamMonth").val()),$("#domParamCenter").val(),'','');
 				baChart_sp_ic_score_by_department('','');
 				//baChart_sp_ic_score_by_division(data[2]["category_division"],data[3]["series_division"]);
 				pieChart_sp_ic_score_by_job_family(data[2]["pie_sp_ic_score"],data[3]["sum_pie_sp_ic_score"]);
@@ -414,7 +414,7 @@ function checkBarTypeDivision(e){
 				console.log(data[13]["series_by_department"]);
 */
 				$("#departmentName").text($("#domParamDivision").val());
-				OutputTypeOpenUrlHandle($("#domParamCenter").val(),$("#domParamDivision").val(),'',parseInt($("#domParamYear").val())+543);
+				OutputTypeOpenUrlHandle(parseInt($("#domParamYear").val()),parseInt($("#domParamMonth").val()),$("#domParamCenter").val(),$("#domParamDivision").val(),'');
 				pieChart_sp_ic_score_by_job_family(data[2]["pie_sp_ic_score"],data[3]["sum_pie_sp_ic_score"]);
 				stackChart_sp_ic_score_by_output_type(data[4]["category_by_output_type"],data[5]["series_by_output_type"]);
 				stackChart_sp_count_emp_all_vs_jf2000(data[6]["category_emp_all_vs_jf2000"],data[7]["series_emp_all_vs_jf2000"]);
@@ -510,7 +510,7 @@ function checkBarTypeDepartment(e){
 				console.log(data[12]["category_by_department"]);
 				console.log(data[13]["series_by_department"]);
 */
-				OutputTypeOpenUrlHandle($("#domParamCenter").val(),$("#domParamDivision").val(),$("#domParamDepartment").val(),parseInt($("#domParamYear").val())+543);
+				OutputTypeOpenUrlHandle(parseInt($("#domParamYear").val()),parseInt($("#domParamMonth").val()),$("#domParamCenter").val(),$("#domParamDivision").val(),$("#domParamDepartment").val());
 				pieChart_sp_ic_score_by_job_family(data[2]["pie_sp_ic_score"],data[3]["sum_pie_sp_ic_score"]);
 				stackChart_sp_ic_score_by_output_type(data[4]["category_by_output_type"],data[5]["series_by_output_type"]);
 				stackChart_sp_count_emp_all_vs_jf2000(data[6]["category_emp_all_vs_jf2000"],data[7]["series_emp_all_vs_jf2000"]);

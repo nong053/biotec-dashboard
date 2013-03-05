@@ -101,7 +101,7 @@
 		rs.next();
 		int	cYear =  Integer.parseInt(rs.getString("year_date"));
 
-		int	cMonth = Integer.parseInt(rs.getString("month_date"))-1;
+		int	cMonth = Integer.parseInt(rs.getString("month_date"))-1;	//adjust default month by siam.nak (2012.11.15)
 
 		if((cMonth+3) > 12) {
 			cYear = cYear+1 ;
