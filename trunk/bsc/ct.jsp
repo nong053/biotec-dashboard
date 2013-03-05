@@ -43,7 +43,20 @@ if (rs == null || !rs.first()) {
 } else {
 	ParamScore =  rs.getString("owner_wavg_score") ;
 }
-titleStr="ผลสำเร็จ สายงานด้านวิจัยนโยบาย สารสนเทศและสื่อสารองค์กรได้ " + ParamScore +" คะแนน";
+//[BEGIN]
+//**add filename by siam.nak 2013/01/13**
+String orgFile = "";
+Query="CALL sp_owner_file(";
+Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
+rs = st.executeQuery(Query);
+if(rs.next()){
+	orgFile = rs.getString("owner_filename").trim();
+}
+if(orgFile.length() > 0) orgFile = " <a href='"+orgFile+"' target='_blank'><button class='k-button'>File</button></a>";
+//**add filename by siam.nak 2013/01/13**
+//[END]
+
+titleStr="ผลสำเร็จ สายงานด้านวิจัยนโยบาย สารสนเทศและสื่อสารองค์กรได้ " + ParamScore +" คะแนน" + orgFile;
 //varible manage Decimal 
 String  performanceNumber="";
 String[] getDecimal;
@@ -69,16 +82,28 @@ while(rs.next()){
 	tableFun += "<div class =kpiN id="+i+">"+kpi_code+"</div>"+kpi;
 	out.print("<div class=tootip id="+i+"><b>"+rs.getString("kpi_comment")+"</b></div>");
 
+	//[BEGIN]
+	//**add filename by siam.nak 2013/01/13**
+	String kpi_file = rs.getString("kpi_filename");
+	if(kpi_file == null || kpi_file.equals("")){ kpi_file = ""; }
+	else if(kpi_file.trim().length() > 0) kpi_file = " <a href='"+kpi_file+"' target='_blank'><button class='k-button'>File</button></a>";
+
+	String kpi_url = rs.getString("kpi_url");
+	if(kpi_url == null || kpi_url.equals("")){ kpi_url = ""; }
+	else if(kpi_url.trim().length() > 0) kpi_url = " <a href='"+kpi_url+"' target='_blank'><button class='k-button'>URL</button></a>";
+	//**add filename by siam.nak 2013/01/13**
+	//[END]
+
 	//=============Get Url with Details Button Start============
 	String urlpage = rs.getString("url");
 	//out.print("["+urlpage+"]WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW") ;
 	if(urlpage == null || urlpage.equals(""))
 	{
-		tableFun +="";
+		tableFun +=""+kpi_file+kpi_url;
 	}
 	else
 	{
-		tableFun +=" <a href="+urlpage+"?ks="+kpi_code+"&yy="+ParamYear+"&mm="+ParamMonth+" target=_blank><button class=k-button>Detail</button></a> ";
+		tableFun +=" <a href="+urlpage+"?ks="+kpi_code+"&yy="+ParamYear+"&mm="+ParamMonth+" target=_blank><button class=k-button>Detail</button></a>"+kpi_file+kpi_url;
 	}
 	tableFun += "\", ";
 
@@ -531,7 +556,7 @@ font-size:14px;
 		  <th data-field="Field6"><center><b>ผลงานสะสม</b></center></th>
 		  <th data-field="Field7"><center><b>% เทียบ<br>เป้าหมาย</b></center></th>
 		  <th data-field="Field7_1"><center><b>คะแนน</b></center></th>
-		  <th data-field="Field9"><center><b> กราฟคะแนน</b></center></th>
+		  <th data-field="Field9"><center><b>กราฟ<br>ผลงานสะสม</b></center></th>
 
 	  </tr>
   </thead>
@@ -618,7 +643,7 @@ $(".ball").corner();
 %>
 		<tr>
 			<td style="text-align:center"><%=rs.getString("assign_order")%></td> 
-			<td><%=rs.getString("assign_desc")%></td>
+			<td><%=(rs.getString("assign_desc")).replaceAll("\n", "<br>")%></td>
 		</tr>
 <%}%>
 	</tbody>

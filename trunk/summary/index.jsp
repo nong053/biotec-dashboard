@@ -171,7 +171,7 @@
 			rs1 = st1.executeQuery(Query1);
 			i = 0; 
 			while(rs1.next()){
-				int presentMonth = rs1.getInt("month_date")-2;	//adjust month by siam.nak (2012.11.01)
+				int presentMonth = rs1.getInt("month_date")-1;	//adjust default month by siam.nak (2012.11.15)
 				int present_year = rs1.getInt("year_date");
 				presentMonth = presentMonth +3 ; 
 				if(presentMonth>12){
@@ -199,7 +199,7 @@
 			st1 = conn.createStatement();
 			rs1 = st1.executeQuery(Query1);
 			while(rs1.next()){
-				int presentMonth = rs1.getInt("month_date")-2;	//adjust month by siam.nak (2012.11.01)
+				int presentMonth = rs1.getInt("month_date")-1;	//adjust default month by siam.nak (2012.11.15)
 				//int presentMonth = 10;
 				presentMonth = presentMonth +3 ;
 				if(presentMonth>12){
@@ -876,8 +876,8 @@ var ParamYearArr = <%=textMonth%>;
 	//กด submit ฟังก์ชันจัดการ
 				$("#form_1").submit(function(){
 					//ตอนกดปุ่ม submit สั่งให้ #checkRadio1 ทำงานด้วย
-						$("#checkRadio1").trigger("click");
-						$.ajax({
+					$("#checkRadio1").trigger("click");
+					$.ajax({
 						url:'Process.jsp',
 						type:'GET',
 						dataType:'html',
@@ -892,8 +892,11 @@ var ParamYearArr = <%=textMonth%>;
 							$(".ball").tooltip({
 							color:"black"
 							});
-						}						
-						});
+						}
+						//,error: function (request, status, error) {
+						//		   alert(request.responseText);
+					    //}
+					});
 				return false;
 				});
 		//เปิดโปรแกรมครั้งแรกให้โปรแกรมทำงานเลย

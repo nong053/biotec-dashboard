@@ -40,11 +40,11 @@ String decimal2="";
 
 String orgScore = "";
 
+//**commented by siam.nak 2013/01/12**
 //== Added by Thapanat.sop 2012/11/06		
-if(ParamMonth.equals("12"))
-{	orgScore ="คะแนนรวม 96.09 คะแนน";
-
-}else{
+//if(ParamMonth.equals("12"))
+//{	orgScore ="คะแนนรวม 96.09 คะแนน";
+//}else{
 	Query="CALL sp_owner_wavg_score(";
 	Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
 	rs = st.executeQuery(Query);
@@ -52,13 +52,27 @@ if(ParamMonth.equals("12"))
 		String ParamScore =  rs.getString("owner_wavg_score") ;
 		orgScore ="คะแนนรวม " + ParamScore +" คะแนน";
 	}
-} 	
-//== Added by Thapanat.sop 2012/11/06		
-
+//} 	
+//== Added by Thapanat.sop 2012/11/06	
+//**commented by siam.nak 2013/01/12**
 if(orgScore == null || orgScore.equals("")){
-			orgScore = "คะแนนรวม 0  คะแนน";
-	}
-	
+	orgScore = "คะแนนรวม 0  คะแนน";
+}
+
+
+//[BEGIN]
+//**add filename by siam.nak 2013/01/12**
+String orgFile = "";
+Query="CALL sp_owner_file(";
+Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
+rs = st.executeQuery(Query);
+if(rs.next()){
+	orgFile = rs.getString("owner_filename").trim();
+}
+//**add filename by siam.nak 2013/01/12**
+//[END]
+
+
 Query="CALL sp_parent_kpi_list(";
 Query += ParamYear+"," + ParamMonth +",\""+ParamOrg+"\")";
 rs = st.executeQuery(Query);
@@ -81,19 +95,31 @@ while(rs.next()){
 	tableFun += "<div class =kpiN id="+i+">"+kpi_code+"</div>"+kpi;
 	out.print("<div class=tootip id="+i+"><b>"+rs.getString("kpi_comment")+"</b></div>");
 
+	//[BEGIN]
+	//**add filename by siam.nak 2013/01/13**
+	String kpi_file = rs.getString("kpi_filename");
+	if(kpi_file == null || kpi_file.equals("")){ kpi_file = ""; }
+	else if(kpi_file.trim().length() > 0) kpi_file = " <a href='"+kpi_file+"' target='_blank'><button style='width:40px; height:20px; font-size:10px; display:inline; padding:0px; class='k-button'>File</button></a>";
+
+	String kpi_url = rs.getString("kpi_url");
+	if(kpi_url == null || kpi_url.equals("")){ kpi_url = ""; }
+	else if(kpi_url.trim().length() > 0) kpi_url = " <a href='"+kpi_url+"' target='_blank'><button style='width:40px; height:20px; font-size:10px; display:inline; padding:0px; class='k-button'>URL</button></a>";
+	//**add filename by siam.nak 2013/01/13**
+	//[END]
+
 	//=============Get Url with Details Button Start============
 	String urlpage = rs.getString("url");
 	//out.print("["+urlpage+"]WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW") ;
 	if(urlpage == null || urlpage.equals(""))
 	{
-		tableFun +="";
+		tableFun +=""+kpi_file+kpi_url;
 	}
 	else
 	{
 		//https://app2.biotec.or.th/dw/bsc_csv.asp?ks=KS2&yy=2011&mm=10&
 		int CalendarMonth = (Integer.parseInt(ParamMonth)+9)%12;
 		if (CalendarMonth==0){ CalendarMonth=12; } 
-		tableFun +=" <a href="+urlpage+"?ks="+kpi_code+"&yy="+ParamYear+"&mm="+CalendarMonth+" target=_blank><button  style='width:40px; height:20px; font-size:10px; display:inline; padding:0px;'>Detail</button></a> ";
+		tableFun +=" <a href="+request.getContextPath()+"/csv/"+urlpage+"?kpicode="+kpi_code+"&year="+ParamYear+"&month="+CalendarMonth+" target=_blank><button  style='width:40px; height:20px; font-size:10px; display:inline; padding:0px;'>Detail</button></a>"+kpi_file+kpi_url;
 	}
 	tableFun += "\", ";
 
@@ -351,6 +377,11 @@ font-size:14px;
 	var $dataJ = <%=tableFun%>;
 	var orgScore=  "<%=orgScore%>";
 
+	//**add filename by siam.nak 2013/01/12**
+	var orgFile = "<%=orgFile%>";
+	if (orgFile.length > 0) orgFile = "<a orgFile='true' href='"+orgFile+"' target='_blank'><button style='width:40px; height:20px; font-size:10px; display:inline; padding:0px;'>File</button></a>";
+
+
 	//CONTENT BY JSON END
 
 	$("#grid").kendoGrid({
@@ -379,7 +410,7 @@ font-size:14px;
 		$(".k-grid td").css({"padding-top":"0px","padding-bottom":"0px"});
 		$("ul.k-numeric li span").removeClass();
 		$("ul.k-numeric li span").html("");
-		$(".k-pager-wrap").html("<div id='right' style='text-align:right; padding-right:20px;'><span style='font-weight:bold';>"+orgScore+"</span></div>" );
+		$(".k-pager-wrap").html("<div id='right' style='text-align:right; padding-right:20px;'>"+orgFile+"<span style='font-weight:bold';>"+orgScore+"</span></div>" );
 		$('.inlinesparkline').sparkline(); 
 		$('.inlinebar').sparkline('html', {type: 'bullet',height: '30',width:'200', barColor: 'red'} );
 	    $("th.k-header").click(function(){
@@ -388,6 +419,12 @@ font-size:14px;
 	});
 		//set Ball corner
 		$(".ball").corner("0px");
+	});
+
+
+	//**add filename by siam.nak 2013/01/12**
+	$("a[orgFile=true]").live("click",function(){
+		window.open($(this).attr("href"),'orgFile');
 	});
 	</script>
 
