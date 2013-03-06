@@ -112,6 +112,7 @@ while(rs.next()){
 	//[END]
 
 	//=============Get Url with Details Button Start============
+	// EDIT at 2013 MAR 06  BY  vasan.m@goingjesse   Solve tag <a>  Problem in IE9 Quirks Mode (equal IE6)  
 	String urlpage = rs.getString("url");
 	//ตรวจสอบ result ที่ query มาว่ามีข้อมูลจาด filed url มั้ยถ้ามีให้ทำการสร้าง element  button เพื่อ link ไปเปิดดูเอกสารปลายทาง
 	if(urlpage == null || urlpage.equals(""))
@@ -122,7 +123,8 @@ while(rs.next()){
 	{
 		int CalendarMonth = (Integer.parseInt(ParamMonth)+9)%12;
 		if(CalendarMonth==0){CalendarMonth=12;}
-		tableFun +=" <a href="+request.getContextPath()+"/csv/"+urlpage+"?kpicode="+kpi_code+"&year="+ParamYear+"&month="+CalendarMonth+" target=_blank><button class=k-button>Detail</button></a>"+kpi_file+kpi_url;
+		String url = request.getContextPath()+"/csv/"+urlpage+"?kpicode="+kpi_code+"&year="+ParamYear+"&month="+ParamMonth;
+		tableFun +=" <button class=k-button onclick=OpenUrl('"+url+"')>Detail</button>"+kpi_file+kpi_url;
 	}
 	tableFun += "\", ";
 
@@ -273,7 +275,6 @@ while(rs.next()){
 tableFun += "]";
 //===================== DataJ  END ====================
 %>
-
 	<style type="text/css">
 	#test{
 	color:red;
@@ -413,6 +414,7 @@ tableFun += "]";
 	</style>
 
 	<script type="text/javascript">
+
 	$(document).ready(function(){
 
 	// TITLE BY JSON START
@@ -642,6 +644,10 @@ var ballScore = function(){
 		//set corner object
 		$(".ball").corner();
 	});
+	function OpenUrl(url){
+		//alert(url);
+		window.open(url,"_blank");
+	}
 	</script>
  <!-- Define the HTML table, with rows, columns, and data -->
 <div id="contentMain1">

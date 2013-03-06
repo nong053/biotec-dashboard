@@ -108,6 +108,7 @@ while(rs.next()){
 	//[END]
 
 	//=============Get Url with Details Button Start============
+	// EDIT at 2013 MAR 06  BY  vasan.m@goingjesse   Solve tag <a>  Problem in IE9 Quirks Mode (equal IE6)  
 	String urlpage = rs.getString("url");
 	//out.print("["+urlpage+"]WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW") ;
 	if(urlpage == null || urlpage.equals(""))
@@ -119,7 +120,8 @@ while(rs.next()){
 		//https://app2.biotec.or.th/dw/bsc_csv.asp?ks=KS2&yy=2011&mm=10&
 		int CalendarMonth = (Integer.parseInt(ParamMonth)+9)%12;
 		if (CalendarMonth==0){ CalendarMonth=12; } 
-		tableFun +=" <a href="+request.getContextPath()+"/csv/"+urlpage+"?kpicode="+kpi_code+"&year="+ParamYear+"&month="+CalendarMonth+" target=_blank><button  style='width:40px; height:20px; font-size:10px; display:inline; padding:0px;'>Detail</button></a>"+kpi_file+kpi_url;
+		String url = request.getContextPath()+"/csv/"+urlpage+"?kpicode="+kpi_code+"&year="+ParamYear+"&month="+ParamMonth;
+		tableFun +="<button  style='width:40px; height:20px; font-size:10px; display:inline; padding:0px;' onclick=OpenUrl('"+url+"')>Detail</button>"+kpi_file+kpi_url;
 	}
 	tableFun += "\", ";
 
@@ -426,6 +428,9 @@ font-size:14px;
 	$("a[orgFile=true]").live("click",function(){
 		window.open($(this).attr("href"),'orgFile');
 	});
+	function OpenUrl(url){
+		window.open(url,"_blank");
+	}
 	</script>
 
 
